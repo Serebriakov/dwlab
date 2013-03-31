@@ -9,6 +9,13 @@ Type TMario Extends LTVectorSprite
 	Global MovementAnimation:LTAnimationModel = LTAnimationModel.Create( True, 0.2, 1, 1 )
 	Global StandingAnimation:LTAnimationModel = LTAnimationModel.Create( True, 1, 1, 0 )
    
+	Global Combo:Int = TScore.s100
+	
+    Global SmallMario:LTImage = LTImage.FromFile( "media\SmallMario.png", 9, 4 )
+    Global SuperMario:LTImage = LTImage.FromFile( "media\SuperMario.png", 9, 5 )
+    Global Growth:LTImage = LTImage.FromFile( "media\Growth.png", 3 )
+    Global Powerup:TSound = TSound.Load( "media\Powerup.ogg", False )	
+   
     Method Init()
        AttachModel( New LTHorizontalMovementModel )
        AttachModel( LTTileMapCollisionModel.Create( Game.Tilemap, TMarioCollidedWithWall.Instance ) )
@@ -63,6 +70,14 @@ Type TMarioCollidedWithFloor Extends LTSpriteAndTileCollisionHandler
 		If VectorSprite.DY >= 0 Then
 			TMario.Jumping.ActivateModel( Sprite )
 			TMario.JumpingAnimation.DeactivateModel( Sprite )
+			TMario.Combo = TScore.s100
+		Else
+               Local TileNum:Int = TileMap.GetTile( TileX, TileY )
+               Select TileNum
+                   Case TTiles.QuestionBlock, TTiles.Bricks, TTiles.MushroomBlock, TTiles.Mushroom1UPBlock, TTiles.CoinsBlock, ..
+				   			TTiles.StarmanBlock, TTiles.ShadyBricks
+                       TBlock.FromTile( TileX, TileY, TileNum )
+               End Select		
 		End If
 		VectorSprite.DY = 0
 	End Method
@@ -76,11 +91,17 @@ Type TMarioCollidedWithSprite Extends LTSpriteCollisionHandler
 	Global Instance:TMarioCollidedWithSprite = New TMarioCollidedWithSprite
 	
 	Method HandleCollision( Sprite1:LTSprite, Sprite2:LTSprite )
-        If TGoomba( Sprite2 ) Then
+        If TMushroom( Sprite2 ) Then
+           TScore.FromSprite( Sprite1, TScore.s1000 )
+           Sprite1.AttachModel( New TGrowing )
+           Game.Level.Remove( Sprite2 )
+           Game.MovingObjects.RemoveSprite( Sprite2 )
+        ElseIf TGoomba( Sprite2 ) Then
            If Sprite1.BottomY() < Sprite2.Y Then
                Sprite2.AttachModel( New TStomped )
                LTVectorSprite( Sprite1 ).DY = HopStrength
-               TScore.FromSprite( Sprite2, TScore.s100 )
+               TScore.FromSprite( Sprite2, TMario.Combo )
+               If TMario.Combo < TScore.s400 Then TMario.Combo :+ 1
            Else
                Sprite1.AttachModel( TDying.Create( False ) )
            End If
@@ -91,7 +112,7 @@ End Type
 
 
 Type TMoving Extends LTBehaviorModel
- Const Acceleration:Double = 20.0
+   Const Acceleration:Double = 20.0
    Const AnimationSpeed:Double = 1.5
    Const MaxWalkingSpeed:Double = 7.0
    Const MaxRunningSpeed:Double = 20.0
@@ -185,5 +206,37 @@ Type TDying Extends LTBehaviorModel
    
    Method ApplyTo( Shape:LTShape )
        If Game.Time > StartingTime + Period Then Game.InitLevel()
+   End Method
+End Type
+
+
+
+Type TGrowing Extends LTBehaviorModel
+   Const Speed:Double = 0.08
+   Const Phases:Int = 10
+   
+   Field StartingTime:Double
+
+   Method Init( Shape:LTShape )
+       Shape.DeactivateAllModels()
+       Game.Level.Active = False
+       Local Sprite:LTSprite = LTSprite( Shape )
+       Sprite.AlterCoords( 0.0, -0.5 )
+       Sprite.SetHeight( 2.0 )
+       Sprite.Visualizer.SetImage( TMario.Growth )
+       Sprite.Frame = 0
+       PlaySound( TMario.Powerup )
+       StartingTime = Game.Time
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       LTSprite( Shape ).Animate( Speed, , , StartingTime, True )
+       If Game.Time > StartingTime + Phases * Speed Then Remove( Shape )
+   End Method
+
+   Method Deactivate( Shape:LTShape )
+       Shape.ActivateAllModels()
+       Game.Level.Active = True
+       Shape.Visualizer.SetImage( TMario.SuperMario )
    End Method
 End Type

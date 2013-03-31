@@ -331,8 +331,10 @@ Type LTSprite Extends LTShape
 		If Not Map Then Map = New TMap
 		Select ShapeType
 			Case Pivot
-				For Local MapSprite:LTSprite = EachIn SpriteMap.Lists[ Int( X / SpriteMap.CellWidth ) & SpriteMap.XMask, Int( Y / SpriteMap.CellHeight ) & ..
-						SpriteMap.YMask ]
+				Local XX:Int = Int( X / SpriteMap.CellWidth ) & SpriteMap.XMask
+				Local YY:Int = Int( Y / SpriteMap.CellHeight ) & SpriteMap.YMask
+				For Local N:Int = 0 Until SpriteMap.ListSize[ XX, YY ]
+					Local MapSprite:LTSprite = SpriteMap.Lists[ XX, YY ][ N ]
 					If Self = MapSprite Then Continue
 					If CollidesWithSprite( MapSprite ) Then
 						If Not Map.Contains( MapSprite ) Then
@@ -350,7 +352,8 @@ Type LTSprite Extends LTShape
 				
 				For Local CellY:Int = MapY1 To MapY2
 					For Local CellX:Int = MapX1 To MapX2
-						For Local MapSprite:LTSprite = EachIn SpriteMap.Lists[ CellX & SpriteMap.XMask, CellY & SpriteMap.YMask ]
+						For Local N:Int = 0 Until SpriteMap.ListSize[ CellX & SpriteMap.XMask, CellY & SpriteMap.YMask ]
+							Local MapSprite:LTSprite = SpriteMap.Lists[ CellX & SpriteMap.XMask, CellY & SpriteMap.YMask ][ N ]
 							If Self = MapSprite Then Continue
 							If CollidesWithSprite( MapSprite ) Then
 								If Not Map.Contains( MapSprite ) Then

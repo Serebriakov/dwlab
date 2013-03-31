@@ -28,7 +28,10 @@ Include "TTiles.bmx"
 Include "TGoomba.bmx"
 Include "TTrigger.bmx"
 Include "TScore.bmx"
+Include "TBlock.bmx"
+Include "TMushroom.bmx"
 Include "CommonBehaviorModels.bmx"
+Include "HUD.bmx"
 
 Global Game:TGame = New TGame
 Game.Execute()

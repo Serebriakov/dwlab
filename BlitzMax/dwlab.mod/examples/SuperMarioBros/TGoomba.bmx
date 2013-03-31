@@ -29,7 +29,6 @@ Type TStomped Extends LTBehaviorModel
        Local Goomba:TGoomba = TGoomba( Shape )
        Goomba.DeactivateAllModels()
        Goomba.Frame = 2
-	   debugstop
        Game.MovingObjects.RemoveSprite( Goomba )
 	   Goomba.SpriteMap = Null
        Game.Level.AddLast( Goomba )

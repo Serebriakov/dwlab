@@ -10,12 +10,14 @@ Type TMario Extends LTVectorSprite
 	Global StandingAnimation:LTAnimationModel = LTAnimationModel.Create( True, 1, 1, 0 )
    
 	Global Combo:Int = TScore.s100
+	Global Big:Int
 	
     Global SmallMario:LTImage = LTImage.FromFile( "media\SmallMario.png", 9, 4 )
     Global SuperMario:LTImage = LTImage.FromFile( "media\SuperMario.png", 9, 5 )
     Global Growth:LTImage = LTImage.FromFile( "media\Growth.png", 3 )
     Global Powerup:TSound = TSound.Load( "media\Powerup.ogg", False )	
-   
+    Global Pipe:TSound = TSound.Load( "media\Pipe.ogg", False )
+	   
     Method Init()
        AttachModel( New LTHorizontalMovementModel )
        AttachModel( LTTileMapCollisionModel.Create( Game.Tilemap, TMarioCollidedWithWall.Instance ) )
@@ -45,6 +47,18 @@ Type TMario Extends LTVectorSprite
        L_CurrentCamera.LimitWith( Game.Level.Bounds )
 	   
 	   If TopY() > Game.Tilemap.BottomY() And Not FindModel( "TDying" ) Then AttachModel( TDying.Create( True ) )
+	   
+	   If Big And KeyDown( Key_Down ) Then If Not FindModel( "TSitting" ) Then AttachModel( New TSitting )
+   End Method
+   
+   Method Damage()
+       If Not FindModel( "TInvisible" ) Then
+           If Big Then
+               If Not FindModel( "TShrinking" ) Then AttachModel( New TShrinking )
+           Else
+               AttachModel( TDying.Create( False ) )
+           End If
+       End If        
    End Method
 End Type
 
@@ -76,7 +90,11 @@ Type TMarioCollidedWithFloor Extends LTSpriteAndTileCollisionHandler
                Select TileNum
                    Case TTiles.QuestionBlock, TTiles.Bricks, TTiles.MushroomBlock, TTiles.Mushroom1UPBlock, TTiles.CoinsBlock, ..
 				   			TTiles.StarmanBlock, TTiles.ShadyBricks
-                       TBlock.FromTile( TileX, TileY, TileNum )
+						If TileNum = TTiles.Bricks Or TileNum = TTiles.ShadyBricks And TMario.Big Then
+							TBricks.FromTile( TileX, TileY, TileNum )
+						Else
+                       		TBlock.FromTile( TileX, TileY, TileNum )
+						End If
                End Select		
 		End If
 		VectorSprite.DY = 0
@@ -103,7 +121,7 @@ Type TMarioCollidedWithSprite Extends LTSpriteCollisionHandler
                TScore.FromSprite( Sprite2, TMario.Combo )
                If TMario.Combo < TScore.s400 Then TMario.Combo :+ 1
            Else
-               Sprite1.AttachModel( TDying.Create( False ) )
+               TMario( Sprite1 ).Damage()
            End If
        End If
 	End Method
@@ -238,5 +256,83 @@ Type TGrowing Extends LTBehaviorModel
        Shape.ActivateAllModels()
        Game.Level.Active = True
        Shape.Visualizer.SetImage( TMario.SuperMario )
+	   TMario.Big = 1
+   End Method
+End Type
+
+
+
+Type TShrinking Extends TGrowing
+   Method Init( Shape:LTShape )
+       Shape.DeactivateAllModels()
+       Game.Level.Active = False
+       Local Sprite:LTSprite = LTSprite( Shape )
+       Sprite.Visualizer.SetImage( TMario.Growth )
+       Sprite.Frame = 0
+       PlaySound( TMario.Pipe )
+       StartingTime = Game.Time
+       Shape.AttachModel( New TInvisible )
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       LTSprite( Shape ).Animate( Speed, , , StartingTime - 2.0 * Speed, True )
+       If Game.Time > StartingTime + Phases * Speed Then Remove( Shape )
+   End Method
+   
+   Method Deactivate( Shape:LTShape )
+       Shape.ActivateAllModels()
+       Game.Level.Active = True
+       Shape.SetSize( 1.0, 1.0 )
+       Shape.AlterCoords( 0.0, 0.5 )
+       Shape.Visualizer.SetImage( TMario.SmallMario )
+       TMario.Big = False
+   End Method
+End Type
+
+
+
+Type TInvisible Extends LTBehaviorModel
+   Const Period:Double = 2.0
+   Const BlinkingSpeed:Double = 0.05
+   
+   Field StartingTime:Double
+   
+   Method Activate( Shape:LTShape )
+       StartingTime = Game.Time
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       Shape.Visible = Floor( Game.Time / BlinkingSpeed ) Mod 2
+       If Game.Time > StartingTime + Period Then Remove( Shape )
+   End Method
+   
+   Method Deactivate( Shape:LTShape )
+       Shape.RemoveModel( "TSitting" )
+       Shape.Visible = True
+   End Method
+End Type
+
+
+
+Type TSitting Extends LTBehaviorModel
+   Method Activate( Shape:LTShape )
+       Shape.SetHeight( 1.4 )
+       Shape.AlterCoords( 0, 0.3 )
+       Shape.Visualizer.DY = -0.3 / 2.0
+       Shape.Visualizer.YScale = 2.0 / 1.4
+       Shape.DeactivateModel( "TMoving" )
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       LTSprite( Shape ).Frame = 7
+       If Not KeyDown( Key_Down ) Then Remove( Shape )
+   End Method
+   
+   Method Deactivate( Shape:LTShape )
+       Shape.AlterCoords( 0, -0.3 )
+       Shape.SetHeight( 2.0 )
+       Shape.Visualizer.DY = 0.0
+       Shape.Visualizer.YScale = 1.0
+       Shape.ActivateModel( "TMoving" )
    End Method
 End Type

@@ -1,4 +1,5 @@
 Include "TCoin.bmx"
+Include "TBricks.bmx"
 
 Type TBlock Extends LTVectorSprite
    Global Bump:TSound = TSound.Load( "media\Bump.ogg", False )

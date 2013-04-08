@@ -1280,17 +1280,18 @@ Type LTShape Extends LTObject
 	End Rem
 	Method Act()
 		If Active Then
-			Local LastModel:LTBehaviorModel = New  LTBehaviorModel
-			Local Link:TLink = BehaviorModels.AddLast( LastModel )
-			For Local Model:LTBehaviorModel = EachIn BehaviorModels
-				If Model = LastModel Then Exit
+			Local Link:TLink = BehaviorModels.FirstLink()
+			Local LastLink:TLink = BehaviorModels.LastLink()
+			While Link
+				Local Model:LTBehaviorModel = LTBehaviorModel( Link.Value() )
 				If Model.Active Then
 					Model.ApplyTo( Self )
 				Else
 					Model.Watch( Self )
 				End If
-			Next
-			Link.Remove()
+				If Link = LastLink Then Exit
+				Link = Link.NextLink()
+			Wend
 			
 			?debug
 			If LTSprite( Self )

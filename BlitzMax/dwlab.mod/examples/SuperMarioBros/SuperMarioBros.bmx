@@ -30,6 +30,8 @@ Include "TTrigger.bmx"
 Include "TScore.bmx"
 Include "TBlock.bmx"
 Include "TMushroom.bmx"
+Include "TStart.bmx"
+Include "TExit.bmx"
 Include "CommonBehaviorModels.bmx"
 Include "HUD.bmx"
 
@@ -39,17 +41,8 @@ Game.Execute()
 Type TKoopaTroopa Extends LTSprite
 End Type
 
-Type TExit Extends LTSprite
-End Type
-
 Type TPole Extends LTSprite
 End Type
 
 Type TFlag Extends LTSprite
-End Type
-
-Type TStart Extends LTSprite
-End Type
-
-Type TMusic Extends LTSprite
 End Type

@@ -25,7 +25,6 @@ Type TTiles Extends LTTileMap
        AnimatedVisualizer.TileNum[ CoinsBlock ] = Bricks
        AnimatedVisualizer.TileNum[ StarmanBlock ] = Bricks
      Visualizer = AnimatedVisualizer
-	 Game.TileMap = Self
    End Method
    
    Method Act()

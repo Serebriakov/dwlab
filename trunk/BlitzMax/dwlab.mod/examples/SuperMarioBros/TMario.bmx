@@ -19,6 +19,8 @@ Type TMario Extends LTVectorSprite
     Global Pipe:TSound = TSound.Load( "media\Pipe.ogg", False )
 	   
     Method Init()
+       BehaviorModels.Clear()
+		
        AttachModel( New LTHorizontalMovementModel )
        AttachModel( LTTileMapCollisionModel.Create( Game.Tilemap, TMarioCollidedWithWall.Instance ) )
        AttachModel( New LTVerticalMovementModel )

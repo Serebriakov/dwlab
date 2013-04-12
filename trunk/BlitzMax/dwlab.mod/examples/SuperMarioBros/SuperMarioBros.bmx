@@ -32,6 +32,8 @@ Include "TBlock.bmx"
 Include "TMushroom.bmx"
 Include "TStart.bmx"
 Include "TExit.bmx"
+Include "TTime.bmx"
+Include "TLives.bmx"
 Include "CommonBehaviorModels.bmx"
 Include "HUD.bmx"
 

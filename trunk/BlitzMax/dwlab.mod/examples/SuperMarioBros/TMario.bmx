@@ -196,6 +196,8 @@ End Type
 Type TDying Extends LTBehaviorModel
    Const Period:Double = 3.5
    
+   Global GameOver:TSound = TSound.Load( "media\GameOver.ogg", False )
+   
    Field Chasm:Int
    Field StartingTime:Double
    
@@ -224,8 +226,17 @@ Type TDying Extends LTBehaviorModel
        StartingTime = Game.Time
    End Method
    
-   Method ApplyTo( Shape:LTShape )
-       If Game.Time > StartingTime + Period Then Game.InitLevel()
+    Method ApplyTo( Shape:LTShape )
+       If Game.Time > StartingTime + Period Then
+           Game.Lives :- 1
+           If Game.Lives = 0 Then
+               Local Channel:TChannel = GameOver.Play()
+               While Channel.Playing()
+               Wend
+               End
+           End If
+           Game.InitLevel()
+       End If
    End Method
 End Type
 

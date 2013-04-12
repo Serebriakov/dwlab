@@ -116,5 +116,5 @@ End Type
 Type LTMusicEntry
 	Field Name:String
 	Field Looped:Int
-	Field Rate:Int
+	Field Rate:Double
 End Type

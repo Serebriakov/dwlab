@@ -16,7 +16,9 @@ Type TGame Extends LTProject
    Field LevelCamera:LTCamera = LTCamera.Create( 960, 720, 48.0 )
    Field HUDCamera:LTCamera = LTCamera.Create( 960, 720, 48.0 )   
    Field Font:LTBitmapFont = LTBitmapFont.FromFile( "media/font.png", 32, 127, 16 )
-   
+   Field MusicRate:Double
+   Field LivesScreen:TLives = New TLives
+
    Method Init()
        L_InitGraphics( 960, 720, 48.0 ) ' initialization of graphics engine with 960x720 resolution and 48 pixels per one unit (tile will be stretched to 48x48 pixels)
        World = LTWorld.FromFile( "world.lw" ) ' loading the world into memory
@@ -24,8 +26,9 @@ Type TGame Extends LTProject
 	   L_Music.Preload( "media\music1.ogg", "1" )
 	   L_Music.Preload( "media\music2.ogg", "2" )
 	   L_Music.Preload( "media\MarioDie.ogg", "dying" )
-	   InitLevel()
+	   L_Music.Preload( "media\Warning.ogg", "warning" )
 	   LoadAndInitLayer( HUD, LTLayer( LTWorld.FromFile( "hud.lw" ).FindShapeWithType( "LTLayer" ) ) )
+	   InitLevel()
    End Method
    
    Method InitLevel()
@@ -44,6 +47,10 @@ Type TGame Extends LTProject
 		 Levels[ N ].Init()
       Next
      
+      MusicRate = 1.0
+	  TTime.Init()
+	  
+	  LivesScreen.Execute()
       SwitchToLevel( 0 )
     End Method
    
@@ -55,12 +62,16 @@ Type TGame Extends LTProject
 	   Mario.DY = 0
 	   Mario.Init()
 	   L_Music.ClearMusic()
+	   StartMusic()
+   End Method
+   
+   Method StartMusic()
 	   Select Level.GetParameter( "music" ).ToInt()
 	   	Case 1
-	   		L_Music.Add( "intro1" )
-			L_Music.Add( "1", True )
+	   		L_Music.Add( "intro1", , MusicRate )
+			L_Music.Add( "1", True, MusicRate )
 		Case 2
-			L_Music.Add( "2", True )
+			L_Music.Add( "2", True, MusicRate )
 	   End Select
 	   L_Music.Start()
    End Method
@@ -70,6 +81,7 @@ Type TGame Extends LTProject
        Level.Act()
        If KeyHit( Key_Escape ) Then End ' exit after pressing Escape
 	   L_Music.Manage()
+	   TTime.Act()
    End Method
    
     Method Render()

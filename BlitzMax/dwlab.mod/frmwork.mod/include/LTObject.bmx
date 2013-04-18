@@ -82,7 +82,9 @@ Type LTObject
 		Local Obj:LTObject = LTObject( TTypeId.ForName( XMLObject.Name ).NewObject() )
 		
 		L_XMLMode = L_XMLGet
+		LTTileMap.File = ReadFile( FileName + "bin" )
 		Obj.XMLIO( XMLObject )
+		If LTTileMap.File Then CloseFile( LTTileMap.File )
 		
 		Return Obj
 	End Function
@@ -112,12 +114,15 @@ Type LTObject
 		L_IDMap = New TMap
 		L_RemoveIDMap = New TMap
 		L_MaxID = 1
-		LTTileMap.FileNum = 1
 		
 		L_XMLMode = L_XMLSet
 		Local XMLObject:LTXMLObject = New LTXMLObject
 		L_UndefinedObjects = New TMap
+		
+		LTTileMap.Offset = 0
+		LTTileMap.File = WriteFile( FileName + "bin" )
 		XMLIO( XMLObject )
+		CloseFile( LTTileMap.File )
 		
 		XMLObject.SetAttribute( "dwlab_version", L_Version )
 		XMLObject.SetAttribute( "total-loading-time", L_NewTotalLoadingTime )

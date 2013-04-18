@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.28" total-loading-time="104">
+<LTWorld dwlab_version="1.4.34" total-loading-time="110">
 	<LTVisualizer field="visualizer" id="1"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -23,58 +23,18 @@
 	</LTCamera>
 	<LTLayer>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="143.5" y="27.25" width="291.1999" height="63" xquantity="91" yquantity="10" tiles-quantity="6" loading-time="1" file-num="1">
+		<LTTileMap x="143.5" y="27.25" width="291.1999" height="63" xquantity="91" yquantity="10" tiles-quantity="6" loading-time="11" file-num="2" offset="0">
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="5" tiles-quantity="6" block-width="000000" block-height="000000">
-				<LTImage field="image" id="6" filename="background.png" xcells="6" loading-time="12"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="5" tiles-quantity="6">
+				<LTImage field="image" id="6" filename="background.png" xcells="6" loading-time="14"/>
+				<Array field="collision-shapes" size="6"/>
 			</LTTileSet>
 		</LTTileMap>
-		<LTTileMap x="143.5" y="28.85" width="291.1999" height="63" xquantity="91" yquantity="10" tiles-quantity="32" left-margin="3" bottom-margin="2" vertical-order="-1" file-num="2">
+		<LTTileMap x="143.5" y="28.85" width="291.1999" height="63" xquantity="91" yquantity="10" tiles-quantity="32" left-margin="3" bottom-margin="2" vertical-order="-1" loading-time="13" file-num="2" offset="910">
 			<LTVisualizer field="visualizer" xscale="3" yscale="1.6666"/>
-			<LTTileSet field="tileset" id="9" tiles-quantity="32" block-width="00000000000000000000000000000000" block-height="00000000000000000000000000000000">
-				<LTImage field="image" id="10" filename="blocks.png" xcells="8" ycells="4" loading-time="41"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="9" tiles-quantity="32">
+				<LTImage field="image" id="10" filename="blocks.png" xcells="8" ycells="4" loading-time="38"/>
+				<Array field="collision-shapes" size="32"/>
 				<LTTileCategory name="Wall">
 					<LTTileRule tilenums="24">
 						<LTTilePos dx="-1" tilenum="25"/>
@@ -97,7 +57,7 @@
 		</LTTileMap>
 		<LTSprite x="144" y="-46.2501" width="291.1999" height="75.5999" shape="2">
 			<LTVisualizer field="visualizer">
-				<LTImage field="image" id="26" filename="map.png" loading-time="39"/>
+				<LTImage field="image" id="26" filename="map.png" loading-time="23"/>
 			</LTVisualizer>
 		</LTSprite>
 		<LTSprite x="199.5" y="13" height="6" shape="2">

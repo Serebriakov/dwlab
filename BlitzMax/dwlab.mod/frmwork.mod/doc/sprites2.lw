@@ -1,0 +1,253 @@
+<LTLayer dwlab_version="1.4.30" total-loading-time="45">
+	<LTVisualizer field="visualizer"/>
+	<LTSprite x="-6.19445187" y="5.24168682" width="1.01738838" height="1.01738838" shape="1" disp-angle="234.37772368">
+		<LTVisualizer field="visualizer" red="0.66006808" green="0.33521602" blue="0.94970072" xscale="1.29999995" yscale="1.29999995">
+			<LTImage field="image" id="4" filename="incbin::kolobok.png"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="5.65397946" y="-8.50446531" width="2.74354857" height="2.74354857" shape="1" disp-angle="98.61468903">
+		<LTVisualizer field="visualizer" red="0.73069632" green="0.25884639" blue="0.54837426" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="8.96204055" y="1.645885" width="2.45309077" height="2.45309077" shape="1" disp-angle="116.06413164">
+		<LTVisualizer field="visualizer" red="0.35873095" green="0.60129577" blue="0.81526847" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="6.77190692" y="5.08314549" width="2.91801303" height="2.91801303" shape="1" disp-angle="41.4594013">
+		<LTVisualizer field="visualizer" red="0.56365135" green="0.34986371" blue="0.77048556" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-3.35694728" y="10.60790223" width="2.73984072" height="2.73984072" shape="1" disp-angle="133.14101554">
+		<LTVisualizer field="visualizer" red="0.40241232" green="0.33003146" blue="0.35818695" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-10.64032185" y="-9.56337959" width="1.02176215" height="1.02176215" shape="1" disp-angle="317.55297332">
+		<LTVisualizer field="visualizer" red="0.94917452" green="0.96085599" blue="0.65493112" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-3.52885488" y="3.17920298" width="2.96735011" height="2.96735011" shape="1" disp-angle="353.61723883">
+		<LTVisualizer field="visualizer" red="0.88499082" green="0.86664626" blue="0.95535886" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="2.56441415" y="-8.65061496" width="1.19800017" height="1.19800017" shape="1" disp-angle="180.9220553">
+		<LTVisualizer field="visualizer" red="0.5511056" green="0.30920032" blue="0.81029006" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-7.31352214" y="-5.13870994" width="1.19411423" height="1.19411423" shape="1" disp-angle="80.6855754">
+		<LTVisualizer field="visualizer" red="0.97294304" green="0.33257085" blue="0.72555322" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="12.83190484" y="4.16136488" width="2.23631815" height="2.23631815" shape="1" disp-angle="115.31033952">
+		<LTVisualizer field="visualizer" red="0.98563666" green="0.67276297" blue="0.44842003" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-6.03506485" y="9.00168372" width="2.49524297" height="2.49524297" shape="1" disp-angle="287.87394287">
+		<LTVisualizer field="visualizer" red="0.27041878" green="0.77459201" blue="0.72874592" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-6.90702396" y="10.68240099" width="1.18186142" height="1.18186142" shape="1" disp-angle="41.86297213">
+		<LTVisualizer field="visualizer" red="0.65489495" green="0.8918517" blue="0.58864719" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-3.96857658" y="-10.82918997" width="2.23421416" height="2.23421416" shape="1" disp-angle="64.00495337">
+		<LTVisualizer field="visualizer" red="0.9495012" green="0.7944797" blue="0.81725807" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="9.95665112" y="-10.76278207" width="1.86675312" height="1.86675312" shape="1" disp-angle="314.77936561">
+		<LTVisualizer field="visualizer" red="0.90555003" green="0.7541294" blue="0.54013943" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="8.53927675" y="-5.29658964" width="1.27173703" height="1.27173703" shape="1" disp-angle="233.10084678">
+		<LTVisualizer field="visualizer" red="0.26855318" green="0.27549514" blue="0.80274571" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-7.25178812" y="1.40132409" width="1.15619912" height="1.15619912" shape="1" disp-angle="183.69408799">
+		<LTVisualizer field="visualizer" red="0.68649215" green="0.53225439" blue="0.92082854" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="7.03954414" y="-2.60128506" width="1.14347787" height="1.14347787" shape="1" disp-angle="158.76748729">
+		<LTVisualizer field="visualizer" red="0.48010124" green="0.40139105" blue="0.62898117" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-14.79204529" y="7.33591985" width="2.99434236" height="2.99434236" shape="1" disp-angle="25.8740348">
+		<LTVisualizer field="visualizer" red="0.63187447" green="0.48576063" blue="0.5431381" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="8.11812911" y="-10.48214082" width="2.55833632" height="2.55833632" shape="1" disp-angle="251.28958433">
+		<LTVisualizer field="visualizer" red="0.5297448" green="0.54550392" blue="0.66296524" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="13.13393498" y="6.30009476" width="1.3979908" height="1.3979908" shape="1" disp-angle="88.75269905">
+		<LTVisualizer field="visualizer" red="0.89684975" green="0.69075011" blue="0.57269169" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="12.61452817" y="2.72087802" width="2.14139102" height="2.14139102" shape="1" disp-angle="329.11992719">
+		<LTVisualizer field="visualizer" red="0.43169609" green="0.91744917" blue="0.84759311" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-6.14462571" y="1.81505772" width="2.8979243" height="2.8979243" shape="1" disp-angle="116.4153135">
+		<LTVisualizer field="visualizer" red="0.48702948" green="0.81313465" blue="0.26541873" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="3.87345493" y="-7.5845766" width="1.49939102" height="1.49939102" shape="1" disp-angle="89.39333636">
+		<LTVisualizer field="visualizer" red="0.572957" green="0.91026354" blue="0.26216124" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-1.72196772" y="6.23776549" width="2.16093583" height="2.16093583" shape="1" disp-angle="265.96687083">
+		<LTVisualizer field="visualizer" red="0.97242097" green="0.44034594" blue="0.90950194" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-12.40928034" y="-7.76887363" width="2.75851885" height="2.75851885" shape="1" disp-angle="44.29774594">
+		<LTVisualizer field="visualizer" red="0.45125949" green="0.93336531" blue="0.29697252" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-7.03122898" y="3.3818883" width="1.9056699" height="1.9056699" shape="1" disp-angle="278.27554791">
+		<LTVisualizer field="visualizer" red="0.72675422" green="0.8042591" blue="0.83411259" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-11.58562373" y="7.08444737" width="2.23750661" height="2.23750661" shape="1" disp-angle="44.36520094">
+		<LTVisualizer field="visualizer" red="0.48317877" green="0.41165828" blue="0.86821693" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="3.03854688" y="-0.37615421" width="1.45892169" height="1.45892169" shape="1" disp-angle="192.94334835">
+		<LTVisualizer field="visualizer" red="0.96222093" green="0.92035356" blue="0.32035402" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-9.88643246" y="-7.22342195" width="2.16098186" height="2.16098186" shape="1" disp-angle="22.61625371">
+		<LTVisualizer field="visualizer" red="0.48540461" green="0.99894662" blue="0.25598822" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-6.56118631" y="-1.00378591" width="1.75612524" height="1.75612524" shape="1" disp-angle="35.26449987">
+		<LTVisualizer field="visualizer" red="0.85964087" green="0.58303637" blue="0.3115014" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="8.10835162" y="4.10911873" width="1.96596038" height="1.96596038" shape="1" disp-angle="26.49252251">
+		<LTVisualizer field="visualizer" red="0.44849145" green="0.94382868" blue="0.61722202" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-2.17124822" y="-4.06669251" width="1.14322314" height="1.14322314" shape="1" disp-angle="207.49490668">
+		<LTVisualizer field="visualizer" red="0.55051217" green="0.39054917" blue="0.37802185" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="6.71631692" y="3.05871179" width="1.74981722" height="1.74981722" shape="1" disp-angle="273.22916302">
+		<LTVisualizer field="visualizer" red="0.37309765" green="0.92968087" blue="0.80313035" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-7.96668294" y="6.37541747" width="1.77970949" height="1.77970949" shape="1" disp-angle="111.74488423">
+		<LTVisualizer field="visualizer" red="0.2816605" green="0.45533075" blue="0.80966721" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="6.55893893" y="-1.3032826" width="2.62472569" height="2.62472569" shape="1" disp-angle="238.20494138">
+		<LTVisualizer field="visualizer" red="0.4264504" green="0.48600857" blue="0.66958059" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-6.38158335" y="-1.94276069" width="2.01211883" height="2.01211883" shape="1" disp-angle="214.75496915">
+		<LTVisualizer field="visualizer" red="0.4586257" green="0.32130771" blue="0.4046426" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="11.30805362" y="-5.76165467" width="2.29239958" height="2.29239958" shape="1" disp-angle="66.4447313">
+		<LTVisualizer field="visualizer" red="0.35656319" green="0.85862502" blue="0.43444125" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="3.07284924" y="2.5320803" width="2.33380984" height="2.33380984" shape="1" disp-angle="286.52974782">
+		<LTVisualizer field="visualizer" red="0.29485763" green="0.98397128" blue="0.98663104" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-1.00312729" y="10.63663303" width="1.47684333" height="1.47684333" shape="1" disp-angle="139.13062732">
+		<LTVisualizer field="visualizer" red="0.96641969" green="0.29459515" blue="0.75915792" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-1.0113976" y="0.20284737" width="2.30009394" height="2.30009394" shape="1" disp-angle="221.94253763">
+		<LTVisualizer field="visualizer" red="0.796934" green="0.70878536" blue="0.96668311" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-14.53756837" y="6.95428168" width="2.26263553" height="2.26263553" shape="1" disp-angle="201.81759221">
+		<LTVisualizer field="visualizer" red="0.60013934" green="0.3797446" blue="0.78354135" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-4.13965195" y="6.25686902" width="1.28589794" height="1.28589794" shape="1" disp-angle="353.53827033">
+		<LTVisualizer field="visualizer" red="0.88037025" green="0.3428005" blue="0.57188029" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-14.33244598" y="-3.84469264" width="2.61923961" height="2.61923961" shape="1" disp-angle="286.45825733">
+		<LTVisualizer field="visualizer" red="0.46565917" green="0.75601434" blue="0.7293551" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-4.46788753" y="-8.52905041" width="1.54464388" height="1.54464388" shape="1" disp-angle="93.05917724">
+		<LTVisualizer field="visualizer" red="0.72973759" green="0.45156559" blue="0.49421379" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-9.75072333" y="-10.05569754" width="2.94208087" height="2.94208087" shape="1" disp-angle="123.04649902">
+		<LTVisualizer field="visualizer" red="0.32883919" green="0.39040634" blue="0.71665892" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-7.60973046" y="7.32827155" width="2.74886759" height="2.74886759" shape="1" disp-angle="68.12288224">
+		<LTVisualizer field="visualizer" red="0.72999541" green="0.60992263" blue="0.90285534" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-14.44849415" y="-10.17149455" width="2.02631417" height="2.02631417" shape="1" disp-angle="247.0163936">
+		<LTVisualizer field="visualizer" red="0.72860801" green="0.61123666" blue="0.51867223" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="1.24896171" y="-3.94578352" width="2.16251399" height="2.16251399" shape="1" disp-angle="48.73073847">
+		<LTVisualizer field="visualizer" red="0.61404726" green="0.47341273" blue="0.40184408" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="2.93471475" y="-6.65371294" width="2.626498" height="2.626498" shape="1" disp-angle="209.68752403">
+		<LTVisualizer field="visualizer" red="0.99550261" green="0.49738222" blue="0.70220323" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+	<LTSprite x="-4.51068326" y="-10.25248823" width="1.93263562" height="1.93263562" shape="1" disp-angle="218.82749067">
+		<LTVisualizer field="visualizer" red="0.89135296" green="0.58903535" blue="0.31826127" xscale="1.29999995" yscale="1.29999995">
+			<Object field="image" id="4"/>
+		</LTVisualizer>
+	</LTSprite>
+</LTLayer>

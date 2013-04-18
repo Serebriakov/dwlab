@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.32" total-loading-time="25">
+<LTWorld dwlab_version="1.4.34" total-loading-time="47">
 	<LTVisualizer field="visualizer"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -26,12 +26,12 @@
 		<LTShape field="bounds" x="16" y="12" width="32" height="24">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="16" y="12" width="32" height="24" xquantity="32" yquantity="24" tiles-quantity="4" loading-time="1" file-num="1">
+		<LTTileMap x="16" y="12" width="32" height="24" xquantity="32" yquantity="24" tiles-quantity="4" loading-time="11" file-num="1" offset="0">
 			<TList field="parameters">
 				<LTParameter name="name" value="Field"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="8" name="Default" tiles-quantity="4" block-width="0000" block-height="0000">
+			<LTTileSet field="tileset" id="8" name="Default" tiles-quantity="4">
 				<LTImage field="image" id="9" filename="tileset.png" xcells="4" loading-time="1"/>
 				<Array field="collision-shapes" size="4">
 					<LTSprite x="0.5" y="0.5" shape="2" index="1">
@@ -55,7 +55,7 @@
 				<LTParameter name="score" value="1500"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="-6" rotating="0">
-				<LTImage field="image" id="24" filename="superjelly.png" xcells="8" ycells="3" loading-time="9"/>
+				<LTImage field="image" id="24" filename="superjelly.png" xcells="8" ycells="3" loading-time="13"/>
 			</LTVisualizer>
 		</LTSprite>
 		<LTSprite x="6.87" y="12.25" width="0.75" height="1.5" shape="2">
@@ -190,7 +190,7 @@
 				<LTParameter name="class" value="TAwPossum"/>
 			</TList>
 			<LTVisualizer field="visualizer" dy="-0.14" xscale="3.6" yscale="1.6">
-				<LTImage field="image" id="95" filename="awpossum.png" xcells="8" ycells="2" loading-time="14"/>
+				<LTImage field="image" id="95" filename="awpossum.png" xcells="8" ycells="2" loading-time="22"/>
 			</LTVisualizer>
 		</LTSprite>
 	</LTLayer>

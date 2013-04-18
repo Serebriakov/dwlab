@@ -17,6 +17,8 @@ End Rem
 Type LTTileMap Extends LTIntMap
 	Global LoadingErrorHandler:LTTileMapLoadingErrorHandler = New LTTileMapLoadingErrorHandler
 	Global FileNum:Int = 0
+	Global File:TStream
+	Global Offset:Int = 0
 	
 	Rem
 	bbdoc: Tilemap's default tileset.
@@ -258,36 +260,26 @@ Type LTTileMap Extends LTIntMap
 		XMLObject.ManageIntAttribute( "vertical-order", VerticalOrder, 1 )
 		XMLObject.ManageIntAttribute( "loading-time", LoadingTime )
 		XMLObject.ManageIntAttribute( "file-num", FileNum )
+		XMLObject.ManageIntAttribute( "offset", Offset, -1 )
 			
 		Local ChunkLength:Int = L_GetChunkLength( TilesQuantity )
 		If L_XMLMode = L_XMLGet Then
 			Local Time:Int = Millisecs()
 			
-			If FileNum Then
+			If Offset >= 0 Then
+				If Not File Then
+					If Offset = 0 Then LoadingErrorHandler.HandleError( LTObject.ObjectFileName + "bin" )
+				Else
+					SeekStream( File, Offset )
+					ReadTileValues( File )
+				End If
+			ElseIf FileNum Then
 				Local FileName:String = LTObject.ObjectFileName + "_tilemaps\" + FileNum + ".bin"
 				Local File:TStream = ReadFile( FileName )
 				If Not File Then
 					LoadingErrorHandler.HandleError( FileName )
 				Else
-					If TilesQuantity <= 256 Then
-						For Local Y:Int = 0 Until YQuantity
-							For Local X:Int = 0 Until XQuantity
-								Value[ X, Y ] = ReadByte( File )
-							Next
-						Next
-					ElseIf TilesQuantity <= 65536 Then
-						For Local Y:Int = 0 Until YQuantity
-							For Local X:Int = 0 Until XQuantity
-								Value[ X, Y ] = ReadShort( File )
-							Next
-						Next
-					Else
-						For Local Y:Int = 0 Until YQuantity
-							For Local X:Int = 0 Until XQuantity
-								Value[ X, Y ] = ReadInt( File )
-							Next
-						Next
-					End If
+					ReadTileValues( File )
 					CloseFile( File )
 				End If
 			Else
@@ -312,33 +304,52 @@ Type LTTileMap Extends LTIntMap
 			L_LoadingProgress = 1.0 * L_LoadingTime / L_TotalLoadingTime
 			If L_LoadingUpdater Then L_LoadingUpdater.Update()
 		Else
-			Local DirName:String = LTObject.ObjectFileName + "_tilemaps"
-			If FileType( DirName ) < 2 Then CreateDir( DirName )
-			Local File:TStream = WriteFile( DirName + "\" + FileNum + ".bin" )
 			If TilesQuantity <= 256 Then
 				For Local Y:Int = 0 Until YQuantity
 					For Local X:Int = 0 Until XQuantity
 						WriteByte( File, Value[ X, Y ] )
 					Next
 				Next
+				Offset :+ XQuantity * YQuantity
 			ElseIf TilesQuantity <= 65536 Then
 				For Local Y:Int = 0 Until YQuantity
 					For Local X:Int = 0 Until XQuantity
 						WriteShort( File, Value[ X, Y ] )
 					Next
 				Next
+				Offset :+ 2 * XQuantity * YQuantity
 			Else
 				For Local Y:Int = 0 Until YQuantity
 					For Local X:Int = 0 Until XQuantity
 						WriteInt( File, Value[ X, Y ] )
 					Next
 				Next
+				Offset :+ 4 * XQuantity * YQuantity
 			End If
-			CloseFile( File )
-			
-			FileNum :+ 1			
 		End If
 	End Method
+	
+	Method ReadTileValues( File:TStream )
+		If TilesQuantity <= 256 Then
+			For Local Y:Int = 0 Until YQuantity
+				For Local X:Int = 0 Until XQuantity
+					Value[ X, Y ] = ReadByte( File )
+				Next
+			Next
+		ElseIf TilesQuantity <= 65536 Then
+			For Local Y:Int = 0 Until YQuantity
+				For Local X:Int = 0 Until XQuantity
+					Value[ X, Y ] = ReadShort( File )
+				Next
+			Next
+		Else
+			For Local Y:Int = 0 Until YQuantity
+				For Local X:Int = 0 Until XQuantity
+					Value[ X, Y ] = ReadInt( File )
+				Next
+			Next
+		End If
+	End Method	
 End Type
 
 

@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.28" total-loading-time="2">
+<LTWorld dwlab_version="1.4.34" total-loading-time="42">
 	<LTVisualizer field="visualizer"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -25,25 +25,24 @@
 		<LTShape field="bounds" x="16" y="28" width="32" height="24">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="16" y="28" width="32" height="24" xquantity="32" yquantity="48" tiles-quantity="4" file-num="1">
+		<LTTileMap x="16" y="28" width="32" height="24" xquantity="32" yquantity="48" tiles-quantity="4" loading-time="15" file-num="1" offset="0">
 			<TList field="parameters">
 				<LTParameter name="name" value="Tiles"/>
 			</TList>
 			<LTVisualizer field="visualizer" dy="-0.4" yscale="5"/>
-			<LTTileSet field="tileset" id="8" name="Tiles" tiles-quantity="4" block-width="0000" block-height="0000">
-				<LTImage field="image" id="9" filename="tiles.png" xcells="4" loading-time="1"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<LTSprite x="0.5" y="0.53125" height="0.3125" shape="2">
+			<LTTileSet field="tileset" id="8" name="Tiles" tiles-quantity="4">
+				<LTImage field="image" id="9" filename="tiles.png" xcells="4" loading-time="15"/>
+				<Array field="collision-shapes" size="4">
+					<LTSprite x="0.5" y="0.53125" height="0.3125" shape="2" index="1">
 						<LTVisualizer field="visualizer"/>
 					</LTSprite>
-					<LTSprite x="0.5" y="0.5" width="0.375" shape="2">
+					<LTSprite x="0.5" y="0.5" width="0.375" shape="2" index="2">
 						<LTVisualizer field="visualizer"/>
 					</LTSprite>
-					<LTSprite x="0.5" y="0.5" shape="2">
+					<LTSprite x="0.5" y="0.5" shape="2" index="3">
 						<LTVisualizer field="visualizer"/>
 					</LTSprite>
-				</ShapeArray>
+				</Array>
 			</LTTileSet>
 		</LTTileMap>
 		<LTSpriteMap cell-height="0.50000396" xquantity="32" yquantity="64">
@@ -53,10 +52,10 @@
 			<LTVisualizer field="visualizer"/>
 			<LTSprite x="29.50006" y="19.25003999" height="0.5" shape="1" frame="1">
 				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
-					<LTImage field="image" id="21" filename="players.png" xcells="2" loading-time="1"/>
+					<LTImage field="image" id="21" filename="players.png" xcells="2" loading-time="12"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="20.50001999" y="23.75001999" height="0.5" shape="1" frame="1">
+			<LTSprite x="20.50001998" y="23.75001998" height="0.5" shape="1" frame="1">
 				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
 					<Object field="image" id="21"/>
 				</LTVisualizer>
@@ -66,27 +65,7 @@
 					<Object field="image" id="21"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="24.50001999" y="27.75002999" height="0.5" shape="1" frame="1">
-				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
-					<Object field="image" id="21"/>
-				</LTVisualizer>
-			</LTSprite>
-			<LTSprite x="17.50005" y="35.7501" height="0.5" shape="1" frame="1">
-				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
-					<Object field="image" id="21"/>
-				</LTVisualizer>
-			</LTSprite>
-			<LTSprite x="17.00005" y="35.2501" height="0.5" shape="1" frame="1">
-				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
-					<Object field="image" id="21"/>
-				</LTVisualizer>
-			</LTSprite>
-			<LTSprite x="20.50003999" y="22.75003999" height="0.5" shape="1" frame="1">
-				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
-					<Object field="image" id="21"/>
-				</LTVisualizer>
-			</LTSprite>
-			<LTSprite x="11.00001999" y="22.25003999" height="0.5" shape="1" frame="1">
+			<LTSprite x="26.50001998" y="22.25001998" height="0.5" shape="1" frame="1">
 				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
 					<Object field="image" id="21"/>
 				</LTVisualizer>
@@ -96,7 +75,27 @@
 					<Object field="image" id="21"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="26.50001999" y="22.25001999" height="0.5" shape="1" frame="1">
+			<LTSprite x="11.00001999" y="22.25003999" height="0.5" shape="1" frame="1">
+				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
+					<Object field="image" id="21"/>
+				</LTVisualizer>
+			</LTSprite>
+			<LTSprite x="20.50003999" y="22.75003999" height="0.5" shape="1" frame="1">
+				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
+					<Object field="image" id="21"/>
+				</LTVisualizer>
+			</LTSprite>
+			<LTSprite x="17.00005" y="35.2501" height="0.5" shape="1" frame="1">
+				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
+					<Object field="image" id="21"/>
+				</LTVisualizer>
+			</LTSprite>
+			<LTSprite x="17.50005" y="35.7501" height="0.5" shape="1" frame="1">
+				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
+					<Object field="image" id="21"/>
+				</LTVisualizer>
+			</LTSprite>
+			<LTSprite x="24.50001998" y="27.75002999" height="0.5" shape="1" frame="1">
 				<LTVisualizer field="visualizer" dy="-0.4" yscale="5">
 					<Object field="image" id="21"/>
 				</LTVisualizer>

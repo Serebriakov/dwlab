@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.28" total-loading-time="175">
+<LTWorld dwlab_version="1.4.34" total-loading-time="113">
 	<LTVisualizer field="visualizer" id="1"/>
 	<LTEditorData field="editor_data" incbin="1" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -24,35 +24,14 @@
 	</LTCamera>
 	<LTLayer>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="0.5" y="0.5" xquantity="1" yquantity="1" tiles-quantity="20" file-num="1">
+		<LTTileMap x="0.5" y="0.5" xquantity="1" yquantity="1" tiles-quantity="20" file-num="1" offset="0">
 			<TList field="parameters">
 				<LTParameter name="class" value="TTiles"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="6" name="Default" tiles-quantity="20" block-width="00000000000000000000" block-height="00000000000000000000">
-				<LTImage field="image" id="7" filename="media\tileset.png" xcells="5" ycells="4" loading-time="14"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="6" name="Default" tiles-quantity="20">
+				<LTImage field="image" id="7" filename="media\tileset.png" xcells="5" ycells="4" loading-time="2"/>
+				<Array field="collision-shapes" size="20"/>
 				<LTTileCategory name="Grass">
 					<LTTileRule tilenums="1,5">
 						<LTTilePos dy="1" tilenum="6"/>
@@ -144,39 +123,39 @@
 					<LTParameter name="class" value="TPlayer"/>
 				</TList>
 				<LTVisualizer field="visualizer" xscale="1.75" yscale="1.75">
-					<LTImage field="image" id="73" filename="media\brain.png" loading-time="14"/>
+					<LTImage field="image" id="73" filename="media\brain.png" loading-time="5"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="3.5" y="2.5">
+			<LTSprite x="3.5" y="2.5" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="Visor"/>
 				</TList>
 				<LTVisualizer field="visualizer" xscale="2" yscale="2">
-					<LTImage field="image" id="77" filename="media\visor.png" loading-time="33"/>
+					<LTImage field="image" id="77" filename="media\visor.png" loading-time="24"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="3.41" y="2.89" width="0.40999999" height="0.31">
+			<LTSprite x="3.41" y="2.89" width="0.40999998" height="0.31" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="Hinge,0"/>
 				</TList>
 				<LTVisualizer field="visualizer"/>
 			</LTSprite>
-			<LTSprite x="3.41" y="2.1" width="0.27" height="0.23999999">
+			<LTSprite x="3.41" y="2.1" width="0.27" height="0.23999999" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="Hinge,1"/>
 				</TList>
 				<LTVisualizer field="visualizer"/>
 			</LTSprite>
-			<LTSprite x="3.64" y="3.04" width="1.63999999" height="0.58999999">
+			<LTSprite x="3.64" y="3.04" width="1.63999999" height="0.58999999" shape="0">
 				<TList field="parameters">
 					<LTParameter name="class" value="TChaingun"/>
 					<LTParameter name="name" value="0"/>
 				</TList>
 				<LTVisualizer field="visualizer" yscale="-1">
-					<LTImage field="image" id="88" filename="media\cannon.png" loading-time="10"/>
+					<LTImage field="image" id="88" filename="media\cannon.png" loading-time="3"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="3.64" y="1.95" width="1.63999999" height="0.58999999">
+			<LTSprite x="3.64" y="1.95" width="1.63999999" height="0.58999999" shape="0">
 				<TList field="parameters">
 					<LTParameter name="class" value="TChaingun"/>
 					<LTParameter name="name" value="1"/>
@@ -185,15 +164,15 @@
 					<Object field="image" id="88"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="4.42999999" y="3.14" width="0.88" height="0.23">
+			<LTSprite x="4.42999998" y="3.14" width="0.88" height="0.23" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="Barrel,0"/>
 				</TList>
 				<LTVisualizer field="visualizer">
-					<LTImage field="image" id="96" filename="media\barrel.png" xcells="4" ycells="4" loading-time="56"/>
+					<LTImage field="image" id="96" filename="media\barrel.png" xcells="4" ycells="4" loading-time="51"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="4.42999999" y="1.85" width="0.88" height="0.23" frame="8">
+			<LTSprite x="4.42999998" y="1.85" width="0.88" height="0.23" shape="0" frame="8">
 				<TList field="parameters">
 					<LTParameter name="name" value="Barrel,1"/>
 				</TList>
@@ -201,52 +180,52 @@
 					<Object field="image" id="96"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="4.54" y="3.1" width="0.12" height="0.14999999">
+			<LTSprite x="4.54" y="3.1" width="0.12" height="0.14999999" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="FirePos,0,0"/>
 				</TList>
 				<LTVisualizer field="visualizer" alpha="0"/>
 			</LTSprite>
-			<LTSprite x="4.54" y="3.2" width="0.17999999" height="0.17">
+			<LTSprite x="4.54" y="3.2" width="0.17999999" height="0.17" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="FirePos,0,1"/>
 				</TList>
 				<LTVisualizer field="visualizer" alpha="0"/>
 			</LTSprite>
-			<LTSprite x="4.54" y="1.90999999" width="0.12" height="0.12">
+			<LTSprite x="4.54" y="1.90999999" width="0.12" height="0.12" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="FirePos,1,0"/>
 				</TList>
 				<LTVisualizer field="visualizer" alpha="0"/>
 			</LTSprite>
-			<LTSprite x="4.54" y="1.81" width="0.12" height="0.12">
+			<LTSprite x="4.54" y="1.81" width="0.12" height="0.12" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="FirePos,1,1"/>
 				</TList>
 				<LTVisualizer field="visualizer" alpha="0"/>
 			</LTSprite>
-			<LTSprite x="3.41" y="3.14" width="0.34" height="0.29999999">
+			<LTSprite x="3.41" y="3.14" width="0.34" height="0.29999998" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="Aimer,0"/>
 				</TList>
 				<LTVisualizer field="visualizer"/>
 			</LTSprite>
-			<LTSprite x="3.41" y="1.85" width="0.29999999" height="0.28999999">
+			<LTSprite x="3.41" y="1.85" width="0.29999998" height="0.28999998" shape="0">
 				<TList field="parameters">
 					<LTParameter name="name" value="Aimer,1"/>
 				</TList>
 				<LTVisualizer field="visualizer"/>
 			</LTSprite>
-			<LTSprite x="4.54" y="1.91999999">
+			<LTSprite x="4.54" y="1.91999999" shape="0">
 				<TList field="parameters">
 					<LTParameter name="class" value="TFire"/>
 					<LTParameter name="name" value="0"/>
 				</TList>
 				<LTVisualizer field="visualizer">
-					<LTImage field="image" id="122" filename="media\fire.png" xcells="5" loading-time="34"/>
+					<LTImage field="image" id="122" filename="media\fire.png" xcells="5" loading-time="27"/>
 				</LTVisualizer>
 			</LTSprite>
-			<LTSprite x="4.54" y="3.1">
+			<LTSprite x="4.54" y="3.1" shape="0">
 				<TList field="parameters">
 					<LTParameter name="class" value="TFire"/>
 					<LTParameter name="name" value="1"/>
@@ -262,12 +241,12 @@
 			</TList>
 			<Object field="visualizer" id="64"/>
 		</LTLayer>
-		<LTSprite x="12.38" y="7.13999999" width="2.85" height="2.91999999">
+		<LTSprite x="12.38" y="7.13999998" width="2.85" height="2.91999999" shape="0">
 			<TList field="parameters">
 				<LTParameter name="name" value="Target"/>
 			</TList>
 			<LTVisualizer field="visualizer" scaling="0">
-				<LTImage field="image" id="132" filename="media\target.png" loading-time="14"/>
+				<LTImage field="image" id="132" filename="media\target.png" loading-time="1"/>
 			</LTVisualizer>
 		</LTSprite>
 	</LTLayer>

@@ -1,4 +1,4 @@
-Type TMushroom Extends LTVectorSprite
+Type TMushroom Extends TBonus
     Global Vis:LTVisualizer = LTVisualizer.FromFile( "media\MagicMushroom.png" )
 
    Const Speed:Double = 2.0
@@ -10,6 +10,15 @@ Type TMushroom Extends LTVectorSprite
        Mushroom.DX = Speed
        Mushroom.AttachModel( New TAppearing )
    End Function
+   
+   Method Collect()
+       TScore.FromSprite( Self, TScore.s1000 )
+       If TMario.Big Then
+           Game.Mario.AttachModel( New TFlashing )
+       Else
+           Game.Mario.AttachModel( New TGrowing )
+       End If
+   End Method
 End Type
 
 

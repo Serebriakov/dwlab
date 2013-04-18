@@ -22,14 +22,22 @@ Type TBlock Extends LTVectorSprite
        Select TileNum
            Case TTiles.QuestionBlock
                TCoin.FromTile( TileX, TileY )
-            Case TTiles.MushroomBlock
-               TMushroom.FromTile( TileX, TileY )
+         Case TTiles.MushroomBlock
+               If TMario.Big Then
+                   TFireFlower.FromTile( TileX, TileY )
+               Else
+                   TMushroom.FromTile( TileX, TileY )
+               End If
            Case TTiles.CoinsBlock
                TCoin.FromTile( TileX, TileY )
                Game.Level.AttachModel( TTileChange.Create( TileX, TileY ) )
                Block.Frame = TileNum
            Case TTiles.Bricks, TTiles.ShadyBricks
                Block.Frame = TileNum
+           Case TTiles.Mushroom1UPBlock
+               TOneUpMushroom.FromTile( TileX, TileY )
+            Case TTiles.StarmanBlock
+               TStarMan.FromTile( TileX, TileY )
        End Select
 	          
        Bump.Play()

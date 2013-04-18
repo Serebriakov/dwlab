@@ -42,3 +42,24 @@ Type TStomped Extends LTBehaviorModel
        If Game.Time > StartingTime + FlatPeriod Then Game.Level.Remove( Shape )
    End Method
 End Type
+
+
+
+Type TKicked Extends LTBehaviorModel
+   Const Strength:Double = -6.0
+   
+   Global Sound:TSound = TSound.Load( "media\Kick.ogg", False )
+
+   Method Init( Shape:LTShape )
+       Local Sprite:LTVectorSprite = LTVectorSprite( Shape )
+       Sprite.DY = Strength
+	   Sprite.DeactivateModel( "LTTileMapCollisionModel" )
+	   Sprite.DeactivateModel( "LTSpriteMapCollisionModel" )
+       Sprite.DeactivateModel( "LTAnimationModel" )
+       Sprite.Visualizer.YScale :* -1.0
+       PlaySound( Sound )
+       TScore.FromSprite( Sprite, TScore.s100 )
+       Game.MovingObjects.RemoveSprite( Sprite )
+	   Game.Level.AddLast( Sprite )
+   End Method
+End Type

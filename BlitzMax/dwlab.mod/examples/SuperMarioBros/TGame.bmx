@@ -27,6 +27,7 @@ Type TGame Extends LTProject
 	   L_Music.Preload( "media\music2.ogg", "2" )
 	   L_Music.Preload( "media\MarioDie.ogg", "dying" )
 	   L_Music.Preload( "media\Warning.ogg", "warning" )
+	   L_Music.Preload( "media\Invulnerability.ogg", "inv" )
 	   LoadAndInitLayer( HUD, LTLayer( LTWorld.FromFile( "hud.lw" ).FindShapeWithType( "LTLayer" ) ) )
 	   InitLevel()
    End Method
@@ -35,10 +36,12 @@ Type TGame Extends LTProject
       Local LevelsQuantity:Int = World.Children.Count()
       Levels = New LTLayer[ LevelsQuantity ]
 
-      Mario.SetWidth( 0.8 )
+      Mario.SetSize( 0.8, 1.0 )
       Mario.Visualizer = New LTVisualizer.FromImage( TMario.SmallMario )
+      Mario.DY = 0
       Mario.Visualizer.XScale = 1.0 / 0.8
-     
+      Mario.Big = False
+
       For Local N:Int = 0 Until LevelsQuantity
 		 Levels[ N ] = LoadLayer( LTLayer( World.FindShapeWithParameter( "num", N, "LTLayer" ) ) )
 	     TileMap = LTTileMap( Levels[ N ].FindShapeWithType( "TTiles" ) )
@@ -59,7 +62,6 @@ Type TGame Extends LTProject
        TileMap = LTTileMap( Level.FindShapeWithType( "TTiles" ) )
        MovingObjects = LTSpriteMap( Level.FindShapeWithType( "LTSpriteMap" ) )
        Mario.JumpTo( Level.FindShapeWithParameter( "num", PointNum, "TStart" ) )
-	   Mario.DY = 0
 	   Mario.Init()
 	   L_Music.ClearMusic()
 	   StartMusic()

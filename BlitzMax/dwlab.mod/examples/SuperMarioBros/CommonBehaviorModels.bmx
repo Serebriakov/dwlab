@@ -22,7 +22,11 @@ Type TCollisionWithFloor Extends LTSpriteAndTileCollisionHandler
 	
    Method HandleCollision( Sprite:LTSprite, TileMap:LTTileMap, TileX:Int, TileY:Int, CollisionSprite:LTSprite )
        Sprite.PushFromTile( TileMap, TileX, TileY )
-       LTVectorSprite( Sprite ).DY = 0
+	   If TStarMan( Sprite ) And LTVectorSprite( Sprite ).DY > 0 Then
+	   		LTVectorSprite( Sprite ).DY = TStarMan.JumpStrength
+	   Else
+	   		LTVectorSprite( Sprite ).DY = 0
+	   End If
    End Method
 End Type
 

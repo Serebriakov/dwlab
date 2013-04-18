@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.28" total-loading-time="697">
+<LTWorld dwlab_version="1.4.34" total-loading-time="678">
 	<LTVisualizer field="visualizer"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -30,1328 +30,44 @@
 		<LTShape field="bounds" x="117" y="64" width="234" height="128">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="448" loading-time="9" file-num="1">
+		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="448" loading-time="14" file-num="76" offset="0">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="8" name="Background 1" tiles-quantity="448" block-width="0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-				<LTImage field="image" id="9" filename="PLAN1.png" xcells="64" ycells="7" loading-time="147"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="8" name="Background 1" tiles-quantity="448">
+				<LTImage field="image" id="9" filename="PLAN1.png" xcells="64" ycells="7" loading-time="57"/>
+				<Array field="collision-shapes" size="448"/>
 			</LTTileSet>
 		</LTTileMap>
-		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="384" loading-time="10" file-num="2">
+		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="384" loading-time="7" file-num="76" offset="59904">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="13" name="Background 2" tiles-quantity="384" block-width="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" empty-tile="0">
-				<LTImage field="image" id="14" filename="PLAN2.png" xcells="64" ycells="6" loading-time="140"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="13" name="Background 2" tiles-quantity="384" empty-tile="0">
+				<LTImage field="image" id="14" filename="PLAN2.png" xcells="64" ycells="6" loading-time="59"/>
+				<Array field="collision-shapes" size="384"/>
 			</LTTileSet>
 		</LTTileMap>
-		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="384" loading-time="8" file-num="3">
+		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="384" loading-time="4" file-num="76" offset="119808">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="18" name="Enemies" tiles-quantity="384" block-width="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" empty-tile="0">
-				<LTImage field="image" id="19" filename="PLAN3.png" xcells="64" ycells="6" loading-time="114"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="18" name="Enemies" tiles-quantity="384" empty-tile="0">
+				<LTImage field="image" id="19" filename="PLAN3.png" xcells="64" ycells="6" loading-time="43"/>
+				<Array field="collision-shapes" size="384"/>
 			</LTTileSet>
 		</LTTileMap>
-		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="64" loading-time="7" file-num="4">
+		<LTTileMap x="117" y="64" width="234" height="128" xquantity="234" yquantity="128" tiles-quantity="64" loading-time="8" file-num="76" offset="179712">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="23" name="Foreground" tiles-quantity="64" block-width="0000000000000000000000000000000000000000000000000000000000000000" block-height="0" empty-tile="0">
-				<LTImage field="image" id="24" filename="PLAN4.png" xcells="64" loading-time="21"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="23" name="Foreground" tiles-quantity="64" empty-tile="0">
+				<LTImage field="image" id="24" filename="PLAN4.png" xcells="64" loading-time="12"/>
+				<Array field="collision-shapes" size="64"/>
 			</LTTileSet>
 		</LTTileMap>
 	</LTLayer>
@@ -1363,28 +79,28 @@
 		<LTShape field="bounds" x="143" y="80" width="286" height="160">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="448" loading-time="13" file-num="5">
+		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="448" loading-time="6" file-num="76" offset="209664">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="384" loading-time="12" file-num="6">
+		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="384" loading-time="16" file-num="76" offset="301184">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="384" loading-time="14" file-num="7">
+		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="384" loading-time="12" file-num="76" offset="392704">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="64" loading-time="13" file-num="8">
+		<LTTileMap x="143" y="80" width="286" height="160" xquantity="286" yquantity="160" tiles-quantity="64" loading-time="11" file-num="76" offset="484224">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1400,28 +116,28 @@
 		<LTShape field="bounds" x="91" y="32" width="182" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="448" loading-time="4" file-num="9">
+		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="448" loading-time="6" file-num="76" offset="529984">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="384" loading-time="4" file-num="10">
+		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="384" loading-time="6" file-num="76" offset="553280">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="384" loading-time="3" file-num="11">
+		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="384" loading-time="8" file-num="76" offset="576576">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="64" loading-time="3" file-num="12">
+		<LTTileMap x="91" y="32" width="182" height="64" xquantity="182" yquantity="64" tiles-quantity="64" loading-time="1" file-num="76" offset="599872">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1437,28 +153,28 @@
 		<LTShape field="bounds" x="78" y="60" width="156" height="120">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="448" loading-time="7" file-num="13">
+		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="448" loading-time="4" file-num="76" offset="611520">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="384" loading-time="5" file-num="14">
+		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="384" loading-time="7" file-num="76" offset="648960">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="384" loading-time="5" file-num="15">
+		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="384" loading-time="3" file-num="76" offset="686400">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="64" loading-time="4" file-num="16">
+		<LTTileMap x="78" y="60" width="156" height="120" xquantity="156" yquantity="120" tiles-quantity="64" loading-time="12" file-num="76" offset="723840">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1474,28 +190,28 @@
 		<LTShape field="bounds" x="26" y="64" width="52" height="128">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="448" loading-time="2" file-num="17">
+		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="448" loading-time="9" file-num="76" offset="742560">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="384" loading-time="2" file-num="18">
+		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="384" loading-time="8" file-num="76" offset="755872">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="384" loading-time="2" file-num="19">
+		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="384" loading-time="3" file-num="76" offset="769184">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="64" loading-time="2" file-num="20">
+		<LTTileMap x="26" y="64" width="52" height="128" xquantity="52" yquantity="128" tiles-quantity="64" loading-time="2" file-num="76" offset="782496">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1511,28 +227,28 @@
 		<LTShape field="bounds" x="65" y="40" width="130" height="80">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="448" loading-time="3" file-num="21">
+		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="448" loading-time="7" file-num="76" offset="789152">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="384" loading-time="3" file-num="22">
+		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="384" loading-time="22" file-num="76" offset="809952">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="384" loading-time="3" file-num="23">
+		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="384" loading-time="8" file-num="76" offset="830752">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="64" loading-time="3" file-num="24">
+		<LTTileMap x="65" y="40" width="130" height="80" xquantity="130" yquantity="80" tiles-quantity="64" loading-time="8" file-num="76" offset="851552">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1548,28 +264,28 @@
 		<LTShape field="bounds" x="104" y="32" width="208" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="448" loading-time="5" file-num="25">
+		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="448" loading-time="9" file-num="76" offset="861952">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="384" loading-time="3" file-num="26">
+		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="384" loading-time="10" file-num="76" offset="888576">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="384" loading-time="3" file-num="27">
+		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="384" loading-time="10" file-num="76" offset="915200">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="64" loading-time="4" file-num="28">
+		<LTTileMap x="104" y="32" width="208" height="64" xquantity="208" yquantity="64" tiles-quantity="64" loading-time="8" file-num="76" offset="941824">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1585,28 +301,28 @@
 		<LTShape field="bounds" x="208" y="28" width="416" height="56">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="448" loading-time="6" file-num="29">
+		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="448" loading-time="10" file-num="76" offset="955136">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="384" loading-time="7" file-num="30">
+		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="384" loading-time="3" file-num="76" offset="1001728">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="384" loading-time="6" file-num="31">
+		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="384" loading-time="9" file-num="76" offset="1048320">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="64" loading-time="7" file-num="32">
+		<LTTileMap x="208" y="28" width="416" height="56" xquantity="416" yquantity="56" tiles-quantity="64" loading-time="5" file-num="76" offset="1094912">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1622,28 +338,28 @@
 		<LTShape field="bounds" x="58.5" y="20" width="117" height="40">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="448" loading-time="1" file-num="33">
+		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="448" loading-time="1" file-num="76" offset="1118208">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="384" loading-time="1" file-num="34">
+		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="384" loading-time="4" file-num="76" offset="1127568">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="384" loading-time="1" file-num="35">
+		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="384" file-num="76" offset="1136928">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="64" loading-time="1" file-num="36">
+		<LTTileMap x="58.5" y="20" width="117" height="40" xquantity="117" yquantity="40" tiles-quantity="64" loading-time="5" file-num="76" offset="1146288">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1659,28 +375,28 @@
 		<LTShape field="bounds" x="65" y="20" width="130" height="40">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="448" loading-time="1" file-num="37">
+		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="448" loading-time="21" file-num="76" offset="1150968">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="384" loading-time="1" file-num="38">
+		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="384" loading-time="1" file-num="76" offset="1161368">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="384" loading-time="2" file-num="39">
+		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="384" loading-time="1" file-num="76" offset="1171768">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="64" loading-time="3" file-num="40">
+		<LTTileMap x="65" y="20" width="130" height="40" xquantity="130" yquantity="40" tiles-quantity="64" loading-time="2" file-num="76" offset="1182168">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1696,28 +412,28 @@
 		<LTShape field="bounds" x="71.5" y="20" width="143" height="40">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="448" loading-time="2" file-num="41">
+		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="448" loading-time="5" file-num="76" offset="1187368">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="384" loading-time="2" file-num="42">
+		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="384" loading-time="1" file-num="76" offset="1198808">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="384" loading-time="2" file-num="43">
+		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="384" loading-time="1" file-num="76" offset="1210248">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="64" loading-time="1" file-num="44">
+		<LTTileMap x="71.5" y="20" width="143" height="40" xquantity="143" yquantity="40" tiles-quantity="64" loading-time="5" file-num="76" offset="1221688">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1733,28 +449,28 @@
 		<LTShape field="bounds" x="58.5" y="24" width="117" height="48">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="448" loading-time="1" file-num="45">
+		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="448" loading-time="1" file-num="76" offset="1227408">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="384" loading-time="1" file-num="46">
+		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="384" loading-time="3" file-num="76" offset="1238640">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="384" loading-time="1" file-num="47">
+		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="384" loading-time="6" file-num="76" offset="1249872">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="64" loading-time="1" file-num="48">
+		<LTTileMap x="58.5" y="24" width="117" height="48" xquantity="117" yquantity="48" tiles-quantity="64" loading-time="1" file-num="76" offset="1261104">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1770,28 +486,28 @@
 		<LTShape field="bounds" x="71.5" y="24" width="143" height="48">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="448" loading-time="2" file-num="49">
+		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="448" loading-time="5" file-num="76" offset="1266720">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="384" loading-time="2" file-num="50">
+		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="384" loading-time="8" file-num="76" offset="1280448">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="384" loading-time="2" file-num="51">
+		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="384" loading-time="3" file-num="76" offset="1294176">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="64" loading-time="2" file-num="52">
+		<LTTileMap x="71.5" y="24" width="143" height="48" xquantity="143" yquantity="48" tiles-quantity="64" loading-time="1" file-num="76" offset="1307904">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1807,28 +523,28 @@
 		<LTShape field="bounds" x="19.5" y="8" width="39" height="16">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="448" file-num="53">
+		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="448" loading-time="4" file-num="76" offset="1314768">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="384" file-num="54">
+		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="384" loading-time="2" file-num="76" offset="1316016">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="384" file-num="55">
+		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="384" loading-time="7" file-num="76" offset="1317264">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="64" file-num="56">
+		<LTTileMap x="19.5" y="8" width="39" height="16" xquantity="39" yquantity="16" tiles-quantity="64" file-num="76" offset="1318512">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1844,28 +560,28 @@
 		<LTShape field="bounds" x="65" y="36" width="130" height="72">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="448" loading-time="4" file-num="57">
+		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="448" loading-time="6" file-num="76" offset="1319136">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="384" loading-time="3" file-num="58">
+		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="384" loading-time="7" file-num="76" offset="1337856">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="384" loading-time="3" file-num="59">
+		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="384" loading-time="5" file-num="76" offset="1356576">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="64" loading-time="2" file-num="60">
+		<LTTileMap x="65" y="36" width="130" height="72" xquantity="130" yquantity="72" tiles-quantity="64" loading-time="8" file-num="76" offset="1375296">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1881,28 +597,28 @@
 		<LTShape field="bounds" x="91" y="56" width="182" height="112">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="448" loading-time="7" file-num="61">
+		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="448" loading-time="12" file-num="76" offset="1384656">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="384" loading-time="4" file-num="62">
+		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="384" loading-time="23" file-num="76" offset="1425424">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="384" loading-time="7" file-num="63">
+		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="384" loading-time="4" file-num="76" offset="1466192">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="64" loading-time="5" file-num="64">
+		<LTTileMap x="91" y="56" width="182" height="112" xquantity="182" yquantity="112" tiles-quantity="64" loading-time="3" file-num="76" offset="1506960">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1918,28 +634,28 @@
 		<LTShape field="bounds" x="110.5" y="12" width="221" height="24">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="448" loading-time="1" file-num="65">
+		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="448" loading-time="14" file-num="76" offset="1527344">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="384" loading-time="2" file-num="66">
+		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="384" loading-time="1" file-num="76" offset="1537952">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="384" loading-time="2" file-num="67">
+		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="384" loading-time="6" file-num="76" offset="1548560">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="64" loading-time="1" file-num="68">
+		<LTTileMap x="110.5" y="12" width="221" height="24" xquantity="221" yquantity="24" tiles-quantity="64" loading-time="3" file-num="76" offset="1559168">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1955,28 +671,28 @@
 		<LTShape field="bounds" x="136.5" y="40" width="273" height="80">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="448" loading-time="6" file-num="69">
+		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="448" loading-time="13" file-num="76" offset="1564472">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="384" loading-time="6" file-num="70">
+		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="384" loading-time="17" file-num="76" offset="1608152">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="384" loading-time="5" file-num="71">
+		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="384" loading-time="5" file-num="76" offset="1651832">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="64" loading-time="4" file-num="72">
+		<LTTileMap x="136.5" y="40" width="273" height="80" xquantity="273" yquantity="80" tiles-quantity="64" loading-time="12" file-num="76" offset="1695512">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>
@@ -1992,28 +708,28 @@
 		<LTShape field="bounds" x="26" y="16" width="52" height="32">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="448" loading-time="1" file-num="73">
+		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="448" loading-time="8" file-num="76" offset="1717352">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 1"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="8"/>
 		</LTTileMap>
-		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="384" file-num="74">
+		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="384" loading-time="8" file-num="76" offset="1720680">
 			<TList field="parameters">
 				<LTParameter name="name" value="Background 2"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="13"/>
 		</LTTileMap>
-		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="384" file-num="75">
+		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="384" loading-time="8" file-num="76" offset="1724008">
 			<TList field="parameters">
 				<LTParameter name="name" value="Enemies"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="18"/>
 		</LTTileMap>
-		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="64" file-num="76">
+		<LTTileMap x="26" y="16" width="52" height="32" xquantity="52" yquantity="32" tiles-quantity="64" file-num="76" offset="1727336">
 			<TList field="parameters">
 				<LTParameter name="name" value="Foreground"/>
 			</TList>

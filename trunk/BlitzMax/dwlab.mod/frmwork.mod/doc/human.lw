@@ -1,6 +1,9 @@
-<LTWorld dwlab_version="1.4.21.2">
+<LTWorld dwlab_version="1.4.34" total-loading-time="0">
 	<LTVisualizer field="visualizer"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
+		<TList field="images">
+			<Object id="8"/>
+		</TList>
 		<LTColor field="background"/>
 		<LTColor field="grid_color" green="0" alpha="0.5"/>
 	</LTEditorData>

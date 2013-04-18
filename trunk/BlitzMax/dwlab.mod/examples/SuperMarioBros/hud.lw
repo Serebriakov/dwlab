@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.21">
+<LTWorld dwlab_version="1.4.34" total-loading-time="0">
 	<LTVisualizer field="visualizer"/>
 	<LTEditorData field="editor_data" incbin="1" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -36,7 +36,7 @@
 			</TList>
 			<LTVisualizer field="visualizer" alpha="0"/>
 		</LTSprite>
-		<LTSprite x="16.25" y="2.25" width="0.5" height="0.5" velocity="0">
+		<LTSprite x="16.25" y="2.25" width="0.5" height="0.5" shape="0" velocity="0">
 			<TList field="parameters">
 				<LTParameter name="class" value="TSmallCoin"/>
 			</TList>

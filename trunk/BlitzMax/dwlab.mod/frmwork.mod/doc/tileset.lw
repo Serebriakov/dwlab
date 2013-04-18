@@ -1,104 +1,13 @@
-<LTWorld dwlab_version="1.4.21.2">
+<LTWorld dwlab_version="1.4.34" total-loading-time="18">
 	<LTVisualizer field="visualizer" id="1"/>
 	<LTEditorData field="editor_data" x_div="4" y_div="4" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
-			<LTImage id="3" filename="curved_areas.png" xcells="9" ycells="10"/>
+			<LTImage id="3" filename="curved_areas.png" xcells="9" ycells="10" loading-time="18"/>
 		</TList>
 		<TList field="tilesets">
-			<LTTileSet name="CurvedAreas" tiles-quantity="90" block-width="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
+			<LTTileSet name="CurvedAreas" tiles-quantity="90">
 				<Object field="image" id="3"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+				<Array field="collision-shapes" size="90"/>
 				<LTTileCategory name="White">
 					<LTTileRule tilenums="69">
 						<LTTilePos dx="-1" tilenum="20"/>

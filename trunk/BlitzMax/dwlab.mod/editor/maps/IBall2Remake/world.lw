@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.32" total-loading-time="18">
+<LTWorld dwlab_version="1.4.34" total-loading-time="41">
 	<LTVisualizer field="visualizer" id="1"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -32,13 +32,13 @@
 		<LTSprite field="bounds" x="6.5" y="6" width="13" height="12" shape="2" velocity="0">
 			<LTVisualizer field="visualizer" id="524"/>
 		</LTSprite>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="1">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="0">
 			<TList field="parameters">
 				<LTParameter value="Level 1 map"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
 			<LTTileSet field="tileset" id="7" name="Default" tiles-quantity="400">
-				<LTImage field="image" id="8" filename="media\tiles.png" xcells="16" ycells="25" loading-time="11"/>
+				<LTImage field="image" id="8" filename="media\tiles.png" xcells="16" ycells="25" loading-time="17"/>
 				<TList field="tile-blocks">
 					<LTTileBlock num="96" width="1" height="1"/>
 					<LTTileBlock num="98" width="1" height="1"/>
@@ -686,7 +686,7 @@
 				<LTParameter value="Generator"/>
 			</TList>
 			<LTVisualizer field="visualizer" blue="0" rotating="0">
-				<LTImage field="image" id="509" filename="media\reel.png" xcells="4" loading-time="1"/>
+				<LTImage field="image" id="509" filename="media\reel.png" xcells="4"/>
 			</LTVisualizer>
 		</LTSprite>
 		<LTSprite x="9" y="9.5" shape="1" velocity="0" frame="2">
@@ -730,7 +730,7 @@
 		<LTSprite field="bounds" x="6.5" y="6" width="13" height="12" shape="2" velocity="0">
 			<Object field="visualizer" id="524"/>
 		</LTSprite>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="2">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="312">
 			<TList field="parameters">
 				<LTParameter value="Level 2 map"/>
 			</TList>
@@ -776,7 +776,7 @@
 				<LTParameter value="FadingBlock"/>
 			</TList>
 			<LTVisualizer field="visualizer" rotating="0">
-				<LTImage field="image" id="547" filename="media\fadingblocks.png" xcells="2" loading-time="1"/>
+				<LTImage field="image" id="547" filename="media\fadingblocks.png" xcells="2" loading-time="19"/>
 			</LTVisualizer>
 		</LTSprite>
 		<LTSprite x="11" y="1" width="2" height="2" shape="2">
@@ -796,7 +796,7 @@
 		<LTSprite field="bounds" x="6.5" y="6" width="13" height="12" shape="2" velocity="0">
 			<Object field="visualizer" id="524"/>
 		</LTSprite>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="3">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="624">
 			<TList field="parameters">
 				<LTParameter value="Level 3 map"/>
 			</TList>
@@ -908,7 +908,7 @@
 		<LTSprite field="bounds" x="6.5" y="6" width="13" height="12" shape="2" velocity="0">
 			<Object field="visualizer" id="524"/>
 		</LTSprite>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="4">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="936">
 			<TList field="parameters">
 				<LTParameter value="Level 4 map"/>
 			</TList>
@@ -993,7 +993,7 @@
 			<LTParameter value="Level 5"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="5">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="1248">
 			<TList field="parameters">
 				<LTParameter value="Level 5 map"/>
 			</TList>
@@ -1062,7 +1062,7 @@
 			<LTParameter value="Level 6"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="6">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="1560">
 			<TList field="parameters">
 				<LTParameter value="Level 6 map"/>
 			</TList>
@@ -1115,7 +1115,7 @@
 			<LTParameter value="Level 7"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="7">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="50" offset="1872">
 			<TList field="parameters">
 				<LTParameter value="Level 7 map"/>
 			</TList>
@@ -1136,7 +1136,7 @@
 			<LTParameter value="Level 8"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="8">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="2184">
 			<TList field="parameters">
 				<LTParameter value="Level 8 map"/>
 			</TList>
@@ -1173,7 +1173,7 @@
 			<LTParameter value="Level 9"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="9">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="2496">
 			<TList field="parameters">
 				<LTParameter value="Level 9 map"/>
 			</TList>
@@ -1202,7 +1202,7 @@
 			<LTParameter value="Level 10"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="10">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="50" offset="2808">
 			<TList field="parameters">
 				<LTParameter value="Level 10 map"/>
 			</TList>
@@ -1255,7 +1255,7 @@
 			<LTParameter value="Level 11"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="11">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="3120">
 			<TList field="parameters">
 				<LTParameter value="Level 11 map"/>
 			</TList>
@@ -1292,7 +1292,7 @@
 			<LTParameter value="Level 12"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="12">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="3432">
 			<TList field="parameters">
 				<LTParameter value="Level 12 map"/>
 			</TList>
@@ -1321,7 +1321,7 @@
 			<LTParameter value="Level 13"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="13">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="3744">
 			<TList field="parameters">
 				<LTParameter value="Level 13 map"/>
 			</TList>
@@ -1350,7 +1350,7 @@
 			<LTParameter value="Level 14"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="14">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="4056">
 			<TList field="parameters">
 				<LTParameter value="Level 14 map"/>
 			</TList>
@@ -1403,7 +1403,7 @@
 			<LTParameter value="Level 15"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="15">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="4368">
 			<TList field="parameters">
 				<LTParameter value="Level 15 map"/>
 			</TList>
@@ -1488,7 +1488,7 @@
 			<LTParameter value="Level 16"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="16">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="4680">
 			<TList field="parameters">
 				<LTParameter value="Level 16 map"/>
 			</TList>
@@ -1525,7 +1525,7 @@
 			<LTParameter value="Level 17"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="17">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="4992">
 			<TList field="parameters">
 				<LTParameter value="Level 17 map"/>
 			</TList>
@@ -1554,7 +1554,7 @@
 			<LTParameter value="Level 18"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="18">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="5304">
 			<TList field="parameters">
 				<LTParameter value="Level 18 map"/>
 			</TList>
@@ -1575,7 +1575,7 @@
 			<LTParameter value="Level 19"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="19">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="5616">
 			<TList field="parameters">
 				<LTParameter value="Level 19 map"/>
 			</TList>
@@ -1612,7 +1612,7 @@
 			<LTParameter value="Level 20"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="20">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="5928">
 			<TList field="parameters">
 				<LTParameter value="Level 20 map"/>
 			</TList>
@@ -1649,7 +1649,7 @@
 			<LTParameter value="Level 21"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="21">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="6240">
 			<TList field="parameters">
 				<LTParameter value="Level 21 map"/>
 			</TList>
@@ -1686,7 +1686,7 @@
 			<LTParameter value="Level 22"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="22">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="6552">
 			<TList field="parameters">
 				<LTParameter value="Level 22 map"/>
 			</TList>
@@ -1739,7 +1739,7 @@
 			<LTParameter value="Level 23"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="23">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="50" offset="6864">
 			<TList field="parameters">
 				<LTParameter value="Level 23 map"/>
 			</TList>
@@ -1760,7 +1760,7 @@
 			<LTParameter value="Level 24"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="24">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="7176">
 			<TList field="parameters">
 				<LTParameter value="Level 24 map"/>
 			</TList>
@@ -1797,7 +1797,7 @@
 			<LTParameter value="Level 25"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="25">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="7488">
 			<TList field="parameters">
 				<LTParameter value="Level 25 map"/>
 			</TList>
@@ -1826,7 +1826,7 @@
 			<LTParameter value="Level 26"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="26">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="7800">
 			<TList field="parameters">
 				<LTParameter value="Level 26 map"/>
 			</TList>
@@ -1863,7 +1863,7 @@
 			<LTParameter value="Level 27"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="27">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="8112">
 			<TList field="parameters">
 				<LTParameter value="Level 27 map"/>
 			</TList>
@@ -1884,7 +1884,7 @@
 			<LTParameter value="Level 28"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="28">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="8424">
 			<TList field="parameters">
 				<LTParameter value="Level 28 map"/>
 			</TList>
@@ -1929,7 +1929,7 @@
 			<LTParameter value="Level 29"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="29">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="8736">
 			<TList field="parameters">
 				<LTParameter value="Level 29 map"/>
 			</TList>
@@ -1974,7 +1974,7 @@
 			<LTParameter value="Level 30"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="30">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="9048">
 			<TList field="parameters">
 				<LTParameter value="Level 30 map"/>
 			</TList>
@@ -2019,7 +2019,7 @@
 			<LTParameter value="Level 31"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="31">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="9360">
 			<TList field="parameters">
 				<LTParameter value="Level 31 map"/>
 			</TList>
@@ -2056,7 +2056,7 @@
 			<LTParameter value="Level 32"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="32">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="9672">
 			<TList field="parameters">
 				<LTParameter value="Level 32 map"/>
 			</TList>
@@ -2109,7 +2109,7 @@
 			<LTParameter value="Level 33"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="33">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="9984">
 			<TList field="parameters">
 				<LTParameter value="Level 33 map"/>
 			</TList>
@@ -2130,7 +2130,7 @@
 			<LTParameter value="Level 34"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="34">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="50" offset="10296">
 			<TList field="parameters">
 				<LTParameter value="Level 34 map"/>
 			</TList>
@@ -2151,7 +2151,7 @@
 			<LTParameter value="Level 35"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="35">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="10608">
 			<TList field="parameters">
 				<LTParameter value="Level 35 map"/>
 			</TList>
@@ -2188,7 +2188,7 @@
 			<LTParameter value="Level 36"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="36">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="10920">
 			<TList field="parameters">
 				<LTParameter value="Level 36 map"/>
 			</TList>
@@ -2241,7 +2241,7 @@
 			<LTParameter value="Level 37"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="37">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="11232">
 			<TList field="parameters">
 				<LTParameter value="Level 37 map"/>
 			</TList>
@@ -2302,7 +2302,7 @@
 			<LTParameter value="Level 38"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="38">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="11544">
 			<TList field="parameters">
 				<LTParameter value="Level 38 map"/>
 			</TList>
@@ -2347,7 +2347,7 @@
 			<LTParameter value="Level 39"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="39">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="11856">
 			<TList field="parameters">
 				<LTParameter value="Level 39 map"/>
 			</TList>
@@ -2384,7 +2384,7 @@
 			<LTParameter value="Level 40"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="40">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="12168">
 			<TList field="parameters">
 				<LTParameter value="Level 40 map"/>
 			</TList>
@@ -2405,7 +2405,7 @@
 			<LTParameter value="Level 41"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="41">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="12480">
 			<TList field="parameters">
 				<LTParameter value="Level 41 map"/>
 			</TList>
@@ -2450,7 +2450,7 @@
 			<LTParameter value="Level 42"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="42">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" loading-time="1" file-num="50" offset="12792">
 			<TList field="parameters">
 				<LTParameter value="Level 42 map"/>
 			</TList>
@@ -2479,7 +2479,7 @@
 			<LTParameter value="Level 43"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="43">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="13104">
 			<TList field="parameters">
 				<LTParameter value="Level 43 map"/>
 			</TList>
@@ -2500,7 +2500,7 @@
 			<LTParameter value="Level 44"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="44">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="13416">
 			<TList field="parameters">
 				<LTParameter value="Level 44 map"/>
 			</TList>
@@ -2553,7 +2553,7 @@
 			<LTParameter value="Level 45"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="45">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="13728">
 			<TList field="parameters">
 				<LTParameter value="Level 45 map"/>
 			</TList>
@@ -2622,7 +2622,7 @@
 			<LTParameter value="Level 46"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="46">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="14040">
 			<TList field="parameters">
 				<LTParameter value="Level 46 map"/>
 			</TList>
@@ -2651,7 +2651,7 @@
 			<LTParameter value="Level 47"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="47">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="14352">
 			<TList field="parameters">
 				<LTParameter value="Level 47 map"/>
 			</TList>
@@ -2712,7 +2712,7 @@
 			<LTParameter value="Level 48"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="48">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="14664">
 			<TList field="parameters">
 				<LTParameter value="Level 48 map"/>
 			</TList>
@@ -2757,7 +2757,7 @@
 			<LTParameter value="Level 49"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="49">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="14976">
 			<TList field="parameters">
 				<LTParameter value="Level 49 map"/>
 			</TList>
@@ -2778,7 +2778,7 @@
 			<LTParameter value="Level 50"/>
 		</TList>
 		<Object field="visualizer" id="1"/>
-		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50">
+		<LTTileMap x="6.5" y="6" width="13" height="12" xquantity="13" yquantity="12" tiles-quantity="400" file-num="50" offset="15288">
 			<TList field="parameters">
 				<LTParameter value="Level 50 map"/>
 			</TList>

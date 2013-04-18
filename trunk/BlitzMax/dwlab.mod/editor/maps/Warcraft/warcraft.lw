@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.28" total-loading-time="177">
+<LTWorld dwlab_version="1.4.34" total-loading-time="817">
 	<LTVisualizer field="visualizer"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -28,364 +28,11 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="1" file-num="1">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="19" file-num="31" offset="0">
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="7" name="Tile set 3" tiles-quantity="352" block-width="0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-				<LTImage field="image" id="8" filename="tiles3.png" xcells="16" ycells="22" loading-time="38"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="7" name="Tile set 3" tiles-quantity="352">
+				<LTImage field="image" id="8" filename="tiles3.png" xcells="16" ycells="22" loading-time="33"/>
+				<Array field="collision-shapes" size="352"/>
 			</LTTileSet>
 		</LTTileMap>
 	</LTLayer>
@@ -397,7 +44,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="2" file-num="2">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="22" file-num="31" offset="8192">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="7"/>
 		</LTTileMap>
@@ -410,7 +57,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="1" file-num="3">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="21" file-num="31" offset="16384">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="7"/>
 		</LTTileMap>
@@ -423,332 +70,11 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="4">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="29" file-num="31" offset="24576">
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="30" name="Tile set 1" tiles-quantity="320" block-width="00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-				<LTImage field="image" id="31" filename="tiles1.png" xcells="16" ycells="20" loading-time="44"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="30" name="Tile set 1" tiles-quantity="320">
+				<LTImage field="image" id="31" filename="tiles1.png" xcells="16" ycells="20" loading-time="59"/>
+				<Array field="collision-shapes" size="320"/>
 			</LTTileSet>
 		</LTTileMap>
 	</LTLayer>
@@ -760,7 +86,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="5">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="19" file-num="31" offset="32768">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -773,7 +99,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="2" file-num="6">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="18" file-num="31" offset="40960">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -786,7 +112,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="7">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="42" file-num="31" offset="49152">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -799,7 +125,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="8">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="23" file-num="31" offset="57344">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -812,7 +138,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="2" file-num="9">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="19" file-num="31" offset="65536">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -825,7 +151,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="10">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="17" file-num="31" offset="73728">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -838,7 +164,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="11">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="21" file-num="31" offset="81920">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -851,7 +177,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="2" file-num="12">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="5" file-num="31" offset="90112">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -864,7 +190,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="2" file-num="13">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="44" file-num="31" offset="98304">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -877,7 +203,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="14">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="23" file-num="31" offset="106496">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -890,7 +216,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="1" file-num="15">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="320" loading-time="19" file-num="31" offset="114688">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="30"/>
 		</LTTileMap>
@@ -903,300 +229,11 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="2" file-num="16">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="30" file-num="31" offset="122880">
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="116" name="Tile set 2" tiles-quantity="288" block-width="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-				<LTImage field="image" id="117" filename="tiles2.png" xcells="16" ycells="18" loading-time="51"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="116" name="Tile set 2" tiles-quantity="288">
+				<LTImage field="image" id="117" filename="tiles2.png" xcells="16" ycells="18" loading-time="38"/>
+				<Array field="collision-shapes" size="288"/>
 			</LTTileSet>
 		</LTTileMap>
 	</LTLayer>
@@ -1208,7 +245,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="2" file-num="17">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="21" file-num="31" offset="131072">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1221,7 +258,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="2" file-num="18">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="18" file-num="31" offset="139264">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1234,7 +271,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="1" file-num="19">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="22" file-num="31" offset="147456">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1247,7 +284,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="1" file-num="20">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="25" file-num="31" offset="155648">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1260,7 +297,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="2" file-num="21">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="57" file-num="31" offset="163840">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1273,7 +310,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="1" file-num="22">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="13" file-num="31" offset="172032">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1286,7 +323,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="1" file-num="23">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="21" file-num="31" offset="180224">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1299,7 +336,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="2" file-num="24">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="17" file-num="31" offset="188416">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1312,7 +349,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="1" file-num="25">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="12" file-num="31" offset="196608">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1325,7 +362,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="1" file-num="26">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="39" file-num="31" offset="204800">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1338,7 +375,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="2" file-num="27">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="288" loading-time="10" file-num="31" offset="212992">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="116"/>
 		</LTTileMap>
@@ -1351,7 +388,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="2" file-num="28">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="17" file-num="31" offset="221184">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="7"/>
 		</LTTileMap>
@@ -1364,7 +401,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="1" file-num="29">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="11" file-num="31" offset="229376">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="7"/>
 		</LTTileMap>
@@ -1377,7 +414,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="1" file-num="30">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="17" file-num="31" offset="237568">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="7"/>
 		</LTTileMap>
@@ -1390,7 +427,7 @@
 		<LTShape field="bounds" width="64" height="64">
 			<LTVisualizer field="visualizer"/>
 		</LTShape>
-		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="2" file-num="31">
+		<LTTileMap width="64" height="64" xquantity="64" yquantity="64" tiles-quantity="352" loading-time="16" file-num="31" offset="245760">
 			<LTVisualizer field="visualizer"/>
 			<Object field="tileset" id="7"/>
 		</LTTileMap>

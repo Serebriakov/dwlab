@@ -1,0 +1,213 @@
+<LTLayer dwlab_version="1.4.30" total-loading-time="18">
+	<LTVisualizer field="visualizer"/>
+	<LTSprite x="-1.46178431" y="0.65716073" width="1.11711974" height="1.11711974" shape="1" moving-angle="80.64999886" velocity="5">
+		<LTVisualizer field="visualizer" red="0.9312903" green="0.84989349" blue="0.9177575"/>
+	</LTSprite>
+	<LTSprite x="-1.56334981" y="0.90824656" width="0.52721151" height="0.52721151" shape="1" moving-angle="80.02235785" velocity="5">
+		<LTVisualizer field="visualizer" red="0.6760171" green="0.77228979" blue="0.57429765"/>
+	</LTSprite>
+	<LTSprite x="-1.63320342" y="1.33883926" width="1.17551672" height="1.17551672" shape="1" moving-angle="107.35412712" velocity="5">
+		<LTVisualizer field="visualizer" red="0.31842306" green="0.43018361" blue="0.67802934"/>
+	</LTSprite>
+	<LTSprite x="-1.66808533" y="1.59861083" width="1.17267067" height="1.17267067" shape="1" moving-angle="144.4752534" velocity="5">
+		<LTVisualizer field="visualizer" red="0.66714423" green="0.82942367" blue="0.88504949"/>
+	</LTSprite>
+	<LTSprite x="-1.84373281" y="1.94991265" width="1.3187022" height="1.3187022" shape="1" moving-angle="125.8197823" velocity="5">
+		<LTVisualizer field="visualizer" red="0.67261585" green="0.42199077" blue="0.69873968"/>
+	</LTSprite>
+	<LTSprite x="-2.08792328" y="2.31224936" width="0.98024039" height="0.98024039" shape="1" moving-angle="-66.45026149" velocity="5">
+		<LTVisualizer field="visualizer" red="0.63205728" green="0.93074048" blue="0.8643661"/>
+	</LTSprite>
+	<LTSprite x="-2.07506531" y="2.19484754" width="0.9226804" height="0.9226804" shape="1" moving-angle="-69.61643607" velocity="5">
+		<LTVisualizer field="visualizer" red="0.45625077" green="0.98151471" blue="0.62774623"/>
+	</LTSprite>
+	<LTSprite x="-2.06904091" y="2.10350137" width="0.80936335" height="0.80936335" shape="1" moving-angle="35.05805166" velocity="5">
+		<LTVisualizer field="visualizer" red="0.8119909" green="0.81070077" blue="0.63455797"/>
+	</LTSprite>
+	<LTSprite x="-2.0202866" y="2.05306056" width="0.70113026" height="0.70113026" shape="1" moving-angle="-47.18417712" velocity="5">
+		<LTVisualizer field="visualizer" red="0.35680479" green="0.90676519" blue="0.35662347"/>
+	</LTSprite>
+	<LTSprite x="-1.95171532" y="2.01454719" width="0.53869584" height="0.53869584" shape="1" moving-angle="-38.73740054" velocity="5">
+		<LTVisualizer field="visualizer" red="0.30939397" green="0.6424286" blue="0.26942023"/>
+	</LTSprite>
+	<LTSprite x="-1.87550514" y="1.94947901" width="1.32797118" height="1.32797118" shape="1" moving-angle="205.05242306" velocity="5">
+		<LTVisualizer field="visualizer" red="0.57748949" green="0.57529338" blue="0.35350113"/>
+	</LTSprite>
+	<LTSprite x="-1.90251075" y="1.98958736" width="1.26001421" height="1.26001421" shape="1" moving-angle="86.10746673" velocity="5">
+		<LTVisualizer field="visualizer" red="0.41778126" green="0.93420445" blue="0.99571505"/>
+	</LTSprite>
+	<LTSprite x="-1.83829073" y="2.00971842" width="1.17920231" height="1.17920231" shape="1" moving-angle="59.95807319" velocity="5">
+		<LTVisualizer field="visualizer" red="0.48692104" green="0.75952285" blue="0.47292979"/>
+	</LTSprite>
+	<LTSprite x="-1.7544883" y="2.0939721" width="0.74577443" height="0.74577443" shape="1" moving-angle="-9.00710269" velocity="5">
+		<LTVisualizer field="visualizer" red="0.3814076" green="0.43541473" blue="0.74237702"/>
+	</LTSprite>
+	<LTSprite x="-1.63869269" y="2.06560539" width="1.03078517" height="1.03078517" shape="1" moving-angle="72.25583939" velocity="5">
+		<LTVisualizer field="visualizer" red="0.277343" green="0.44639723" blue="0.34128348"/>
+	</LTSprite>
+	<LTSprite x="-1.58256904" y="2.09073388" width="0.73609662" height="0.73609662" shape="1" moving-angle="72.32971303" velocity="5">
+		<LTVisualizer field="visualizer" red="0.44009345" green="0.79737396" blue="0.86008912"/>
+	</LTSprite>
+	<LTSprite x="-1.48972529" y="2.11149275" width="0.61302816" height="0.61302816" shape="1" moving-angle="-20.81572097" velocity="5">
+		<LTVisualizer field="visualizer" red="0.63156774" green="0.79325846" blue="0.65479648"/>
+	</LTSprite>
+	<LTSprite x="-1.41025477" y="2.05064891" width="0.93309317" height="0.93309317" shape="1" moving-angle="-43.91772542" velocity="5">
+		<LTVisualizer field="visualizer" red="0.73766054" green="0.53430448" blue="0.9974142"/>
+	</LTSprite>
+	<LTSprite x="-1.26262045" y="1.9497612" width="1.18117002" height="1.18117002" shape="1" moving-angle="-20.3072365" velocity="5">
+		<LTVisualizer field="visualizer" red="0.71795124" green="0.3797513" blue="0.73418013"/>
+	</LTSprite>
+	<LTSprite x="-1.20144394" y="1.85382489" width="1.35925901" height="1.35925901" shape="1" moving-angle="-60.37043209" velocity="5">
+		<LTVisualizer field="visualizer" red="0.91138186" green="0.49453251" blue="0.74836708"/>
+	</LTSprite>
+	<LTSprite x="-1.1128177" y="1.7931975" width="0.93430605" height="0.93430605" shape="1" moving-angle="-45.63182649" velocity="5">
+		<LTVisualizer field="visualizer" red="0.29713759" green="0.36247241" blue="0.39278208"/>
+	</LTSprite>
+	<LTSprite x="-1.02248057" y="1.63280332" width="1.01237769" height="1.01237769" shape="1" moving-angle="-59.75470515" velocity="5">
+		<LTVisualizer field="visualizer" red="0.80767966" green="0.3370863" blue="0.47849674"/>
+	</LTSprite>
+	<LTSprite x="-0.89185737" y="1.50823297" width="1.37192152" height="1.37192152" shape="1" moving-angle="-83.93011294" velocity="5">
+		<LTVisualizer field="visualizer" red="0.44649237" green="0.55081426" blue="0.50792092"/>
+	</LTSprite>
+	<LTSprite x="-0.84501287" y="1.30628409" width="0.86836828" height="0.86836828" shape="1" moving-angle="-34.33578651" velocity="5">
+		<LTVisualizer field="visualizer" red="0.58660673" green="0.66741546" blue="0.75070365"/>
+	</LTSprite>
+	<LTSprite x="-0.76356257" y="1.20759551" width="1.04379979" height="1.04379979" shape="1" moving-angle="-95.24629682" velocity="5">
+		<LTVisualizer field="visualizer" red="0.29597037" green="0.62854786" blue="0.30036017"/>
+	</LTSprite>
+	<LTSprite x="-0.62493745" y="0.99986269" width="0.78021016" height="0.78021016" shape="1" moving-angle="-45.99699226" velocity="5">
+		<LTVisualizer field="visualizer" red="0.41664728" green="0.53222765" blue="0.69767041"/>
+	</LTSprite>
+	<LTSprite x="-0.42095038" y="0.71243329" width="1.47504493" height="1.47504493" shape="1" moving-angle="-102.62135235" velocity="5">
+		<LTVisualizer field="visualizer" red="0.93855599" green="0.72653688" blue="0.73491063"/>
+	</LTSprite>
+	<LTSprite x="-0.13330833" y="-0.06572958" width="1.19437883" height="1.19437883" shape="1" moving-angle="-59.4108944" velocity="5">
+		<LTVisualizer field="visualizer" red="0.5925985" green="0.95039329" blue="0.99476186"/>
+	</LTSprite>
+	<LTSprite x="0.0290699" y="-0.37422709" width="0.50824206" height="0.50824206" shape="1" moving-angle="-48.6710673" velocity="5">
+		<LTVisualizer field="visualizer" red="0.2907946" green="0.34063731" blue="0.88007875"/>
+	</LTSprite>
+	<LTSprite x="0.61864572" y="-4.01137811" width="1.39243923" height="1.39243923" shape="1" moving-angle="-114.26808523" velocity="5">
+		<LTVisualizer field="visualizer" red="0.35597853" green="0.97936382" blue="0.75246124"/>
+	</LTSprite>
+	<LTSprite x="0.56545118" y="-4.29182944" width="1.00545374" height="1.00545374" shape="1" moving-angle="-127.83400108" velocity="5">
+		<LTVisualizer field="visualizer" red="0.9664094" green="0.73674586" blue="0.7235263"/>
+	</LTSprite>
+	<LTSprite x="0.50756789" y="-4.57830873" width="1.42125686" height="1.42125686" shape="1" moving-angle="-81.05704447" velocity="5">
+		<LTVisualizer field="visualizer" red="0.95693071" green="0.6686401" blue="0.38691715"/>
+	</LTSprite>
+	<LTSprite x="0.37596206" y="-4.94983229" width="0.78641093" height="0.78641093" shape="1" moving-angle="-187.60242032" velocity="5">
+		<LTVisualizer field="visualizer" red="0.57403438" green="0.26730009" blue="0.94069122"/>
+	</LTSprite>
+	<LTSprite x="0.06403945" y="-5.00703643" width="0.79318721" height="0.79318721" shape="1" moving-angle="103.13983624" velocity="5">
+		<LTVisualizer field="visualizer" red="0.66904281" green="0.46633478" blue="0.58305473"/>
+	</LTSprite>
+	<LTSprite x="0.06457662" y="-4.83492673" width="1.20504145" height="1.20504145" shape="1" moving-angle="129.33604389" velocity="5">
+		<LTVisualizer field="visualizer" red="0.96186783" green="0.92488978" blue="0.52564957"/>
+	</LTSprite>
+	<LTSprite x="-0.01202122" y="-4.51584901" width="0.7739802" height="0.7739802" shape="1" moving-angle="147.55497967" velocity="5">
+		<LTVisualizer field="visualizer" red="0.3905321" green="0.25234923" blue="0.78843658"/>
+	</LTSprite>
+	<LTSprite x="-0.07332425" y="-4.18443476" width="0.61294437" height="0.61294437" shape="1" moving-angle="82.06567886" velocity="5">
+		<LTVisualizer field="visualizer" red="0.35922285" green="0.430113" blue="0.49856039"/>
+	</LTSprite>
+	<LTSprite x="-0.14264141" y="-3.8183543" width="1.08170803" height="1.08170803" shape="1" moving-angle="119.37925708" velocity="5">
+		<LTVisualizer field="visualizer" red="0.25042323" green="0.83278389" blue="0.737977"/>
+	</LTSprite>
+	<LTSprite x="-0.16511669" y="-3.44233953" width="1.38314868" height="1.38314868" shape="1" moving-angle="63.01653619" velocity="5">
+		<LTVisualizer field="visualizer" red="0.29697623" green="0.61833939" blue="0.90458026"/>
+	</LTSprite>
+	<LTSprite x="-0.0876633" y="-3.26593581" width="1.36093472" height="1.36093472" shape="1" moving-angle="92.87488793" velocity="5">
+		<LTVisualizer field="visualizer" red="0.42623042" green="0.43341579" blue="0.72242978"/>
+	</LTSprite>
+	<LTSprite x="-0.09859789" y="-3.00575856" width="0.77697369" height="0.77697369" shape="1" moving-angle="74.00181222" velocity="5">
+		<LTVisualizer field="visualizer" red="0.86161628" green="0.67468752" blue="0.32214698"/>
+	</LTSprite>
+	<LTSprite x="0.04859565" y="-2.74774221" width="0.93719648" height="0.93719648" shape="1" moving-angle="92.65214732" velocity="5">
+		<LTVisualizer field="visualizer" red="0.52072901" green="0.56022051" blue="0.32648482"/>
+	</LTSprite>
+	<LTSprite x="0.14996084" y="-2.34284118" width="1.23536698" height="1.23536698" shape="1" moving-angle="102.753024" velocity="5">
+		<LTVisualizer field="visualizer" red="0.67408656" green="0.3867743" blue="0.50600542"/>
+	</LTSprite>
+	<LTSprite x="0.33342038" y="-1.19834872" width="0.9097087" height="0.9097087" shape="1" moving-angle="53.373632" velocity="5">
+		<LTVisualizer field="visualizer" red="0.41064209" green="0.44020866" blue="0.90493929"/>
+	</LTSprite>
+	<LTSprite x="0.82261235" y="-0.71481484" width="1.28451306" height="1.28451306" shape="1" moving-angle="78.06984945" velocity="5">
+		<LTVisualizer field="visualizer" red="0.38846829" green="0.37509685" blue="0.61185669"/>
+	</LTSprite>
+	<LTSprite x="1.76246129" y="0.20244277" width="1.08247269" height="1.08247269" shape="1" moving-angle="25.04821463" velocity="5">
+		<LTVisualizer field="visualizer" red="0.65488286" green="0.54201257" blue="0.30614149"/>
+	</LTSprite>
+	<LTSprite x="1.9993192" y="0.4133313" width="0.83137573" height="0.83137573" shape="1" moving-angle="67.46735244" velocity="5">
+		<LTVisualizer field="visualizer" red="0.33699972" green="0.92940612" blue="0.90118543"/>
+	</LTSprite>
+	<LTSprite x="3.0491962" y="1.01401872" width="0.64263495" height="0.64263495" shape="1" moving-angle="-127.45396096" velocity="5">
+		<LTVisualizer field="visualizer" red="0.7273099" green="0.60465003" blue="0.44870379"/>
+	</LTSprite>
+	<LTSprite x="2.84517775" y="0.79394917" width="1.22743743" height="1.22743743" shape="1" moving-angle="-83.96451024" velocity="5">
+		<LTVisualizer field="visualizer" red="0.50158757" green="0.53438386" blue="0.94304228"/>
+	</LTSprite>
+	<LTSprite x="2.79431204" y="0.60641742" width="1.1522283" height="1.1522283" shape="1" moving-angle="-80.30355387" velocity="5">
+		<LTVisualizer field="visualizer" red="0.79239987" green="0.50451337" blue="0.57311538"/>
+	</LTSprite>
+	<LTSprite x="2.6107267" y="0.39986029" width="0.82784515" height="0.82784515" shape="1" moving-angle="-88.7912114" velocity="5">
+		<LTVisualizer field="visualizer" red="0.93187649" green="0.87729453" blue="0.75905585"/>
+	</LTSprite>
+	<LTSprite x="2.46077271" y="0.20710877" width="0.52229655" height="0.52229655" shape="1" moving-angle="-97.87144237" velocity="5">
+		<LTVisualizer field="visualizer" red="0.4304714" green="0.76633547" blue="0.96892493"/>
+	</LTSprite>
+	<LTSprite x="2.38516943" y="-0.02483125" width="0.778647" height="0.778647" shape="1" moving-angle="-157.10782495" velocity="5">
+		<LTVisualizer field="visualizer" red="0.30745384" green="0.84630465" blue="0.29460053"/>
+	</LTSprite>
+	<LTSprite x="2.17630845" y="-0.22942485" width="0.70203325" height="0.70203325" shape="1" moving-angle="-156.65008613" velocity="5">
+		<LTVisualizer field="visualizer" red="0.32385969" green="0.36205594" blue="0.3823303"/>
+	</LTSprite>
+	<LTSprite x="2.05249649" y="-0.38868356" width="0.66740219" height="0.66740219" shape="1" moving-angle="-200.04854364" velocity="5">
+		<LTVisualizer field="visualizer" red="0.97711966" green="0.73423999" blue="0.70747295"/>
+	</LTSprite>
+	<LTSprite x="1.71074364" y="-0.42989489" width="1.20433895" height="1.20433895" shape="1" moving-angle="140.39869584" velocity="5">
+		<LTVisualizer field="visualizer" red="0.43912908" green="0.32706681" blue="0.73709713"/>
+	</LTSprite>
+	<LTSprite x="1.62723256" y="-0.30027678" width="1.23479502" height="1.23479502" shape="1" moving-angle="120.08068822" velocity="5">
+		<LTVisualizer field="visualizer" red="0.68926375" green="0.62380583" blue="0.66656535"/>
+	</LTSprite>
+	<LTSprite x="1.83605595" y="0.6242583" width="1.19132739" height="1.19132739" shape="1" moving-angle="-164.02717384" velocity="5">
+		<LTVisualizer field="visualizer" red="0.30604046" green="0.77273174" blue="0.87747554"/>
+	</LTSprite>
+	<LTSprite x="1.64329063" y="0.60301344" width="1.47139354" height="1.47139354" shape="1" moving-angle="-89.33863178" velocity="5">
+		<LTVisualizer field="visualizer" red="0.8909476" green="0.73442054" blue="0.63446829"/>
+	</LTSprite>
+	<LTSprite x="1.431155" y="0.44704226" width="0.86235624" height="0.86235624" shape="1" moving-angle="-134.87727483" velocity="5">
+		<LTVisualizer field="visualizer" red="0.43278865" green="0.65291287" blue="0.39185811"/>
+	</LTSprite>
+	<LTSprite x="0.80741225" y="-0.39449603" width="1.37451813" height="1.37451813" shape="1" moving-angle="-152.72750955" velocity="5">
+		<LTVisualizer field="visualizer" red="0.33091361" green="0.83585563" blue="0.61055325"/>
+	</LTSprite>
+	<LTSprite x="0.69751921" y="-0.53588342" width="0.72449309" height="0.72449309" shape="1" moving-angle="-107.32867304" velocity="5">
+		<LTVisualizer field="visualizer" red="0.87465464" green="0.38107749" blue="0.48831064"/>
+	</LTSprite>
+	<LTSprite x="0.54348537" y="-0.77014219" width="0.73037642" height="0.73037642" shape="1" moving-angle="-99.85373617" velocity="5">
+		<LTVisualizer field="visualizer" red="0.91609985" green="0.94075779" blue="0.98270536"/>
+	</LTSprite>
+	<LTSprite x="0.39136164" y="-0.853336" width="1.08103464" height="1.08103464" shape="1" moving-angle="-129.20877605" velocity="5">
+		<LTVisualizer field="visualizer" red="0.84602602" green="0.49353601" blue="0.3224826"/>
+	</LTSprite>
+	<LTSprite x="-0.11421022" y="-0.96332548" width="0.85635757" height="0.85635757" shape="1" moving-angle="195.07450127" velocity="5">
+		<LTVisualizer field="visualizer" red="0.72706168" green="0.7136946" blue="0.70593615"/>
+	</LTSprite>
+	<LTSprite x="-0.53306938" y="-0.78445026" width="0.74561754" height="0.74561754" shape="1" moving-angle="132.08606199" velocity="5">
+		<LTVisualizer field="visualizer" red="0.94924209" green="0.8811459" blue="0.91319234"/>
+	</LTSprite>
+	<LTSprite x="-0.94477812" y="-0.43195782" width="0.78704034" height="0.78704034" shape="1" moving-angle="121.10167344" velocity="5">
+		<LTVisualizer field="visualizer" red="0.8513684" green="0.47300268" blue="0.33687916"/>
+	</LTSprite>
+	<LTSprite x="-1.17114018" y="-0.18312817" width="1.36961236" height="1.36961236" shape="1" moving-angle="136.32709666" velocity="5">
+		<LTVisualizer field="visualizer" red="0.83057842" green="0.48452608" blue="0.42078479"/>
+	</LTSprite>
+	<LTSprite x="-1.38115371" y="0.22127181" width="0.64989165" height="0.64989165" shape="1" moving-angle="87.9096895" velocity="5">
+		<LTVisualizer field="visualizer" red="0.5945825" green="0.74443749" blue="0.32950064"/>
+	</LTSprite>
+	<LTSprite x="-1.41985242" y="0.42732944" width="0.79371109" height="0.79371109" shape="1" moving-angle="73.76095439" velocity="5">
+		<LTVisualizer field="visualizer" red="0.65163511" green="0.77424468" blue="0.80128062"/>
+	</LTSprite>
+</LTLayer>

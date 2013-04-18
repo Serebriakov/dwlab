@@ -1,4 +1,4 @@
-<LTWorld dwlab_version="1.4.28" total-loading-time="37">
+<LTWorld dwlab_version="1.4.34" total-loading-time="54">
 	<LTVisualizer field="visualizer" id="1"/>
 	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
@@ -28,105 +28,14 @@
 		<LTShape field="bounds" x="16" y="16" width="32" height="32">
 			<LTVisualizer field="visualizer" id="231"/>
 		</LTShape>
-		<LTTileMap x="16" y="16" width="32" height="32" xquantity="32" yquantity="32" tiles-quantity="90" file-num="1">
+		<LTTileMap x="16" y="16" width="32" height="32" xquantity="32" yquantity="32" tiles-quantity="90" loading-time="11" file-num="3" offset="0">
 			<TList field="parameters">
 				<LTParameter name="name" value="CurvedAreas"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="8" name="CurvedAreas" tiles-quantity="90" block-width="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" block-height="000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-				<LTImage field="image" id="9" filename="curved_areas.png" xcells="9" ycells="10" loading-time="20"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="8" name="CurvedAreas" tiles-quantity="90">
+				<LTImage field="image" id="9" filename="curved_areas.png" xcells="9" ycells="10" loading-time="29"/>
+				<Array field="collision-shapes" size="90"/>
 				<LTTileCategory name="White">
 					<LTTileRule tilenums="69">
 						<LTTilePos dx="-1" tilenum="20"/>
@@ -407,30 +316,14 @@
 		<LTShape field="bounds" x="8" y="8" width="16" height="16">
 			<Object field="visualizer" id="231"/>
 		</LTShape>
-		<LTTileMap x="8" y="8" width="16" height="16" xquantity="16" yquantity="16" tiles-quantity="15" loading-time="1" file-num="2">
+		<LTTileMap x="8" y="8" width="16" height="16" xquantity="16" yquantity="16" tiles-quantity="15" file-num="3" offset="1024">
 			<TList field="parameters">
 				<LTParameter name="name" value="Areas"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="237" name="Areas" tiles-quantity="15" block-width="000000000000000" block-height="000000000000000">
+			<LTTileSet field="tileset" id="237" name="Areas" tiles-quantity="15">
 				<LTImage field="image" id="238" filename="areas.png" xcells="5" ycells="3" loading-time="12"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+				<Array field="collision-shapes" size="15"/>
 				<LTTileCategory name="Category 1">
 					<LTTileRule tilenums="7"/>
 				</LTTileCategory>
@@ -488,35 +381,14 @@
 		<LTShape field="bounds" x="25" y="8" width="16" height="16">
 			<Object field="visualizer" id="231"/>
 		</LTShape>
-		<LTTileMap x="25" y="8" width="16" height="16" xquantity="16" yquantity="16" tiles-quantity="20" file-num="3">
+		<LTTileMap x="25" y="8" width="16" height="16" xquantity="16" yquantity="16" tiles-quantity="20" file-num="3" offset="1280">
 			<TList field="parameters">
 				<LTParameter name="name" value="Walls"/>
 			</TList>
 			<LTVisualizer field="visualizer"/>
-			<LTTileSet field="tileset" id="277" name="Walls" tiles-quantity="20" block-width="00000000000000000000" block-height="00000000000000000000">
-				<LTImage field="image" id="278" filename="walls.png" xcells="4" ycells="5" loading-time="4"/>
-				<ShapeArray field="collision-shapes">
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-					<Null/>
-				</ShapeArray>
+			<LTTileSet field="tileset" id="277" name="Walls" tiles-quantity="20">
+				<LTImage field="image" id="278" filename="walls.png" xcells="4" ycells="5" loading-time="2"/>
+				<Array field="collision-shapes" size="20"/>
 				<LTTileCategory name="Category 1">
 					<LTTileRule tilenums="0"/>
 				</LTTileCategory>

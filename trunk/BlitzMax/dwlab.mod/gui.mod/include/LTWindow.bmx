@@ -238,4 +238,12 @@ Type LTWindow Extends LTLayer
 	
 	Method DeInit()
 	End Method
+
+
+
+	Method ChangeLabelTitle( LabelName:String, LabelTitle:String, XXXValue:String = "" )
+		LabelTitle = LocalizeString( "{{" + LabelTitle + "}}" )
+		If XXXValue Then LabelTitle = Replace( LabelTitle, "XXX", XXXValue )
+		LTLabel( FindShape( LabelName ) ).Text = LabelTitle
+	End Method
 End Type

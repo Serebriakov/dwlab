@@ -25,7 +25,7 @@ Import dwlab.audiodrivers 'loading audio drivers
 Include "TGame.bmx"
 Include "TMario.bmx"
 Include "TTiles.bmx"
-Include "TGoomba.bmx"
+Include "TEnemy.bmx"
 Include "TTrigger.bmx"
 Include "TScore.bmx"
 Include "TBlock.bmx"

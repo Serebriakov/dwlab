@@ -37,7 +37,7 @@ Type TFireballCollidesWithSprite Extends LTSpriteCollisionHandler
 	Global Instance:TFireballCollidesWithSprite = New TFireballCollidesWithSprite
 
 	Method HandleCollision( Sprite1:LTSprite, Sprite2:LTSprite )
-       If TGoomba( Sprite2 ) Then
+       If TEnemy( Sprite2 ) Then
            Sprite1.AttachModel( New TExploding )
            Sprite2.AttachModel( New TKicked )
        End If

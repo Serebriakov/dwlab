@@ -1,4 +1,4 @@
-Type TGoomba Extends LTVectorSprite
+Type TGoomba Extends TEnemy
    Const WalkingAnimationSpeed:Double = 0.3
 
    Field Animation:LTAnimationModel = LTAnimationModel.Create( True, WalkingAnimationSpeed, 2 )
@@ -13,6 +13,10 @@ Type TGoomba Extends LTVectorSprite
        AttachModel( LTSpriteMapCollisionModel.Create( Game.MovingObjects, TSpritesVerticalCollision.Instance ) )
        AttachModel( New TGravity )
        AttachModel( New TRemoveIfOutside )
+   End Method
+   
+   Method Stomp()
+       AttachModel( New TStomped )
    End Method
 End Type
 

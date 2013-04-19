@@ -6,7 +6,7 @@ Type TMario Extends LTVectorSprite
 	Global Jumping:TJumping = New TJumping
 	
 	Global DyingAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 6 )
-	Global FiringAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 8 )
+	Global FiringAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 6 )
 	Global JumpingAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 4 )
 	Global SlidingAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 5 )
 	Global MovementAnimation:LTAnimationModel = LTAnimationModel.Create( True, 0.2, 1, 1 )
@@ -136,11 +136,11 @@ Type TMarioCollidedWithSprite Extends LTSpriteCollisionHandler
         If TBonus( Sprite2 ) Then
              Game.MovingObjects.RemoveSprite( Sprite2 )
              TBonus( Sprite2 ).Collect()
-        ElseIf TGoomba( Sprite2 ) Then
+        ElseIf TEnemy( Sprite2 ) Then
             If Sprite1.FindModel( "TInvulnerable" ) Then
                Sprite2.AttachModel( New TKicked )
            ElseIf Sprite1.BottomY() < Sprite2.Y Then
-               Sprite2.AttachModel( New TStomped )
+               TEnemy( Sprite2 ).Stomp()
                LTVectorSprite( Sprite1 ).DY = HopStrength
                TScore.FromSprite( Sprite2, TMario.Combo )
                If TMario.Combo < TScore.s400 Then TMario.Combo :+ 1
@@ -308,6 +308,7 @@ Type TShrinking Extends TGrowing
        PlaySound( TMario.Pipe )
        StartingTime = Game.Time
        Shape.AttachModel( New TInvisible )
+	   TMario.FrameShift = 0
    End Method
    
    Method ApplyTo( Shape:LTShape )
@@ -318,7 +319,7 @@ Type TShrinking Extends TGrowing
    Method Deactivate( Shape:LTShape )
        Shape.ActivateAllModels()
        Game.Level.Active = True
-       Shape.SetSize( 1.0, 1.0 )
+       Shape.SetSize( 0.8, 1.0 )
        Shape.AlterCoords( 0.0, 0.5 )
        Shape.Visualizer.SetImage( TMario.SmallMario )
        TMario.Big = False

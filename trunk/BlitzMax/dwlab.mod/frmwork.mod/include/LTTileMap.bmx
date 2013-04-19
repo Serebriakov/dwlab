@@ -16,7 +16,6 @@ bbdoc: Tilemap is displayable rectangular tile-based shape with 2d array of tile
 End Rem
 Type LTTileMap Extends LTIntMap
 	Global LoadingErrorHandler:LTTileMapLoadingErrorHandler = New LTTileMapLoadingErrorHandler
-	Global FileNum:Int = 0
 	Global File:TStream
 	Global Offset:Int = 0
 	
@@ -259,6 +258,7 @@ Type LTTileMap Extends LTIntMap
 		XMLObject.ManageIntAttribute( "horizontal-order", HorizontalOrder, 1 )
 		XMLObject.ManageIntAttribute( "vertical-order", VerticalOrder, 1 )
 		XMLObject.ManageIntAttribute( "loading-time", LoadingTime )
+		Local FileNum:Int = 0
 		XMLObject.ManageIntAttribute( "file-num", FileNum )
 		XMLObject.ManageIntAttribute( "offset", Offset, -1 )
 			

@@ -356,6 +356,10 @@ End Type
 
 
 
+Rem
+bbdoc: Tile map loading error handler.
+about: Intended to handle situation when binary tilemap file is missing.
+End Rem
 Type LTTileMapLoadingErrorHandler
 	Method HandleError( FileName:String )
 		L_Error( "Tile map " + FileName + " cannot be loaded or not found." )
@@ -366,6 +370,10 @@ End Type
 
 
 
+Rem
+bbdoc: Tile map collision model.
+about: Checks collisions of shape and given tile map and launches given collision handler upon them.
+End Rem
 Type LTTileMapCollisionModel Extends LTBehaviorModel
 	Field TileMap:LTTileMap
 	Field CollisionHandler:LTSpriteAndTileCollisionHandler

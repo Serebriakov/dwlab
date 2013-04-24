@@ -640,6 +640,10 @@ Type LTSprite Extends LTShape
 	
 	
 	
+	Rem
+	bbdoc: Reverses sprite direction.
+	about: See also: #Turn
+	End Rem
 	Method ReverseDirection()
 		Angle = Angle + 180
 	End Method

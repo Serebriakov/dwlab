@@ -934,10 +934,10 @@ Type LTEditor Extends LTProject
 						End If
 					Case Key_T
 						If Not SelectedShapes.IsEmpty() Then
-							Local Name:String = SelectedShape.GetName()
-							If EnterString( LocalizeString( "{{D_EnterClassNameOfObject}}" ), Name ) Then
+							Local ClassTitle:String = LTShape( SelectedShapes.First() ).GetClassTitle()
+							If EnterString( LocalizeString( "{{D_EnterClassNameOfObject}}" ), ClassTitle ) Then
 								For Local Shape:LTShape = Eachin SelectedShapes
-									Shape.SetParameter( "class", Name )
+									Shape.SetParameter( "class", ClassTitle )
 								Next
 								RefreshParametersListBox()
 								SetChanged()
@@ -945,7 +945,7 @@ Type LTEditor Extends LTProject
 						End If
 					Case Key_N
 						If Not SelectedShapes.IsEmpty() Then
-							Local Name:String = SelectedShape.GetName()
+							Local Name:String = LTShape( SelectedShapes.First() ).GetName()
 							If EnterString( LocalizeString( "{{D_EnterNameOfObject}}" ), Name ) Then
 								For Local Shape:LTShape = Eachin SelectedShapes
 									Shape.SetParameter( "name", Name )
@@ -982,11 +982,19 @@ Type LTEditor Extends LTProject
 							SetChanged()
 						End If
 					Case Key_G
-						If Not SelectedShapes.IsEmpty() Then
-							TAddTemplate.Instance.Execute()
-						End If
+						If Not SelectedShapes.IsEmpty() Then TAddTemplate.Instance.Execute()
 					Case Key_U
-						If SelectedShapes.Count() = 1 Then TAddTemplate.Instance.Execute()
+						If SelectedShapes.Count() = 1 Then
+							Local Sprite:LTSprite = LTSprite( SelectedShapes.First() )
+							If Sprite Then
+								Local Template:LTSpriteTemplate = LTSpriteTemplate( Sprite.ShapeType )
+								If Template Then
+									Local Layer:LTLayer = FindLayer( Sprite )
+									Template.ToSprites( Sprite, Layer )
+									Layer.Remove( Sprite )
+								End If
+							End If
+						End If
 					Case KEY_R
 						Local TileSetName:String, TileNum1:String, TileNum2:String
 						If EnterString( "Enter tileset name to process", TileSetName ) Then
@@ -2531,6 +2539,20 @@ Type LTEditor Extends LTProject
 		
 		For Local ChildLayer:LTLayer = Eachin Layer
 			ReplaceTiles( ChildLayer, TileSetName, TileNum1, TileNum2 )
+		Next
+	End Method
+	
+	
+	
+	Method FindLayer:LTLayer( Shape:LTShape, Layer:LTLayer = Null )
+		If Not Layer Then Layer = World
+		For Local ChildShape:LTShape = Eachin Layer
+			If LTLayer( ChildShape ) Then
+				Local Layer:LTLayer = FindLayer:LTLayer( Shape, LTLayer( ChildShape ) )
+				If Layer Then Return Layer
+			ElseIf Shape = ChildShape Then
+				Return Layer
+			End If
 		Next
 	End Method
 End Type

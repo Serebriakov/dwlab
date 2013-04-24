@@ -245,7 +245,7 @@ Type LTVisualizer Extends LTColor
 			L_CurrentCamera.FieldToScreen( SpriteShape.X, SpriteShape.Y, SX, SY )
 			L_CurrentCamera.SizeFieldToScreen( SpriteShape.Width, SpriteShape.Height, SWidth, SHeight )
 			
-			If Sprite.ShapeType = LTSprite.Raster Then
+			If Sprite.ShapeType.GetNum() = LTSprite.Raster.GetNum() Then
 				If Image Then
 					Local Blend:Int = GetBlend()
 					SetBlend MASKBLEND 

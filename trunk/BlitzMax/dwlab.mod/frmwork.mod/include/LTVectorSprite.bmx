@@ -135,6 +135,10 @@ End Type
 
 
 
+Rem
+bbdoc: Horizontal movement model for vector sprite.
+about: Moves sprite using its DX value. You can use this model before checking horizontal collisions
+End Rem
 Type LTHorizontalMovementModel Extends LTBehaviorModel
 	Method ApplyTo( Shape:LTShape )
 		Local Sprite:LTVectorSprite = LTVectorSprite( Shape )
@@ -144,6 +148,10 @@ End Type
 
 
 
+Rem
+bbdoc: Vertical movement model for vector sprite.
+about: Moves sprite using its DY value. You can use this model before checking vertical collisions
+End Rem
 Type LTVerticalMovementModel Extends LTBehaviorModel
 	Method ApplyTo( Shape:LTShape )
 		Local Sprite:LTVectorSprite = LTVectorSprite( Shape )

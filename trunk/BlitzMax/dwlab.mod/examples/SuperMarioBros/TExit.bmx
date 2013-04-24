@@ -1,6 +1,6 @@
 Type TExit Extends LTVectorSprite
   Method Act()
-      If Overlaps( Game.Mario ) And TMario.Jumping.Active Then
+      If Overlaps( Game.Mario ) And TMario.OnLand Then
           If DY > 0.0 Then
               If KeyDown( Key_Down ) Then Game.Mario.AttachModel( TEnteringVerticalPipe.Create( Self ) )
           Else

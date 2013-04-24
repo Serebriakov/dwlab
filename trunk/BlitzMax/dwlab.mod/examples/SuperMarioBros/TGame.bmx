@@ -83,7 +83,7 @@ Type TGame Extends LTProject
        Level.Act()
        If KeyHit( Key_Escape ) Then End ' exit after pressing Escape
 	   L_Music.Manage()
-	   TTime.Act()
+	   If Level.Active Then TTime.Act()
    End Method
    
     Method Render()

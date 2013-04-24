@@ -34,17 +34,9 @@ Include "TStart.bmx"
 Include "TExit.bmx"
 Include "TTime.bmx"
 Include "TLives.bmx"
+Include "TPole.bmx"
 Include "CommonBehaviorModels.bmx"
 Include "HUD.bmx"
 
 Global Game:TGame = New TGame
 Game.Execute()
-
-Type TKoopaTroopa Extends LTSprite
-End Type
-
-Type TPole Extends LTSprite
-End Type
-
-Type TFlag Extends LTSprite
-End Type

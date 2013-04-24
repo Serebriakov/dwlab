@@ -12,6 +12,7 @@ Type TCollisionWithWall Extends LTSpriteAndTileCollisionHandler
    Method HandleCollision( Sprite:LTSprite, TileMap:LTTileMap, TileX:Int, TileY:Int, CollisionSprite:LTSprite )
        Sprite.PushFromTile( TileMap, TileX, TileY )
        LTVectorSprite( Sprite ).DX :* -1
+	   If TKoopaTroopa( Sprite ) Then TBlock.Bump.Play()
    End Method
 End Type
 
@@ -36,6 +37,10 @@ Type TSpritesHorizontalCollision Extends LTSpriteCollisionHandler
 	Global Instance:TSpritesHorizontalCollision = New TSpritesHorizontalCollision
 	
    Method HandleCollision( Sprite1:LTSprite, Sprite2:LTSprite )
+       If TKoopaTroopa( Sprite1 ) Then
+	   		TKoopaTroopa( Sprite1 ).Touch( Sprite2 )
+			Return
+	   End If
        Sprite1.PushFromSprite( Sprite2 )
        LTVectorSprite( Sprite1 ).DX :* -1
    End Method
@@ -47,7 +52,11 @@ Type TSpritesVerticalCollision Extends LTSpriteCollisionHandler
 	Global Instance:TSpritesVerticalCollision = New TSpritesVerticalCollision
 	
    Method HandleCollision( Sprite1:LTSprite, Sprite2:LTSprite )
-       Sprite1.PushFromSprite( Sprite2 )
+       If TKoopaTroopa( Sprite1 ) Then
+	   		TKoopaTroopa( Sprite1 ).Touch( Sprite2 )
+			Return
+	   End If
+	   Sprite1.PushFromSprite( Sprite2 )
    End Method
 End Type
 

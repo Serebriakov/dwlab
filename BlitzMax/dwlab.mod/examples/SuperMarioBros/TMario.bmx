@@ -9,7 +9,7 @@ Type TMario Extends LTVectorSprite
 	Global FiringAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 6 )
 	Global JumpingAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 4 )
 	Global SlidingAnimation:LTAnimationModel = LTAnimationModel.Create( False, 1, 1, 5 )
-	Global MovementAnimation:LTAnimationModel = LTAnimationModel.Create( True, 0.2, 1, 1 )
+	Global MovementAnimation:LTAnimationModel = LTAnimationModel.Create( True, 1, 1, 1 )
 	Global StandingAnimation:LTAnimationModel = LTAnimationModel.Create( True, 1, 1, 0 )
    
 	Global Combo:Int = TScore.s100
@@ -21,7 +21,8 @@ Type TMario Extends LTVectorSprite
     Global Powerup:TSound = TSound.Load( "media\Powerup.ogg", False )	
     Global Pipe:TSound = TSound.Load( "media\Pipe.ogg", False )
 	
-    Global FrameShift:Int	   
+    Global FrameShift:Int	  
+	Global OnLand:Int
 	
     Method Init()
        BehaviorModels.Clear()
@@ -46,7 +47,7 @@ Type TMario Extends LTVectorSprite
 	End Method
    
    Method Act()
-		Jumping.DeactivateModel( Self )
+		OnLand = False
 		Super.Act()
        
        LimitHorizontallyWith( Game.Level.Bounds )
@@ -88,11 +89,11 @@ End Type
 Function SharedTileCollision:Int( Sprite:LTSprite, TileMap:LTTileMap, TileX:Int, TileY:Int )
 	Local TileNum:Int = TileMap.GetTile( TileX, TileY )
 	If TileNum = TTIles.Coin Then
-          TileMap.SetTile( TileX, TileY, TTiles.DarkEmptyBlock )
-          Game.Coins :+ 1
-          TCoin.CoinFlip.Play()
+	   TileMap.SetTile( TileX, TileY, TTiles.DarkEmptyBlock )
+	   Game.Coins :+ 1
+	   TCoin.CoinFlip.Play()
 	   Return True
-      Else
+	Else
 	   Sprite.PushFromTile( TileMap, TileX, TileY )
 	End If
 End Function
@@ -106,7 +107,7 @@ Type TMarioCollidedWithFloor Extends LTSpriteAndTileCollisionHandler
 		If SharedTileCollision( Sprite, TileMap, TileX, TileY ) Then Return
 		Local VectorSprite:LTVectorSprite = LTVectorSprite( Sprite )
 		If VectorSprite.DY >= 0 Then
-			TMario.Jumping.ActivateModel( Sprite )
+			TMario.OnLand = True
 			TMario.JumpingAnimation.DeactivateModel( Sprite )
 			TMario.Combo = TScore.s100
 		Else
@@ -133,6 +134,14 @@ Type TMarioCollidedWithSprite Extends LTSpriteCollisionHandler
 	Global Instance:TMarioCollidedWithSprite = New TMarioCollidedWithSprite
 	
 	Method HandleCollision( Sprite1:LTSprite, Sprite2:LTSprite )
+		Local KoopaTroopa:TKoopaTroopa = TKoopaTroopa( Sprite2 )
+		If KoopaTroopa Then
+	   		If KoopaTroopa.ShellFrame.Active And KoopaTroopa.DX = 0 Then
+				KoopaTroopa.Push()
+				Return
+			End if
+		End If
+	
         If TBonus( Sprite2 ) Then
              Game.MovingObjects.RemoveSprite( Sprite2 )
              TBonus( Sprite2 ).Collect()
@@ -141,11 +150,12 @@ Type TMarioCollidedWithSprite Extends LTSpriteCollisionHandler
                Sprite2.AttachModel( New TKicked )
            ElseIf Sprite1.BottomY() < Sprite2.Y Then
                TEnemy( Sprite2 ).Stomp()
+			   Sprite1.PushFromSprite( Sprite2 )
                LTVectorSprite( Sprite1 ).DY = HopStrength
                TScore.FromSprite( Sprite2, TMario.Combo )
                If TMario.Combo < TScore.s400 Then TMario.Combo :+ 1
            Else
-               TMario( Sprite1 ).Damage()
+			   TMario( Sprite1 ).Damage()
            End If
        End If
 	End Method
@@ -165,7 +175,7 @@ Type TMoving Extends LTBehaviorModel
 	
    Method ApplyTo( Shape:LTShape )
        Local VectorSprite:LTVectorSprite = LTVectorSprite( Shape )
-        Local Direction:Double = Sgn( VectorSprite.DX )
+       Local Direction:Double = Sgn( VectorSprite.DX )
        Local Force:Double = 0.0
        If KeyDown( Key_Left ) Then Force = -1.0
        If KeyDown( Key_Right ) Then Force = 1.0
@@ -183,7 +193,7 @@ Type TMoving Extends LTBehaviorModel
            Local MaxSpeed:Double = MaxWalkingSpeed
            If KeyDown( Key_S ) Then MaxSpeed = MaxRunningSpeed
            if Abs( VectorSprite.DX ) < MaxSpeed Then VectorSprite.DX :+ Force * Game.PerSecond( Acceleration )
-           Frame :+ Game.PerSecond( VectorSprite.DX ) * AnimationSpeed
+           Frame :+ Abs( Game.PerSecond( VectorSprite.DX ) ) * AnimationSpeed
            TMario.MovementAnimation.FrameStart = Floor( Frame - Floor( Frame / 3.0 ) * 3.0 ) + 1
        End If
 	   
@@ -204,11 +214,14 @@ End Type
 
 Type TJumping Extends LTBehaviorModel
    Const Strength:Double = -17.0
+   
+   Global Jump:TSound = TSound.Load( "media\Jump.ogg", False )
 
    Method ApplyTo( Shape:LTShape )
-		If KeyDown( Key_A ) Then
+		If KeyDown( Key_A ) And TMario.OnLand Then
 			LTVectorSprite( Shape ).DY = Strength
 			TMario.JumpingAnimation.ActivateModel( Shape )
+			Jump.Play()
 		End If
 	End Method
 End Type
@@ -461,6 +474,185 @@ Type TFireable Extends LTBehaviorModel
            TMario.FiringAnimation.DeactivateModel( Game.Mario )
        Else
            TMario.FiringAnimation.ActivateModel( Game.Mario )
+       End If
+   End Method
+End Type
+
+
+
+Type TSlidingDownThePole Extends LTBehaviorModel
+   Const MarioSpeed:Double = 4.0
+   Const FlagSpeed:Double = 8.0
+   
+   Global FlagPole:TSound = TSound.Load( "media\FlagPole.ogg", False )
+   
+   Field Pole:LTShape = Game.Level.FindShapeWithType( "TPole" )
+   Field Flag:LTShape = Game.Level.FindShape( "Flag" )
+   
+   Method Activate( Shape:LTShape )
+       Shape.DeactivateModel( "LTSpriteMapCollisionModel" )
+       Shape.DeactivateModel( "TGravity" )
+       Shape.DeactivateModel( "TMoving" )
+       Shape.DeactivateModel( "TJumping" )
+       Shape.DeactivateModel( "TSitting" )
+	   Shape.DeactivateModel( "LTModelStack" )
+       Game.Level.Active = False
+       Game.Mario.X = Pole.X - 0.3 * Game.Mario.GetFacing()
+	   Game.Mario.DY = 0.0
+       Game.Mario.Frame = 8
+       L_Music.ClearMusic()
+	   L_Music.StopMusic()
+       FlagPole.Play()
+       TScore.FromSprite( Game.Mario, L_LimitInt( ( Pole.BottomY() - Game.Mario.BottomY() ) / Pole.Height * 11, TScore.s100, TScore.s8000 ) )
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       If Game.Mario.BottomY() < Pole.BottomY() Then Game.Mario.Move( 0.0, MarioSpeed )
+       If Flag.BottomY() < Pole.BottomY() Then
+           Flag.Move( 0.0, FlagSpeed )
+       ElseIf Game.Mario.BottomY() >= Pole.BottomY() Then
+           DeactivateModel( Shape )
+       End If
+   End Method
+   
+   Method Deactivate( Shape:LTShape )
+		Shape.AttachModel( New TWalkingToExit )
+   End Method
+End Type
+
+
+
+Type TWalkingToExit Extends LTBehaviorModel
+   Const WalkingSpeed:Double = 5.0
+   Const WalkingAnimationSpeed:Double = 0.15
+   
+   Global StageClear:TSound = TSound.Load( "media\StageClear.ogg", False )
+   
+   Field FinalExit:LTShape = Game.Level.FindShape( "FinalExit" )
+   Field AnimationStartingTime:Double
+   
+   Method Activate( Shape:LTShape )
+       Shape.ActivateModel( "TGravity" )
+       Game.Mario.SetFacing( LTSprite.RightFacing )
+       Game.Mario.Frame = 4
+       StageClear.Play()
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       Game.Mario.DX = WalkingSpeed
+       If TMario.OnLand Then
+           Game.Mario.Animate( WalkingAnimationSpeed, 3, 1, AnimationStartingTime )
+       Else
+           AnimationStartingTime = Game.Time
+       End If
+       If Game.Mario.X >= FinalExit.X Then DeactivateModel( Shape )
+   End Method
+   
+   Method Deactivate( Shape:LTShape )
+		Shape.AttachModel( New TExiting )
+   End Method
+End Type
+
+
+
+Type TExiting Extends LTBehaviorModel
+   Field FinalExit:LTShape = Game.Level.FindShape( "FinalExit" )
+   
+   Method Activate( Shape:LTShape )
+       Game.Mario.LimitByWindowShape( FinalExit )
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       Game.Mario.DX = TWalkingToExit.WalkingSpeed
+       If Game.Mario.LeftX() >= FinalExit.RightX() Then DeactivateModel( Shape )
+   End Method
+   
+   Method Deactivate( Shape:LTShape )
+		Shape.AttachModel( New TRaisingFlag )
+		Shape.AttachModel( New TTimeToScore )
+   End Method
+End Type
+
+
+
+Type TRaisingFlag Extends LTBehaviorModel
+   Const CastleFlagSpeed:Double = 0.8
+   
+   Global FlagOnCastle:LTVisualizer = LTVisualizer.FromFile( "media\FlagOnCastle.png" )
+   
+   Field CastleFlagSpace:LTShape = Game.Level.FindShape( "CastleFlagSpace" )
+   Field CastleFlag:LTSprite
+   
+   Method Activate( Shape:LTShape )
+       Game.Mario.Visible = False
+       Game.Mario.DX = 0.0
+       CastleFlag = New LTSprite
+       Game.Level.AddLast( CastleFlag )
+       CastleFlag.SetCoords( CastleFlagSpace.X, CastleFlagSpace.Y + 1.0 )
+       CastleFlag.SetSize( 1.0, 1.0 )
+       CastleFlag.Visualizer = FlagOnCastle
+       CastleFlag.LimitByWindowShape( CastleFlagSpace )
+       Game.Level.AddLast( CastleFlag )
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       CastleFlag.Move( 0, -CastleFlagSpeed )
+       If CastleFlagSpace.Y >= CastleFlag.Y Then DeactivateModel( Shape )
+   End Method
+   
+   Method Deactivate( Shape:LTShape )
+		Shape.AttachModel( New TLaunchFireworks )
+   End Method
+End Type
+
+
+
+Type TLaunchFireworks Extends LTBehaviorModel
+   Const TotalFireworks:Int = 5
+   Const ExplodingSpeed:Double = 0.2
+   
+   Global Fireworks:TSound = TSound.Load( "media\Fireworks.ogg", False )
+   
+   Field Firework:LTSprite
+   Field FireworksLeft:Int = TotalFireworks
+   Field FireworkExplodingTime:Double
+   Field CastleFlag:LTShape = Game.Level.FindShape( "CastleFlagSpace" )
+   
+   Method Activate( Shape:LTShape )
+       Firework = New LTSprite
+       Firework.SetSize( 1.0, 1.0 )
+       Firework.Visualizer = TFireball.Explosion
+       Game.Level.AddLast( Firework )
+   End Method
+   
+   Method ApplyTo( Shape:LTShape )
+       If Game.Time >= FireworkExplodingTime + ExplodingSpeed * 3 Then
+           If FireworksLeft = 0 Then
+               Game.Level.Remove( Firework )
+           Else
+               Firework.SetCoords( CastleFlag.X + Rnd( -5.0, 5.0 ), CastleFlag.Y - Rnd( 5.0 ) )
+               Fireworks.Play()
+               FireworkExplodingTime = Game.Time
+               FireworksLeft :- 1
+           End If
+       Else
+           Firework.Animate( ExplodingSpeed, , , FireworkExplodingTime )
+       End If
+   End Method
+End Type
+
+
+
+Type TTimeToScore Extends LTBehaviorModel
+   Const TimeToScoreSpeed:Double = 0.02
+   
+   Field LastTimeToScoreSwap:Double
+   
+   Method ApplyTo( Shape:LTShape )
+       If Game.TimeLeft > 0 And Game.Time > LastTimeToScoreSwap + TimeToScoreSpeed Then
+           Game.TimeLeft :- 1
+           Game.Score :+ 50
+           LastTimeToScoreSwap = Game.Time
        End If
    End Method
 End Type

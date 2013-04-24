@@ -15,6 +15,10 @@ Include "LTColorChangingModel.bmx"
 Include "LTTimedMovementModel.bmx"
 
 
+Rem
+bbdoc: Temporary behavior model.
+about: Lasts for defined period of time.
+End Rem
 Type LTTemporaryModel Extends LTChainedModel
 	Field StartingTime:Double
 	Field Period:Double

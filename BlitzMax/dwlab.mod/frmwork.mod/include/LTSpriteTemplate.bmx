@@ -42,17 +42,21 @@ Type LTSpriteTemplate Extends LTShapeType
 	
 	
 	Method SetShape( Sprite:LTSprite, TemplateSprite:LTSprite, SpriteShape:LTSprite )
-		If Sprite.DisplayingAngle = 0 Then
+		Local Angle:Double = Sprite.DisplayingAngle
+		If TemplateSprite.Visualizer.Rotating Then Angle :+ Sprite.Angle
+
+		If Angle = 0 Then
 			SpriteShape.X = TemplateSprite.X * Sprite.Width + Sprite.X
 			SpriteShape.Y = TemplateSprite.Y * Sprite.Height + Sprite.Y
 		Else
 			Local RelativeX:Double = TemplateSprite.X * Sprite.Width
 			Local RelativeY:Double = TemplateSprite.Y * Sprite.Height
-			SpriteShape.X = RelativeX * Cos( Sprite.DisplayingAngle ) - RelativeY * Sin( Sprite.DisplayingAngle ) + Sprite.X
-			SpriteShape.Y = RelativeX * Sin( Sprite.DisplayingAngle ) + RelativeY * Cos( Sprite.DisplayingAngle ) + Sprite.Y
+			SpriteShape.X = RelativeX * Cos( Angle ) - RelativeY * Sin( Angle ) + Sprite.X
+			SpriteShape.Y = RelativeX * Sin( Angle ) + RelativeY * Cos( Angle ) + Sprite.Y
 		End If
 		SpriteShape.Width = Sprite.Width * TemplateSprite.Width
 		SpriteShape.Height = Sprite.Height * TemplateSprite.Height
+		SpriteShape.Angle = Sprite.Angle + TemplateSprite.Angle
 		SpriteShape.DisplayingAngle = Sprite.DisplayingAngle + TemplateSprite.DisplayingAngle
 	End Method
 	
@@ -117,6 +121,7 @@ Type LTSpriteTemplate Extends LTShapeType
 	
 	Method ToSprites( Sprite:LTSprite, Layer:LTLayer, PivotShape:LTShape = Null, Relativity:Int = LTShape.Before )
 		Local NewSprites:TList = New TList
+		If Not PivotShape Then PivotShape = Sprite
 		For Local TemplateSprite:LTSprite = Eachin Sprites
 			Local NewSprite:LTSprite = New LTSprite
 			TemplateSprite.CopySpriteTo( NewSprite )

@@ -304,6 +304,11 @@ Type LTShape Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Square of distance to shape.
+	returns: Square of distance from the shape center to center of another shape.
+	about: See also: #DistanceTo, #DistanceToPoint
+	End Rem
 	Method Distance2To:Double( Shape:LTShape )
 		Local DX:Double = X - Shape.X
 		Local DY:Double = Y - Shape.Y
@@ -315,7 +320,7 @@ Type LTShape Extends LTObject
 	Rem
 	bbdoc: Checks if the shape is at position of another shape.
 	returns: True if shape center has same coordinates as another shape center. 
-	about: See also: #X, #Y, #MoveTowards example
+	about: See also: #X, #Y, #IsAtPositionOfPoint, #MoveTowards example
 	End Rem
 	Method IsAtPositionOf:Int( Shape:LTShape )
 		If Shape.X = X And Shape.Y = Y Then Return True
@@ -323,6 +328,11 @@ Type LTShape Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Checks if the shape is at position of given point.
+	returns: True if shape center has same coordinates as given.
+	about: See also: #X, #Y, #IsAtPositionOf, #MoveTowards example
+	End Rem
 	Method IsAtPositionOfPoint:Int( PointX:Double, PointY:Double )
 		If PointX = X And PointY = Y Then Return True
 	End Method
@@ -356,7 +366,7 @@ Type LTShape Extends LTObject
 	bbdoc: Sets coordinates of the shape.
 	about: It's better to use this method instead of equating X and Y fields to new values.
 	
-	See also: #X, #Y, #SetCornerCoords, #AlterCoords, #SetMouseCoords
+	See also: #X, #Y, #SetCornerCoords, #AlterCoords, #SetMouseCoords, #SetCoordsAndSize
 	End Rem
 	Method SetCoords( NewX:Double, NewY:Double )
 		X = NewX
@@ -366,6 +376,12 @@ Type LTShape Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Sets coordinates and size of the shape.
+	about: It's better to use this method instead of equating X and Y fields to new values.
+	
+	See also: #SetCoords, #SetSize
+	End Rem
 	Method SetCoordsAndSize( X1:Double, Y1:Double, X2:Double, Y2:Double )
 		X = 0.5:Double * ( X1 + X2 )
 		Y = 0.5:Double * ( Y1 + Y2 )
@@ -687,7 +703,7 @@ Type LTShape Extends LTObject
 	bbdoc: Sets the size of the shape.
 	about: It's better to use this method instead of equating Width and Height fields to new values.
 	
-	See also: #Width, #Height, #SetWidth, #SetHeight, #SetSizeAs, #AlterSize
+	See also: #Width, #Height, #SetWidth, #SetHeight, #SetSizeAs, #AlterSize, #SetCoordsAndSize
 	End Rem
 	Method SetSize( NewWidth:Double, NewHeight:Double )
 		Width = NewWidth
@@ -1077,6 +1093,10 @@ Type LTShape Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Checks if object's parameter with given name exists.
+	returns: True if object's parameter with given name exists.
+	End Rem
 	Method ParameterExists:Int( Name:String )
 		If Parameters Then
 			For Local Parameter:LTParameter = Eachin Parameters
@@ -1322,6 +1342,10 @@ Type LTShape Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Method for hiding the shape.
+	about: Switches off activity and visibility of the shape.
+	End Rem
 	Method Hide()
 		Active = False
 		Visible = False

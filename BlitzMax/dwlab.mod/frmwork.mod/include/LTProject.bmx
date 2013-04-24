@@ -239,6 +239,12 @@ Type LTProject Extends LTObject
 	
 	' ==================== Events ===================		
 	
+	Rem
+	bbdoc: Method which processes system events.
+	about: You may rewrite this method to handle events differently.
+	
+	See also: #OnEvent, #OnCloseButton, #OnWindowsResize
+	End Rem	
 	Method ProcessEvents()
 		Repeat
 			PollEvent()
@@ -259,17 +265,31 @@ Type LTProject Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: This method will be executed for every system event.
+	about: Use EventID() and other functions to retrieve event parameters.
+	
+	See also: #ProcessEvents, #OnCloseButton, #OnWindowsResize
+	End Rem	
 	Method OnEvent()
 	End Method
 	
 	
 	
+	Rem
+	bbdoc: This method will be executed when windows close button pressed.
+	about: See also: #ProcessEvents, #OnEvent, #OnWindowsResize
+	End Rem	
 	Method OnCloseButton()
 		Exiting = True
 	End Method
 	
 	
 	
+	Rem
+	bbdoc: This method will be executed on windows resizing.
+	about: See also: #ProcessEvents, #OnEvent, #OnCloseButton
+	End Rem	
 	Method OnWindowResize()
 	End Method
 	

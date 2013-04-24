@@ -151,7 +151,10 @@ End Type
 
 
 
-
+Rem
+bbdoc: Image loading error handler.
+about: Intended to handle situation when image file file is missing.
+End Rem
 Type LTImageLoadingErrorHandler
 	Method HandleError:TPixmap( FileName:String, Image:LTImage )
 		L_Error( "Image " + FileName + " cannot be loaded or not found." )

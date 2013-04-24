@@ -67,6 +67,7 @@ Type LTLine Extends LTShape
 	End Method	
 	
 	
+	
 	Method GetX:Double( Y:Double )
 		Return ( -B * Y - C ) / A
 	End Method

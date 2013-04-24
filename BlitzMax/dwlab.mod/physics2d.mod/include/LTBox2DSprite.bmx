@@ -20,6 +20,7 @@ Type LTBox2DSprite Extends LTSprite
 	Global CircleDefinition:b2CircleDef = New b2CircleDef
 	Global PolygonDefinition:b2PolygonDef = New b2PolygonDef
 	Global ShapeParameters:b2ShapeDef = New b2ShapeDef
+	Global ServiceSprite:LTSprite = New LTSprite
 	
 	Field Body:b2Body
 	
@@ -43,7 +44,16 @@ Type LTBox2DSprite Extends LTSprite
 		Body.SetLinearVelocity( Vec2( Velocity * Cos( Angle ), Velocity * Sin( Angle ) ) )
 		If ParameterExists( "angular_velocity" ) Then Body.SetAngularVelocity( GetParameter( "angular_velocity" ).ToFloat() )
 		
-		AttachSpriteShapesToBody( Self, LTBox2DShapeParameters.FromShape( Self ), Body )
+		Local Template:LTSpriteTemplate = LTSpriteTemplate( ShapeType )
+		Local Parameters:LTBox2DShapeParameters = LTBox2DShapeParameters.FromShape( Self )
+		If Template Then
+			For Local TemplateSprite:LTSprite = Eachin Template.Sprites
+				Template.SetShape( Self, TemplateSprite, ServiceSprite )
+				AttachSpriteShapesToBody( ServiceSprite, Parameters, Body, X - ServiceSprite.X, Y - ServiceSprite.Y )
+			Next
+		Else
+			AttachSpriteShapesToBody( Self, Parameters, Body )
+		End If
 		Body.SetMassFromShapes()
 	End Method
 	
@@ -66,7 +76,8 @@ Type LTBox2DSprite Extends LTSprite
 						PolygonDefinition.SetAsOrientedBox( 0.5 * DX, 0.5 * Sprite.Height, Vec2( X, Y ), 0.0 )
 					Else
 						PolygonDefinition.SetAsOrientedBox( 0.5 * Sprite.Width, -0.5 * DX, Vec2( X, Y ), 0.0 )
-					End IF
+					End If
+					
 					AttachToBody( Body, PolygonDefinition, ShapeParameters, Sprite )
 					
 					For Local Sign:Int = -1 To 1 Step 2					

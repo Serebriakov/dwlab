@@ -360,7 +360,9 @@ Type LTXMLObject Extends LTObject
 	End Method
 	
 	
-	
+	Rem
+	bbdoc: Transfers data between XMLObject field and framework object field with TMap type filled with String-LTObject pairs.
+	End Rem
 	Method ManageStringObjectMapField( FieldName:String, Map:TMap Var )
 		If L_XMLMode = L_XMLGet Then
 			Local XMLMap:LTXMLObject = GetField( FieldName )
@@ -377,6 +379,9 @@ Type LTXMLObject Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Transfers data between XMLObject field and framework object field with TMap type filled with String-String pairs.
+	End Rem
 	Method ManageStringMapField( FieldName:String, Map:TMap Var )
 		If L_XMLMode = L_XMLGet Then
 			Local XMLMap:LTXMLObject = GetField( FieldName )
@@ -549,7 +554,10 @@ Type LTXMLObject Extends LTObject
 	End Method
 	
 	
-	
+	Rem
+	bbdoc: Transfers data between XMLObject contents and framework object field with TMap type filled with String-LTObject pairs.
+	about: See also: #ManageObjectAttribute, #ManageObjectField, #ManageObjectArrayField
+	End Rem	
 	Method ManageChildStringObjectMap( Map:TMap Var )
 		If L_XMLMode = L_XMLGet Then
 			Map = New TMap
@@ -568,7 +576,12 @@ Type LTXMLObject Extends LTObject
 	End Method
 	
 	
+
 	
+	Rem
+	bbdoc: Transfers data between XMLObject contents and framework object field with TMap type filled with String-String pairs.
+	about: See also: #ManageObjectAttribute, #ManageObjectField, #ManageObjectArrayField
+	End Rem		
 	Method ManageChildStringMap( Map:TMap Var )
 		If L_XMLMode = L_XMLGet Then
 			Map = New TMap

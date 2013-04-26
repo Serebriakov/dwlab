@@ -272,7 +272,7 @@ Type LTLayer Extends LTShape
 			If Shape Then Return Shape
 		Next
 		
-		Super.FindShapeWithParameterID( ParameterName, ParameterValue, ShapeTypeID, IgnoreError )
+		Return Super.FindShapeWithParameterID( ParameterName, ParameterValue, ShapeTypeID, IgnoreError )
 	End Method
 	
 	

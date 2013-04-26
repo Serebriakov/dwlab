@@ -39,8 +39,8 @@ Type LTLineSegment Extends LTShape
 	
 	' ==================== Drawing ===================	
 	
-	Method Draw( DrawingAlpha:Double )
-		If Visible Then Visualizer.DrawUsingLineSegment( Self, DrawingAlpha = 1.0 )
+	Method Draw( DrawingAlpha:Double = 1.0 )
+		If Visible Then Visualizer.DrawUsingLineSegment( Self, DrawingAlpha )
 	End Method
 	
 	

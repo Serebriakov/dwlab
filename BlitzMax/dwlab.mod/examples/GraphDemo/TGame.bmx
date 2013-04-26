@@ -99,7 +99,7 @@ Type TGame Extends LTProject
 	
 	Method Render()
 		Background.Draw()
-		Map.DrawLinesUsing( LineVisualizer )
+		Map.DrawLineSegmentsUsing( LineVisualizer )
 		Map.DrawPivotsUsing( PivotVisualizer )
 		If CurrentPivot Then CurrentPivot.DrawUsingVisualizer( CurrentPivotVisualizer )
 		Player.Draw()

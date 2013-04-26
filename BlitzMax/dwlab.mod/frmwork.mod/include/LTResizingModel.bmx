@@ -8,11 +8,14 @@
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
 
+Rem
+bbdoc: Shape resizing behavior model.
+about: Model which resizes shape from current to given size with given speed.
+End Rem
 Type LTResizingModel Extends LTValueChangingModel
-	Function Create:LTResizingModel( DestinationSize:Double, Time:Double = 0.0, Speed:Double = 0.0 )
+	Function Create:LTResizingModel( DestinationSize:Double, Time:Double = 0.0 )
 		Local Model:LTResizingModel = New LTResizingModel
 		Model.Period = Time
-		Model.Speed = Speed
 		Model.DestinationValue = DestinationSize
 		Return Model
 	End Function

@@ -16,7 +16,7 @@ Include "LTTimedMovementModel.bmx"
 
 
 Rem
-bbdoc: Temporary behavior model.
+bbdoc: Temporary behavior model template.
 about: Lasts for defined period of time.
 End Rem
 Type LTTemporaryModel Extends LTChainedModel

@@ -105,7 +105,7 @@ Type TParticleArea Extends LTSprite
 		Example.SpriteMap.InsertSprite( Area )
 	End Function
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		Local A:Double = 1.0 - ( Example.Time - StartingTime ) / FadingTime
 		If A >= 0 Then
 			SetAlpha( A )

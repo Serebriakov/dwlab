@@ -129,7 +129,7 @@ Type LTColor Extends LTObject
 	bbdoc: Sets this color as drawing color.
 	about: See also: #ApplyClsColor, #SetColorFromHex, #SetColorFromRGB, #AlterColor, #ResetColor
 	End Rem
-	Method ApplyColor( DrawingAlpha:Double )
+	Method ApplyColor( DrawingAlpha:Double = 1.0 )
 		SetColor( 255.0 * Red, 255.0 * Green, 255.0 * Blue )
 		SetAlpha( Alpha * DrawingAlpha )
 	End Method

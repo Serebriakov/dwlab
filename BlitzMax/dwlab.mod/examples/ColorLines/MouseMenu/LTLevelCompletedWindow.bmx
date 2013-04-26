@@ -12,9 +12,9 @@ Type LTLevelCompletedWindow Extends LTAudioWindow
 	Method Init()
 		Project.Locked = True
 		L_CurrentProfile.AddHighScore( LTLevelFailedWindow( Self ) = Null )
-		LTLabel( FindShape( "Score" ) ).Text = LocalizeString( "{{You scored XXX points}}" ).Replace( "XXX", Profile.Score )
-		LTLabel( FindShape( "Time" ) ).Text = LocalizeString( "{{Spent}} " ) + LocalizeString( ConvertTime( Profile.LevelTime ) )
-		LTLabel( FindShape( "Turns" ) ).Text = LocalizeString( "{{And made XXX turns}}" ).Replace( "XXX", Profile.Turns )
+		ChangeLabelTitle( "Score", "You scored XXX points", Profile.Score )
+		ChangeLabelTitle( "Time", "Spent", ToTime( Profile.LevelTime ) )
+		ChangeLabelTitle( "Turns", "And made XXX turns", Profile.Turns )
 		Super.Init()
 	End Method
 
@@ -35,11 +35,4 @@ Type LTLevelCompletedWindow Extends LTAudioWindow
 				Menu.Project.Locked = False
 		End Select
 	End Method
-	
-	Function ConvertTime:String( Time:Int )
-		Local Seconds:Int = Floor( Time ) Mod 60
-		Local Minutes:Int = Floor( Time / 60.0 ) Mod 60
-		Local Hours:Int = Floor( Time / 3600.0 )
-		If Hours Then Return Hours + " {{hrs}} " + Minutes + " {{min}} " + Seconds + " {{sec}}" Else Return Minutes + " {{min}} " + Seconds + " {{sec}}"
-	End Function
 End Type

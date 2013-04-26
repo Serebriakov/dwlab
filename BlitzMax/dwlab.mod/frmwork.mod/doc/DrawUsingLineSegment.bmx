@@ -38,7 +38,8 @@ End Type
 Type TBlazing Extends LTVisualizer
 	Const ChunkSize:Double = 25
 	Const DeformationRadius:Double = 15
-	Method DrawUsingLineSegment( LineSegment:LTLineSegment )
+	
+	Method DrawUsingLineSegment( LineSegment:LTLineSegment, DrawingAlpha:Double )
 		Local SX1:Double, SY1:Double, SX2:Double, SY2:Double
 		L_CurrentCamera.FieldToScreen( LineSegment.Pivot[ 0 ].X, LineSegment.Pivot[ 0 ].Y, SX1, SY1 )
 		L_CurrentCamera.FieldToScreen( LineSegment.Pivot[ 1 ].X, LineSegment.Pivot[ 1 ].Y, SX2, SY2 )

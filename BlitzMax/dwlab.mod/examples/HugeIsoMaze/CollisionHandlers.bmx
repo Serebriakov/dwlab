@@ -18,7 +18,7 @@ End Type
 	
 
 Type TZombieAndTileCollision Extends LTSpriteAndTileCollisionHandler
-	Method HandleCollision( Sprite:LTSprite, TileMap:LTTileMap, TileX:Int, TileY:Int )
+	Method HandleCollision( Sprite:LTSprite, TileMap:LTTileMap, TileX:Int, TileY:Int, CollisionSprite:LTSprite )	
 		Sprite.PushFromTile( TileMap, TileX, TileY )
 		TZombie( Sprite ).NewAngle = Rnd( 360.0 )
 	End Method

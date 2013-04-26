@@ -65,7 +65,7 @@ ModuleInfo "History: &nbsp; &nbsp; Added Scaling parameter to LTContourVisualize
 ModuleInfo "History: &nbsp; &nbsp; Added Scale and Scaling parameters to LTVisualizer's FromHexColor() and FromRGBColor() methods."
 ModuleInfo "History: &nbsp; &nbsp; Fixed bug of Get/SetFacing() LTShape methods which appears while using LTWindowedVisualizer."
 ModuleInfo "History: v1.4.22.2 (09.08.12)"
-ModuleInfo "History: &nbsp; &nbsp; Now camera can be specified in SetMouseCoords() LTSphape method."
+ModuleInfo "History: &nbsp; &nbsp; Now camera can be specified in SetMouseCoords() LTShape method."
 ModuleInfo "History: v1.4.22.1 (08.08.12)"
 ModuleInfo "History: &nbsp; &nbsp; Fixed bugs in loading of world and its components."
 ModuleInfo "History: v1.4.22 (03.08.12)"

@@ -333,11 +333,11 @@ Type LTSpriteMap Extends LTMap
 	Method FindShapeWithParameterID:LTShape( ParameterName:String, ParameterValue:String, ShapeTypeID:TTypeID, IgnoreError:Int = False )
 		For Local ChildShape:LTShape = EachIn Sprites.Keys()
 			If Not ShapeTypeID Or TTypeId.ForObject( ChildShape ) = ShapeTypeID Then
-				If Not ParameterName Or ChildShape.GetParameter( ParameterName ) = ParameterValue Then Return Self
+				If Not ParameterName Or ChildShape.GetParameter( ParameterName ) = ParameterValue Then Return ChildShape
 			End If
 		Next
 		
-		Super.FindShapeWithParameterID( ParameterName, ParameterValue, ShapeTypeID, IgnoreError )
+		Return Super.FindShapeWithParameterID( ParameterName, ParameterValue, ShapeTypeID, IgnoreError )
 	End Method
 
 		

@@ -12,7 +12,7 @@ AppTitle = "Graph editor"
 
 Type TEditor Extends LTProject
 	Field GameMap:TGameMap
-	Field CurrentLine:LTLine
+	Field CurrentLine:LTLineSegment
 	Field CurrentLineVisualizer:LTContourVisualizer = LTContourVisualizer.FromWidthAndHexColor( 0.2, "FFBF7F", , 2.0 )
 	Field MovePivot:TMovePivot = New TMovePivot
 	Field MakeLine:TMakeLine = New TMakeLine

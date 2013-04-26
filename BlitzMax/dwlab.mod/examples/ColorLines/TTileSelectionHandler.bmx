@@ -22,14 +22,18 @@ Type TTileSelectionHandler Extends LTSpriteAndTileCollisionHandler
 			If TileNum = Profile.Void Then Return
 			If BallNum = Profile.NoBall
 				If Not Game.Selected Then Return
+				If Profile.NoBallMove Then
+					Profile.PlaySnd( Game.WrongTurnSound )
+					Return
+				End If
 				TMoveAlongPath.Create( Game.PathFinder.FindPath( Game.Selected.X, Game.Selected.Y, TileX, TileY ), TileX, TileY )
 			Else
 				If TileNum Mod 11 = Profile.Glue Then
-					L_CurrentProfile.PlaySnd( Game.WrongTurnSound )
+					Profile.PlaySnd( Game.WrongTurnSound )
 					Return
 				End If
 				Game.Selected = TSelected.Create( TileX, TileY )
-				L_CurrentProfile.PlaySnd( Game.SelectSound )
+				Profile.PlaySnd( Game.SelectSound )
 			End If
 		ElseIf Game.RightMouse.WasPressed() 
 			if BallNum = Profile.Bomb Then
@@ -44,18 +48,18 @@ Type TTileSelectionHandler Extends LTSpriteAndTileCollisionHandler
 			Else If Game.Selected And Profile.Swap Then
 				If BallNum = Profile.NoBall Then Return
 				If TileNum Mod 11 = Profile.Glue Then 
-					L_CurrentProfile.PlaySnd( Game.WrongTurnSound )
+					Profile.PlaySnd( Game.WrongTurnSound )
 					Return
 				End If
 				If Game.Selected Then Game.Selected.Remove( Null )
 				If Abs( Game.Selected.X - TileX ) + Abs( Game.Selected.Y - TileY ) = 1 Then
-					TMoveBall.Create( Game.Selected.X, Game.Selected.Y, TileX - Game.Selected.X, TileY - Game.Selected.Y, False )
+					TMoveBall.Create( Game.Selected.X, Game.Selected.Y, TileX - Game.Selected.X, TileY - Game.Selected.Y, True )
 					TMoveBall.Create( TileX, TileY, Game.Selected.X - TileX, Game.Selected.Y - TileY, True )
 					Profile.Balls.SwapTiles( TileX, TileY, Game.Selected.X, Game.Selected.Y )
 					Profile.Modifiers.SwapTiles( TileX, TileY, Game.Selected.X, Game.Selected.Y )
-					L_CurrentProfile.PlaySnd( Game.SwapSound )
+					Profile.PlaySnd( Game.SwapSound )
 				Else
-					L_CurrentProfile.PlaySnd( Game.WrongTurnSound )
+					Profile.PlaySnd( Game.WrongTurnSound )
 				End If
 			End If
 		End If
@@ -93,7 +97,7 @@ Type TColorSelection Extends LTProject
 			Local Ball:LTSprite = Balls.LayerFirstSpriteCollision( L_Cursor )
 			If Ball Then
 				Profile.Balls.SetTile( TileX, TileY, Ball.Frame )
-				TCheckLines.Execute( Ball.Frame, False )
+				TCheckLines.Execute( Ball.Frame )
 				Exiting = True
 			End If
 		End If

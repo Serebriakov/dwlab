@@ -29,6 +29,7 @@ Type TGameProfile Extends LTProfile
 	Const NoModifier:Int = 0
 	Const Lights:Int = 11
 	Const AnyColor:Int = 12
+	Const Wipe:Int = 14
 	
 	Field GameField:LTTileMap
 	Field Balls:LTTileMap
@@ -48,6 +49,9 @@ Type TGameProfile Extends LTProfile
 	Field ShowNextBalls:Int
 	Field TotalBallPacks:Int
 	Field PackNum:Int
+	Field NoBallWin:Int
+	Field NoBallStart:Int
+	Field NoBallMove:Int
 	
 	Field TotalLevelTime:Double
 	Field TotalTurns:Int
@@ -71,7 +75,7 @@ Type TGameProfile Extends LTProfile
 		Game.Selected = Null
 		Game.Objects.Clear()
 	End Method
-
+	
 	Method LoadLevel( Level:LTLayer )
 		Local Layer:LTLayer = Null
 		Game.Objects.Clear()
@@ -96,6 +100,9 @@ Type TGameProfile Extends LTProfile
 		ShowNextBalls = True
 		TotalBallPacks = -1
 		PackNum = 0
+		NoBallWin = False
+		NoBallStart = False
+		NoBallMove = False
 		
 		Goals.Clear()
 		Pool.Clear()
@@ -128,6 +135,8 @@ Type TGameProfile Extends LTProfile
 					TRemoveCombinations.Create( Parameters[ 0 ].ToInt(), Parameters[ 1 ].ToInt(), Parameters[ 2 ].ToInt() )
 				Case "remove-ice"
 					TRemoveIce.Create( IntValue )
+				Case "remove-all-balls"
+					TRemoveAllBalls.Create()
 				Case "ball-percent"
 					AddPoolObject( Parameters[ 0 ].ToInt(), Parameters[ 1 ].ToInt() )
 				Case "bomb"
@@ -150,6 +159,13 @@ Type TGameProfile Extends LTProfile
 					ShowNextBalls = False
 				Case "total-ball-packs"
 					TotalBallPacks = IntValue
+				Case "no-ball-win"
+					NoBallWin = True
+					TRemoveAllBalls.Create()
+				Case "no-ball-start"
+					NoBallStart = True
+				Case "no-ball-move"
+					NoBallMove = True
 			End Select
 		Next
 		Local TotalPercent:Double = 0
@@ -166,13 +182,14 @@ Type TGameProfile Extends LTProfile
 
 		InitLevel()
 		
+		NextBalls = New Int[ BallsPerTurn ]
+		FillNextBalls()
+		If Not NoBallStart Then NewTurn()
+			
 		LevelTime = 0
 		Turns = 0
 		Score = 0
-			
-		NextBalls = New Int[ BallsPerTurn ]
-		FillNextBalls()
-		NewTurn()
+		
 		Game.Locked = True
 		Game.Selected = Null
 		Profile.LevelName = Level.GetName()
@@ -188,9 +205,13 @@ Type TGameProfile Extends LTProfile
 	Method InitLevel()
 		If Not GameField Then Return
 		Game.PathFinder.Map = GameField
-		SetFieldMagnification()
 		Game.HiddenBalls = New Int[ Balls.XQuantity, Balls.YQuantity ]
 		Game.EmptyCells = New TList
+		Local BackgroundFileName:String = "backgrounds\" + Profile.LevelName + ".jpg"
+		If FileType( BackgroundFileName ) Then
+			Game.Background = LoadImage( BackgroundFileName )
+			MidHandleImage( Game.Background )
+		End If
 		InitGraphics()
 	End Method
 	
@@ -210,52 +231,73 @@ Type TGameProfile Extends LTProfile
 	
 	Global ExistentBalls:Int[] = New Int[ 8 ]
 	
-	Method NewTurn()
-		Profile.TurnTime = 0.0
-		Profile.Turns :+ 1
+	Method NewTurn( NewBalls:Int = True )
+		TurnTime = 0.0
+		Turns :+ 1
 		
 		PackNum :+ 1
 		If PackNum > TotalBallPacks And TotalBallPacks >= 0 Then Return
 		
 		ExistentBalls = New Int[ 8 ]
+		Local BallsExists:Int = False
 		Game.EmptyCells.Clear()
 		For Local Y:Int = 0 Until GameField.YQuantity
 			For Local X:Int = 0 Until GameField.XQuantity
 				Local BallNum:Int = Balls.GetTile( X, Y )
 				If GameField.GetTile( X, Y ) = Plate And BallNum = NoBall Then Game.EmptyCells.AddLast( TCell.Create( X, Y ) )
-				If BallNum <= 7 Then ExistentBalls[ BallNum ] = 1
+				If BallNum > 0 And BallNum <= 7 Then
+					ExistentBalls[ BallNum ] = 1
+					BallsExists = True
+				End If
 			Next
 		Next
 		
-		If OnlySameColor Then FillNextBalls()
-		
-		For Local BallNum:Int = Eachin Profile.NextBalls
-			If Game.EmptyCells.IsEmpty() Then
-				If Overflow Then Game.LoadWindow( Menu.Interface, "LTLevelFailedWindow" )
-				Return
+		If Not BallsExists Then
+			If NoBallWin Then
+				Goals.Clear()
+			Else
+				For Local Goal:TRemoveAllBalls = Eachin Profile.Goals
+					Goal.Count = 0
+				NExt
 			End If
-			Local Cell:TCell = TCell.PopFrom( Game.EmptyCells )
-			TPopUpBall.Create( Cell.X, Cell.Y, BallNum )
-		Next
-		FillNextBalls()
+		End If
+		
+		If NewBalls Then 
+			FillStack()
+			For Local BallNum:Int = Eachin Profile.NextBalls
+				If OnlySameColor And Not ExistentBalls[ BallNum ] Then BallNum = RandValue()
+				If Game.EmptyCells.IsEmpty() Then
+					If Overflow Then Game.LoadWindow( Menu.Interface, "LTLevelFailedWindow" )
+					Return
+				End If
+				Local Cell:TCell = TCell.PopFrom( Game.EmptyCells )
+				TPopUpBall.Create( Cell.X, Cell.Y, BallNum )
+			Next
+			FillNextBalls()
+		End If
 		
 		Menu.SaveToFile( "settings.xml" )
 	End Method
-	
-	Method FillNextBalls()
-		Local BallStack:TList = New TList
+
+	Global BallStack:TList
+	Method FillStack()
+		BallStack = New TList
 		For Local N:Int = 1 To 7
 			If ExistentBalls[ N ] Then BallStack.AddLast( String( N ) )
-		Next
+		Next		
+	End Method
 		
+	Method FillNextBalls()
+		FillStack()
 		For Local Y:Int = 0 Until GameField.YQuantity
 			For Local X:Int = 0 Until GameField.XQuantity
 				if Modifiers.GetTile( X, Y ) = Lights Then
 					If OnlySameColor And BallStack.Count() Then
-						Balls.SetTile( X, Y, RandValue( BallStack ) )
+						Balls.SetTile( X, Y, RandValue() )
 					Else
 						Balls.SetTile( X, Y, Rand( 1, TotalBalls ) )
 					End If
+					TCheckLines.Execute( Balls.GetTile( X, Y ) )
 				End If
 			Next
 		Next
@@ -267,7 +309,7 @@ Type TGameProfile Extends LTProfile
 				If Choice < 0 Then
 					If PoolObject.Num = RandomBall Then 
 						If OnlySameColor And BallStack.Count() Then
-							NextBalls[ N ] = RandValue( BallStack )
+							NextBalls[ N ] = RandValue()
 						Else
 							NextBalls[ N ] = Rand( 1, TotalBalls )
 						End If
@@ -280,7 +322,8 @@ Type TGameProfile Extends LTProfile
 		Next
 	End Method
 	
-	Function RandValue:Int( BallStack:TList )
+	Function RandValue:Int()
+		If BallStack.IsEmpty() Return 1
 		Return String( BallStack.ValueAtIndex( Rand( 0, BallStack.Count() - 1 ) ) ).ToInt()
 	End Function
 	
@@ -296,6 +339,7 @@ Type TGameProfile Extends LTProfile
 	
 	Method Load()
 		InitLevel()
+		L_Music.ForceRepeat = MusicRepeat
 	End Method
 	
 	Method Save()
@@ -340,6 +384,7 @@ Type TGameProfile Extends LTProfile
 		XMLObject.ManageIntAttribute( "balls-per-turn", BallsPerTurn )
 		XMLObject.ManageIntAttribute( "swap", Swap, 1 )
 		XMLObject.ManageIntAttribute( "overflow", Overflow, 1 )
+		XMLObject.ManageIntAttribute( "no-ball-win", NoBallWin )
 		XMLObject.ManageIntAttribute( "total-balls", TotalBalls )
 		XMLObject.ManageIntAttribute( "only-same-color", OnlySameColor )
 		XMLObject.ManageIntAttribute( "show-next-balls", ShowNextBalls )
@@ -357,7 +402,7 @@ Type TGameProfile Extends LTProfile
 		SkipTurn = LTButtonAction( XMLObject.ManageObjectField( "skip-turn", SkipTurn ) )
 		ExitToMenu = LTButtonAction( XMLObject.ManageObjectField( "exit-to-menu", ExitToMenu ) )
 		BossKey = LTButtonAction( XMLObject.ManageObjectField( "boss-key", BossKey ) )
-		If Not NextBalls Then FillNextBalls()
+		If GameField And Not NextBalls Then FillNextBalls()
 	End Method
 End Type
 

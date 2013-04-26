@@ -557,7 +557,7 @@ End Type
 Cls
 
 
-'DrawUsingLine.bmx
+'DrawUsingLineSegment.bmx
 L_CurrentCamera = LTCamera.Create()
 Global Example11:TExample11 = New TExample11
 Example11.Execute()
@@ -593,7 +593,8 @@ End Type
 Type TBlazing Extends LTVisualizer
 	Const ChunkSize:Double = 25
 	Const DeformationRadius:Double = 15
-	Method DrawUsingLineSegment( LineSegment:LTLineSegment )
+	
+	Method DrawUsingLineSegment( LineSegment:LTLineSegment, DrawingAlpha:Double )
 		Local SX1:Double, SY1:Double, SX2:Double, SY2:Double
 		L_CurrentCamera.FieldToScreen( LineSegment.Pivot[ 0 ].X, LineSegment.Pivot[ 0 ].Y, SX1, SY1 )
 		L_CurrentCamera.FieldToScreen( LineSegment.Pivot[ 1 ].X, LineSegment.Pivot[ 1 ].Y, SX2, SY2 )
@@ -673,7 +674,7 @@ Type TFlowerVisualizer Extends LTVisualizer
 	Const CirclesPer360:Int = 7
 	Const Amplitude:Double = 0.15
 	
-	Method DrawUsingSprite( Sprite:LTSprite, SpriteShape:LTSprite = Null )
+	Method DrawUsingSprite( Sprite:LTSprite, SpriteShape:LTSprite = Null, DrawingAlpha:Double )
 		Local SpriteDiameter:Double = Sprite.GetDiameter()
 		Local CircleDiameter:Double = L_CurrentCamera.DistFieldToScreen( 2.0 * Pi * SpriteDiameter / CirclesQuantity ) * 1.5
 		For Local N:Int = 0 Until CirclesQuantity
@@ -1487,7 +1488,7 @@ Type TAwPossum Extends TGameObject
 		If X > Example20.TileMap.RightX() Then Example20.SwitchTo( New TRestart )
 	End Method
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		Super.Draw()
 		L_DrawEmptyRect( 5, 580, 104, 15 )
 		If Health >= 50.0 Then
@@ -1906,7 +1907,7 @@ Type TScore Extends LTSprite
 		If L_CurrentProject.Time > StartingTime + Period Then Example20.Layer.Remove( Self )
 	End Method
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		PrintText( "+" + Amount, , LTAlign.ToBottom, , , True )
 	End Method
 End Type
@@ -2528,7 +2529,7 @@ Type TParticleArea Extends LTSprite
 		Example29.SpriteMap.InsertSprite( Area )
 	End Function
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		Local A:Double = 1.0 - ( Example29.Time - StartingTime ) / FadingTime
 		If A >= 0 Then
 			SetAlpha( A )

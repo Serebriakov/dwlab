@@ -16,7 +16,7 @@ Type TGame Extends LTGUIProject
 	Const Inc:String = ""
 	
 	Field HUD:LTWindow
-	Field Background:LTShape
+	Field Background:TImage
 	Field Objects:LTLayer = New LTLayer
 	Field Particles:LTLayer = New LTLayer
 	
@@ -51,9 +51,6 @@ Type TGame Extends LTGUIProject
 	Field ExitWindow:Int
 	
 	Method Init()
-		LTProfile.MusicLoadingTime = [ 3619, 1815 ]
-		LTProfile.TotalMusicLoadingTime = 5432
-		
 		SetGraphicsDriver( D3D7Max2DDriver() )
 		Interface = LTWorld.FromFile( "interface.lw" )
 		Menu.Levels = LTWorld.FromFile( "levels.lw" )
@@ -62,6 +59,15 @@ Type TGame Extends LTGUIProject
 		Menu.InitSystem( Self )
 		HUD = LoadWindow( Interface, "THUD" )
 		Menu.AddPanels()
+	
+		Profile.PlayList = New String[ 3 ]
+		L_Music.AllEntries.Clear()
+		For Local N:Int = 3 To 5
+			L_Music.Preload( "music\level_" + N + ".ogg", N )
+			Profile.PlayList[ N - 3 ] = N
+		Next
+		L_Music.Add( "3" )
+		L_Music.Start()
 		
 		Profile = TGameProfile( L_CurrentProfile )
 		Profile.Load()
@@ -100,6 +106,7 @@ Type TGame Extends LTGUIProject
 				Profile.NewTurn()
 			End If
 			If Profile.SkipTurn.WasPressed() Then Profile.NewTurn()
+			If KeyHit( KEY_F1 ) Then LoadWindow( Menu.Interface, "LTRules" )
 		End If
 		
 		LevelTime = MilliSecs()
@@ -126,9 +133,17 @@ Type TGame Extends LTGUIProject
 	End Method
 	
 	Method Render()
-		Background.JumpTo( GameCamera )
-		Background.SetSize( GameCamera.Width, 0.75 * GameCamera.Width )
-		Background.Draw()
+		If Not Background Then
+			Background = LoadImage( "images\background.jpg" )
+			MidHandleImage( Background )
+		End If
+		
+		Local Scale:Double = Max( 1.0 * GameCamera.Viewport.Width / ImageWidth( Background ), ..
+				1.0 * GameCamera.Viewport.Height / ImageHeight( Background ) )
+		SetScale Scale, Scale
+		DrawImage( Background, GameCamera.Viewport.X, GameCamera.Viewport.Y )
+		SetScale 1.0, 1.0
+		
 		If Profile.GameField Then
 			Profile.SetFieldMagnification()
 			Profile.GameField.Draw()
@@ -140,15 +155,15 @@ Type TGame Extends LTGUIProject
 		Menu.SaveToFile( "settings.xml" )
 	End Method
 	
-	Method CheckBall( Shape:LTShape, X:Int, Y:Int, CheckLines:Int )
+	Method CheckBall:Int( Shape:LTShape, X:Int, Y:Int )
 		Game.HiddenBalls[ X, Y ] = False
+		Game.Selected = Null
+		Game.Locked = False
 		If LTSprite( Shape ).Frame = Profile.BlackBall And Profile.GameField.GetTile( X, Y ) = Profile.ClosedPocket Then
 			Shape.AttachModel( TFallIntoPocket.Create( X, Y ) )
 		Else
 			Game.Objects.Remove( Shape )
-			If CheckLines Then TCheckLines.Execute( LTSprite( Shape ).Frame )
+			Return True
 		End If
-		Game.Selected = Null
-		Game.Locked = False
 	End Method
 End Type

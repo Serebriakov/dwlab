@@ -30,7 +30,7 @@ Type TChaingunBullet Extends LTVectorSprite
 		Bullet.Visualizer = BulletVisualizer
 		BulletVisualizer.Image = Game.ChaingunBullet
 		BulletVisualizer.SetVisualizerScale( 5.0, 5.0 )
-		BulletVisualizer.Angle = Fire.Angle
+		Bullet.DisplayingAngle = Fire.Angle
 		Bullet.SetDiameter( Rnd( 0.1, 0.25 ) )
 		Bullet.DX = Cos( Game.Player.Angle ) * Game.Player.Velocity + Cos( Fire.Angle ) * Velocity
 		Bullet.DY = Sin( Game.Player.Angle ) * Game.Player.Velocity + Sin( Fire.Angle ) * Velocity

@@ -79,10 +79,24 @@ Type LTShape Extends LTObject
 	End Rem
 	Field BehaviorModels:TList = New TList
 	
+	Rem
+	bbdoc: Collision layer number.
+	End Rem
 	Field CollisionLayer:Int	
 	
+	Rem
+	bbdoc: Relativity constant to insert sprite before given.
+	End Rem
 	Const Before:Int = 0
+	
+	Rem
+	bbdoc: Relativity constant to insert sprite after given.
+	End Rem
 	Const After:Int = 1
+	
+	Rem
+	bbdoc: Relativity constant to insert sprite instead of given.
+	End Rem
 	Const InsteadOf:Int = 2
 	
 	' ==================== Drawing ===================
@@ -1058,7 +1072,7 @@ Type LTShape Extends LTObject
 	Rem
 	bbdoc: Retrieves name of object.
 	returns: Value of object's parameter "name".
-	about: See also: #GetParameter, #GetTitle
+	about: See also: #GetParameter
 	End Rem
 	Method GetName:String()
 		Return GetParameter( "name" )
@@ -1082,7 +1096,7 @@ Type LTShape Extends LTObject
 	Rem
 	bbdoc: Retrieves value of object's parameter with given name.
 	returns: Value of object's parameter with given name.
-	about: See also: #GetTitle, #GetName, #LTBehaviorModel example.
+	about: See also: #GetName, #LTBehaviorModel example.
 	End Rem
 	Method GetParameter:String( Name:String )
 		If Not Parameters Then Return ""
@@ -1246,7 +1260,7 @@ Type LTShape Extends LTObject
 	
 	
 	Rem
-	bbdoc: Inserts the shape before given.
+	bbdoc: Inserts the shape before / after or instead of given.
 	about: Included layers and sprite maps will be also checked for given shape.
 	End Rem
 	Method InsertShape:Int( Shape:LTShape = Null, ShapesList:TList = Null, PivotShape:LTShape, Relativity:Int )

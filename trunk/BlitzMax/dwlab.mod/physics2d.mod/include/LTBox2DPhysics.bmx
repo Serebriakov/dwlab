@@ -8,6 +8,9 @@
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
 
+Rem
+bbdoc: Class for managing global Box2D functions
+End Rem
 Type LTBox2DPhysics
 	Global Box2DWorld:b2World
 	Global VelocityIterations:Int = 10
@@ -15,6 +18,10 @@ Type LTBox2DPhysics
 	
 	
 	
+	Rem
+	bbdoc: Box2D world initialisations function.
+	about: Should be called for world object before manipulation with its Box2D objects.
+	End Rem
 	Function InitWorld( World:LTLayer )
 		Local Margin:Double = 0
 		If World.ParameterExists( "margin" ) Then Margin = World.GetParameter( "margin" ).ToDouble()

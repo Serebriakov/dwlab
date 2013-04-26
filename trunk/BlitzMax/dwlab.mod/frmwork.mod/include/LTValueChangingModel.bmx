@@ -17,13 +17,20 @@ about: Modify ChangeValue method in your nested class to make value changing mod
 End Rem
 Type LTValueChangingModel Extends LTTemporaryModel
 	Field InitialValue:Double, DestinationValue:Double
+	Field Speed:Double
+
+	
+	
+	Method Init( Shape:LTShape )
+		If Not Period Then Period = Abs( DestinationValue - InitialValue ) / Speed
+	End Method
 
 	
 	
 	Method ApplyTo( Shape:LTShape )
 		If DestinationValue = InitialValue Then
 			Remove( Shape )
-		ElseIf Period Then
+		Else
 			ChangeValue( Shape, InitialValue + ( L_CurrentProject.Time - StartingTime ) / Period * ( DestinationValue - InitialValue ) )
 		End If
 		Super.ApplyTo( Shape )

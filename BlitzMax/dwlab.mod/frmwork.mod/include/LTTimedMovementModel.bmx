@@ -18,7 +18,7 @@ Type LTTimedMovementModel Extends LTTemporaryModel
 	
 	
 	
-	Function Create:LTTimedMovementModel( DestinationX:Double, DestinationY:Double, Time:Double = 0.0, Speed:Double = 0.0 )
+	Function Create:LTTimedMovementModel( DestinationX:Double, DestinationY:Double, Time:Double = 0.0 )
 		Local Model:LTTimedMovementModel = New LTTimedMovementModel
 		Model.Period = Time
 		Model.DestinationX = DestinationX
@@ -38,7 +38,6 @@ Type LTTimedMovementModel Extends LTTemporaryModel
 	
 	Method ApplyTo( Shape:LTShape )
 		Local K:Double = ( L_CurrentProject.Time - StartingTime ) / Period
-		DebugLog K
 		Shape.SetCoords( InitialX + K * ( DestinationX - InitialX ), InitialY + K * ( DestinationY - InitialY ) )
 		Super.ApplyTo( Shape )
 	End Method

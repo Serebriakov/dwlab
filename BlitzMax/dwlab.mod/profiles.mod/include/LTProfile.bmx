@@ -346,6 +346,9 @@ Type LTProfile Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Method for starting music track loaded in the profile.
+	End Rem
 	Method StartTrack()
 		L_Music.Entries.Clear()
 		L_Music.Add( PlayList[ TrackNum ], MusicRepeat )
@@ -354,6 +357,10 @@ Type LTProfile Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Method for switching to next music track in sequence.
+	about: If current track is the last, first track will be started.
+	End Rem
 	Method NextTrack()
 		TrackNum :+ 1
 		If TrackNum >= PlayList.Length Then TrackNum = 0
@@ -364,6 +371,10 @@ Type LTProfile Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Method for switching to previous music track in sequence.
+	about: If current track is the first, last track will be started.
+	End Rem
 	Method PrevTrack()
 		TrackNum :- 1
 		If TrackNum < 0  Then TrackNum = PlayList.Length - 1
@@ -383,6 +394,10 @@ Type LTProfile Extends LTObject
 	
 	
 	
+	Rem
+	bbdoc: Method for managing profile sounds.
+	about: Should be called in main loop.
+	End Rem
 	Method ManageSounds()
 		For Local Channel:TChannel = Eachin ChannelsList
 			If Not Channel.Playing() Then UnregisterChannel( Channel )

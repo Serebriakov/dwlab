@@ -9,10 +9,8 @@
 '
 
 Rem
-bbdoc: 
-about: 
+bbdoc: LTSprite extension for Box2D physics support.
 End Rem
-
 Type LTBox2DSprite Extends LTSprite
 	Global Pivot1:LTSprite = New LTSprite
 	Global Pivot2:LTSprite = New LTSprite

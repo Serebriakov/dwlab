@@ -8,6 +8,9 @@
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
 
+Rem
+bbdoc: LTTileMap extension for Box2D physics support.
+End Rem
 Type LTBox2DTileMap Extends LTTileMap
 	Global ServiceSprite:LTSprite = New LTSprite
 	Global PolygonDefinition:b2PolygonDef = New b2PolygonDef

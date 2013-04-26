@@ -82,10 +82,10 @@ Type TColorSelection Extends LTProject
 			Sprite.Visualizer.DY :+ 0.1
 			Sprite.Visualizer.YScale :* 0.75
 			Sprite.Frame = N
-			Sprite.AttachModel( LTResizingModel.Create( 0.3, 1.0 ) )
+			Sprite.AttachModel( LTResizingModel.Create( 1.0, 0.3 ) )
 			If N <> BallNum Then
 				Local Angle:Double = 60.0 * ( N - ( N > BallNum ) - 1 )
-				Sprite.AttachModel( LTTimedMovementModel.Create( 0.3, Sprite.X + Cos( Angle ), Sprite.Y + Sin( Angle ) ) )
+				Sprite.AttachModel( LTTimedMovementModel.Create( Sprite.X + Cos( Angle ), Sprite.Y + Sin( Angle ), 0.3 ) )
 			End If
 			Balls.AddLast( Sprite )
 		Next

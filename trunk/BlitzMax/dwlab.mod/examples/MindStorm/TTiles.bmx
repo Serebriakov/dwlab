@@ -105,7 +105,7 @@ Type TTiles Extends LTTileMap
 						Case 0
 							NewBlock.Visualizer = LTVisualizer.FromImage( Game.Brain )
 							NewBlock.Visualizer.AlterColor( -0.5, 0.0 )
-							NewBlock.Visualizer.Angle = Rnd( 360.0 )
+							NewBlock.DisplayingAngle = Rnd( 360.0 )
 						Case 1
 							NewBlock.Visualizer = LTVisualizer.FromImage( Game.Pyramid )
 							NewBlock.Visualizer.AlterColor( -0.2, 0.0 )
@@ -130,7 +130,7 @@ End Type
 
 Global CollisionOfTreeAndTile:TCollisionOfTreeAndTile = New TCollisionOfTreeAndTile
 Type TCollisionOfTreeAndTile Extends LTSpriteAndTileCollisionHandler
-	Method HandleCollision( Sprite:LTSprite, TileMap:LTTileMap, TileX:Int, TileY:Int )
+	Method HandleCollision( Sprite:LTSprite, TileMap:LTTileMap, TileX:Int, TileY:Int, CollisionSprite:LTSprite )
 		TGameObject( Sprite ).Bad = True
 	End Method
 End Type

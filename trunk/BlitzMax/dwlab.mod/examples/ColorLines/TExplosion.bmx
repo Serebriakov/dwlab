@@ -80,20 +80,24 @@ Type TExplosion Extends LTBehaviorModel
 		End If
 		
 		Local TileNum:Int = Profile.GameField.GetTile( X, Y )
-		Select TileNum Mod 11
+		Local PlateNum:Int = TileNum Mod 11
+		Select PlateNum
 			Case Profile.Glue
 		 		Profile.GameField.SetTile( X, Y, TileNum - 1 )
 				Profile.Score :+ Profile.ClearedGluePoints
-			Case Profile.Ice
-		 		Profile.GameField.SetTile( X, Y, TileNum - 2 )
-				For Local Goal:TRemoveIce = Eachin Profile.Goals
-					Goal.Count :- 1
-				Next
-				Profile.Score :+ Profile.ExplodedIcePoints
+			Case 0
+			Default
+				If PlateNum = Profile.Ice Or PlateNum = BallNum + 3 Then
+			 		Profile.GameField.SetTile( X, Y, Floor( TileNum / 11 ) + 1 )
+					For Local Goal:TRemoveIce = Eachin Profile.Goals
+						Goal.Count :- 1
+					Next
+					Profile.Score :+ Profile.ExplodedIcePoints
+				End If
 		End Select
 		
 		For Local Goal:TRemoveBalls = Eachin Profile.Goals
-			If ( Goal.BallType = TileNum Or Goal.BallType = Profile.RandomBall ) Then Goal.Count :- 1
+			If ( Goal.BallType = BallNum Or ( Goal.BallType = Profile.RandomBall And BallNum <= 7 ) ) Then Goal.Count :- 1
 		Next
 		
 		Game.TotalBalls :+ 1

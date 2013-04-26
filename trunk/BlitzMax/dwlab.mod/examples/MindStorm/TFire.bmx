@@ -13,7 +13,7 @@ Type TFire Extends LTSprite
 	
 	
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		if Game.Time < Chaingun.FiringStartingTime + Chaingun.FiringPeriod Then
 			Visualizer.Alpha = 1.5 * ( Chaingun.FiringStartingTime + Chaingun.FiringPeriod - Game.Time ) / Chaingun.FiringPeriod
 			Super.Draw()

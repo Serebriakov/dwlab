@@ -327,7 +327,7 @@ Type TAwPossum Extends TGameObject
 		If X > Example.TileMap.RightX() Then Example.SwitchTo( New TRestart )
 	End Method
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		Super.Draw()
 		L_DrawEmptyRect( 5, 580, 104, 15 )
 		If Health >= 50.0 Then
@@ -746,7 +746,7 @@ Type TScore Extends LTSprite
 		If L_CurrentProject.Time > StartingTime + Period Then Example.Layer.Remove( Self )
 	End Method
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		PrintText( "+" + Amount, , LTAlign.ToBottom, , , True )
 	End Method
 End Type

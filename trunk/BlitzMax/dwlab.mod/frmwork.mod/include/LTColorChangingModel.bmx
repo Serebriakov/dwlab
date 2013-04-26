@@ -8,13 +8,17 @@
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
 
+Rem
+bbdoc: Color changing behavior model.
+about: Model which changes color of shape visualizer from current color to given during given period.
+End Rem
 Type LTColorChangingModel Extends LTTemporaryModel
 	Field InitialRed:Double, InitialGreen:Double, InitialBlue:Double
 	Field DestinationRed:Double, DestinationGreen:Double, DestinationBlue:Double
 	
 	
 	
-	Function Create:LTColorChangingModel( DestinationRed:Double, DestinationGreen:Double, DestinationBlue:Double, Time:Double = 0.0, Speed:Double = 0.0 )
+	Function Create:LTColorChangingModel( DestinationRed:Double, DestinationGreen:Double, DestinationBlue:Double, Time:Double = 0.0 )
 		Local Model:LTColorChangingModel = New LTColorChangingModel
 		Model.Period = Time
 		Model.DestinationRed = DestinationRed

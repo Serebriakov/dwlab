@@ -26,8 +26,6 @@ Type THUD Extends LTWindow
 		LevelTimeBar = TBar( FindShape( "level-time" ) )
 		TurnsBar = TBar( FindShape( "turns" ) )
 		TurnTimeBar = TBar( FindShape( "turn-time" ) )
-		Game.Background = FindShape( "Background" )
-		Remove( Game.Background )
 		BallIcon = LTSprite( FindShape( "BallIcon" ) )
 		Remove( BallIcon )
 		TileIcon = LTSprite( FindShape( "TileIcon" ) )

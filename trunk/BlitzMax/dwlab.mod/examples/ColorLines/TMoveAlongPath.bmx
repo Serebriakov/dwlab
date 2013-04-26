@@ -77,8 +77,6 @@ Type TMoveAlongPath Extends LTBehaviorModel
 	
 	Method Deactivate( Shape:LTShape )
 		L_CurrentProfile.PlaySnd( Game.StopSound )
-		Game.CheckBall( Shape, Position.X, Position.Y, True )
-		Profile.TurnTime = 0.0
-		Profile.Turns :+ 1
+		Profile.NewTurn( Game.CheckBall( Shape, Position.X, Position.Y ) And TCheckLines.Execute( LTSprite( Shape ).Frame ) )
 	End Method
 End Type

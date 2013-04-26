@@ -9,21 +9,21 @@
 '
 
 Type TCheckLines
-	Function Execute( BallNum:Int, NewTurn:Int = True )
+	Function Execute:Int( BallNum:Int, NewTurn:Int = True )
+		If BallNum >7 Then Return True
 		Game.TotalBalls = 0
 		
 		Local Rows:TList = New TList
 		For Local Y:Int = 0 Until Profile.GameField.YQuantity
 			For Local X:Int = 0 Until Profile.GameField.XQuantity
-				Local CurrentBall:Int = Profile.Balls.GetTile( X, Y )
-				If CurrentBall = Profile.NoBall Or CurrentBall > 7 Then Continue
+				If Profile.Balls.GetTile( X, Y ) <> BallNum Then Continue
 				If Profile.OrthogonalLines Then
-					CheckRow( CurrentBall, Rows, X, Y, 1, 0 )
-					CheckRow( CurrentBall, Rows, X, Y, 0, 1 )
+					CheckRow( BallNum, Rows, X, Y, 1, 0 )
+					CheckRow( BallNum, Rows, X, Y, 0, 1 )
 				End If
 				If Profile.DiagonalLines Then
-					CheckRow( CurrentBall, Rows, X, Y, 1, 1 )
-					CheckRow( CurrentBall, Rows, X, Y, -1, 1 )
+					CheckRow( BallNum, Rows, X, Y, 1, 1 )
+					CheckRow( BallNum, Rows, X, Y, -1, 1 )
 				End If
 			Next
 		Next
@@ -33,7 +33,7 @@ Type TCheckLines
 		Next
 		
 		If Rows.IsEmpty() Then
-			If NewTurn Then Profile.NewTurn()
+			Return True
 		Else
 			L_CurrentProfile.PlaySnd( Game.ExplosionSound )
 			Profile.Score :+ Progression( 1, Game.TotalBalls - Profile.BallsInLine )
@@ -41,11 +41,13 @@ Type TCheckLines
 			For Local Goal:TGetScore = Eachin Profile.Goals
 				If Goal.Count <= Profile.Score Then Goal.Count = 0
 			Next
+			
 			For Local Goal:TRemoveCombinations = Eachin Profile.Goals
 				If ( Goal.BallType = BallNum Or Goal.BallType = Profile.RandomBall ) And Game.TotalBalls >= Goal.LineBallsQuantity Then
 					Goal.Count :- 1
 				End If
 			Next
+			Return False
 		End If
 	End Function
 	

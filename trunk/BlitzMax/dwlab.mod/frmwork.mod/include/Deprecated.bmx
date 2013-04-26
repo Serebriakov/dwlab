@@ -98,3 +98,38 @@ End Type
 
 Type LTAngularSprite Extends LTSprite
 End Type
+
+
+
+
+
+Global L_Log80:Double = Log( 80 )
+
+Function L_GetChunkLength:Int( Quantity:Int )
+	Return Max( 1, Ceil( Log( Quantity ) / L_Log80 ) )
+End Function
+
+
+
+
+
+Function L_Encode:String( Value:Int, ChunkLength:Int )
+	Local Chunk:String = ""
+	For Local N:Int = 1 To ChunkLength
+		Chunk = Chr( 48 + ( Value Mod 80 ) ) + Chunk
+		Value = Floor( Value / 80 )
+	Next
+	Return Chunk
+End Function
+
+
+
+
+
+Function L_Decode:Int( Chunk:String )
+	Local Value:Int = 0
+	For Local N:Int = 0 Until Chunk.Length
+		Value = Value * 80 + Chunk[ N ] - 48
+	Next
+	Return Value
+End Function

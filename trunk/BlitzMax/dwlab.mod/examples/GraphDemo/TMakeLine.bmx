@@ -9,7 +9,7 @@
 '
 
 Type TMakeLine Extends LTDrag
-	Field Line:LTLine
+	Field Line:LTLineSegment
 	
 	
 	
@@ -26,7 +26,7 @@ Type TMakeLine Extends LTDrag
 	
 	
 	Method StartDragging()
-		Line = New LTLine
+		Line = New LTLineSegment
 		Line.Pivot[ 0 ] = Game.CurrentPivot
 		Line.Pivot[ 1 ] = Game.Cursor
 	End Method
@@ -42,7 +42,7 @@ Type TMakeLine Extends LTDrag
 	Method EndDragging()
 		If Game.CurrentPivot Then
 			Line.Pivot[ 1 ] = Game.CurrentPivot
-			If Not game.Map.FindLine( Line.Pivot[ 0 ], Line.Pivot[ 1 ] ) Then LTAddLineToGraph.Create( Game.Map, Line ).Do()
+			If Not Game.Map.FindLineSegment( Line.Pivot[ 0 ], Line.Pivot[ 1 ] ) Then LTAddLineToGraph.Create( Game.Map, Line ).Do()
 		End If
 	End Method
 End Type

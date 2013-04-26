@@ -8,6 +8,10 @@
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
 
+Rem
+bbdoc: Movement behavior model.
+about: Model which moves sprite to given position using sprite velocity.
+End Rem
 Type LTMovingModel Extends LTChainedModel
 	Field X:Double, Y:Double
 	

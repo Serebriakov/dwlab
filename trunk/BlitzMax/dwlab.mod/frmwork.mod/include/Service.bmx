@@ -279,18 +279,23 @@ End Function
 
 
 
-
+Rem
+bbdoc: Calculates given vector length.
+returns: Length of given vector.
+End Rem
 Function L_Distance:Double( DX:Double, DY:Double )
 	Return Sqr( DX * DX + DY * DY )
 End Function
 
 
 
-
+Rem
+bbdoc: Calculates square of given vector length.
+returns: Square of length of given vector.
+End Rem
 Function L_Distance2:Double( DX:Double, DY:Double )
 	Return DX * DX + DY * DY
 End Function
-
 
 
 
@@ -457,7 +462,10 @@ End Function
 
 
 
-
+Rem
+bbdoc: Converts UTF8 characted (given by number) to ASCII.
+returns: ASCII symbol.
+End Rem
 Function L_UTF8ToASCII:String( CharNum:Int )
 	Local AdditionalBytes:Int = 0
 	Local Mask:Int = 0
@@ -494,6 +502,10 @@ End Function
 
 
 
+Rem
+bbdoc: Converts given UTF8 string to ASCII.
+returns: Converted ASCII string.
+End Rem
 Function L_UTF8LineToASCII:String( Line:String )
 	Local NewLine:String = ""
 	For Local M:Int = 0 Until Line.Length
@@ -506,6 +518,10 @@ End Function
 
 
 
+Rem
+bbdoc: Converts given ASCII symbol with given postion from given text  to UTF8 string.
+returns: UTF8 string.
+End Rem
 Function L_ASCIIToUTF8:String( Text:String, Pos:Int Var )
 	Local Header:Int = Text[ Pos ]
 	If Header < 128 Then Return Chr( Header )
@@ -528,7 +544,10 @@ End Function
 
 
 
-
+Rem
+bbdoc: Converts given ASCII string to UTF8 string.
+returns: UTF8 string.
+End Rem
 Function L_ASCIILineToUTF8:String( Line:String )
 	Local NewLine:String = ""
 	Local Pos:Int = 0
@@ -543,6 +562,9 @@ End Function
 
 
 
+Rem
+bbdoc: Draws text.
+End Rem
 Function L_PrintText( Text:String, X:Double, Y:Double, HorizontalAlign:Int = LTAlign.ToCenter, VerticalAlign:Int = LTAlign.ToCenter, Contour:Int = False )
 	Local SX:Double, SY:Double
 	L_CurrentCamera.FieldToScreen( X, Y, SX, SY )
@@ -574,7 +596,9 @@ End Function
 
 
 
-
+Rem
+bbdoc: Draws text with black contour.
+End Rem
 Function L_DrawTextWithContour( Text:String, SX:Int, SY:Int )
 	SetColor( 0, 0, 0 )
 	For Local DY:Int = -1 To 1
@@ -589,7 +613,11 @@ End Function
 
 
 
-
+Rem
+bbdoc: Version to Int conversion.
+about: Converts version value like "XX.XX. ... .XX" to integer number (numbers should be from 0 to 99)
+returns: Int value.
+End Rem
 Function L_VersionToInt:Int( Version:String, TotalChunks:Int = 4 )
 	Local Versions:String[] = Version.Split( "." )
 	Local IntVersion:Int = 0
@@ -598,39 +626,4 @@ Function L_VersionToInt:Int( Version:String, TotalChunks:Int = 4 )
 		If N < Versions.Length Then IntVersion :+ Versions[ N ].ToInt()
 	Next
 	Return IntVersion
-End Function
-
-
-
-
-
-Global L_Log80:Double = Log( 80 )
-
-Function L_GetChunkLength:Int( Quantity:Int )
-	Return Max( 1, Ceil( Log( Quantity ) / L_Log80 ) )
-End Function
-
-
-
-
-
-Function L_Encode:String( Value:Int, ChunkLength:Int )
-	Local Chunk:String = ""
-	For Local N:Int = 1 To ChunkLength
-		Chunk = Chr( 48 + ( Value Mod 80 ) ) + Chunk
-		Value = Floor( Value / 80 )
-	Next
-	Return Chunk
-End Function
-
-
-
-
-
-Function L_Decode:Int( Chunk:String )
-	Local Value:Int = 0
-	For Local N:Int = 0 Until Chunk.Length
-		Value = Value * 80 + Chunk[ N ] - 48
-	Next
-	Return Value
 End Function

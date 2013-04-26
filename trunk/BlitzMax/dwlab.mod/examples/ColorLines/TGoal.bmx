@@ -9,7 +9,7 @@
 '
 
 Type TGoal Extends LTObject
-	Field Count:Int
+	Field Count:Int = 1
 	
 	Method GetBallIcon:Int()
 		Return 0
@@ -151,5 +151,17 @@ Type TRemoveIce Extends TGoal
 		Local Goal:TRemoveIce = New TRemoveIce
 		Goal.Count = Quantity
 		Profile.Goals.AddLast( Goal )
+	End Function
+End Type
+
+
+
+Type TRemoveAllBalls Extends TGoal
+	Method GetBallIcon:Int()
+		Return Profile.Wipe
+	End Method
+	
+	Function Create()
+		Profile.Goals.AddLast( New TRemoveAllBalls )
 	End Function
 End Type

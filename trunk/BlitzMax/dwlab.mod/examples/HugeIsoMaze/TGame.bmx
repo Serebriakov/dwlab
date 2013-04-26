@@ -80,7 +80,7 @@ Type TGame Extends LTProject
 	
 	
 	Method Logic()
-		L_CurrentCamera.MoveUsingArrows( 16.0 )
+		L_CurrentCamera.MoveUsingArrows( 10.0 )
 		ActingRegion.JumpTo( L_CurrentCamera )
 		ActingRegion.CollisionsWithSpriteMap( Objects, ActingRegionCollisions )
 		If KeyHit( Key_Escape ) Then End
@@ -92,5 +92,6 @@ Type TGame Extends LTProject
 		World.Draw()
 		ShowDebugInfo()
 		DrawText( "Zombies: " + Zombies, 0, 96 )
+		DrawText( L_CurrentCamera.X, 0, 150 )
 	End Method
 End Type

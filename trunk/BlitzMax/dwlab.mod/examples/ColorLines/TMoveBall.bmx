@@ -40,8 +40,8 @@ Type TMoveBall Extends LTBehaviorModel
 	End Method
 	
 	Method Deactivate( Shape:LTShape )
-		Game.CheckBall( Shape, X + DX, Y + DY, CheckLines )
-		Profile.Turns :+ 1
-		Profile.TurnTime = 0.0
+		Profile.NewTurn( CheckLines And Game.CheckBall( Shape, X, Y ) And Game.CheckBall( Shape, X + DX, Y + DY ) ..
+					 And TCheckLines.Execute( Profile.Balls.GetTile( X, Y ) ) ..
+					 And TCheckLines.Execute( Profile.Balls.GetTile( X + DX, Y + DY ) ) )
 	End Method
 End Type

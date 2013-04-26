@@ -8,6 +8,10 @@
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
 
+Rem
+bbdoc: Following behavior model.
+about: Model which moves sprite towards given shape using sprite velocity.
+End Rem
 Type LTFollowingModel Extends LTChainedModel
 	Field DestinationShape:LTShape
 	Field RemoveWhenStop:Int

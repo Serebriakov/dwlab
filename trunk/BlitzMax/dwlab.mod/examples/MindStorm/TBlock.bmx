@@ -27,7 +27,7 @@ Type TBlock Extends LTVectorSprite
 	
 	
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		If ShapeType = LTSprite.Rectangle Then Frame = Floor( Game.Time / BlinkingSpeed ) Mod 2
 		Super.Draw()
 	End Method

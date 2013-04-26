@@ -13,7 +13,6 @@ Type LTSettingsWindow Extends LTAudioWindow
 	Field Resolution:LTScreenResolution
 	Field ColorDepth:LTColorDepth
 	Field Frequency:LTFrequency
-	Field VideoDriver:LTVideoDriver
 	Field AudioDriver:String
 
 	Method Init()
@@ -21,8 +20,6 @@ Type LTSettingsWindow Extends LTAudioWindow
 		Resolution = LTScreenResolution.Get( L_CurrentProfile.ScreenWidth, L_CurrentProfile.ScreenHeight )
 		ColorDepth = LTColorDepth.Get( Resolution, L_CurrentProfile.ColorDepth )
 		Frequency = LTFrequency.Get( ColorDepth, L_CurrentProfile.Frequency )
-		VideoDriver = LTVideoDriver.Get( LTProfile.VideoDriver )
-		AudioDriver = LTProfile.AudioDriver
 		
 		For Local Label:LTLabel = Eachin Children
 			If Not Label.Text Then Label.Text = GetText( Label.GetName() )
@@ -41,10 +38,6 @@ Type LTSettingsWindow Extends LTAudioWindow
 				Return ColorDepth.Bits + LocalizeString( " {{bit}}" )
 			Case "Frequency"
 				Return Frequency.Hertz + LocalizeString( " {{Hz}}" )
-			Case "VideoDriver"
-				Return VideoDriver.Name
-			Case "AudioDriver"
-				Return AudioDriver
 		End Select
 	End Method
 	
@@ -77,10 +70,6 @@ Type LTSettingsWindow Extends LTAudioWindow
 				SwitchListItem( Resolution.ColorDepths, ColorDepth, Direction )
 			Case "Frequency"
 				SwitchListItem( ColorDepth.Frequencies, Frequency, Direction )
-			Case "VideoDriver"
-				SwitchListItem( L_VideoDrivers, VideoDriver, Direction )
-			Case "AudioDriver"
-				SwitchListItem( L_AudioDrivers, AudioDriver, Direction )
 		End Select
 		For Local Label:LTLabel = Eachin Children
 			If Label.GetName() = Name Then Label.Text = GetText( Name )
@@ -121,13 +110,6 @@ Type LTSettingsWindow Extends LTAudioWindow
 		L_CurrentProfile.Frequency = Frequency.Hertz
 		
 		Local Projects:LTProject[] = [ LTGUIProject( Menu ), Project ]
-		
-		If LTProfile.VideoDriver <> VideoDriver.Name Then
-			L_CurrentProfile.SetVideoDriver( VideoDriver.Name )
-			NewScreen = True
-		End If
-		
-		If LTProfile.AudioDriver <> AudioDriver Then L_CurrentProfile.SetSoundDriver( AudioDriver )
 		
 		L_CurrentProfile.Apply( Projects, NewScreen, NewLanguage )
 	End Method

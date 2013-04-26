@@ -294,7 +294,7 @@ Type LTVisualizer Extends LTColor
 	bbdoc: Draws given line using this visualizer.
 	about: Change this method if you are making your own visualizer.
 	End Rem
-	Method DrawUsingLineSegment( LineSegment:LTLineSegment, DrawingAlpha:Double  )
+	Method DrawUsingLineSegment( LineSegment:LTLineSegment, DrawingAlpha:Double )
 		If Not LineSegment.Visible Then Return
 		
 		ApplyColor( DrawingAlpha )

@@ -8,6 +8,10 @@
 ' http://www.opensource.org/licenses/artistic-license-2.0.php
 '
 
+Rem
+bbdoc: Period movement behavior model.
+about: Model which moves shape from current position to given during given period.
+End Rem
 Type LTTimedMovementModel Extends LTTemporaryModel
 	Field InitialX:Double, InitialY:Double
 	Field DestinationX:Double, DestinationY:Double
@@ -34,6 +38,7 @@ Type LTTimedMovementModel Extends LTTemporaryModel
 	
 	Method ApplyTo( Shape:LTShape )
 		Local K:Double = ( L_CurrentProject.Time - StartingTime ) / Period
+		DebugLog K
 		Shape.SetCoords( InitialX + K * ( DestinationX - InitialX ), InitialY + K * ( DestinationY - InitialY ) )
 		Super.ApplyTo( Shape )
 	End Method

@@ -26,7 +26,7 @@ Type LTOptionsWindow Extends LTAudioWindow
 		If Label.Icon Then LTSprite( Label.Icon ).Frame = 6 + L_CurrentProfile.FullScreen
 		LTButton( FindShape( "SoundOn" ) ).State = L_CurrentProfile.SoundOn
 		LTButton( FindShape( "MusicOn" ) ).State = L_CurrentProfile.MusicOn
-		LTButton( FindShape( "Play" ) ).State = Not ( L_CurrentProfile.MusicMode = L_CurrentProfile.Paused )
+		LTButton( FindShape( "Play" ) ).State = Not ( L_Music.MusicMode = L_Music.Paused )
 		LTButton( FindShape( "Repeat" ) ).State = L_CurrentProfile.MusicRepeat
 	End Method
 	
@@ -55,13 +55,14 @@ Type LTOptionsWindow Extends LTAudioWindow
 				If L_CurrentProfile.SoundOn Then L_CurrentProfile.PlaySnd( Menu.Boss )
 				L_Boss()
 			Case "Play"
-				L_CurrentProfile.SwitchMusicPlaying()
+				L_Music.SwitchMusicPlaying( True )
 			Case "PrevTrack"
 				L_CurrentProfile.PrevTrack()
 			Case "NextTrack"
 				L_CurrentProfile.NextTrack()
 			Case "Repeat"
 				L_CurrentProfile.MusicRepeat = Not L_CurrentProfile.MusicRepeat
+				L_Music.ForceRepeat = L_CurrentProfile.MusicRepeat
 		End Select
 	End Method
 	
@@ -88,7 +89,7 @@ Function L_Boss()
 	Local OldAppTitle:String = AppTitle
 	AppTitle = LocalizeString( "{{Calculator}}" )
 	Graphics( Image.Width, Image.Height )
-	If L_CurrentProfile.MusicChannel Then PauseChannel( L_CurrentProfile.MusicChannel )
+	L_Music.SetVolume( 0.0 )
 	Repeat
 		If AppTerminate() Then
 			Menu.Project.DeInit()
@@ -102,7 +103,7 @@ Function L_Boss()
 				EndGraphics()
 				L_ProjectWindow = Null
 				L_CurrentProfile.Apply( [ LTProject( Menu ), LTProject( Menu.Project ) ], True, False )
-				If L_CurrentProfile.MusicChannel Then ResumeChannel( L_CurrentProfile.MusicChannel )
+				L_CurrentProfile.UpdateMusicVolume()
 				Return
 			End If
 		Next

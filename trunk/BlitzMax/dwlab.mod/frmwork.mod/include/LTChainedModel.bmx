@@ -14,7 +14,7 @@ Include "LTMovingModel.bmx"
 Include "LTFollowingModel.bmx"
 
 Rem
-bbdoc: Behavior model with models chained to it.
+bbdoc: Behavior model template with models chained to it.
 about: Can have other models which will be attached to the shape when the model will finish its task.
 End Rem
 Type LTChainedModel Extends LTBehaviorModel

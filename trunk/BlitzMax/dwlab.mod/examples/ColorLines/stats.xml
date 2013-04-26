@@ -1,4 +1,4 @@
-<TStatList dwlab_version="1.4.32" total-loading-time="0">
+<TStatList dwlab_version="1.4.34" total-loading-time="0">
 	<TStats level="Iceland" time="2"/>
 	<TStats level="Iceland" completed="1" score="70" time="106" turns="58"/>
 	<TStats level="Black ball way" time="11"/>
@@ -106,5 +106,9 @@
 	<TStats level="Level_1_1" completed="1" score="30" time="32.91999999" turns="22"/>
 	<TStats level="Level_1_2" completed="1" score="40" time="43.88" turns="39"/>
 	<TStats level="Level_1_3" score="18" time="50.06666666" turns="7"/>
-	<TStats level="Level_1_3" completed="1" score="50" time="68.37333333" turns="29"/>
+	<TStats level="Level_1_3" completed="1" score="50" time="68.37333332" turns="29"/>
+	<TStats level="The wall" time="2.49333333"/>
+	<TStats level="The wall" score="48" time="180.01333332" turns="37"/>
+	<TStats level="The wall" score="40" time="124" turns="36"/>
+	<TStats level="The wall" completed="1" score="64" time="61.22666666" turns="28"/>
 </TStatList>

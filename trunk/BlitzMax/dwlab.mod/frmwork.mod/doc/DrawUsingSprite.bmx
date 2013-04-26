@@ -45,7 +45,7 @@ Type TFlowerVisualizer Extends LTVisualizer
 	Const CirclesPer360:Int = 7
 	Const Amplitude:Double = 0.15
 	
-	Method DrawUsingSprite( Sprite:LTSprite, SpriteShape:LTSprite = Null )
+	Method DrawUsingSprite( Sprite:LTSprite, SpriteShape:LTSprite = Null, DrawingAlpha:Double )
 		Local SpriteDiameter:Double = Sprite.GetDiameter()
 		Local CircleDiameter:Double = L_CurrentCamera.DistFieldToScreen( 2.0 * Pi * SpriteDiameter / CirclesQuantity ) * 1.5
 		For Local N:Int = 0 Until CirclesQuantity

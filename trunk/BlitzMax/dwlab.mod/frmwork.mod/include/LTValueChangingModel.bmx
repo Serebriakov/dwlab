@@ -11,16 +11,19 @@
 Include "LTResizingModel.bmx"
 Include "LTAlphaChangingModel.bmx"
 
+Rem
+bbdoc: Model template for smoothly changing some variable from initial value to destination value with given speed.
+about: Modify ChangeValue method in your nested class to make value changing models.
+End Rem
 Type LTValueChangingModel Extends LTTemporaryModel
 	Field InitialValue:Double, DestinationValue:Double
-	Field Speed:Double
 
 	
 	
 	Method ApplyTo( Shape:LTShape )
 		If DestinationValue = InitialValue Then
 			Remove( Shape )
-		Else
+		ElseIf Period Then
 			ChangeValue( Shape, InitialValue + ( L_CurrentProject.Time - StartingTime ) / Period * ( DestinationValue - InitialValue ) )
 		End If
 		Super.ApplyTo( Shape )

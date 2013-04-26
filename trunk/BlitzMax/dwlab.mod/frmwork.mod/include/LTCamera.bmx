@@ -66,7 +66,7 @@ Type LTCamera Extends LTVectorSprite
 			FieldY = ScreenY / K - VDY
 		End If
 	End Method
-
+	
 	
 	
 	Rem
@@ -75,8 +75,8 @@ Type LTCamera Extends LTVectorSprite
 	End Rem
 	Method SizeScreenToField( ScreenWidth:Double, ScreenHeight:Double, FieldWidth:Double Var, FieldHeight:Double Var )
 		If Isometric Then
-			FieldWidth = Abs( ( Abs( ScreenWidth * VY2 ) - Abs( ScreenHeight * VX2 ) ) / AVK )
-			FieldHeight = Abs( ( Abs( ScreenHeight * VY2 ) - Abs( ScreenWidth * VX2 ) ) / AVK )
+			FieldWidth = ( ScreenWidth * VY2 - ScreenHeight * VX2 ) / VK
+			FieldHeight =( ScreenHeight * VX1 - ScreenWidth * VY1 ) / VK
 		Else
 			FieldWidth = ScreenWidth / K
 			FieldHeight = ScreenHeight / K

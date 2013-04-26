@@ -33,7 +33,7 @@ Type TMessage Extends LTSprite
 		Game.Level.AddLast( Message )
 	End Function
 	
-	Method Draw()
+	Method Draw( DrawingAlpha:Double = 1.0 )
 		Local SX:Double, SY:Double
 		L_CurrentCamera.FieldToScreen( X, Y, SX, SY )
 		Visualizer.ApplyColor()

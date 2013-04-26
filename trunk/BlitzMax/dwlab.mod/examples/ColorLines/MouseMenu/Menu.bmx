@@ -31,6 +31,7 @@ Include "LTLevelSelectionWindow.bmx"
 Include "LTLevelsList.bmx"
 Include "LTLevelCompletedWindow.bmx"
 Include "LTLevelFailedWindow.bmx"
+Include "LTRules.bmx"
 
 Global L_OldIncbin:String = L_Incbin
 Global L_MenuPath:String
@@ -145,10 +146,6 @@ Type LTMenu Extends LTGUIProject
 	Method DeInit()
 		Windows.Clear()
 		Cls()
-		LoadingBar = LTSlider( LoadWindow( Interface, , "LoadingWindow" ).FindShapeWithType( "LTSlider" ) )
-		L_LoadingUpdater = New LTLoadingWindowUpdater
-		L_LoadingUpdater.Update()
-		LTProfile.LoadMusic()
 		Windows.Clear()
 	End Method
 		
@@ -186,7 +183,7 @@ Type LTMenu Extends LTGUIProject
 	End Method
 	
 	Method LoadFirstLevel()
-		L_CurrentProfile.FirstLockedLevel = LTShape( Levels.Children.FirstLink().NextLink().Value() ).GetName()
+		L_CurrentProfile.FirstLockedLevel = LTShape( Levels.Children.FirstLink().Value() ).GetName()
 		If Not Profile.LevelName Then Profile.LevelName = L_CurrentProfile.FirstLockedLevel
 		LoadLevel( Profile.LevelName )
 	End Method
@@ -219,8 +216,6 @@ Type LTMenu Extends LTGUIProject
 		L_CurrentProfile = LTProfile( XMLObject.ManageObjectAttribute( "current-profile", L_CurrentProfile ) )
 		XMLObject.ManageListField( "profiles", Menu.Profiles )
 		XMLObject.ManageStringObjectMapField( "high-scores", Menu.HighScores )
-		XMLObject.ManageStringAttribute( "audio", LTProfile.AudioDriver )
-		XMLObject.ManageStringAttribute( "video", LTProfile.VideoDriver )
 	End Method
 End Type
 
@@ -243,11 +238,20 @@ Type LTAuthorsWindow Extends LTAudioWindow
 End Type
 
 
+	
+Function ToTime:String( Time:Int )
+	Local Seconds:Int = Floor( Time ) Mod 60
+	Local Minutes:Int = Floor( Time / 60.0 ) Mod 60
+	Local Hours:Int = Floor( Time / 3600.0 )
+	If Hours Then
+		Return LocalizeString( Hours + " {{hrs}} " + Minutes + " {{min}} " + Seconds + " {{sec}}" ) 
+	Else
+		Return LocalizeString( Minutes + " {{min}} " + Seconds + " {{sec}}" )
+	End If
+End Function
 
-Type LTLoadingWindowUpdater Extends LTObject
-	Method Update()
-		Menu.LoadingBar.Size = L_LimitDouble( 1.0 * L_LoadingTime / LTProfile.TotalMusicLoadingTime, 0.0, 1.0 )
-		Menu.WindowsRender()
-		Flip
-	End Method
-End Type
+
+
+Function ConditionString:String( Condition:Int, ForTrue:String, ForFalse:String = "" )
+	If Condition Then Return ForTrue Else Return ForFalse
+End Function

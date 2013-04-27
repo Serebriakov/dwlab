@@ -1614,6 +1614,7 @@ Type LTEditor Extends LTProject
 			CheckForSpriteUnderCursor( CurrentViewLayer )
 			SelectShapes.Execute()
 			MoveShape.Execute()
+			CreateLine.Execute()
 			CreateSprite.Execute()
 			ModifyShape.Execute()
 		End If
@@ -1777,6 +1778,13 @@ Type LTEditor Extends LTProject
 						DrawRect( X - 2, Y - 2, 5, 5 )
 						SetColor( 255, 255, 255 )
 					Next
+				End If				
+				
+				If CreateLine.Sprite And CreateLine.Cursor Then
+					Local SX:Double, SY:Double, SpriteSX:Double, SpriteSY:Double
+					L_CurrentCamera.FieldToScreen( CreateLine.Cursor.X, CreateLine.Cursor.Y, SX, SY )
+					L_CurrentCamera.FieldToScreen( CreateLine.Sprite.X, CreateLine.Sprite.Y, SpriteSX, SpriteSY )
+					LTMarchingAnts.DrawMALine( Null, SX, SY, SpriteSX, SpriteSY )
 				End If
 			End If
 			
@@ -1863,7 +1871,7 @@ Type LTEditor Extends LTProject
 		SelectedShapes.Clear()
 		SelectedShapes.AddLast( Shape )
 		If LTLayer( Shape ) Then Return
-		SetShapeModifiers( Shape )
+		If Not LTLineSegment( Shape ) Then SetShapeModifiers( Shape ) Else Modifiers.Clear()
 		CurrentShape = Shape
 		FillShapeFields()
 		RefreshProjectManager()

@@ -19,6 +19,12 @@ Type LTLineSegment Extends LTShape
 	
 	
 	
+	Method GetClassTitle:String()
+		Return "Line segment"
+	End Method
+	
+	
+	
 	Rem
 	bbdoc: Creates line section between two pivots.
 	returns: New line.

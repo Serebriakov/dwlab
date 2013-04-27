@@ -66,6 +66,21 @@ Type LTMarchingAnts Extends LTVisualizer
 	
 	
 	Rem
+	bbdoc: Draws given line using this visualizer.
+	about: Change this method if you are making your own visualizer.
+	End Rem
+	Method DrawUsingLineSegment( LineSegment:LTLineSegment, DrawingAlpha:Double )
+		If Not LineSegment.Visible Then Return
+		
+		Local SX1:Double, SY1:Double, SX2:Double, SY2:Double
+		L_CurrentCamera.FieldToScreen( LineSegment.Pivot[ 0 ].X, LineSegment.Pivot[ 0 ].Y, SX1, SY1 )
+		L_CurrentCamera.FieldToScreen( LineSegment.Pivot[ 1 ].X, LineSegment.Pivot[ 1 ].Y, SX2, SY2 )
+		LTMarchingAnts.DrawMALine( Null, SX1, SY1, SX2, SY2 )
+	End Method
+	
+	
+	
+	Rem
 	bbdoc: Draws voluntary marching ants rectangle.
 	End Rem
 	Function DrawMARect( X:Int, Y:Int, Width:Int, Height:Int )
@@ -108,7 +123,12 @@ Type LTMarchingAnts Extends LTVisualizer
 	
 	
 	Function DrawMALine( Image:TImage, X1:Int, Y1:Int, X2:Int, Y2:Int )
+		If X1 = Y1 And X2 = Y2 Then Return
 		SetRotation( ATan2( Y2 - Y1, X2 - X1 ) )
+		If Not Image Then
+			Local Pos:Int = Int( MilliSecs() / 100 ) Mod 8
+			Image = MakeMALine( L_Distance( X1 - X2, Y1 - Y2 ), Pos )
+		End If
 		DrawImage( Image, X1, Y1 )
 		SetRotation( 0.0 )
 	End Function

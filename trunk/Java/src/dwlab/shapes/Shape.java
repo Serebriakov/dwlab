@@ -472,10 +472,10 @@ public class Shape extends Obj {
 
 
 	private static final ButtonAction[] keysWSAD = {
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_W ) ),
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_S ) ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_A ) ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_D ) )
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_W ), "up" ),
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_S ), "down" ), 
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_A ), "left" ), 
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_D ), "right" )
 	};
 
 	/**
@@ -489,10 +489,10 @@ public class Shape extends Obj {
 
 
 	private static final ButtonAction[] keysArrows = {
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_UP ) ),
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_DOWN ) ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_LEFT ) ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_RIGHT ) )
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_UP ), "up" ),
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_DOWN ), "down" ), 
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_LEFT ), "left" ), 
+		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_RIGHT ), "right" )
 	};
 
 	/**

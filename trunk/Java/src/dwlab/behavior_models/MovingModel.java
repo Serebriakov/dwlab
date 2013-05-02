@@ -9,10 +9,9 @@
 
 package dwlab.behavior_models;
 
-import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
 
-public class MovingModel extends ChainedModel {
+public class MovingModel extends ChainedModel<Sprite> {
 	public double x, y;
 
 
@@ -23,8 +22,8 @@ public class MovingModel extends ChainedModel {
 
 
 	@Override
-	public void applyTo( Shape shape ) {
-		( (Sprite) shape ).moveTowardsPoint( x, y, ( (Sprite) shape ).velocity );
-		if( shape.isAtPositionOfPoint( x, y ) ) remove( shape );
+	public void applyTo( Sprite sprite ) {
+		sprite.moveTowardsPoint( x, y, sprite.velocity );
+		if( sprite.isAtPositionOfPoint( x, y ) ) remove( sprite );
 	}
 }

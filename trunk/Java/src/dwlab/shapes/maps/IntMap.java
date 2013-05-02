@@ -21,10 +21,10 @@ public class IntMap extends Map {
 		if( newXQuantity <= 0 && newYQuantity <= 0 ) error( "Map resoluton must be more than 0" );
 
 		int newValue[][] = new int[ newYQuantity ][];
-		for( int yy=0; yy <= Math.min( yQuantity, newYQuantity ); yy++ ) newValue[ yy ] = new int[ newXQuantity ];
+		for( int yy=0; yy < newYQuantity; yy++ ) newValue[ yy ] = new int[ newXQuantity ];
 		if( value != null ) {
-			for( int yy=0; yy <= Math.min( yQuantity, newYQuantity ); yy++ ) {
-				for( int xx=0; xx <= Math.min( xQuantity, newXQuantity ); xx++ ) newValue[ yy ][ xx ] = value[ yy ][ xx ];
+			for( int yy=0; yy < Math.min( yQuantity, newYQuantity ); yy++ ) {
+				System.arraycopy( value[ yy ], 0, newValue[ yy ], 0, Math.min( xQuantity, newXQuantity ) );
 			}
 		}
 		value = newValue;

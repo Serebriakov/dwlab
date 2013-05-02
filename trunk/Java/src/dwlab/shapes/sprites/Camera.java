@@ -184,9 +184,9 @@ public class Camera extends VectorSprite {
 	 * Smoothly shifts camera to the given point.
 	 * @see #lTCamera example
 	 */
-	public void shiftCameraToPoint( double newX, double newY, double acceleration ) {
-		applyAcceleration( x, newX, dX, acceleration );
-		applyAcceleration( y, newY, dY, acceleration );
+	public void shiftCameraTo( double newX, double newY, double acceleration ) {
+		dX = applyAcceleration( x, newX, dX, acceleration );
+		dY = applyAcceleration( y, newY, dY, acceleration );
 		moveForward();
 	}
 
@@ -194,8 +194,8 @@ public class Camera extends VectorSprite {
 	/**
 	 * Smoothly shifts camera to the given shape center.
 	 */
-	public void shiftCameraToShape( Shape shape, double acceleration ) {
-		shiftCameraToPoint( shape.getX(), shape.getY(), acceleration );
+	public void shiftCameraTo( Shape shape, double acceleration ) {
+		shiftCameraTo( shape.getX(), shape.getY(), acceleration );
 	}
 
 
@@ -217,18 +217,12 @@ public class Camera extends VectorSprite {
 	 * @see #lTCamera example
 	 */
 	public void alterCameraZoom( double newZ, double oldK, double acceleration ) {
-		applyAcceleration( z, newZ, dZ, acceleration );
+		dZ = applyAcceleration( z, newZ, dZ, acceleration );
 		//If Abs( NewZ - Z ) > Abs( DZ ) Then DZ = NewZ - Z
 		z += Project.deltaTime * dZ;
-		setZoom( Math.pow( oldK * zK, z ) );
+		setZoom( oldK * Math.pow( zK, z ) );
 	}
-
-
-	//Deprecated
-	public void alterCameraMagnification( double newZ, double oldK, double acceleration ) {
-		alterCameraZoom( newZ, oldK, acceleration );
-	}
-
+	
 
 	@Override
 	public void update() {

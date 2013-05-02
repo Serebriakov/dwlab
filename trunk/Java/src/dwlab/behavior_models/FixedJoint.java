@@ -18,7 +18,7 @@ import dwlab.shapes.sprites.Sprite;
  * Fixed joint moves and rotates angular sprite as parent angular sprite moves or rotates.
  * @see #lTRevoluteJoint
  */
-public class FixedJoint extends BehaviorModel {
+public class FixedJoint extends BehaviorModel<Sprite> {
 	public Sprite parentPivot;
 	public double angle;
 	public double distance;
@@ -37,8 +37,7 @@ public class FixedJoint extends BehaviorModel {
 
 
 	@Override
-	public void init( Shape shape ) {
-		Sprite sprite = (Sprite) shape;
+	public void init( Sprite sprite ) {
 		angle = parentPivot.directionTo( sprite ) - parentPivot.angle;
 		distance = parentPivot.distanceTo( sprite );
 		dAngle = sprite.angle - parentPivot.angle;
@@ -46,8 +45,7 @@ public class FixedJoint extends BehaviorModel {
 
 
 	@Override
-	public void applyTo( Shape shape ) {
-		Sprite sprite = (Sprite) shape;
+	public void applyTo( Sprite sprite ) {
 		sprite.setCoords( parentPivot.getX() + Math.cos( angle + parentPivot.angle ) * distance, 
 				parentPivot.getY() + Math.sin( angle + parentPivot.angle ) * distance );
 		sprite.angle = parentPivot.angle + dAngle;

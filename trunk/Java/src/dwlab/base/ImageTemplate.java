@@ -69,7 +69,11 @@ public abstract class ImageTemplate extends Obj {
 		return getPixel( 0, x, y, color );
 	}
 
-	public abstract void setPixel( int x, int y, Color color );
+	public abstract void setPixel( int frame, int x, int y, Color color );
+	
+	public void setPixel( int x, int y, Color color ) {
+		setPixel( 0, x, y, color );
+	}
 	
 	
 	public abstract void draw( int frame, double x, double y, double width, double height, double angle, Color color );

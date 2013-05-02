@@ -10,7 +10,6 @@
 package dwlab.controllers;
 
 import dwlab.base.Obj;
-import org.lwjgl.input.Keyboard;
 
 /**
  * Common class for keys, buttons and mouse wheel rolls.
@@ -21,16 +20,6 @@ public abstract class Pushable extends Obj {
 		PRESSED,
 		JUST_UNPRESSED,
 		UNPRESSED
-	}
-
-	public enum Modifiers {
-		NO,
-		SHIFT,
-		CONTROL,
-		CONTROL_SHIFT,
-		CONTROL_ALT,
-		ALT,
-		ALT_SHIFT
 	}
 
 	public State state = State.UNPRESSED;

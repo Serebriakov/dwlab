@@ -12,18 +12,18 @@ package dwlab.behavior_models;
 import dwlab.shapes.Shape;
 import java.util.LinkedList;
 
-public class ConditionalModel extends BehaviorModel {
+public class ConditionalModel<E extends Shape> extends BehaviorModel<E> {
 	public LinkedList<BehaviorModel> trueModels = new LinkedList<BehaviorModel>();
 	public LinkedList<BehaviorModel> falseModels = new LinkedList<BehaviorModel>();
 
 
-	public boolean condition( Shape shape ) {
+	public boolean condition( E shape ) {
 		return false;
 	}
 
 
 	@Override
-	public void applyTo( Shape shape ) {
+	public void applyTo( E shape ) {
 		remove( shape );
 		if( condition( shape ) ) {
 			shape.attachModels( trueModels );

@@ -12,12 +12,12 @@ package dwlab.behavior_models;
 import dwlab.shapes.Shape;
 import java.util.LinkedList;
 
-public class ChainedModel extends BehaviorModel {
+public class ChainedModel<E extends Shape> extends BehaviorModel<E> {
 	public LinkedList<BehaviorModel> nextModels = new LinkedList<BehaviorModel>();
 
 	
 	@Override
-	public void deactivate( Shape shape ) {
+	public void deactivate( E shape ) {
 		shape.attachModels( nextModels );
 	}
 }

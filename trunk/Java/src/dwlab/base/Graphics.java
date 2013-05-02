@@ -48,15 +48,20 @@ public class Graphics {
 			Logger.getLogger( Graphics.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 
+		glShadeModel( GL_SMOOTH );
+		glEnable( GL_TEXTURE_2D ); 
+		glDisable( GL_DEPTH_TEST );
+		glDisable( GL_LIGHTING ); 
+		
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
 		glMatrixMode( GL_PROJECTION) ;
 		glLoadIdentity();
 		glOrtho( 0d, width, height, 0d, -1d, 1d );
-		glMatrixMode( GL_MODELVIEW) ;
-		glShadeModel( GL_SMOOTH );
-		glEnable( GL_TEXTURE_2D ); 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//resetViewport();
+		glMatrixMode( GL_MODELVIEW ) ;
+		
+		resetViewport();
 
 		try {
 			Mouse.create();
@@ -89,25 +94,27 @@ public class Graphics {
 	}
 	
 	
-	public void setColor( double red, double green, double blue, double alpha ) {
+	public static void setColor( double red, double green, double blue, double alpha ) {
 		currentColor.set( red, green, blue, alpha );
 	}
 	
-	public void setClearingColor( double red, double green, double blue, double alpha ) {
+	public static void setClearingColor( double red, double green, double blue, double alpha ) {
 		currentClearingColor.set( red, green, blue, alpha );
 	}
 	
-	public void setLineWidth( double width ) {
+	public static void setLineWidth( double width ) {
 		lineWidth = width;
 	}
 	
 
 	public static void drawLine( double x1, double y1, double x2, double y2, double width, Color color ) {
+		glBlendFunc(GL_ONE, GL_ZERO );
 		glColor4d( color.red, color.green, color.blue, color.alpha );
 		glBegin( GL_LINES );
 			glVertex2d( x1, y1 );
 			glVertex2d( x2, y2 );
 		glEnd();		
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 	public static void drawLine( double x1, double y1, double x2, double y2 ) {
@@ -118,7 +125,19 @@ public class Graphics {
 	public static void drawRectangle( double x, double y, double width, double height, double angle, Color color, boolean empty ){
 		width *= 0.5d ;
 		height *= 0.5d ;
-		glRectd( x - width, y - height, x + width, y + height );
+		if( empty ) {
+			startPolygon( 4, color, empty );
+			addPolygonVertex( x - width, y - height );
+			addPolygonVertex( x + width, y - height );
+			addPolygonVertex( x + width, y + height );
+			addPolygonVertex( x - width, y + height );
+			drawPolygon();
+		} else {
+			glColor4d( color.red, color.green, color.blue, color.alpha );
+			glBlendFunc(GL_ONE, GL_ZERO );
+			glRectd( x - width, y - height, x + width, y + height );
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
 	}
 	
 	public static void drawRectangle( double x, double y, double width, double height ){
@@ -131,10 +150,14 @@ public class Graphics {
 	
 	
 	public static void drawOval( double x, double y, double width, double height, double angle, Color color, boolean empty ){
-		int vertexQuantity = 8;
-		double step = 360d / vertexQuantity;
-		startPolygon( vertexQuantity, color, empty );
-		for( double ang = 0d; ang < 360d; ang += step ) addPolygonVertex( x + width * Math.cos( ang ), y + height * Math.sin( ang ) );
+		width *= 0.5d ;
+		height *= 0.5d ;
+		double vertexQuantity = Math.ceil( 2 * Math.PI / Math.acos( 1d - 1d / Math.max( width, height ) ) );
+		startPolygon( (int) vertexQuantity, color, empty );
+		for( double n = 0; n < vertexQuantity; n++ ) {
+			double ang = Math.PI * 2 * n / vertexQuantity;
+			addPolygonVertex( x + width * Math.cos( ang ), y + height * Math.sin( ang ) );
+		}
 		drawPolygon();
 	}
 	
@@ -155,12 +178,42 @@ public class Graphics {
 	}
 	
 
-	public static void drawLongOval( double sX, double sY, double sWidth, double sHeight, double angle, Color color, boolean empty ) {
-		throw new UnsupportedOperationException( "Not yet implemented" );
+	public static void drawLongOval( double x, double y, double width, double height, double angle, Color color, boolean empty ) {
+		width *= 0.5d ;
+		height *= 0.5d ;
+		double vertexQuantity = Math.ceil( Math.PI / Math.acos( 1d - 1d / Math.max( width, height ) ) );
+		startPolygon( (int) vertexQuantity * 2 + 2, color, empty );
+		if( width > height ) {
+			for( int side = 0; side < 2; side++ ) {
+				double dsize = ( side == 0 ? width - height : height - width );
+				for( double n = 0; n <= vertexQuantity; n++ ) {
+					double ang = Math.PI * ( side - 0.5 + n / vertexQuantity );
+					addPolygonVertex( x + height * Math.cos( ang ) + dsize, y + height * Math.sin( ang ) );
+				}
+			}
+		} else {
+			for( int side = 0; side < 2; side++ ) {
+				double dsize = ( side == 0 ? height - width: width - height );
+				for( double n = 0; n <= vertexQuantity; n++ ) {
+					double ang = Math.PI * ( side + n / vertexQuantity );
+					addPolygonVertex( x + width * Math.cos( ang ), y + width * Math.sin( ang ) + dsize );
+				}
+			}
+		}
+		drawPolygon();
+	}
+	
+	public static void drawLongOval( double x, double y, double width, double height ){
+		drawLongOval( x, y, width, height, 0d, currentColor, false );
+	}
+	
+	public static void drawEmptyLongOval( double x, double y, double width, double height ){
+		drawLongOval( x, y, width, height, 0d, currentColor, true );
 	}
 	
 
 	public static void startPolygon( int vertexQuantity, Color color, boolean empty ) {
+		glBlendFunc(GL_ONE, GL_ZERO );
 		glColor4d( color.red, color.green, color.blue, color.alpha );
 		if( empty ) glBegin( GL_LINE_LOOP ); else glBegin( GL_POLYGON );
 	}
@@ -171,6 +224,7 @@ public class Graphics {
 
 	public static void drawPolygon() {
 		glEnd();
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 	
@@ -206,21 +260,24 @@ public class Graphics {
 		Camera.current.fieldToScreen( x, y, serviceVector );
 
 		double textWidth = Graphics.getTextWidth( text );
-		System.out.println( textWidth );
 		double textHeight = Graphics.getTextHeight();
 
 		switch( horizontalAlign ) {
 			case TO_CENTER:
 				serviceVector.x -= 0.5d * textWidth;
+				break;
 			case TO_RIGHT:
 				serviceVector.x -= textWidth;
+				break;
 		}
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
 				serviceVector.y -= 0.5d * textHeight;
+				break;
 			case TO_BOTTOM:
 				serviceVector.y -= textHeight;
+				break;
 		}
 
 		if( contour ) {
@@ -259,7 +316,7 @@ public class Graphics {
 	public static void clearScreen( Color color ) {
 		glClearColor( (float) color.red, (float) color.green, (float) color.blue, 1.0f );
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-		glLoadIdentity(); 
+		glClearDepth(1);
 	}
 	
 
@@ -269,8 +326,6 @@ public class Graphics {
 		size.x = viewportWidth;
 		size.y = viewportHeight;
 	}
-
-
 
 	public static void setViewport( int x, int y, int width, int height ) {
 		viewportX = x;

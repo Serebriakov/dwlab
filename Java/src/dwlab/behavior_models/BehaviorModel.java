@@ -16,7 +16,7 @@ import java.util.ListIterator;
 /**
  * Behavior model is the object which can be attached to the shape and affect its state.
  */
-public class BehaviorModel extends Obj {
+public class BehaviorModel<E extends Shape> extends Obj {
 	public boolean active;
 	public ListIterator<BehaviorModel> iterator;
 
@@ -26,7 +26,7 @@ public class BehaviorModel extends Obj {
 	 * It will be executed when model will be attached to shape.
 	 * Fill it with model initialization commands. 
 	 */
-	public void init( Shape shape ) {
+	public void init( E shape ) {
 	}
 
 
@@ -36,7 +36,7 @@ public class BehaviorModel extends Obj {
 	 * 
 	 * @see #deactivate, #activateAllModels, #deactivateAllModels, #activateModel, #deactivateModel
 	 */
-	public void activate( Shape shape ) {
+	public void activate( E shape ) {
 	}
 
 
@@ -46,7 +46,7 @@ public class BehaviorModel extends Obj {
 	 * 
 	 * @see #activate, #activateAllModels, #deactivateAllModels, #activateModel, #deactivateModel
 	 */
-	public void deactivate( Shape shape ) {
+	public void deactivate( E shape ) {
 	}
 
 
@@ -57,7 +57,7 @@ public class BehaviorModel extends Obj {
 	 * 
 	 * @see #applyTo, #act
 	 */
-	public void watch( Shape shape ) {
+	public void watch( E shape ) {
 	}
 
 
@@ -68,7 +68,7 @@ public class BehaviorModel extends Obj {
 	 * 
 	 * @see #watch, #act
 	 */
-	public void applyTo( Shape shape ) {
+	public void applyTo( E shape ) {
 	}
 
 
@@ -78,7 +78,7 @@ public class BehaviorModel extends Obj {
 	 * 
 	 * @see #activate, #deactivate, #activateAllModels, #deactivateAllModels, #deactivateModel
 	 */
-	public final void activateModel( Shape shape ) {
+	public final void activateModel( E shape ) {
 		if( ! active ) {
 			activate( shape );
 			active = true;
@@ -92,7 +92,7 @@ public class BehaviorModel extends Obj {
 	 * 
 	 * @see #activate, #deactivate, #activateAllModels, #deactivateAllModels, #activateModel
 	 */
-	public final void deactivateModel( Shape shape ) {
+	public final void deactivateModel( E shape ) {
 		if( active ) {
 			deactivate( shape );
 			active = false;
@@ -106,7 +106,7 @@ public class BehaviorModel extends Obj {
 	 * 
 	 * @see #deactivate
 	 */
-	public final void remove( Shape shape ) {
+	public final void remove( E shape ) {
 		if( active ) deactivateModel( shape );
 		if( iterator != null ) iterator.remove();
 	}
@@ -116,7 +116,7 @@ public class BehaviorModel extends Obj {
 	 * Removes every other behavior model of same type from shape's behavior models.
 	 * @see #remove
 	 */
-	public final void removeSame( Shape shape ) {
+	public final void removeSame( E shape ) {
 		Class modelClass = this.getClass();
 		for( BehaviorModel model: shape.behaviorModels ) {
 			if( model.getClass() == modelClass && model != this ) model.remove( shape );
@@ -124,7 +124,7 @@ public class BehaviorModel extends Obj {
 	}
 
 
-	public String info( Shape shape ) {
+	public String info( E shape ) {
 		return "";
 	}
 }

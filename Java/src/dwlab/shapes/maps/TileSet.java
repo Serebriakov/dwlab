@@ -55,7 +55,7 @@ public class TileSet extends Obj {
 		Shape newCollisionShape[] = new Shape[ newTilesQuantity ];
 		int newBlockWidth[] = new int[ newTilesQuantity ];
 		int newBlockHeight[] = new int[ newTilesQuantity ];
-		for( int n=0; n <= Math.min( tilesQuantity, newTilesQuantity ); n++ ) {
+		for( int n=0; n < Math.min( tilesQuantity, newTilesQuantity ); n++ ) {
 			newBlockWidth[ n ] = blockWidth[ n ];
 			newBlockHeight[ n ] = blockHeight[ n ];
 			newCollisionShape[ n ] = collisionShape[ n ];
@@ -143,7 +143,7 @@ public class TileSet extends Obj {
 	@Override
 	public void update() {
 		tileCategory = new int[ tilesQuantity ];
-		for( int n=0; n <= tilesQuantity; n++ ) {
+		for( int n=0; n < tilesQuantity; n++ ) {
 			tileCategory[ n ] = -1;
 		}
 
@@ -151,7 +151,7 @@ public class TileSet extends Obj {
 		for( TileCategory category: categories ) {
 			category.num = catNum;
 			for( TileRule rule: category.tileRules ) {
-				for( int n=0; n <= rule.tileNums.length; n++ ) {
+				for( int n=0; n < rule.tileNums.length; n++ ) {
 					if( rule.tileNums[ n ] >= tilesQuantity ) rule.tileNums[ n ] = tilesQuantity - 1;
 					tileCategory[ rule.tileNums[ n ] ] = category.num;
 				}

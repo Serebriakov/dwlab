@@ -16,7 +16,7 @@ import dwlab.shapes.sprites.VectorSprite;
 /**
  * Distance joint keeps fixed distance between parent pivot and given shape.
  */
-public class DistanceJoint extends BehaviorModel {
+public class DistanceJoint extends BehaviorModel<Shape> {
 	public Sprite parentPivot;
 	public double distance;
 	public boolean fixedAngle = true;

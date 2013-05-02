@@ -4,7 +4,6 @@ import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
-import dwlab.controllers.Pushable.Modifiers;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
@@ -23,10 +22,10 @@ public class ActionExample extends Project {
 		instance.act();
 	}
 	
-	public static ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Z, Modifiers.CONTROL ) );
-	public static ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Y, Modifiers.CONTROL ) );
-	public static ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F2 ) );
-	public static ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F3 ) );
+	public static ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Z ), "undo", "ctrl" );
+	public static ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Y ), "redo", "ctrl" );
+	public static ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F2 ), "save" );
+	public static ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F3 ), "load" );
 	
 	public final int spritesQuantity = 50;
 

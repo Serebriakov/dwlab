@@ -13,7 +13,7 @@ import dwlab.shapes.Shape;
  */
 
 
-public class ColorChangingModel extends TemporaryModel {
+public class ColorChangingModel extends TemporaryModel<Shape> {
 	public double initialRed, initialGreen, initialBlue;
 	public double destinationRed, destinationGreen, destinationBlue;
 

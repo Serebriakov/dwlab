@@ -82,6 +82,8 @@ public class Color extends Obj {
 		if( hexColor.length() == 8 ) {
 			alpha = Service.hexToInt( hexColor.substring( 0, 2 ) ) / 255.0;
 			hexColor = hexColor.substring( 2 );
+		} else {
+			alpha = 1.0;
 		}
 		red = 1.0 * Service.hexToInt( hexColor.substring( 0, 2 ) ) / 255.0;
 		green = 1.0 * Service.hexToInt( hexColor.substring( 2, 4 ) ) / 255.0;

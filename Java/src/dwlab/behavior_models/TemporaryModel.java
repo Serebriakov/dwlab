@@ -13,25 +13,25 @@ import dwlab.base.Project;
 import dwlab.base.Service;
 import dwlab.shapes.Shape;
 
-public class TemporaryModel extends ChainedModel {
+public class TemporaryModel<E extends Shape> extends ChainedModel<E> {
 	public double startingTime;
 	public double period;
 
 
 	@Override
-	public void activate( Shape shape ) {
+	public void activate( E shape ) {
 		startingTime = Project.current.time;
 	}
 
 
 	@Override
-	public void applyTo( Shape shape ) {
+	public void applyTo( E shape ) {
 		if( Project.current.time > startingTime + period ) remove( shape );
 	}
 
 
 	@Override
-	public String info( Shape shape ) {
+	public String info( E shape ) {
 		return "" + Service.trim( Project.current.time - startingTime ) + " of " + Service.trim( period );
 	}
 }

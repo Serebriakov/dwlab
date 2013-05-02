@@ -53,10 +53,15 @@ public class BitmapFont extends Image {
 				break;
 		}
 
-		for( int n=0; n <= text.length(); n++ ) {
+		for( int n=0; n < text.length(); n++ ) {
 			if( text.charAt( n ) < fromNum || text.charAt( n ) > toNum ) error( "String contains letter that is out of font range" );
 			int frame = text.charAt( n ) - fromNum;
-			double realLetterWidth = scale * letterWidth[ frame ];
+			double realLetterWidth = scale;
+			if( variableLength ) {
+				realLetterWidth *= letterWidth[ frame ];
+			} else {
+				realLetterWidth *= super.getWidth();
+			}
 			draw( frame, servicePivot.x, servicePivot.y, scale * realLetterWidth, scale * height, 0 );
 			servicePivot.x += realLetterWidth;
 		}
@@ -113,7 +118,7 @@ public class BitmapFont extends Image {
 		if( !variableLength ) return super.getWidth() * text.length();
 			
 		double x = 0;
-		for( int n=0; n <= text.length(); n++ ) {
+		for( int n=0; n < text.length(); n++ ) {
 			if( text.charAt( n ) < fromNum || text.charAt( n ) > toNum ) error( "String contains letter that is out of font range" );
 			if( variableLength ) {
 				x += letterWidth[ text.charAt( n ) - fromNum ];
@@ -142,25 +147,5 @@ public class BitmapFont extends Image {
 		this.fromNum = fromNum;
 		this.toNum = toNum;
 		this.variableLength = variableLength;
-
-		if( variableLength ) {
-			Image image = new Image( fileName );
-			this.letterWidth = new int[ symbolsQuantity ];
-			int pixel = image.getPixel( frameWidth - 1, 0 );
-			for( int n = 0; n < symbolsQuantity; n++ ) {
-				int x = frameWidth * ( n % symbolsQuantity );
-				int y = (int) Math.floor( n / symbolsQuantity );
-				for( int lWidth = frameWidth - 1; lWidth > 1; lWidth-- ) {
-					if( image.getPixel( x + lWidth, y + 1 ) != pixel ) {
-						letterWidth[ n ] = lWidth + 1;
-						break;
-					}
-				}
-			}
-		}
-	}
-	
-	public BitmapFont( String fileName ) {
-		new BitmapFont( fileName, 32, 255, 16, false );
 	}
 }

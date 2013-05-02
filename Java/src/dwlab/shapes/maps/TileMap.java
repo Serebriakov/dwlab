@@ -10,10 +10,10 @@ package dwlab.shapes.maps;
 
 import dwlab.base.Service;
 import dwlab.base.Sys;
-import dwlab.shapes.Shape;
 import dwlab.base.Vector;
-import dwlab.visualizers.Visualizer;
 import dwlab.base.XMLObject;
+import dwlab.shapes.Shape;
+import dwlab.visualizers.Visualizer;
 
 /**
  * Tilemap is displayable rectangular tile-based shape with 2d array of tile indexes and tileset with tile images.

@@ -14,16 +14,21 @@ import dwlab.base.Project;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import java.util.LinkedList;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.input.Keyboard;
 
 /**
  * Class for action which can be triggered by activating pushable object (presing a key, mouse button, etc).
  * Key can be binded to several actions and several keys can be binded to one action.
  */	
 public class ButtonAction extends Obj {
+	public static ButtonAction ctrlAction = create( KeyboardKey.create( Keyboard.KEY_LCONTROL ), KeyboardKey.create( Keyboard.KEY_RCONTROL ), "ctrl" );
+	public static ButtonAction altAction = create( KeyboardKey.create( Keyboard.KEY_LMENU ), KeyboardKey.create( Keyboard.KEY_RMENU ), "alt" );
+	public static ButtonAction shiftAction =create( KeyboardKey.create( Keyboard.KEY_LSHIFT ), KeyboardKey.create( Keyboard.KEY_RSHIFT ), "shift" );
+	
 	public String name;
 	public LinkedList<Pushable> buttonList = new LinkedList();
-
+	public boolean ctrl = false, alt = false, shift = false;
+	
 	/**
 	 * Maximum quantity of buttons in button list (0 means unlimited).
 	 */	
@@ -34,19 +39,38 @@ public class ButtonAction extends Obj {
 	 * Creates button action with given pushable object (button) and name (optional).
 	 * @return New button action with one pushable object (button).
 	 */
-	public static ButtonAction create( Pushable button, String name ) {
+	public static ButtonAction create( Pushable button, String name, String modifiers ) {
 		ButtonAction action = new ButtonAction();
 		action.name = name;
 		action.buttonList.addLast( button );
+		modifiers = modifiers.toLowerCase();
+		if( modifiers.contains( "ctrl" ) ) action.ctrl = true;
+		if( modifiers.contains( "alt" ) ) action.alt = true;
+		if( modifiers.contains( "shift" ) ) action.shift = true;
 		Project.controllers.add( action );
 		return action;
 	}
 	
+	public static ButtonAction create( Pushable button, String name ) {
+		return create( button, name, "" );
+	}
+	
 	public static ButtonAction create( Pushable button ) {
-		ButtonAction action = new ButtonAction();
-		action.buttonList.addLast( button );
-		Project.controllers.add( action );
+		return create( button, "", "" );
+	}
+	
+	public static ButtonAction create( Pushable button1, Pushable button2, String name ) {
+		ButtonAction action = create( button1, name, "" );
+		action.buttonList.addLast( button2 );
 		return action;
+	}
+	
+
+	public boolean modifiersPressed() {
+		if( ctrl && !ctrlAction.isDown() ) return false;
+		if( alt && !altAction.isDown() ) return false;
+		if( shift && !shiftAction.isDown() ) return false;
+		return true;
 	}
 
 
@@ -100,6 +124,7 @@ public class ButtonAction extends Obj {
 	 * @return True if one of pushable objects (buttons) of this action is currently pressed.
 	 */
 	public boolean isDown() {
+		if( !modifiersPressed() ) return false;
 		for( Pushable button: buttonList ) {
 			if( button.isDown() ) return true;
 		}
@@ -113,6 +138,7 @@ public class ButtonAction extends Obj {
 	 * @return True if one of pushable objects (buttons) of this action was pressed in current project cycle.
 	 */
 	public boolean wasPressed() {
+		if( !modifiersPressed() ) return false;
 		for( Pushable button: buttonList ) {
 			if( button.wasPressed() ) return true;
 		}
@@ -126,6 +152,7 @@ public class ButtonAction extends Obj {
 	 * @return True if one of pushable objects (buttons) of this action was unpressed in current project cycle.
 	 */	
 	public boolean wasUnpressed() {
+		if( !modifiersPressed() ) return false;
 		for( Pushable button: buttonList ) {
 			if( button.wasUnpressed() ) return true;
 		}

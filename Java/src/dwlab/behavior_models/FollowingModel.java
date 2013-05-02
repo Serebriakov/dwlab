@@ -12,7 +12,7 @@ package dwlab.behavior_models;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
 
-public class FollowingModel extends ChainedModel {
+public class FollowingModel extends ChainedModel<Sprite> {
 	public Shape destinationShape;
 	public boolean removeWhenStop;
 
@@ -24,8 +24,8 @@ public class FollowingModel extends ChainedModel {
 
 
 	@Override
-	public void applyTo( Shape shape ) {
-		( (Sprite) shape ).moveTowards( destinationShape, ( (Sprite) shape ).velocity );
-		if( removeWhenStop ) if ( shape.isAtPositionOf( destinationShape ) ) remove( shape );
+	public void applyTo( Sprite sprite ) {
+		sprite.moveTowards( destinationShape, sprite.velocity );
+		if( removeWhenStop ) if ( sprite.isAtPositionOf( destinationShape ) ) remove( sprite );
 	}
 }

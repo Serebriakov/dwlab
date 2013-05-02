@@ -12,6 +12,7 @@ package dwlab.base;
 import dwlab.visualizers.Color;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,66 +85,69 @@ public class Image extends ImageTemplate {
 			Logger.getLogger( Image.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		frameWidth = texture.getTextureWidth() / xCells;
-		frameHeight = texture.getTextureWidth() / yCells;
+		frameHeight = texture.getTextureHeight() / yCells;
 	}
 	
-	private static ByteBuffer buffer = ByteBuffer.allocateDirect( 4 );
+	private static FloatBuffer floatBuffer = FloatBuffer.allocate( 4 );
 
 	@Override
 	public Color getPixel( int frame, int x, int y, Color color ) {
-		glReadPixels( x, y, 1, 1, GL_RGBA, GL_UNSIGNED_INT, buffer );
-		color.red = buffer.get( 0 ) / 255d;
-		color.green = buffer.get( 1 ) / 255d;
-		color.blue = buffer.get( 2 ) / 255d;
-		color.alpha = buffer.get( 3 ) / 255d;
+		glReadPixels( x, y, 1, 1, GL_RGBA, GL_FLOAT, floatBuffer );
+		color.red = floatBuffer.get( 0 );
+		color.green = floatBuffer.get( 1 );
+		color.blue = floatBuffer.get( 2 );
+		color.alpha = floatBuffer.get( 3 );
 		return color;
 	}
 	
+	private static ByteBuffer byteBuffer = ByteBuffer.allocateDirect( 4 );
+
 	@Override
-	public void setPixel( int x, int y, Color color ) {
-		buffer.put( 0, (byte) ( 255d * color.red ) );
-		buffer.put( 1, (byte) ( 255d * color.green ) );
-		buffer.put( 2, (byte) ( 255d * color.blue ) );
-		buffer.put( 3, (byte) ( 255d * color.alpha ) );
-		glDrawPixels( x, y, GL_RGBA, GL_UNSIGNED_INT, buffer );
+	public void setPixel( int frame, int x, int y, Color color ) {
+		byteBuffer.put( 0, (byte) ( 255d * color.red ) );
+		byteBuffer.put( 1, (byte) ( 255d * color.green ) );
+		byteBuffer.put( 2, (byte) ( 255d * color.blue ) );
+		byteBuffer.put( 3, (byte) ( 255d * color.alpha ) );
+		glDrawPixels( x, y, GL_RGBA, GL_BYTE, byteBuffer );
 	}
 	
 	
+	private static IntBuffer intBuffer = byteBuffer.asIntBuffer();
+	
 	public int getPixel( int x, int y ) {
-		glReadPixels( x, y, 1, 1, GL_RGBA, GL_UNSIGNED_INT, intBuffer );
+		
+		glReadPixels( x, y, 1, 1, GL_RGBA, GL_BYTE, intBuffer );
 		return intBuffer.get( 0 );
 	}
 	
-	private static IntBuffer intBuffer = IntBuffer.allocate( 1 );
 	public void setPixel( int x, int y, int color ) {
 		intBuffer.put( 0, color );
-		glDrawPixels( x, y, GL_RGBA, GL_UNSIGNED_INT, buffer );
+		glDrawPixels( x, y, GL_RGBA, GL_UNSIGNED_INT, intBuffer );
 	}
 	
 	
 	@Override
 	public void draw( int frame, double x, double y, double width, double height, double angle, Color color ){
-		double width2 = 0.5d * width ;
-		double height2 = 0.5d * height;
-		double tx = frameWidth * ( frame % xCells );
-		double ty = frameHeight * Math.floor( frame / xCells );
-		double kx = 1d / getTextureWidth();
-		double ky = 1d / getTextureHeight();
+		width *= 0.5d;
+		height *= 0.5d;
+		double tx = frame % xCells;
+		double ty = Math.floor( frame / xCells );
+		double kx = frameWidth / getTextureWidth();
+		double ky = frameHeight / getTextureHeight();
 		
 		texture.bind();
 		
-		glColor4d( color.red, color.green, color.blue, color.alpha );
 		glBindTexture( GL_TEXTURE_2D, texture.getTextureID() );
 		glBegin( GL_QUADS );
 			glColor4d( color.red, color.green, color.blue, color.alpha );
-			glTexCoord2d( tx * kx, ty * kx );
-			glVertex2d( x - width2, y - height2 );
-			glTexCoord2d( ( tx + frameWidth ) * kx, ty * ky );
-			glVertex2d( x + width2, y - height2 );
-			glTexCoord2d( ( tx + frameWidth ) * kx, ( ty + frameHeight ) * ky );
-			glVertex2d( x + width2, y + height2 );
-			glTexCoord2d( tx * kx, ( ty + frameHeight ) * ky );
-			glVertex2d( x - width2, y + height2 );
+			glTexCoord2d( tx * kx, ty * ky );
+			glVertex2d( x - width, y - height );
+			glTexCoord2d( ( tx + 1 ) * kx, ty * ky );
+			glVertex2d( x + width, y - height );
+			glTexCoord2d( ( tx + 1 ) * kx, ( ty + 1 ) * ky );
+			glVertex2d( x + width, y + height );
+			glTexCoord2d( tx * kx, ( ty + 1 ) * ky );
+			glVertex2d( x - width, y + height );
 		glEnd();
 	}
 	

@@ -17,7 +17,7 @@ import dwlab.shapes.sprites.Sprite;
  * Revolute joint moves angular sprite if parent pivot moves or rotates, but the sprite can be rotated freely.
  * @see #lTFixedJoint
  */
-public class RevoluteJoint extends BehaviorModel {
+public class RevoluteJoint extends BehaviorModel<Sprite> {
 	public Sprite parentPivot;
 	public double angle;
 	public double distance;
@@ -37,8 +37,7 @@ public class RevoluteJoint extends BehaviorModel {
 
 
 	@Override
-	public void init( Shape shape ) {
-		Sprite sprite = (Sprite) shape;
+	public void init( Sprite sprite ) {
 		double angle2 = Math.atan2( dY, dX );
 		double distance2 = Service.distance( dX * sprite.getWidth(), dY * sprite.getHeight() );
 		double x = sprite.getX() + Math.cos( angle2 + sprite.angle ) * distance2;
@@ -49,8 +48,7 @@ public class RevoluteJoint extends BehaviorModel {
 
 
 	@Override
-	public void applyTo( Shape shape ) {
-		Sprite sprite = (Sprite) shape;
+	public void applyTo( Sprite sprite ) {
 		double angle2 = Math.atan2( dY, dX );
 		double distance2 = Service.distance( dX * sprite.getWidth(), dY * sprite.getHeight() );
 		double dDX = Math.cos( angle2 + sprite.angle ) * distance2;

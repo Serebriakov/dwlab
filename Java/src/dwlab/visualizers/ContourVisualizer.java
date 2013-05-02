@@ -67,8 +67,7 @@ public class ContourVisualizer extends Visualizer {
 
 		Camera.current.fieldToScreen( spriteShape.getX(), spriteShape.getY(), serviceVector1 );
 		Camera.current.sizeFieldToScreen( spriteShape.getWidth() * xScale, spriteShape.getHeight() * yScale, serviceVector2 );
-		Graphics.drawRectangle( serviceVector1.x - 0.5 * serviceVector2.x, serviceVector1.x - 0.5 * serviceVector2.y, serviceVector2.x, serviceVector2.y, 
-				0d, this, true );
+		Graphics.drawRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y, 0d, this, true );
 	}
 	
 	@Override

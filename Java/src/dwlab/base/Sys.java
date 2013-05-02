@@ -30,19 +30,6 @@ public class Sys {
 		return xMLMode == XMLMode.SET;
 	}
 	
-	public static void flushControllers() {
-		flushKeyboard();
-		flushMouse();
-	}
-
-	public static void flushKeyboard() {
-		while ( Keyboard.next() ) {}
-	}
-	
-	public static void flushMouse() {
-		while ( Mouse.next() ) {}
-	}
-
 	public static int getChar() {
 		if( keys.isEmpty() ) return 0;
 		int code = keys.getFirst();

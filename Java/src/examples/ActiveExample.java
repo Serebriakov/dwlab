@@ -65,7 +65,16 @@ public class ActiveExample extends Project {
 
 
 	public static class Ball extends Sprite {
-		public static CollisionHandler handler = new CollisionHandler();
+		public static SpriteCollisionHandler handler = new SpriteCollisionHandler(){
+			ButtonAction makeInactive = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
+			ButtonAction makeInvisible = ButtonAction.create( MouseButton.create( MouseButton.RIGHT_BUTTON ) );
+
+			@Override
+			public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
+				if( makeInactive.wasPressed() ) sprite1.active = false;
+				if( makeInvisible.wasPressed() ) sprite1.visible = false;
+			}
+		};
 
 		public static Ball create() {
 			Ball ball = new Ball();
@@ -85,18 +94,6 @@ public class ActiveExample extends Project {
 			moveForward();
 			bounceInside( rectangle );
 			collisionsWithSprite( cursor, handler );
-		}
-	}
-	
-
-	public static class CollisionHandler extends SpriteCollisionHandler {
-		private static ButtonAction makeInactive = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
-		private static ButtonAction makeInvisible = ButtonAction.create( MouseButton.create( MouseButton.RIGHT_BUTTON ) );
-
-		@Override
-		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
-			if( makeInactive.wasPressed() ) sprite1.active = false;
-			if( makeInvisible.wasPressed() ) sprite1.visible = false;
 		}
 	}
 }

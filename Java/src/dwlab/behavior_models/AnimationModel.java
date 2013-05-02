@@ -10,7 +10,6 @@
 package dwlab.behavior_models;
 
 import dwlab.base.Project;
-import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
 
 /**
@@ -20,7 +19,7 @@ import dwlab.shapes.sprites.Sprite;
 
  * @see #lTModelStack, #lTBehaviorModel example.
  */
-public class AnimationModel extends ChainedModel {
+public class AnimationModel extends ChainedModel<Sprite> {
 	public double startingTime;
 	public boolean looped;
 	public double speed;
@@ -48,25 +47,25 @@ public class AnimationModel extends ChainedModel {
 	
 
 	@Override
-	public void activate( Shape shape ) {
+	public void activate( Sprite sprite ) {
 		startingTime = Project.current.time;
 	}
 
 
 	@Override
-	public void applyTo( Shape shape ) {
+	public void applyTo( Sprite sprite ) {
 		if( ! looped ) {
 			if( Project.current.time > startingTime + speed * ( framesQuantity + ( pingPong ? 0 : framesQuantity - 2 ) ) ) {
-				deactivateModel( shape );
+				deactivateModel( sprite );
 				return;
 			}
 		}
-		( (Sprite) shape ).animate( speed, framesQuantity, frameStart, startingTime, pingPong );
+		sprite.animate( speed, framesQuantity, frameStart, startingTime, pingPong );
 	}
 
 
 	@Override
-	public String info( Shape shape ) {
-		return String.valueOf( ( (Sprite) shape ).frame );
+	public String info( Sprite shape ) {
+		return String.valueOf( shape.frame );
 	}
 }

@@ -10,7 +10,6 @@
 package dwlab.controllers;
 
 import dwlab.base.Project;
-import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import org.lwjgl.input.Keyboard;
 
@@ -260,21 +259,17 @@ public class KeyboardKey extends Pushable {
 	 * Creates keyboard key object.
 	 * @return New object of keyboard key with given code.
 	 */	
-	public static KeyboardKey create( int code, Modifiers modifier ) {
+	public static KeyboardKey create( int code ) {
 		KeyboardKey key = new KeyboardKey();
 		key.code = code;
 		
 		for( ButtonAction action: Project.controllers ) {
 			for( Pushable pushable: action.buttonList ) {
-				if( pushable.isEqualTo( key ) ) return key;
+				if( pushable.isEqualTo( key ) ) return pushable.getKeyboardKey();
 			}
 		}
 
 		return key;
-	}
-
-	public static KeyboardKey create( int code ) {
-		return create( code, Modifiers.NO );
 	}
 	
 

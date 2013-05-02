@@ -145,7 +145,7 @@ public class Project extends Obj {
 		Project oldProject = current;
 		current = this;
 
-		Sys.flushControllers();
+		flushControllers();
 
 		exiting = false;
 		pass = 1;
@@ -162,12 +162,8 @@ public class Project extends Obj {
 		int fPSCount = 0;
 		long fPSTime = 0l;
 
-		for( ButtonAction controller: controllers ) {
-			for( Pushable pushable : controller.buttonList ) {
-				pushable.reset();
-			}
-		}
-
+		resetButtons();
+		
 		int logicStepsWithoutRender = 0;
 
 		while( true ) {
@@ -177,18 +173,12 @@ public class Project extends Obj {
 			collisionChecks = 0;
 			spritesActed = 0;
 
-			processEvents();
+			processEvents( this );
 
 			cursor.setMouseCoords();
 			logic();
 
-			windowsLogic();
-
-			for( ButtonAction controller: controllers ) {
-				for( Pushable pushable : controller.buttonList ) {
-					pushable.reset();
-				}
-			}
+			resetButtons();
 			
 			if( exiting ) break;
 
@@ -206,8 +196,6 @@ public class Project extends Obj {
 				Camera.current.setCameraViewport();
 				cursor.setMouseCoords();
 				render();
-
-				windowsRender();
 
 				if( flipping && Graphics.initialized() ) Graphics.switchBuffers();
 
@@ -230,12 +218,12 @@ public class Project extends Obj {
 
 	// ==================== Events ===================		
 
-	public void processEvents() {
+	public static void processEvents( Project project ) {
 		while ( Keyboard.next() ) {
 			for( ButtonAction controller: Project.controllers ) {
 				for( Pushable pushable : controller.buttonList ) {
 					pushable.processKeyboardEvent();
-					onKeyboardEvent();
+					if( project != null ) project.onKeyboardEvent();
 					if( Keyboard.getEventKeyState() ) Sys.keys.add( Keyboard.getEventKey() );
 				}
 			}
@@ -245,12 +233,12 @@ public class Project extends Obj {
 			for( ButtonAction controller: Project.controllers ) {
 				for( Pushable pushable : controller.buttonList ) {
 					pushable.processMouseEvent();
-					onMouseEvent();
+					if( project != null ) project.onMouseEvent();
 				}
 			}
 		}
 		
-		if( Display.isCloseRequested() ) onCloseButton();
+		if( Display.isCloseRequested() ) if( project != null ) project.onCloseButton();
 	}
 	
 
@@ -269,18 +257,33 @@ public class Project extends Obj {
 
 	public void onWindowResize() {
 	}
-
-	// ==================== Dummies for GUI project ===================	
-
-	public void windowsLogic() {
+	
+	
+	public static void resetButtons() {
+		for( ButtonAction controller: controllers ) {
+			for( Pushable pushable : controller.buttonList ) {
+				pushable.reset();
+			}
+		}
 	}
+	
 
-
-	public void windowsRender() {
-	}
-
-
-	public void reloadWindows() {
+	public static void flushControllers() {
+		boolean exiting = false;
+		while( !exiting ) {
+			exiting = true;
+			
+			processEvents( null );
+			
+			for( ButtonAction controller: Project.controllers ) {
+				if( controller.isDown() ) {
+					System.out.println( controller.name );
+					exiting = false;
+				}
+			}
+			
+			resetButtons();
+		}
 	}
 
 	// ==================== Other ===================	

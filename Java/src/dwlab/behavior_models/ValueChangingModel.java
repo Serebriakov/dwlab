@@ -11,17 +11,17 @@ package dwlab.behavior_models;
 import dwlab.base.Project;
 import dwlab.shapes.Shape;
 
-public class ValueChangingModel extends TemporaryModel {
+public class ValueChangingModel<E extends Shape> extends TemporaryModel<E> {
 	public double initialValue, destinationValue;
 
 
 	@Override
-	public void applyTo( Shape shape ) {
+	public void applyTo( E shape ) {
 		changeValue( shape, initialValue + ( Project.current.time - startingTime ) / period * ( destinationValue - initialValue ) );
 		super.applyTo( shape );
 	}
 
 
-	public void changeValue( Shape shape, double newValue ) {
+	public void changeValue( E shape, double newValue ) {
 	}
 }

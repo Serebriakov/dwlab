@@ -10,7 +10,6 @@
 package dwlab.controllers;
 
 import dwlab.base.Obj;
-import dwlab.base.Project;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import java.util.LinkedList;
@@ -47,7 +46,7 @@ public class ButtonAction extends Obj {
 		if( modifiers.contains( "ctrl" ) ) action.ctrl = true;
 		if( modifiers.contains( "alt" ) ) action.alt = true;
 		if( modifiers.contains( "shift" ) ) action.shift = true;
-		Project.controllers.add( action );
+		Sys.controllers.add( action );
 		return action;
 	}
 	
@@ -109,14 +108,12 @@ public class ButtonAction extends Obj {
 	}
 
 
-
 	/**
 	 * Removes all pushable objects (buttons) of the button action.
 	 */
 	public void clear() {
 		buttonList.clear();
 	}
-
 
 
 	/**
@@ -132,7 +129,6 @@ public class ButtonAction extends Obj {
 	}
 
 
-
 	/**
 	 * Function which checks button action just-pressing state.
 	 * @return True if one of pushable objects (buttons) of this action was pressed in current project cycle.
@@ -144,7 +140,6 @@ public class ButtonAction extends Obj {
 		}
 		return false;
 	}
-
 
 
 	/**
@@ -160,12 +155,11 @@ public class ButtonAction extends Obj {
 	}
 
 
-
 	@Override
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
 		name = xMLObject.manageStringAttribute( "name", name );
 		buttonList = xMLObject.manageChildList( buttonList );
-		if( Sys.xMLGetMode() ) Project.controllers.add( this );
+		if( Sys.xMLGetMode() ) Sys.controllers.add( this );
 	}
 }

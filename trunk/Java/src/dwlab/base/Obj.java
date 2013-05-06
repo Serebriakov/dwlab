@@ -17,6 +17,7 @@ import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.VectorSprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -82,7 +83,53 @@ public class Obj {
 	 */
 	public void drawContour( double lineWidth ) {
 	}
+	
+	// ==================== Printing text ===================
+	
+	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift, Color color ) {
+		double x, y = Graphics.getTextHeight();
 
+		switch( horizontalAlign ) {
+			case TO_CENTER:
+				x = 0.5d * ( Graphics.getScreenWidth() - Graphics.getTextWidth( text ) );
+				break;
+			case TO_RIGHT:
+				x = Graphics.getScreenWidth() - Graphics.getTextWidth( text );
+				break;
+			default:
+				x = 0;
+		}
+
+		switch( verticalAlign ) {
+			case TO_CENTER:
+				y = 0.5d * ( Graphics.getScreenHeight() - y * ( shift + 1 ) );
+				break;
+			case TO_BOTTOM:
+				y = Graphics.getScreenHeight() - y * ( shift + 1 );
+				break;
+			default:
+				y *= shift;
+		}
+
+		Graphics.drawText( text, x, y, color );
+	}
+
+	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift ) {
+		printText( text, horizontalAlign, verticalAlign, shift, Color.white );
+	}
+	
+	public static void printText( String text, Align horizontalAlign, Align verticalAlign ) {
+		printText( text, horizontalAlign, verticalAlign, 0, Color.white );
+	}
+	
+	public static void printText( String string, int shift ) {
+		printText( string, Align.TO_LEFT, Align.TO_TOP, shift, Color.white );
+	}
+	
+	public static void printText( String string ) {
+		printText( string, Align.TO_LEFT, Align.TO_TOP, 0, Color.white );
+	}
+	
 	// ==================== Management ===================
 
 	/**

@@ -10,7 +10,7 @@
 
 package dwlab.controllers;
 
-import dwlab.base.Project;
+import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import org.lwjgl.input.Mouse;
 
@@ -35,7 +35,7 @@ public class MouseButton extends Pushable {
 		MouseButton button = new MouseButton();
 		button.num = num;
 
-		for( ButtonAction action: Project.controllers ) {
+		for( ButtonAction action: Sys.controllers ) {
 			for( Pushable pushable: action.buttonList ) {
 				if( pushable.isEqualTo( button ) ) return button;
 			}

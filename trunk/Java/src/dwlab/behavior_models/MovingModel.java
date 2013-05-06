@@ -24,6 +24,6 @@ public class MovingModel extends ChainedModel<Sprite> {
 	@Override
 	public void applyTo( Sprite sprite ) {
 		sprite.moveTowardsPoint( x, y, sprite.velocity );
-		if( sprite.isAtPositionOfPoint( x, y ) ) remove( sprite );
+		if( sprite.isAtPositionOfPoint( x, y ) ) sprite.removeModel( this );
 	}
 }

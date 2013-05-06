@@ -29,7 +29,8 @@ import dwlab.shapes.sprites.Sprite;
  * See also #wedgeOffWithSprite example
  */
 public class DebugVisualizer extends Visualizer {
-	public DebugVisualizer instance = new DebugVisualizer();
+	public static DebugVisualizer instance = new DebugVisualizer();
+	
 	public Color colors[] = { new Color( "7FFF007F" ), new Color( "7F007FFF" ), new Color( "7F00FF7F" ), new Color( "7F7F00FF" ), new Color( "7F7FFF00" ),
 			new Color( "7FFF7F00" ), new Color( "7FFFFFFF" ), new Color( "7F000000" ) };
 	public final int maxColor = 7;
@@ -43,6 +44,10 @@ public class DebugVisualizer extends Visualizer {
 	private static Vector serviceVector = new Vector();
 	private static Vector serviceSizes = new Vector();
 
+	
+	private DebugVisualizer() {
+	}
+	
 	@Override
 	public void drawUsingSprite( Sprite sprite, Sprite spriteShape ) {
 		if( sprite.visible ) {
@@ -81,8 +86,8 @@ public class DebugVisualizer extends Visualizer {
 			serviceVector.y -= titles.length * 8;
 			for( String title: titles ) {
 				double txtWidth = 0.5 * Graphics.getTextWidth( title );
-				for( int dy=-1; dy <= 1; dy++ ) {
-					for( int dx=-( dy = 0 ); dx <= Math.abs( dy = 0 ); dx += 2 ) {
+				for( int dy = -1; dy <= 1; dy++ ) {
+					for( int dx = ( dy == 0 ? -1 : 0 ); dx <= ( dy == 0 ? 1 : 0 ); dx += 2 ) {
 						Graphics.drawText( title, serviceVector.x + dx - txtWidth, serviceVector.y + dy );
 					}
 				}

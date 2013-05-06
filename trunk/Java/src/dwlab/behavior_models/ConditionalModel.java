@@ -24,7 +24,7 @@ public class ConditionalModel<E extends Shape> extends BehaviorModel<E> {
 
 	@Override
 	public void applyTo( E shape ) {
-		remove( shape );
+		shape.removeModel( this );
 		if( condition( shape ) ) {
 			shape.attachModels( trueModels );
 		} else {

@@ -16,22 +16,20 @@ public class ActionExample extends Project {
 		Graphics.init();
 	}
 	
-	private static ActionExample instance = new ActionExample();
-	
 	public static void main(String[] argv) {
-		instance.act();
+		( new ActionExample() ).act();
 	}
 	
-	public static ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Z ), "undo", "ctrl" );
-	public static ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Y ), "redo", "ctrl" );
-	public static ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F2 ), "save" );
-	public static ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F3 ), "load" );
+	static ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Z ), "undo", "ctrl" );
+	static ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Y ), "redo", "ctrl" );
+	static ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F2 ), "save" );
+	static ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F3 ), "load" );
 	
-	public final int spritesQuantity = 50;
+	final int spritesQuantity = 50;
 
-	public static Layer sprites = new Layer();
-	public static Image spriteImage = new Image( "res/kolobok.png" );
-	public static MoveDrag drag = new MoveDrag();
+	static Layer sprites = new Layer();
+	static Image spriteImage = new Image( "res/kolobok.png" );
+	static MoveDrag drag = new MoveDrag();
 	
 	
 	@Override
@@ -63,19 +61,18 @@ public class ActionExample extends Project {
 
 	@Override
 	public void render() {
-		//sprites.children.getFirst().setCoords( 0.04 * Mouse.getX() - 16, 0.04 * Mouse.getY() - 12 );
 		sprites.draw();
-		Graphics.drawText( "Drag sprites with left mouse button, press CTRL-Z to undo, CTRL-Y to redo, F2 to save, F3 to load", 0, 0 );
-		Graphics.drawText( "LTAction, L_Undo, L_Redo, L_PushActionsList, LTDrag example", 0, 12, Align.TO_CENTER, Align.TO_BOTTOM );
+		printText( "Drag sprites with left mouse button, press CTRL-Z to undo, CTRL-Y to redo, F2 to save, F3 to load" );
+		printText( "LTAction, L_Undo, L_Redo, L_PushActionsList, LTDrag example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 	
 
 	public static class MoveDrag extends Drag {
-		public ButtonAction key = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
+		ButtonAction key = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
 						
-		public Shape shape;
-		public MoveAction action;
-		public double dX, dY;
+		Shape shape;
+		MoveAction action;
+		double dX, dY;
 
 		
 		@Override
@@ -86,7 +83,7 @@ public class ActionExample extends Project {
 
 		@Override
 		public void startDragging() {
-			shape = cursor.firstCollidedSpriteOfLayer( sprites );
+			shape = cursor.lastCollidedSpriteOfLayer( sprites );
 			if( shape != null ) {
 				action = new MoveAction( shape );
 				dX = shape.getX() - cursor.getX();
@@ -113,9 +110,9 @@ public class ActionExample extends Project {
 
 
 	public static class MoveAction extends Action {
-		public Shape shape;
-		public double oldX, oldY;
-		public double newX, newY;
+		Shape shape;
+		double oldX, oldY;
+		double newX, newY;
 
 		
 		public MoveAction( Shape shape ) {

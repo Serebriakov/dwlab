@@ -27,6 +27,10 @@ public class DistanceJoint extends BehaviorModel<Shape> {
 	 * @return 
 	 * 
 	 */
+	public DistanceJoint( Sprite parentPivot ) {
+		this.parentPivot = parentPivot;
+	}
+	
 	public DistanceJoint( Sprite parentPivot, boolean fixedAngle ) {
 		this.parentPivot = parentPivot;
 		this.fixedAngle = fixedAngle;

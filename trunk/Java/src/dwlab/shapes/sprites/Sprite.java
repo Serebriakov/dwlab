@@ -19,6 +19,7 @@ import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.maps.TileSet;
 import dwlab.visualizers.Visualizer;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Sprite is the main basic shape of the framework to draw, move and check collisions.
@@ -130,7 +131,7 @@ public class Sprite extends Shape {
 			this.height = 1d;
 		}
 	}
-
+	
 	public Sprite( double x, double y ) {
 		this.x = x;
 		this.y = y;
@@ -153,8 +154,10 @@ public class Sprite extends Shape {
 		this.shapeType = ShapeType.RECTANGLE;
 	}
 
-	public Sprite( Sprite sprite ) {
-		sprite.copySpriteTo( this );
+	public Sprite( ShapeType shapeType, double width, double height ) {
+		this.width = width;
+		this.height = height;
+		this.shapeType = shapeType;
 	}
 	
 	/**
@@ -441,10 +444,11 @@ public class Sprite extends Shape {
 	 * 
 	 * @see #clone example
 	 */	
-	public Sprite firstCollidedSpriteOfLayer( Layer layer ) {
-		for( Shape shape: layer.children ) {
+	public Sprite lastCollidedSpriteOfLayer( Layer layer ) {
+		for ( Iterator<Shape> it = layer.children.descendingIterator(); it.hasNext(); ) {
+			Shape shape = it.next();
 			if( shape != this ) {
-				Sprite collided = shape.layerFirstSpriteCollision( this );
+				Sprite collided = shape.layerLastSpriteCollision( this );
 				if( collided != null ) return collided;
 			}
 		}
@@ -453,7 +457,7 @@ public class Sprite extends Shape {
 
 
 	@Override
-	public Sprite layerFirstSpriteCollision( Sprite sprite ) {
+	public Sprite layerLastSpriteCollision( Sprite sprite ) {
 		if( collidesWithSprite( sprite ) ) return this; else return null;
 	}
 
@@ -898,7 +902,6 @@ public class Sprite extends Shape {
 	}
 
 
-
 	/**
 	 * Sets the sprite as a tile.
 	 * Position, size, visualizer and frame will be changed. This method can be used to cover other shapes with the tile or voluntary moving the tile.
@@ -929,7 +932,6 @@ public class Sprite extends Shape {
 	}
 
 
-
 	@Override
 	public Shape limitTopWith( Shape rectangle, SpriteCollisionHandler handler ) {
 		double rectTopY = rectangle.topY();
@@ -941,7 +943,6 @@ public class Sprite extends Shape {
 	}
 
 
-
 	@Override
 	public Shape limitRightWith( Shape rectangle, SpriteCollisionHandler handler ) {
 		double rectRightX = rectangle.rightX();
@@ -951,7 +952,6 @@ public class Sprite extends Shape {
 		}
 		return this;
 	}
-
 
 
 	@Override
@@ -976,7 +976,6 @@ public class Sprite extends Shape {
 	}
 
 
-
 	/**
 	 * Turns the sprite.
 	 * Turns the sprite with given speed per second.
@@ -985,7 +984,6 @@ public class Sprite extends Shape {
 		angle += Project.deltaTime * turningSpeed;
 		return this;
 	}
-
 
 
 	/**
@@ -998,12 +996,10 @@ public class Sprite extends Shape {
 	}
 
 
-
 	public Sprite reverseDirection() {
 		angle = angle + 180;
 		return this;
 	}
-
 
 
 	/**
@@ -1048,7 +1044,6 @@ public class Sprite extends Shape {
 		}
 		return circleSprite;
 	}
-
 
 
 	public Sprite toCircleUsingLine( Line line, Sprite circleSprite ) {
@@ -1096,7 +1091,6 @@ public class Sprite extends Shape {
 		toLine( line );
 		return line;
 	}
-
 
 
 	public boolean hasPoint( double x1, double y1 ) {
@@ -1150,7 +1144,6 @@ public class Sprite extends Shape {
 	}
 
 
-
 	public void getRightAngleVertex( Sprite vertex ) {
 		switch( shapeType ) {
 			case TOP_LEFT_TRIANGLE:
@@ -1181,7 +1174,6 @@ public class Sprite extends Shape {
 	}
 
 
-
 	public void getOtherVertices( Sprite pivot1, Sprite pivot2 ) {
 		if( shapeType == ShapeType.TOP_RIGHT_TRIANGLE || shapeType == ShapeType.BOTTOM_LEFT_TRIANGLE ) {
 			getPivots( pivot1, null, pivot2, null );
@@ -1193,12 +1185,11 @@ public class Sprite extends Shape {
 	// ==================== Cloning ===================	
 
 	@Override
-	public Shape clone() {
+	public Sprite clone() {
 		Sprite newSprite = new Sprite();
 		copySpriteTo( newSprite );
 		return newSprite;
 	}
-
 
 
 	public void copySpriteTo( Sprite sprite ) {
@@ -1211,7 +1202,6 @@ public class Sprite extends Shape {
 		sprite.frame = frame;
 		sprite.updateFromAngularModel();
 	}
-
 
 
 	@Override

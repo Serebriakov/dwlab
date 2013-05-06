@@ -32,6 +32,12 @@ public class VectorSprite extends Sprite {
 	public VectorSprite() {
 	}
 	
+	public VectorSprite( ShapeType shapeType, double x, double y, double width, double height ) {
+		this.setCoords( x, y );
+		this.setSize( width, height );
+		this.shapeType = shapeType;
+	}
+	
 	public VectorSprite( ShapeType shapeType, double x, double y, double width, double height, double dX, double dY ) {
 		this.setCoords( x, y );
 		this.setSize( width, height );
@@ -139,7 +145,7 @@ public class VectorSprite extends Sprite {
 
 
 	@Override
-	public Shape clone() {
+	public VectorSprite clone() {
 		VectorSprite newSprite = new VectorSprite();
 		copySpriteTo( newSprite );
 		return newSprite;

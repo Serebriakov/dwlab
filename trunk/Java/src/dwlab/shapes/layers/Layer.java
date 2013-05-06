@@ -11,15 +11,14 @@ package dwlab.shapes.layers;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.Sys;
-import dwlab.shapes.maps.TileMap;
+import dwlab.base.XMLObject;
 import dwlab.shapes.Shape;
+import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.visualizers.Visualizer;
-import dwlab.base.XMLObject;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -152,8 +151,8 @@ public class Layer extends Shape {
 	// ==================== Collisions ===================
 
 	@Override
-	public Sprite layerFirstSpriteCollision( Sprite sprite ) {
-		return sprite.firstCollidedSpriteOfLayer( this );
+	public Sprite layerLastSpriteCollision( Sprite sprite ) {
+		return sprite.lastCollidedSpriteOfLayer( this );
 	}
 
 

@@ -36,7 +36,6 @@ public class ActiveExample extends Project {
 			Ball.create();
 		}
 		rectangle.visualizer = new ContourVisualizer( 0.1, "FF0000" );
-		initGraphics();
 	}
 
 	
@@ -58,9 +57,9 @@ public class ActiveExample extends Project {
 	public void render() {
 		layer.draw();
 		rectangle.draw();
-		Graphics.drawText( "Press left mouse button on circle to make it inactive, right button to make it invisible.", 0, 0 );
-		Graphics.drawText( "Press space to restore all back.", 0, 16 );
-		Graphics.drawText( "Active, BounceInside, CollisionsWisthSprite, HandleCollisionWithSprite, Visible example", 0d, 12d, Align.TO_CENTER, Align.TO_BOTTOM );
+		printText( "Press left mouse button on circle to make it inactive, right button to make it invisible." );
+		printText( "Press space to restore all back.", 1 );
+		printText( "Active, BounceInside, CollisionsWisthSprite, HandleCollisionWithSprite, Visible example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 
 

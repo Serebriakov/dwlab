@@ -29,7 +29,7 @@ public class ButtonActionExample extends Project {
 	private static final ButtonAction moveRight = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_RIGHT ), "move right" );
 	private static final ButtonAction moveUp = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_UP ), "move up" );
 	private static final ButtonAction moveDown = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_DOWN ), "move down" );
-	private static final ButtonAction fire = ButtonAction.create( MouseButton.create( 0 ), "fire" );
+	private static final ButtonAction fire = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ), "fire" );
 	private static final ButtonAction defineKeys = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_D ), "define keys", "ctrl" );
 	private static final ButtonAction[] actions = { moveLeft, moveRight, moveUp, moveDown, fire };
 
@@ -38,7 +38,6 @@ public class ButtonActionExample extends Project {
 
 	@Override
 	public void init() {
-		initGraphics();
 		player.visualizer.set( "7FBFFF" );
 	}
 	
@@ -53,7 +52,9 @@ public class ButtonActionExample extends Project {
 
 		Bullet.bullets.act();
 
-		if( defineKeys.wasPressed() ) switchTo( new DefineKeys() );
+		if( defineKeys.wasPressed() ) {
+			switchTo( new DefineKeys() );
+		}
 	}
 
 	
@@ -61,8 +62,8 @@ public class ButtonActionExample extends Project {
 	public void render() {
 		Bullet.bullets.draw();
 		player.draw();
-		Graphics.drawText( "Press Ctrl-D to define keys", 0, 0 );
-		Graphics.drawText( "LTButtonAction, SwitchTo, Move example", 0, 12, Align.TO_CENTER, Align.TO_BOTTOM );
+		printText( "Press Ctrl-D to define keys" );
+		printText( "LTButtonAction, SwitchTo, Move example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 	
 
@@ -94,9 +95,15 @@ public class ButtonActionExample extends Project {
 
 
 
-	public class DefineKeys extends Project {
+	public static class DefineKeys extends Project {
 		public int actionNum = 0;
 		public int z;
+		
+		
+		@Override
+		public void init() {
+			for( ButtonAction controller : ButtonActionExample.actions ) controller.clear();
+		}
 		
 
 		@Override
@@ -107,11 +114,16 @@ public class ButtonActionExample extends Project {
 			}
 		}
 		
+		
+		@Override
+		public void processEvents() {
+		}
+		
 
 		@Override
 		public void render() {
 			ButtonActionExample.instance.render();
-			Graphics.drawText( "Press key for " + ButtonActionExample.actions[ actionNum ].name, 0, 16 );
+			printText( "Press key for " + ButtonActionExample.actions[ actionNum ].name, 1 );
 		}
 	}
 }

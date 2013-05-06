@@ -140,14 +140,29 @@ public class Image extends ImageTemplate {
 		glBindTexture( GL_TEXTURE_2D, texture.getTextureID() );
 		glBegin( GL_QUADS );
 			glColor4d( color.red, color.green, color.blue, color.alpha );
-			glTexCoord2d( tx * kx, ty * ky );
-			glVertex2d( x - width, y - height );
-			glTexCoord2d( ( tx + 1 ) * kx, ty * ky );
-			glVertex2d( x + width, y - height );
-			glTexCoord2d( ( tx + 1 ) * kx, ( ty + 1 ) * ky );
-			glVertex2d( x + width, y + height );
-			glTexCoord2d( tx * kx, ( ty + 1 ) * ky );
-			glVertex2d( x - width, y + height );
+			
+			if( angle == 0d ) {
+				glTexCoord2d( tx * kx, ty * ky );
+				glVertex2d( x - width, y - height );
+				glTexCoord2d( ( tx + 1 ) * kx, ty * ky );
+				glVertex2d( x + width, y - height );
+				glTexCoord2d( ( tx + 1 ) * kx, ( ty + 1 ) * ky );
+				glVertex2d( x + width, y + height );
+				glTexCoord2d( tx * kx, ( ty + 1 ) * ky );
+				glVertex2d( x - width, y + height );
+			} else {
+				double sin = Math.sin( angle );
+				double cos = Math.cos( angle );
+				glTexCoord2d( tx * kx, ty * ky );
+				glVertex2d( x + cos *  -width - sin * -height, y + sin *  -width + cos * -height );
+				glTexCoord2d( ( tx + 1 ) * kx, ty * ky );
+				glVertex2d( x + cos *  width - sin * -height, y + sin *  width + cos * -height );
+				glTexCoord2d( ( tx + 1 ) * kx, ( ty + 1 ) * ky );
+				glVertex2d( x  + cos *  width - sin * height, y + sin *  width + cos * height );
+				glTexCoord2d( tx * kx, ( ty + 1 ) * ky );
+				glVertex2d( x  + cos *  -width - sin * height, y + sin *  -width + cos * height );
+				glVertex2d( x - width, y + height );
+			}
 		glEnd();
 	}
 	

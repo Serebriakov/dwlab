@@ -37,8 +37,6 @@ public class ModelStack extends BehaviorModel {
 	public void add( BehaviorModel model, boolean activate ) {
 		model.init( null );
 		models.addLast( model );
-		model.iterator = models.listIterator();
-		model.iterator.previous();
 		if( activate ) {
 			model.activate( null );
 			model.active = true;

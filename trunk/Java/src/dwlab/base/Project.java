@@ -10,21 +10,15 @@
 package dwlab.base;
 
 import dwlab.controllers.ButtonAction;
-import dwlab.controllers.Pushable;
-import dwlab.shapes.layers.Layer;
+import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
-import java.util.LinkedList;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 
 /**
  * Class for main project and subprojects.
  */
 public class Project extends Obj {
-	public static LinkedList<ButtonAction> controllers = new LinkedList<ButtonAction>();
-	
 	public static int collisionChecks;
 	public static int tilesDisplayed;
 	public static int spritesDisplayed;
@@ -42,7 +36,6 @@ public class Project extends Obj {
 	public static double deltaTime;
 
 	public static int maxLogicStepsWithoutRender = 6;
-	
 
 	/**
 	* Current frames per second quantity.
@@ -75,36 +68,7 @@ public class Project extends Obj {
 
 	public long startingTime;
 
-	// ==================== Loading layers and windows ===================	
-
-	/**
-	 * Loads layer from world.
-	 */
-	public Layer loadLayer( Layer layer ) {
-		return (Layer) layer.load();
-	}
-
 	// ==================== Management ===================	
-
-	/**
-	 * Graphics initialization method.
-	 * It will be relaunched after changing graphics driver (via profiles). You should put font loading code there if you have any.
-	 * 
-	 * @see #init, #initSound, #deInit
-	 */
-	public void initGraphics() {
-	}
-
-
-	/**
-	 * Sound initialization method.
-	 * It will be relaunched after changing sound driver (via profiles). You should put sound loading code there if you have any.
-	 * 
-	 * @see #init, #initGraphics, #deInit
-	 */
-	public void initSound() {
-	}
-
 
 	/**
 	 * Rendering method.
@@ -135,6 +99,8 @@ public class Project extends Obj {
 	public void deInit() {
 	}
 
+	
+	public ButtonAction exitButton = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_ESCAPE ) );
 
 	/**
 	 * Executes the project.
@@ -145,24 +111,20 @@ public class Project extends Obj {
 		Project oldProject = current;
 		current = this;
 
-		flushControllers();
+		Sys.flushControllers();
 
 		exiting = false;
 		pass = 1;
 		deltaTime = 0;
 
 		init();
-		initGraphics();
-		initSound();
 
 		time = 0.0;
 		startingTime = System.currentTimeMillis();
 
-		double realTime = 0d;
+		double realTime;
 		int fPSCount = 0;
 		long fPSTime = 0l;
-
-		resetButtons();
 		
 		int logicStepsWithoutRender = 0;
 
@@ -173,12 +135,10 @@ public class Project extends Obj {
 			collisionChecks = 0;
 			spritesActed = 0;
 
-			processEvents( this );
+			processEvents();
 
 			cursor.setMouseCoords();
 			logic();
-
-			resetButtons();
 			
 			if( exiting ) break;
 
@@ -218,27 +178,9 @@ public class Project extends Obj {
 
 	// ==================== Events ===================		
 
-	public static void processEvents( Project project ) {
-		while ( Keyboard.next() ) {
-			for( ButtonAction controller: Project.controllers ) {
-				for( Pushable pushable : controller.buttonList ) {
-					pushable.processKeyboardEvent();
-					if( project != null ) project.onKeyboardEvent();
-					if( Keyboard.getEventKeyState() ) Sys.keys.add( Keyboard.getEventKey() );
-				}
-			}
-		}
-		
-		while ( Mouse.next() ) {
-			for( ButtonAction controller: Project.controllers ) {
-				for( Pushable pushable : controller.buttonList ) {
-					pushable.processMouseEvent();
-					if( project != null ) project.onMouseEvent();
-				}
-			}
-		}
-		
-		if( Display.isCloseRequested() ) if( project != null ) project.onCloseButton();
+	public void processEvents() {
+		Sys.processEvents( this );
+		if( exitButton != null ) if( exitButton.wasPressed() ) exiting = true;
 	}
 	
 
@@ -256,34 +198,6 @@ public class Project extends Obj {
 
 
 	public void onWindowResize() {
-	}
-	
-	
-	public static void resetButtons() {
-		for( ButtonAction controller: controllers ) {
-			for( Pushable pushable : controller.buttonList ) {
-				pushable.reset();
-			}
-		}
-	}
-	
-
-	public static void flushControllers() {
-		boolean exiting = false;
-		while( !exiting ) {
-			exiting = true;
-			
-			processEvents( null );
-			
-			for( ButtonAction controller: Project.controllers ) {
-				if( controller.isDown() ) {
-					System.out.println( controller.name );
-					exiting = false;
-				}
-			}
-			
-			resetButtons();
-		}
 	}
 
 	// ==================== Other ===================	

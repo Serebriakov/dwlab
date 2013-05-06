@@ -26,6 +26,6 @@ public class FollowingModel extends ChainedModel<Sprite> {
 	@Override
 	public void applyTo( Sprite sprite ) {
 		sprite.moveTowards( destinationShape, sprite.velocity );
-		if( removeWhenStop ) if ( sprite.isAtPositionOf( destinationShape ) ) remove( sprite );
+		if( removeWhenStop ) if ( sprite.isAtPositionOf( destinationShape ) ) sprite.removeModel( this );;
 	}
 }

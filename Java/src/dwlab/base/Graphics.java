@@ -49,14 +49,14 @@ public class Graphics {
 		}
 
 		glShadeModel( GL_SMOOTH );
-		glEnable( GL_TEXTURE_2D ); 
 		glDisable( GL_DEPTH_TEST );
 		glDisable( GL_LIGHTING ); 
 		
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable( GL_BLEND );
+		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+		glEnable( GL_TEXTURE_2D );
 		
-		glMatrixMode( GL_PROJECTION) ;
+		glMatrixMode( GL_PROJECTION ) ;
 		glLoadIdentity();
 		glOrtho( 0d, width, height, 0d, -1d, 1d );
 		glMatrixMode( GL_MODELVIEW ) ;
@@ -108,13 +108,16 @@ public class Graphics {
 	
 
 	public static void drawLine( double x1, double y1, double x2, double y2, double width, Color color ) {
-		glBlendFunc(GL_ONE, GL_ZERO );
+		glDisable(GL_TEXTURE_2D);
+		
 		glColor4d( color.red, color.green, color.blue, color.alpha );
+		glLineWidth( (float) width );
 		glBegin( GL_LINES );
 			glVertex2d( x1, y1 );
 			glVertex2d( x2, y2 );
 		glEnd();		
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		glEnable( GL_TEXTURE_2D ); 
 	}
 	
 	public static void drawLine( double x1, double y1, double x2, double y2 ) {
@@ -133,10 +136,12 @@ public class Graphics {
 			addPolygonVertex( x - width, y + height );
 			drawPolygon();
 		} else {
+			glDisable(GL_TEXTURE_2D);
+			
 			glColor4d( color.red, color.green, color.blue, color.alpha );
-			glBlendFunc(GL_ONE, GL_ZERO );
 			glRectd( x - width, y - height, x + width, y + height );
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+			glEnable( GL_TEXTURE_2D ); 
 		}
 	}
 	
@@ -213,9 +218,10 @@ public class Graphics {
 	
 
 	public static void startPolygon( int vertexQuantity, Color color, boolean empty ) {
-		glBlendFunc(GL_ONE, GL_ZERO );
-		glColor4d( color.red, color.green, color.blue, color.alpha );
+		glDisable(GL_TEXTURE_2D);
+		
 		if( empty ) glBegin( GL_LINE_LOOP ); else glBegin( GL_POLYGON );
+		glColor4d( color.red, color.green, color.blue, color.alpha );
 	}
 
 	public static void addPolygonVertex( double x, double y ) {
@@ -224,7 +230,8 @@ public class Graphics {
 
 	public static void drawPolygon() {
 		glEnd();
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		glEnable( GL_TEXTURE_2D ); 
 	}
 	
 	
@@ -244,6 +251,12 @@ public class Graphics {
 	}
 	
 	public static void drawText( String string, double x, double y, Color color, Color contourColor ) {
+		for( int dY = -1; dY <= 1; dY++ ) {
+			for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
+				drawText( string, x + dX, y + dY, contourColor );
+			}
+		}
+		drawText( string, x, y, color );
 	}
 
 	public static void drawText( String string, double x, double y, Color color ) {
@@ -254,51 +267,6 @@ public class Graphics {
 		drawText( string, x, y, currentColor );
 	}
 
-	private static Vector serviceVector = new Vector();
-	
-	public static void drawText( String text, double x, double y, Align horizontalAlign, Align verticalAlign, Color color, boolean contour ) {
-		Camera.current.fieldToScreen( x, y, serviceVector );
-
-		double textWidth = Graphics.getTextWidth( text );
-		double textHeight = Graphics.getTextHeight();
-
-		switch( horizontalAlign ) {
-			case TO_CENTER:
-				serviceVector.x -= 0.5d * textWidth;
-				break;
-			case TO_RIGHT:
-				serviceVector.x -= textWidth;
-				break;
-		}
-
-		switch( verticalAlign ) {
-			case TO_CENTER:
-				serviceVector.y -= 0.5d * textHeight;
-				break;
-			case TO_BOTTOM:
-				serviceVector.y -= textHeight;
-				break;
-		}
-
-		if( contour ) {
-			drawTextWithContour( text, serviceVector.x, serviceVector.y );
-		} else {
-			drawText( text, serviceVector.x, serviceVector.y, color );
-		}
-	}
-
-	public static void drawText( String text, double x, double y, Align horizontalAlign, Align verticalAlign ) {
-		drawText( text, x, y, horizontalAlign, verticalAlign, Color.white, false );
-	}
-
-	public static void drawTextWithContour( String text, double x, double y ) {
-		for( int dY=-1; dY <= 1; dY++ ) {
-			for( int dX=Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
-				drawText( text, x + dX, y + dY, Color.white );
-			}
-		}
-		drawText( text, x, y, Color.black );
-	}
 	
 	public static double getTextWidth( String text ) {
 		return currentFont.getWidth( text );
@@ -317,6 +285,7 @@ public class Graphics {
 		glClearColor( (float) color.red, (float) color.green, (float) color.blue, 1.0f );
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		glClearDepth(1);
+		glDisable( GL_TEXTURE_2D );
 	}
 	
 

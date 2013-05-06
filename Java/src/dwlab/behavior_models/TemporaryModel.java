@@ -26,7 +26,7 @@ public class TemporaryModel<E extends Shape> extends ChainedModel<E> {
 
 	@Override
 	public void applyTo( E shape ) {
-		if( Project.current.time > startingTime + period ) remove( shape );
+		if( Project.current.time > startingTime + period ) shape.removeModel( this );
 	}
 
 

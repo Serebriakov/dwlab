@@ -80,6 +80,10 @@ public class Visualizer extends Color {
 	public Visualizer( String filename, int xCells, int yCells ) {
 		this.image = new Image( filename, xCells, yCells );
 	}
+	
+	public Visualizer( String filename ) {
+		this.image = new Image( filename, 1, 1 );
+	}
 
 
 	/**
@@ -191,11 +195,11 @@ public class Visualizer extends Color {
 				Camera.current.sizeFieldToScreen( spriteShape, serviceSizes );
 				double scaledWidth = serviceSizes.x * xScale;
 				double scaledHeight = serviceSizes.y * yScale;
-				image.draw( sprite.frame, servicePivot.x + dX * scaledWidth, servicePivot.y + dY * scaledHeight, scaledWidth, scaledHeight, angle, sprite.visualizer );
+				image.draw( sprite.frame, servicePivot.x + dX * scaledWidth, servicePivot.y + dY * scaledHeight, scaledWidth, scaledHeight, angle, this );
 			} else {
 				double scaledWidth = image.getWidth() * xScale;
 				double scaledHeight = image.getHeight() * yScale;
-				image.draw( sprite.frame, servicePivot.x + dX * scaledWidth, servicePivot.y + dY * scaledHeight, scaledWidth, scaledHeight, angle, sprite.visualizer );
+				image.draw( sprite.frame, servicePivot.x + dX * scaledWidth, servicePivot.y + dY * scaledHeight, scaledWidth, scaledHeight, angle, this );
 			}
 		} else {
 			drawSpriteShape( sprite, spriteShape, sprite.visualizer );
@@ -288,18 +292,22 @@ public class Visualizer extends Color {
 						Graphics.addPolygonVertex( sX - sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX - sWidth, sY + sHeight );
+						break;
 					case TOP_RIGHT_TRIANGLE:
 						Graphics.addPolygonVertex( sX - sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY + sHeight );
+						break;
 					case BOTTOM_LEFT_TRIANGLE:
 						Graphics.addPolygonVertex( sX - sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX - sWidth, sY - sHeight );
+						break;
 					case BOTTOM_RIGHT_TRIANGLE:
 						Graphics.addPolygonVertex( sX - sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY - sHeight );
+						break;
 				}
 				Graphics.drawPolygon();
 		}

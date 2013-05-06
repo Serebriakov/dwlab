@@ -80,14 +80,13 @@ public class Color extends Obj {
 	 */
 	public final void set( String hexColor ) {
 		if( hexColor.length() == 8 ) {
-			alpha = Service.hexToInt( hexColor.substring( 0, 2 ) ) / 255.0;
-			hexColor = hexColor.substring( 2 );
+			alpha = Service.hexToInt( hexColor.substring( 6, 8 ) ) / 255d;
 		} else {
-			alpha = 1.0;
+			alpha = 1d;
 		}
-		red = 1.0 * Service.hexToInt( hexColor.substring( 0, 2 ) ) / 255.0;
-		green = 1.0 * Service.hexToInt( hexColor.substring( 2, 4 ) ) / 255.0;
-		blue = 1.0 * Service.hexToInt( hexColor.substring( 4, 6 ) ) / 255.0;
+		red = Service.hexToInt( hexColor.substring( 0, 2 ) ) / 255d;
+		green = Service.hexToInt( hexColor.substring( 2, 4 ) ) / 255d;
+		blue = Service.hexToInt( hexColor.substring( 4, 6 ) ) / 255d;
 	}
 
 

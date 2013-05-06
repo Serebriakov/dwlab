@@ -18,7 +18,6 @@ import java.util.ListIterator;
  */
 public class BehaviorModel<E extends Shape> extends Obj {
 	public boolean active;
-	public ListIterator<BehaviorModel> iterator;
 
 
 	/**
@@ -96,30 +95,6 @@ public class BehaviorModel<E extends Shape> extends Obj {
 		if( active ) {
 			deactivate( shape );
 			active = false;
-		}
-	}
-
-
-	/**
-	 * Removes behavior model.
-	 * Model will be deactivated before removal.
-	 * 
-	 * @see #deactivate
-	 */
-	public final void remove( E shape ) {
-		if( active ) deactivateModel( shape );
-		if( iterator != null ) iterator.remove();
-	}
-
-
-	/**
-	 * Removes every other behavior model of same type from shape's behavior models.
-	 * @see #remove
-	 */
-	public final void removeSame( E shape ) {
-		Class modelClass = this.getClass();
-		for( BehaviorModel model: shape.behaviorModels ) {
-			if( model.getClass() == modelClass && model != this ) model.remove( shape );
 		}
 	}
 

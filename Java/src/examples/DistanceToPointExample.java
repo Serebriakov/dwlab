@@ -1,0 +1,69 @@
+package examples;
+import dwlab.base.*;
+import java.lang.Math;
+import dwlab.shapes.LineSegment;
+import dwlab.shapes.Shape;
+import dwlab.shapes.layers.Layer;
+import dwlab.shapes.sprites.Camera;
+import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.Sprite.ShapeType;
+
+public class DistanceToPointExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new DistanceToPointExample() ).act();
+	}
+	
+	
+	int spritesQuantity = 20;
+
+	Layer layer = new Layer();
+	LineSegment lineSegment = new LineSegment( null, null );
+	Sprite minSprite;
+
+	
+	@Override
+	public void init() {
+		for( int n = 1; n <= spritesQuantity; n++ ) {
+			Sprite sprite = new Sprite( ShapeType.OVAL, Service.random( -15, 15 ), Service.random( -11, 11 ), 1d, 1d );
+			sprite.setDiameter( Service.random( 0.5, 1.5 ) );
+			sprite.visualizer.setRandomColor();
+			layer.addLast( sprite );
+		}
+		cursor = new Sprite( ShapeType.OVAL, 0d, 0d, 0.5d, 0.5d );
+		lineSegment.pivot[ 0 ] = cursor;
+	}
+	
+
+	@Override
+	public void logic() {
+		minSprite = null;
+		double minDistance = 0;
+		for( Shape shape : layer.children ) {
+			Sprite sprite = shape.toSprite();
+			if( cursor.distanceTo( sprite ) < minDistance || minSprite == null ) {
+				minSprite = sprite;
+				minDistance = cursor.distanceTo( sprite );
+			}
+		}
+		lineSegment.pivot[ 1 ] = minSprite;
+	}
+	
+
+	@Override
+	public void render() {
+		layer.draw();
+
+		lineSegment.draw();
+		Graphics.drawText( Service.trim( cursor.distanceTo( minSprite ) ), 0.5d * ( cursor.getX() + minSprite.getX() ), 0.5 * ( cursor.getY() + minSprite.getY() ) );
+
+		Vector center = Vector.fieldToScreen( cursor );
+		Graphics.drawLine( center.x, center.y, 400, 300 );
+		cursor.print( String.valueOf( time ) );
+		cursor.print( Service.trim( cursor.distanceToPoint( 0, 0 ) ) );
+
+		printText( "Direction to field center is " + Service.trim( cursor.directionToPoint( 0, 0 ) ) );
+		printText( "Direction to nearest sprite is " + Service.trim( cursor.directionTo( minSprite ) ), 1 );
+		printText( "DirectionTo, DirectionToPoint, DistanceTo, DistanceToPoint example", Align.TO_CENTER, Align.TO_BOTTOM );
+	}
+}

@@ -86,8 +86,8 @@ public class ContourVisualizer extends Visualizer {
 
 		double radius =pivotScale ;
 		if( scaling ) radius = Camera.current.distFieldToScreen( lineWidth ) * pivotScale;
-		Graphics.drawOval( serviceVector1.x - 0.5d * radius, serviceVector1.y - 0.5d * radius, radius, radius, 0d, this, false );
-		Graphics.drawOval( serviceVector2.x - 0.5d * radius, serviceVector2.y - 0.5d * radius, radius, radius, 0d, this, false );
+		Graphics.drawOval( serviceVector1.x, serviceVector1.y, radius, radius, 0d, this, false );
+		Graphics.drawOval( serviceVector2.x, serviceVector2.y, radius, radius, 0d, this, false );
 	}
 
 

@@ -284,7 +284,7 @@ public class Camera extends VectorSprite {
 	// ==================== Cloning ===================	
 
 	@Override
-	public Shape clone() {
+	public Camera clone() {
 		Camera newCamera = new Camera();
 		copyCameraTo( newCamera );
 		return newCamera;

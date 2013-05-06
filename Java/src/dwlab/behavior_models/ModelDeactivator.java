@@ -31,7 +31,7 @@ public class ModelDeactivator extends BehaviorModel {
 	@Override
 	public void applyTo( Shape shape ) {
 		model.deactivateModel( shape );
-		if( !permanent ) remove( shape );
+		if( !permanent ) shape.removeModel( this );;
 	}
 
 

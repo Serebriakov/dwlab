@@ -9,24 +9,18 @@
 
 package dwlab.shapes;
 
-import dwlab.base.Vector;
-import dwlab.shapes.sprites.VectorSprite;
-import dwlab.shapes.sprites.Camera;
-import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.SpriteCollisionHandler;
-import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.base.*;
 import dwlab.behavior_models.BehaviorModel;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.KeyboardKey;
-import dwlab.shapes.layers.Layer;
-import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.sprites.Camera;
+import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
+import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.visualizers.Color;
-import dwlab.base.Image;
 import dwlab.visualizers.Visualizer;
 import dwlab.visualizers.WindowedVisualizer;
-import dwlab.base.XMLObject;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -107,10 +101,7 @@ public class Shape extends Obj {
 	 * Prints text inside the shape.
 	 * Current ImageFont is used. You can specify horizontal and vertical alignment and also horizontal and vertical shift in units.
 	 */
-	public void printText( String text, double size, Color color, Align horizontalAlign, Align verticalAlign, double horizontalShift, double verticalShift, Color contourColor ) {
-		Camera.current.sizeFieldToScreen( 0, size, serviceSizes );
-		double k = serviceSizes.y / Graphics.getTextHeight();
-
+	public void print( String text, Align horizontalAlign, Align verticalAlign, double horizontalShift, double verticalShift ) {
 		double xX, yY;
 		switch( horizontalAlign ) {
 			case TO_LEFT:
@@ -140,41 +131,29 @@ public class Shape extends Obj {
 
 		switch( horizontalAlign ) {
 			case TO_CENTER:
-				servicePivot.x -= 0.5 * Graphics.getTextWidth( text ) * k;
+				servicePivot.x -= 0.5 * Graphics.getTextWidth( text );
 			case TO_RIGHT:
-				servicePivot.x -= Graphics.getTextWidth( text ) * k;
+				servicePivot.x -= Graphics.getTextWidth( text );
 		}
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
-				servicePivot.y -= 0.5 * Graphics.getTextHeight() * k;
+				servicePivot.y -= 0.5 * Graphics.getTextHeight();
 			case TO_BOTTOM:
-				servicePivot.y -= Graphics.getTextHeight() * k;
+				servicePivot.y -= Graphics.getTextHeight();
 		}
 
-		if( contourColor != null ) {
-			Graphics.drawText( text, servicePivot.x, servicePivot.y, color, contourColor );
-		} else {
-			Graphics.drawText( text, servicePivot.x, servicePivot.y, color );
-		}
+		Graphics.drawText( text, servicePivot.x, servicePivot.y );
 	}
 	
-	public void printText( String text, double size ) {
-		printText( text, size, Color.black, Align.TO_CENTER, Align.TO_CENTER, 0, 0, null );
+	public void print( String text ) {
+		print( text, Align.TO_CENTER, Align.TO_CENTER, 0, 0 );
 	}
 	
-	public void printText( String text, double size, Color color ) {
-		printText( text, size, color, Align.TO_CENTER, Align.TO_CENTER, 0, 0, null );
-	}
-	
-	public void printText( String text, double size, Color color, Align horizontalAlign, Align verticalAlign ) {
-		printText( text, size, color, horizontalAlign, verticalAlign, 0, 0, null );
+	public void print( String text, Align horizontalAlign, Align verticalAlign ) {
+		print( text, horizontalAlign, verticalAlign, 0, 0 );
 	}
 
-	public void printText( String text, double size, Color color, Align horizontalAlign, Align verticalAlign, double horizontalShift, double verticalShift ) {
-		printText( text, size, color, horizontalAlign, verticalAlign, horizontalShift, verticalShift, null );
-	}
-	
 
 	/**
 	 * Sets shape's rectangle as viewport.
@@ -195,7 +174,7 @@ public class Shape extends Obj {
 
 	// ==================== Collisions ===================
 
-	public Sprite layerFirstSpriteCollision( Sprite sprite ) {
+	public Sprite layerLastSpriteCollision( Sprite sprite ) {
 		return null;
 	}
 
@@ -814,7 +793,7 @@ public class Shape extends Obj {
 	 * @see #directionToPoint, #distanceToPoint example
 	 */
 	public double directionTo( Shape shape ) {
-		return Math.atan2( shape.y, shape.x - x );
+		return Math.atan2( shape.y - y, shape.x - x );
 	}
 
 	// ==================== Behavior models ===================
@@ -835,8 +814,6 @@ public class Shape extends Obj {
 	public Shape attachModelWithoutActivation( BehaviorModel model ) {
 		model.init( this );
 		behaviorModels.addLast( model );
-		model.iterator = behaviorModels.listIterator();
-		model.iterator.previous();
 		return this;
 	}
 
@@ -962,6 +939,14 @@ public class Shape extends Obj {
 	}
 
 
+	public Shape removeModel( BehaviorModel model ) {
+		for ( Iterator<BehaviorModel> iterator = behaviorModels.iterator(); iterator.hasNext(); ) {
+			if( iterator.next() == model ) iterator.remove();
+		}
+		return this;
+	}
+	
+	
 	/**
 	 * Removes all shape behavior models of class with given name.
 	 * Active models will be deactivated before removal.
@@ -971,6 +956,19 @@ public class Shape extends Obj {
 	public Shape removeModel( Class modelClass ) {
 		for ( Iterator<BehaviorModel> iterator = behaviorModels.iterator(); iterator.hasNext(); ) {
 			if( iterator.next().getClass() == modelClass ) iterator.remove();
+		}
+		return this;
+	}
+
+
+	/**
+	 * Removes every other behavior model of same type from shape's behavior models.
+	 * @see #remove
+	 */
+	public final Shape removeSame( BehaviorModel model ) {
+		Class modelClass = model.getClass();
+		for ( Iterator<BehaviorModel> iterator = behaviorModels.iterator(); iterator.hasNext(); ) {
+			if( modelClass.isInstance( iterator.next() ) ) iterator.remove();
 		}
 		return this;
 	}

@@ -14,7 +14,6 @@ public class BitmapFontExample extends Project {
 	
 	@Override
 	public void init() {
-		initGraphics();
 		Graphics.setClearingColor( 0d, 0.5d, 0d, 1d );
 	}
 

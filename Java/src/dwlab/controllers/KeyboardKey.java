@@ -9,7 +9,7 @@
 
 package dwlab.controllers;
 
-import dwlab.base.Project;
+import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import org.lwjgl.input.Keyboard;
 
@@ -263,7 +263,7 @@ public class KeyboardKey extends Pushable {
 		KeyboardKey key = new KeyboardKey();
 		key.code = code;
 		
-		for( ButtonAction action: Project.controllers ) {
+		for( ButtonAction action: Sys.controllers ) {
 			for( Pushable pushable: action.buttonList ) {
 				if( pushable.isEqualTo( key ) ) return pushable.getKeyboardKey();
 			}

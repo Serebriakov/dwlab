@@ -8,7 +8,6 @@
 
 package dwlab.controllers;
 
-import dwlab.base.Project;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import org.lwjgl.input.Mouse;
@@ -65,7 +64,7 @@ public class MouseWheel extends Pushable {
 		MouseWheel wheelAction = new MouseWheel();
 		wheelAction.direction = direction;
 		
-		for( ButtonAction action: Project.controllers ) {
+		for( ButtonAction action: Sys.controllers ) {
 			for( Pushable pushable: action.buttonList ) {
 				if( pushable.isEqualTo( wheelAction ) ) return wheelAction;
 			}

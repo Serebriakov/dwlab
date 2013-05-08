@@ -3,15 +3,19 @@ import dwlab.behavior_models.FixedJoint;
 import java.lang.Math;
 import dwlab.behavior_models.RevoluteJoint;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.layers.World;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class RevoluteJointExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new RevoluteJointExample() ).act();
+	}
+	
+	
 	public final double period = 2.0;
 	public World world;
 	public Layer layer;
@@ -68,6 +72,6 @@ public class Example extends Project {
 
 	public void render() {
 		layer.draw();
-		printText( "LTFixedJoint, LTRevoluteJoint example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "LTFixedJoint, LTRevoluteJoint example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

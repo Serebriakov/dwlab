@@ -1,6 +1,7 @@
 package examples;
 import java.lang.Math;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
@@ -9,6 +10,12 @@ public static Example example = new Example();
 example.execute();
 
 public class Example extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new DistanceToPointExample() ).act();
+	}
+	
+	
 	public final int flowersQuantity = 12;
 	public final double flowerCircleDiameter = 9;
 	public final double flowerDiameter = 1.8;
@@ -37,7 +44,7 @@ public class Example extends Project {
 		for( int n = 0; n <= flowersQuantity; n++ ) {
 			flowers[ n ].drawUsingVisualizer( flowerVisualizer );
 		}
-		printText( "DrawUsingSprite example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "DrawUsingSprite example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }
 
@@ -55,7 +62,7 @@ public class FlowerVisualizer extends Visualizer {
 			double distance = spriteDiameter * ( 1.0 + amplitude * Math.sin( 360.0 * example.time + 360.0 * n / circlesQuantity * circlesPer360 ) );
 			double sX, double sY;
 			currentCamera.fieldToScreen( sprite.x + distance * Math.cos( angles ), sprite.y + distance * Math.sin( angles ), sX, sY );
-			drawOval( sX - 0.5 * circleDiameter, sY - 0.5 * circleDiameter, circleDiameter, circleDiameter );
+			Graphics.drawOval( sX - 0.5 * circleDiameter, sY - 0.5 * circleDiameter, circleDiameter, circleDiameter );
 		}
 	}
 }

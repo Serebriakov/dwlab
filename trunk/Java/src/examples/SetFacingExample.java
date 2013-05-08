@@ -1,13 +1,17 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Image;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class SetFacingExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new SetFacingExample() ).act();
+	}
+	
+	
 	public Sprite sprite = Sprite.fromShape( 0, 0, 8, 8 );
 
 	public void init() {
@@ -23,7 +27,7 @@ public class Example extends Project {
 
 	public void render() {
 		sprite.draw();
-		drawText( "Press left and right arrows to change sprite facing", 0, 0 );
-		printText( "SetFacing example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Press left and right arrows to change sprite facing" );
+		printText( "SetFacing example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

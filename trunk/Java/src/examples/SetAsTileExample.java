@@ -1,5 +1,6 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.shapes.maps.TileMap;
 import dwlab.base.Image;
 import dwlab.base.Project;
@@ -7,10 +8,13 @@ import dwlab.shapes.sprites.VectorSprite;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.TileSet;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class SetAsTileExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new SetAsTileExample() ).act();
+	}
+	
+	
 	public final int tileMapWidth = 16;
 	public final int tileMapHeight = 12;
 
@@ -45,8 +49,8 @@ public class Example extends Project {
 	public void render() {
 		tileMap.draw();
 		pieces.draw();
-		drawText( "Click on tiles to make them fall", 0, 0 );
-		printText( "SetAsTile example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Click on tiles to make them fall" );
+		printText( "SetAsTile example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }
 

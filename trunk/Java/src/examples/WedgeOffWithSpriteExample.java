@@ -1,16 +1,20 @@
 package examples;
 import java.lang.Math;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Image;
 import dwlab.base.Project;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class WedgeOffWithSpriteExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new WedgeOffWithSpriteExample() ).act();
+	}
+	
+	
 	public final int koloboksQuantity = 50;
 
 	public Layer koloboks = new Layer();
@@ -46,8 +50,8 @@ public class Example extends Project {
 			showDebugInfo();
 		} else {
 			koloboks.draw();
-			drawText( "Move white kolobok with arrow keys and push other koloboks and press D for debug mode", 0, 0 );
-			printText( "WedgeOffWithSprite example", 0, 12, Align.toCenter, Align.toBottom );
+			printText( "Move white kolobok with arrow keys and push other koloboks and press D for debug mode" );
+			printText( "WedgeOffWithSprite example", Align.TO_CENTER, Align.TO_BOTTOM );
 		}
 	}
 }
@@ -66,9 +70,9 @@ public class Kolobok extends Sprite {
 
 	public static Kolobok createKolobok() {
 		Kolobok kolobok = create();
-		kolobok.setCoords( Math.random( -15, 15 ), Math.random( -11, 11 ) );
-		kolobok.setDiameter( Math.random( 1, 3 ) );
-		kolobok.angle = Math.random( 360 );
+		kolobok.setCoords( Service.random( -15, 15 ), Service.random( -11, 11 ) );
+		kolobok.setDiameter( Service.random( 1, 3 ) );
+		kolobok.angle = Service.random( 360 );
 		kolobok.visualizer.setRandomColor();
 		return kolobok;
 	}

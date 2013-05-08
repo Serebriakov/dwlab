@@ -1,16 +1,16 @@
 package examples;
+import dwlab.base.*;
 import java.lang.Math;
-import dwlab.base.Align;
-import dwlab.base.Project;
-import dwlab.base.RasterFrame;
-import dwlab.base.Drag;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class RasterFrameExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new RasterFrameExample() ).act();
+	}
+	
+	
 	public Sprite frame;
 	public RasterFrame frameImage = RasterFrame.fromFileAndBorders( " incbinborder .png", 8, 8, 8, 8 );
 	public Layer layer = new Layer();
@@ -28,8 +28,8 @@ public class Example extends Project {
 	public void render() {
 		layer.draw();
 		if( frame ) frame.draw();
-		drawText( "Drag left mouse button to create frames", 0, 0 );
-		printText( "LTRasterFrame, LTDrag example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Drag left mouse button to create frames" );
+		printText( "LTRasterFrame, LTDrag example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }
 

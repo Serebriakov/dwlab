@@ -71,6 +71,15 @@ public class Service extends Obj {
 	/**
 	* Adds zeroes to Int value to make resulting string length equal to given.
 	* @return String with zeroes equal to Int value.
+	*
+	* Example:
+	* printText( "345 with 8 digits total is " + Service.firstZeroes( 345, 8 ) );
+	* printText( "9834 with 3 digits total is " + Service.firstZeroes( 9834, 3 ) );
+	* printText( "1 with 10 digits total is " + Service.firstZeroes( 1, 10 ) );
+	*
+	* 345 with 8 digits total is 00000345;
+	* 9834 with 3 digits total is 9834;
+	* 1 with 10 digits total is 0000000001;
 	*/
 	public static String firstZeroes( int value, int totalDigits ) {
 		String stringValue = String.valueOf( value );
@@ -208,6 +217,7 @@ public class Service extends Obj {
 
 	/**
 	* Converts full path to path relative to current directory.
+	*/
 	public static String chopFilename( String filename ) {
 		String dir = currentDir();
 		String slash = "/";
@@ -231,7 +241,6 @@ public class Service extends Obj {
 		}
 		return filename[ len( dir ).. ];
 	}
-	*/
 
 
 	/**
@@ -346,32 +355,6 @@ public class Service extends Obj {
 	
 	public static int versionToInt( String version ) {
 		return versionToInt( version, 4 );
-	}
-
-
-	public static double log80 = Math.log( 80 );
-
-	public static int getChunkLength( int quantity ) {
-		return (int) Math.max( 1, Math.ceil( Math.log( quantity ) / log80 ) );
-	}
-
-
-	public static String encode( int value, int chunkLength ) {
-		String chunk = "";
-		for( int n=1; n <= chunkLength; n++ ) {
-			chunk = ( (char) ( 48 + ( value % 80 ) ) ) + chunk;
-			value = (int) Math.floor( value / 80 );
-		}
-		return chunk;
-	}
-
-
-	public static int decode( String chunk ) {
-		int value = 0;
-		for( int n=0; n <= chunk.length(); n++ ) {
-			value = value * 80 + ( (int) chunk.charAt( n ) ) - 48;
-		}
-		return value;
 	}
 	
 	

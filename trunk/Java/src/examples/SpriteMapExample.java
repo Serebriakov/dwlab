@@ -2,6 +2,7 @@ package examples;
 import java.util.LinkedList;
 import java.lang.Math;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.Shape;
 import dwlab.visualizers.ContourVisualizer;
@@ -10,12 +11,15 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.visualizers.Visualizer;
 
-public static Example example = new Example();
-example.execute();
-
 public final int mapSize = 192;
 
-public class Example extends Project {
+public class SpriteMapExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new SpriteMapExample() ).act();
+	}
+	
+	
 	public final int spritesQuantity = 800;
 
 	public Shape rectangle = Sprite.fromShape( 0, 0, mapSize, mapSize );
@@ -41,9 +45,9 @@ public class Example extends Project {
 	public void render() {
 		spriteMap.draw();
 		rectangle.draw();
-		drawOval( 398, 298, 5, 5 );
+		Graphics.drawOval( 398, 298, 5, 5 );
 		cursor.draw();
-		printText( "LTSpriteMap, CollisionsWithSpriteMap example", currentCamera.x, currentCamera.y + 12, Align.toCenter, Align.toBottom );
+		printText( "LTSpriteMap, CollisionsWithSpriteMap example", currentCamera.x, currentCamera.y + 12, Align.TO_CENTER, Align.TO_BOTTOM );
 		showDebugInfo();
 	}
 }
@@ -53,10 +57,10 @@ public class Example extends Project {
 public class Ball extends Sprite {
 	public static Ball create() {
 		Ball ball = new Ball();
-		ball.setCoords( Math.random( -0.5 * ( mapSize - 2 ), 0.5 * ( mapSize - 2 ) ), Math.random( -0.5 * ( mapSize - 2 ), 0.5 * ( mapSize - 2 ) ) );
-		ball.setDiameter( Math.random( 0.5, 1.5 ) );
-		ball.angle = Math.random( 360 );
-		ball.velocity = Math.random( 3, 7 );
+		ball.setCoords( Service.random( -0.5 * ( mapSize - 2 ), 0.5 * ( mapSize - 2 ) ), Service.random( -0.5 * ( mapSize - 2 ), 0.5 * ( mapSize - 2 ) ) );
+		ball.setDiameter( Service.random( 0.5, 1.5 ) );
+		ball.angle = Service.random( 360 );
+		ball.velocity = Service.random( 3, 7 );
 		ball.shapeType = Sprite.oval;
 		ball.visualizer.setRandomColor();
 		example.spriteMap.insertSprite( ball );
@@ -103,9 +107,9 @@ public class ParticleArea extends Sprite {
 		for( int n = 0; n <= particlesQuantity; n++ ) {
 			Sprite particle = new Sprite();
 			particle.jumpTo( Area );
-			particle.angle = angle + Math.random( -15, 15 ) + ( n % 2 ) * 180;
-			particle.setDiameter( Math.random( 0.2, 0.6 ) );
-			particle.velocity = Math.random( 0.5, 3 );
+			particle.angle = angle + Service.random( -15, 15 ) + ( n % 2 ) * 180;
+			particle.setDiameter( Service.random( 0.2, 0.6 ) );
+			particle.velocity = Service.random( 0.5, 3 );
 			Area.particles.addLast( particle );
 		}
 		example.spriteMap.insertSprite( Area );
@@ -115,7 +119,7 @@ public class ParticleArea extends Sprite {
 		double a = 1.0 - ( example.time - startingTime ) / fadingTime;
 		if( a >= 0 ) {
 			setAlpha( a );
-			setColor( 255, 192, 0 );
+			Graphics.setColor( 255, 192, 0 );
 			for( Sprite sprite : particles ) {
 				double dX = Math.cos( sprite.angle ) * sprite.getDiameter() * 0.5;
 				double dY = Math.sin( sprite.angle ) * sprite.getDiameter() * 0.5;

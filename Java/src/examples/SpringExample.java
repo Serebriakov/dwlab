@@ -1,4 +1,5 @@
 package examples;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.VectorSprite;
@@ -7,10 +8,13 @@ import dwlab.shapes.Line;
 import dwlab.visualizers.ContourVisualizer;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class SpringExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new SpringExample() ).act();
+	}
+	
+	
 	public final double gravity = 10.0;
 
 	public Layer layer = new Layer();

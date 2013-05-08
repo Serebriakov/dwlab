@@ -1,16 +1,20 @@
 package examples;
 import java.lang.Math;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.shapes.maps.TileMap;
 import dwlab.base.Image;
 import dwlab.base.Project;
 import dwlab.shapes.maps.TileSet;
 import dwlab.visualizers.Visualizer;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class DrawTileExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new DrawTileExample() ).act();
+	}
+	
+	
 	public final int tileMapWidth = 16;
 	public final int tileMapHeight = 12;
 	public final double shakingPeriod = 1.0;
@@ -21,6 +25,8 @@ public class Example extends Project {
 	public double shakingK;
 	public double lastShakingTime = -100;
 
+	
+	@Override
 	public void init() {
 		initGraphics();
 		tileMap.setSize( tileMapWidth * 2, tileMapHeight * 2 );
@@ -31,7 +37,9 @@ public class Example extends Project {
 		}
 		tileMap.visualizer = new ShakingVisualizer();
 	}
+	
 
+	@Override
 	public void logic() {
 		if( time - lastShakingTime > periodBetweenShakes ) {
 			lastShakingTime = time;
@@ -42,12 +50,13 @@ public class Example extends Project {
 		} else {
 			shakingK = 0.0;
 		}
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
 	}
+	
 
+	@Override
 	public void render() {
 		tileMap.draw();
-		printText( "DrawTile example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "DrawTile example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }
 
@@ -60,9 +69,9 @@ public class ShakingVisualizer extends Visualizer {
 		int tileValue = getTileValue( tileMap, tileX, tileY );
 		if( tileValue == tileSet.emptyTile ) return;
 
-		setRotation( Math.random( -dAngle * example.shakingK, dAngle * example.shakingK ) );
-		x += Math.random( -dCoord * example.shakingK, dCoord * example.shakingK );
-		y += Math.random( -dCoord * example.shakingK, dCoord * example.shakingK );
+		setRotation( Service.random( -dAngle * example.shakingK, dAngle * example.shakingK ) );
+		x += Service.random( -dCoord * example.shakingK, dCoord * example.shakingK );
+		y += Service.random( -dCoord * example.shakingK, dCoord * example.shakingK );
 
 		double sX, double sY;
 		currentCamera.fieldToScreen( x, y, sX, sY );

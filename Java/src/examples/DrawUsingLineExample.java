@@ -1,16 +1,20 @@
 package examples;
 import java.lang.Math;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.LineSegment;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class DrawUsingLineExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new DrawUsingLineExample() ).act();
+	}
+	
+	
 	public Layer lineSegments = new Layer();
 
 	public void init() {
@@ -31,8 +35,8 @@ public class Example extends Project {
 
 	public void render() {
 		lineSegments.draw();
-		drawText( "Free Software Forever!", 0, 0 );
-		printText( "DrawUsingLine example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Free Software Forever!" );
+		printText( "DrawUsingLine example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }
 
@@ -49,24 +53,24 @@ public class Blazing extends Visualizer {
 		double oldX, double oldY;
 		for( int n = 0; n <= chunkQuantity; n++ ) {
 			double radius = 0;
-			if( n > 0 && n < chunkQuantity ) radius = Math.random( 0.0, deformationRadius );
+			if( n > 0 && n < chunkQuantity ) radius = Service.random( 0.0, deformationRadius );
 
-			double angle = Math.random( 0.0, 360.0 );
+			double angle = Service.random( 0.0, 360.0 );
 			int x = sX1 + ( sX2 - sX1 ) * n / chunkQuantity + Math.cos( angle ) * radius;
 			int y = sY1 + ( sY2 - sY1 ) * n / chunkQuantity + Math.sin( angle ) * radius;
 
 			setLineWidth( 9 );
-			setColor( 0, 255, 255 );
-			drawOval( x - 4, y - 4, 9, 9 );
+			Graphics.setColor( 0, 255, 255 );
+			Graphics.drawOval( x - 4, y - 4, 9, 9 );
 			if( n > 0 ) {
-				drawOval( oldX - 4, oldY - 4, 9, 9 );
+				Graphics.drawOval( oldX - 4, oldY - 4, 9, 9 );
 				drawLine( x, y, oldX, oldY );
 			}
 			setLineWidth( 4 );
-			setColor( 255, 255, 255 );
-			drawOval( x - 2, y - 2, 5, 5 );
+			Graphics.setColor( 255, 255, 255 );
+			Graphics.drawOval( x - 2, y - 2, 5, 5 );
 			if( n > 0 ) {
-				drawOval( oldX - 2, oldY - 2, 5, 5 );
+				Graphics.drawOval( oldX - 2, oldY - 2, 5, 5 );
 				drawLine( x, y, oldX, oldY );
 			}
 

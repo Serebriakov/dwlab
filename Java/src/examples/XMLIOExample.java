@@ -1,15 +1,15 @@
 package examples;
+import dwlab.base.*;
 import java.util.LinkedList;
 import java.lang.Math;
-import dwlab.base.XMLObject;
-import dwlab.base.Align;
-import dwlab.base.Project;
-import dwlab.base.Object;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class XMLIOExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new XMLIOExample() ).act();
+	}
+	
+	
 	public LinkedList people = new LinkedList();
 	public LinkedList professions = new LinkedList();
 
@@ -39,14 +39,14 @@ public class Example extends Project {
 	}
 
 	public void render() {
-		drawText( "Press G to generate data, C to clear, F2 to save, F3 to load", 0, 0 );
+		printText( "Press G to generate data, C to clear, F2 to save, F3 to load" );
 		int y = 16;
 		for( Worker worker : people ) {
-			drawText( worker.firstName + " " + worker.lastName + ", " + worker.age + " years, " + trimDouble( worker.height, 1 ) + " cm, " + 
-					trimDouble( worker.weight, 1 ) + " kg, " + worker.profession.name , 0, y );
+			drawText( worker.firstName + " " + worker.lastName + ", " + worker.age + " years, " + Service.trim( worker.height, 1 ) + " cm, " + 
+					Service.trim( worker.weight, 1 ) + " kg, " + worker.profession.name , 0, y );
 			y += 16;
 		}
-		printText( "XMLIO, Manage... example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "XMLIO, Manage... example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 
 	public void xMLIO( XMLObject xMLObject ) {
@@ -93,8 +93,8 @@ public class Worker extends Object {
 				"Fedorov", "Morozov", "Volkov", "Alekseev", "Lebedev", "Semenov", "Egorov", "Pavlov", "Kozlov", "Stepanov", "Nikolaev", 
 				"Orlovv", "Andreev", "Makarov", "Nikitin", "Zakharov" ][ rand( 0, 24 ) ];
 		worker.age = rand( 20, 50 );
-		worker.height = Math.random( 155, 180 );
-		worker.weight = Math.random( 50, 90 );
+		worker.height = Service.random( 155, 180 );
+		worker.weight = Service.random( 50, 90 );
 		worker.profession = Profession( example.professions.get( rand( 0, example.professions.size() - 1 ) ) );
 		example.people.addLast( worker );
 	}

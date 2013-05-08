@@ -206,7 +206,7 @@ public class BehaviorModelExample extends Project {
 			String moving = getParameter( "moving" );
 			if( moving ) {
 				String parameters[] = getParameter( "moving" ).split( "-" );
-				dX *= Math.random( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() );
+				dX *= Service.random( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() );
 				attachModel( horizontalMovement );
 				animationStack.add( movementAnimation );
 				score += 100;
@@ -346,13 +346,13 @@ public class BehaviorModelExample extends Project {
 
 	public void draw() {
 		super.draw();
-		drawEmptyRect( 5, 580, 104, 15 );
+		Graphics.drawEmptyRectangle( 5, 580, 104, 15 );
 		if( health >= 50.0 ) {
-			setColor( ( 100.0 - health ) * 255.0 / 50.0 , 255, 0 );
+			Graphics.setColor( ( 100.0 - health ) * 255.0 / 50.0 , 255, 0 );
 		} else {
-			setColor( 255, health * 255.0 / 50.0, 0 );
+			Graphics.setColor( 255, health * 255.0 / 50.0, 0 );
 		}
-		drawRect( 7, 582, health, 11 );
+		Graphics.drawRectangle( 7, 582, health, 11 );
 		Visualizer.resetColor();
 	}
 
@@ -386,7 +386,7 @@ public class BehaviorModelExample extends Project {
 		}
 
 		public String info( Shape shape ) {
-			return trimDouble( VectorSprite( shape ).dX );
+			return Service.trim( VectorSprite( shape ).dX );
 		}
 	}
 
@@ -423,7 +423,7 @@ public class BehaviorModelExample extends Project {
 		}
 
 		public String info( Shape shape ) {
-			return trimDouble( VectorSprite( shape ).dY );
+			return Service.trim( VectorSprite( shape ).dY );
 		}
 	}
 
@@ -456,7 +456,7 @@ public class BehaviorModelExample extends Project {
 		}
 
 		public void applyTo( Shape shape ) {
-			VectorSprite( shape ).dY = -Math.random( fromStrength, toStrength );
+			VectorSprite( shape ).dY = -Service.random( fromStrength, toStrength );
 			remove( shape );
 		}
 	}
@@ -473,7 +473,7 @@ public class BehaviorModelExample extends Project {
 		}
 
 		public void applyTo( Shape shape ) {
-			Bullet.create( VectorSprite( shape ), Math.random( fromSpeed, toSpeed ) );
+			Bullet.create( VectorSprite( shape ), Service.random( fromSpeed, toSpeed ) );
 			remove( shape );
 		}
 	}
@@ -555,11 +555,11 @@ public class BehaviorModelExample extends Project {
 			if( sprite2.findModel( "TDeath" ) ) return;
 
 			double damage = 0;
-			if( Jelly( sprite2 ) ) damage = Math.random( Jelly.minAttack, Jelly.maxAttack );
+			if( Jelly( sprite2 ) ) damage = Service.random( Jelly.minAttack, Jelly.maxAttack );
 			Bullet bullet = Bullet( sprite2 );
 			if( bullet ) {
 				if( bullet.collisions ) {
-					damage = Math.random( Bullet.minAttack, Bullet.maxAttack ) * sprite2.getDiameter() / 0.45;
+					damage = Service.random( Bullet.minAttack, Bullet.maxAttack ) * sprite2.getDiameter() / 0.45;
 					example.layer.remove( sprite2 );
 				}
 			}
@@ -660,14 +660,14 @@ public class BehaviorModelExample extends Project {
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
 			Jelly jelly = Jelly( sprite2 );
 			if( jelly ) {
-				jelly.health -= Math.random( AwPossum.minAttack, AwPossum.maxAttack );
+				jelly.health -= Service.random( AwPossum.minAttack, AwPossum.maxAttack );
 				if( jelly.health > 0 ) {
 					jelly.attachModel( new JellyHurt() );
 				} else if( ! jelly.findModel( "TDeath" ) ) {
 					Score.create( jelly, jelly.score );
 
 					AwPossum awPossum = AwPossum( example.layer.findShapeWithType( "TAwPossum" ) );
-					awPossum.health = Math.min( awPossum.health + Math.random( AwPossum.minHealthGain, AwPossum.maxHealthGain ), 100.0 );
+					awPossum.health = Math.min( awPossum.health + Service.random( AwPossum.minHealthGain, AwPossum.maxHealthGain ), 100.0 );
 
 					jelly.behaviorModels.clear();
 					jelly.attachModel( new Death() );
@@ -692,12 +692,12 @@ public class BehaviorModelExample extends Project {
 		public void applyTo( Shape shape ) {
 			super.applyTo( shape );
 			double intensity = ( currentProject.time - startingTime ) / period;
-			if( intensity <= 1.0 ) shape.visualizer.setColorFromRGB( 1.0, intensity, intensity );
+			if( intensity <= 1.0 ) shape.visualizer.Graphics.setColorFromRGB( 1.0, intensity, intensity );
 		}
 
 		public void deactivate( Shape shape ) {
 			shape.activateModel( "THorizontalMovement" );
-			shape.visualizer.setColorFromHex( "FFFFFF" );
+			shape.visualizer.Graphics.setColorFromHex( "FFFFFF" );
 		}
 	}
 
@@ -742,26 +742,26 @@ public class BehaviorModelExample extends Project {
 		}
 
 		public void draw() {
-			printText( "+" + amount, , Align.toBottom, , , true );
+			printText( "+" + amount, , Align.TO_BOTTOM, , , true );
 		}
 	}
 
 
 	public class Restart extends Project {
-		public int startingTime = System.currentTimeMillis()();
+		public int startingTime = System.currentTimeMillis();
 		public int initialized;
 
 		public void render() {
-			if( System.currentTimeMillis()() < startingTime + 2000 ) {
+			if( System.currentTimeMillis() < startingTime + 2000 ) {
 				example.render();
-				currentCamera.darken( 0.0005 * ( System.currentTimeMillis()() - startingTime ) );
-			} else if( System.currentTimeMillis()() < startingTime + 4000 ) {
+				currentCamera.darken( 0.0005 * ( System.currentTimeMillis() - startingTime ) );
+			} else if( System.currentTimeMillis() < startingTime + 4000 ) {
 				if( ! initialized ) {
 					example.initLevel();
 					initialized = true;
 				}
 				example.render();
-				currentCamera.darken( 0.0005 * ( 4000 - System.currentTimeMillis()() + startingTime ) );
+				currentCamera.darken( 0.0005 * ( 4000 - System.currentTimeMillis() + startingTime ) );
 			} else {
 				exiting = true;
 			}

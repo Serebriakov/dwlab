@@ -1,13 +1,17 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class MoveTowardsExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new MoveTowardsExample() ).act();
+	}
+	
+	
 	public Sprite ball = Sprite.fromShape( 0, 0, 3, 3, Sprite.oval, 0, 5 );
 
 	public void init() {
@@ -25,7 +29,7 @@ public class Example extends Project {
 	public void render() {
 		ball.draw();
 		cursor.draw();
-		if( ball.isAtPositionOf( cursor ) ) drawText( "Ball is at position of cursor", 0, 0 );
-		printText( "IsAtPositionOf, MoveTowards example", 0, 12, Align.toCenter, Align.toBottom );
+		if( ball.isAtPositionOf( cursor ) ) printText( "Ball is at position of cursor" );
+		printText( "IsAtPositionOf, MoveTowards example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

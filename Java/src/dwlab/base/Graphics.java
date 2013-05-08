@@ -98,8 +98,16 @@ public class Graphics {
 		currentColor.set( red, green, blue, alpha );
 	}
 	
+	public static void setColor( double red, double green, double blue ) {
+		currentColor.set( red, green, blue, 1d );
+	}
+	
 	public static void setClearingColor( double red, double green, double blue, double alpha ) {
 		currentClearingColor.set( red, green, blue, alpha );
+	}
+	
+	public static void setClearingColor( double red, double green, double blue ) {
+		currentClearingColor.set( red, green, blue, 1d );
 	}
 	
 	public static void setLineWidth( double width ) {

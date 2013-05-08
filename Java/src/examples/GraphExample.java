@@ -2,6 +2,7 @@ package examples;
 import java.util.LinkedList;
 import java.lang.Math;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.LineSegment;
 import dwlab.graph.Graph;
@@ -9,10 +10,13 @@ import dwlab.visualizers.ContourVisualizer;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class GraphExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new GraphExample() ).act();
+	}
+	
+	
 	public final int pivotsQuantity = 150;
 	public final double maxDistance = 3.0;
 	public final double minDistance = 1.0;
@@ -29,8 +33,8 @@ public class Example extends Project {
 		cursor = Sprite.fromShape( 0, 0, 0.5, 0.5, Sprite.oval );
 		for( int n = 0; n <= pivotsQuantity; n++ ) {
 			while( true ) {
-				double x = Math.random( -15,15 );
-				double y = Math.random( -11, 11 );
+				double x = Service.random( -15,15 );
+				double y = Service.random( -11, 11 );
 				int passed = true;
 				for( Sprite pivot : graph.pivots.keySet() ) {
 					if( pivot.distanceToPoint( x, y ) < minDistance ) {
@@ -78,7 +82,7 @@ public class Example extends Project {
 		Graph.drawPath( path, pathVisualizer );
 		graph.drawPivotsUsing( pivotVisualizer );
 		if( selectedPivot ) selectedPivot.drawUsingVisualizer( pathVisualizer );
-		drawText( "Select first pivot with left mouse button and second with right one", 0, 0 );
-		printText( "LTGraph, FindPath, CollidesWithLineSegment example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Select first pivot with left mouse button and second with right one" );
+		printText( "LTGraph, FindPath, CollidesWithLineSegment example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

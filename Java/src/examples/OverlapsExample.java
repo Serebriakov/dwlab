@@ -1,12 +1,16 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class OverlapsExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new OverlapsExample() ).act();
+	}
+	
+	
 	public Sprite pivot = Sprite.fromShape( 6, 0, 0, 0, Sprite.pivot );
 	public Sprite oval = Sprite.fromShape( -4, -2, 3, 5, Sprite.oval );
 	public Sprite rectangle = Sprite.fromShape( 0, 5, 4, 4, Sprite.rectangle );
@@ -15,10 +19,10 @@ public class Example extends Project {
 	public String text;
 
 	public void init() {
-		pivot.visualizer.setColorFromHex( "FF0000" );
-		oval.visualizer.setColorFromHex( "00FF00" );
-		rectangle.visualizer.setColorFromHex( "0000FF" );
-		triangle.visualizer.setColorFromHex( "007FFF" );
+		pivot.visualizer.Graphics.setColorFromHex( "FF0000" );
+		oval.visualizer.Graphics.setColorFromHex( "00FF00" );
+		rectangle.visualizer.Graphics.setColorFromHex( "0000FF" );
+		triangle.visualizer.Graphics.setColorFromHex( "007FFF" );
 		cursor.visualizer.alpha = 0.5;
 		initGraphics();
 	}
@@ -41,8 +45,8 @@ public class Example extends Project {
 		rectangle.draw();
 		triangle.draw();
 		cursor.draw();
-		drawText( "Press right mouse button to change cursor shape", 0, 0 );
+		printText( "Press right mouse button to change cursor shape" );
 		drawText( "Cursor rectangle fully overlaps " + text[ 2.. ], 0, 16 );
-		printText( "Overlaps example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Overlaps example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

@@ -1,6 +1,7 @@
 package examples;
 import java.lang.Math;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Image;
 import dwlab.base.Project;
 import dwlab.shapes.layers.Layer;
@@ -8,10 +9,13 @@ import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.MarchingAnts;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class MarchingAntsExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new MarchingAntsExample() ).act();
+	}
+	
+	
 	public final int spritesQuantity = 50;
 
 	public Layer layer = new Layer();
@@ -22,8 +26,8 @@ public class Example extends Project {
 
 	public void init() {
 		for( int n = 1; n <= spritesQuantity; n++ ) {
-			Sprite sprite = Sprite.fromShape( Math.random( -15, 15 ), Math.random( -11, 11 ), , , Sprite.oval, Math.random( 360 ) );
-			sprite.setDiameter( Math.random( 1, 3 ) );
+			Sprite sprite = Sprite.fromShape( Service.random( -15, 15 ), Service.random( -11, 11 ), , , Sprite.oval, Service.random( 360 ) );
+			sprite.setDiameter( Service.random( 1, 3 ) );
 			sprite.visualizer.setRandomColor();
 			sprite.visualizer.image = spriteImage;
 			layer.addLast( sprite );
@@ -41,8 +45,8 @@ public class Example extends Project {
 	public void render() {
 		layer.draw();
 		if( selected ) selected.drawUsingVisualizer( example.marchingAnts );
-		drawText( "Select Sprite by left-clicking on it", 0, 0 );
-		printText( "LTMarchingAnts example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Select Sprite by left-clicking on it" );
+		printText( "LTMarchingAnts example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }
 

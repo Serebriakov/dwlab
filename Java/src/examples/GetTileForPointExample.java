@@ -1,15 +1,19 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.shapes.maps.TileMap;
 import dwlab.base.Image;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.maps.TileSet;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class GetTileForPointExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new GetTileForPointExample() ).act();
+	}
+	
+	
 	public final int tileMapWidth = 16;
 	public final int tileMapHeight = 12;
 
@@ -43,7 +47,7 @@ public class Example extends Project {
 	public void render() {
 		tileMap.draw();
 		cursor.draw();
-		drawText( "Press right mouse button to select brush, left button to draw.", 0, 0 );
-		printText( "GetTileForPoint, SetTile, SetAsTile example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Press right mouse button to select brush, left button to draw." );
+		printText( "GetTileForPoint, SetTile, SetAsTile example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

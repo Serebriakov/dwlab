@@ -1,12 +1,16 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class SetCornerCoordsExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new SetCornerCoordsExample() ).act();
+	}
+	
+	
 	public Sprite rectangle = Sprite.fromShape( 0, 0, 8, 6 );
 
 	public void init() {
@@ -20,6 +24,6 @@ public class Example extends Project {
 
 	public void render() {
 		rectangle.draw();
-		printText( "SetCornerCoords example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "SetCornerCoords example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

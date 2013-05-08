@@ -1,13 +1,17 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.visualizers.ContourVisualizer;
 import dwlab.shapes.sprites.Sprite;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class LimitByWindowShapeExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new LimitByWindowShapeExample() ).act();
+	}
+	
+	
 	public Sprite ball1 = Sprite.fromShape( 0, 0, 3, 3, Sprite.oval );
 	public Sprite ball2 = Sprite.fromShape( 0, 0, 2, 2, Sprite.oval );
 	public Sprite ball3 = Sprite.fromShape( 0, 0, 3, 3, Sprite.oval );
@@ -21,9 +25,9 @@ public class Example extends Project {
 
 	public void init() {
 		initGraphics();
-		ball1.visualizer.setColorFromHex( "FF0000" );
-		ball2.visualizer.setColorFromHex( "FFFF00" );
-		ball3.visualizer.setColorFromHex( "0000FF" );
+		ball1.visualizer.Graphics.setColorFromHex( "FF0000" );
+		ball2.visualizer.Graphics.setColorFromHex( "FFFF00" );
+		ball3.visualizer.Graphics.setColorFromHex( "0000FF" );
 		ball1.limitByWindowShape( rectangle1 );
 		ball3.limitByWindowShapes( rectangleArray );
 		rectangle1.visualizer = ContourVisualizer.fromWidthAndHexColor( 0.1, "00FF00" );
@@ -49,7 +53,7 @@ public class Example extends Project {
 		ball3.draw();
 		ball2.draw();
 
-		drawText( "Move cursor to see how balls are limited by rectangles", 0, 0 );
-		printText( "LimitByWindowShape, LimitByWindowShapes example", 0, 12, Align.toCenter, Align.toBottom );
+		printText( "Move cursor to see how balls are limited by rectangles" );
+		printText( "LimitByWindowShape, LimitByWindowShapes example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

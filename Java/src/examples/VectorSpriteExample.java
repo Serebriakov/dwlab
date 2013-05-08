@@ -1,5 +1,6 @@
 package examples;
 import dwlab.base.Align;
+import dwlab.base.Graphics;
 import dwlab.shapes.maps.TileMap;
 import dwlab.base.Image;
 import dwlab.base.Project;
@@ -9,10 +10,13 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.maps.TileSet;
 
-public static Example example = new Example();
-example.execute();
-
-public class Example extends Project {
+public class VectorSpriteExample extends Project {
+	public static void main(String[] argv) {
+		Graphics.init();
+		( new VectorSpriteExample() ).act();
+	}
+	
+	
 	public final int coinsQuantity = 100;
 	public final int platformsQuantity = 100;
 	public final int minPlatformLength = 3;
@@ -62,9 +66,9 @@ public class Example extends Project {
 	public void render() {
 		tileMap.draw();
 		player.draw();
-		drawText( "Move player with arrow keys", 0, 0 );
+		printText( "Move player with arrow keys" );
 		drawText( " Coins" + coins, 0, 16 );
-		printText( "LTVectorSprite, CollisionsWithTileMap, HandleCollisionWithTile example", currentCamera.x, currentCamera.y + 12, Align.toCenter, Align.toBottom );
+		printText( "LTVectorSprite, CollisionsWithTileMap, HandleCollisionWithTile example", currentCamera.x, currentCamera.y + 12, Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }
 

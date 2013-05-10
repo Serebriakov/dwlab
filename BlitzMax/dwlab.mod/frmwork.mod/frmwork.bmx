@@ -15,13 +15,15 @@ bbdoc: Digital Wizard's Lab Framework
 End Rem
 Module dwlab.frmwork
 
-ModuleInfo "Version: 1.4.34"
+ModuleInfo "Version: 1.5"
 ModuleInfo "Author: Matt Merkulov"
 ModuleInfo "License: Artistic License 2.0"
 ModuleInfo "Modserver: DWLAB"
 
 
 ModuleInfo "History: &nbsp; &nbsp; "
+ModuleInfo "History: v1.5 (26.04.13)"
+ModuleInfo "History: &nbsp; &nbsp; Everything is fixed, documented and updated."
 ModuleInfo "History: v1.4.34 (18.04.13)"
 ModuleInfo "History: &nbsp; &nbsp; Tilemaps now will be stored in one file with same name as project and lwbin extension."
 ModuleInfo "History: v1.4.33 (04.01.13)"
@@ -339,7 +341,7 @@ Import brl.map
 Import brl.max2d
 Import brl.eventqueue
 
-Const L_Version:String = "1.4.34"
+Const L_Version:String = "1.5"
 
 SeedRnd( MilliSecs() )
 

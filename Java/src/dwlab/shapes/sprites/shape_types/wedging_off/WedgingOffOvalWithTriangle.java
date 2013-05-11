@@ -1,6 +1,9 @@
 package dwlab.shapes.sprites.shape_types.wedging_off;
 
+import dwlab.base.Service;
+import dwlab.base.Vector;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class WedgingOffOvalWithTriangle extends WedgingOffSprites {
 	public static WedgingOffOvalWithTriangle instance = new WedgingOffOvalWithTriangle();
@@ -11,26 +14,25 @@ public class WedgingOffOvalWithTriangle extends WedgingOffSprites {
 		triangle.getRightAngleVertex( servicePivots[ 2 ] );
 		triangle.getOtherVertices( servicePivots[ 0 ], servicePivots[ 1 ] );
 		serviceOval1 = oval.toCircle( servicePivots[ 2 ], serviceOval1 );
-		double vDistance = 0.5 * distance( triangle.getWidth(), triangle.getHeight() ) * serviceOval1.getWidth() / triangle.getWidth();
+		double vDistance = 0.5 * Service.distance( triangle.getWidth(), triangle.getHeight() ) * serviceOval1.getWidth() / triangle.getWidth();
 		double dHeight = 0.5 * ( oval.getHeight() - serviceOval1.getHeight() );
-		double dDX = 0.5 * serviceOval1.getWidth() / vDistance * cathetus( vDistance, 0.5 * serviceOval1.getWidth() );
+		double dDX = 0.5 * serviceOval1.getWidth() / vDistance * Service.cathetus( vDistance, 0.5 * serviceOval1.getWidth() );
 		int dir = -1;
 		int triangleNum = triangle.shapeType.getNum();
-		if( triangleNum == Sprite.bottomLeftTriangle.getNum() || triangleNum == Sprite.bottomRightTriangle.getNum() ) dir = 1;
-		if( triangleNum == Sprite.topRightTriangle.getNum() || triangleNum == Sprite.bottomRightTriangle.getNum() ) dDX = -dDX;
+		if( triangleNum == ShapeType.bottomLeftTriangle.getNum() || triangleNum == ShapeType.bottomRightTriangle.getNum() ) dir = 1;
+		if( triangleNum == ShapeType.topRightTriangle.getNum() || triangleNum == ShapeType.bottomRightTriangle.getNum() ) dDX = -dDX;
 		if( serviceOval1.getX() < triangle.leftX() + dDX ) {
-			dY = servicePivots[ 0 ].getY() - dir * cathetus( serviceOval1.getWidth() * 0.5, serviceOval1.getX() - servicePivots[ 0 ].getX() ) - serviceOval1.getY();
+			vector.y = servicePivots[ 0 ].getY() - dir * Service.cathetus( serviceOval1.getWidth() * 0.5, serviceOval1.getX() - servicePivots[ 0 ].getX() ) - serviceOval1.getY();
 		} else if( serviceOval1.getX() > triangle.rightX() + dDX ) {
-			dY = servicePivots[ 1 ].getY() - dir * cathetus( serviceOval1.getWidth() * 0.5, serviceOval1.getX() - servicePivots[ 1 ].getX() ) - serviceOval1.getY();
+			vector.y = servicePivots[ 1 ].getY() - dir * Service.cathetus( serviceOval1.getWidth() * 0.5, serviceOval1.getX() - servicePivots[ 1 ].getX() ) - serviceOval1.getY();
 		} else {
-			dY = serviceLines[ 0 ].getY( serviceOval1.getX() ) - dir * ( vDistance + dHeight ) - oval.getY();
+			vector.y = serviceLines[ 0 ].getY( serviceOval1.getX() ) - dir * ( vDistance + dHeight ) - oval.getY();
 		}
 
-		dX1d, dY1d;
-		WedgingOffOvalWithRectangle.instance.wedgeOffSprites( oval, triangle, dX1, dY1 );
-		if( distance2( dX1, dY1 ) < dY * dY ) {
-			dX = dX1;
-			dY = dY1;
+		WedgingOffOvalWithRectangle.instance.calculateVector( oval, triangle, vector1 );
+		if( Service.distance2( vector1.x, vector1.y ) < vector.y * vector.y ) {
+			vector.x = vector1.y;
+			vector.y = vector1.y;
 		}
 	}
 }

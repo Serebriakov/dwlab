@@ -7,6 +7,7 @@ import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
 import dwlab.shapes.sprites.shape_types.ShapeType;
+import dwlab.shapes.sprites.shape_types.overlapping.SpritesOverlapping;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -19,7 +20,9 @@ import java.util.Map.Entry;
  * http://www.opensource.org/licenses/artistic-license-2.0.php */
 
 
-abstract class SpritesCollision extends ServiceObjects {
+public class SpritesCollision extends ServiceObjects {
+	public static SpritesCollision defaultHandler = new SpritesCollision();
+	
 	static {
 		for( ShapeType triangle : ShapeType.triangles ) {
 			register( ShapeType.pivot, triangle, PivotWithTriangleCollision.instance );
@@ -33,7 +36,9 @@ abstract class SpritesCollision extends ServiceObjects {
 	}
 
 
-	abstract boolean check( Sprite sprite1, Sprite sprite2 );
+	boolean check( Sprite sprite1, Sprite sprite2 ) {
+		return false;
+	}
 
 
 	static HashMap<ShapeType, HashMap<ShapeType, SpritesCollision>> spritesCollisionsMap = new HashMap<ShapeType, HashMap<ShapeType, SpritesCollision>>();
@@ -48,17 +53,20 @@ abstract class SpritesCollision extends ServiceObjects {
 	}
 
 
-	static SpritesCollision collisionsArray[][];
+	static SpritesCollision handlers[][];
 
 	static void initSystem() {
 		int quantity = ShapeType.shapeTypes.size();
 
-		collisionsArray = new SpritesCollision[ quantity ][];
-		for( int n =0; n < quantity; n++ ) collisionsArray[ n ] =new SpritesCollision[ quantity ];
+		handlers = new SpritesCollision[ quantity ][];
+		for( int n =0; n < quantity; n++ ) {
+			handlers[ n ] =new SpritesCollision[ quantity ];
+			for( int m = 0; m < quantity; m++ ) handlers[ n ][ m ] = defaultHandler;
+		}
 		for( Entry<ShapeType, HashMap<ShapeType, SpritesCollision>> entry1 : spritesCollisionsMap.entrySet() ) {
 			ShapeType shapeType1 = entry1.getKey();
 			for( Entry<ShapeType, SpritesCollision> entry2 : entry1.getValue().entrySet() ) {
-				collisionsArray[ shapeType1.getNum() ][ entry2.getKey().getNum() ] = entry2.getValue();
+				handlers[ shapeType1.getNum() ][ entry2.getKey().getNum() ] = entry2.getValue();
 			}
 		}
 	}

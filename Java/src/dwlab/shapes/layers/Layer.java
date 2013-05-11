@@ -13,7 +13,7 @@ import dwlab.base.Project;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.shapes.Shape;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.SpriteCollisionHandler;

@@ -4,13 +4,13 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class File extends Obj {
+public class TextFile extends Obj {
 	private BufferedReader reader;
 	private PrintWriter writer;
 	
 	
-	public static File read( String Filename ) {
-		File file = new File();
+	public static TextFile read( String Filename ) {
+		TextFile file = new TextFile();
 		InputStream stream = null;
 		try {
 			stream = new FileInputStream( Filename );
@@ -21,15 +21,15 @@ public class File extends Obj {
 		try {
 			file.reader = new BufferedReader( new InputStreamReader( stream, "UTF8" ) );
 		} catch ( UnsupportedEncodingException ex ) {
-			Logger.getLogger( File.class.getName() ).log( Level.SEVERE, null, ex );
+			Logger.getLogger( TextFile.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		
 		return file;
 	}
 	
 	
-	public static File write( String Filename ) {
-		File file = new File();
+	public static TextFile write( String Filename ) {
+		TextFile file = new TextFile();
 		try {
 			file.writer = new PrintWriter( new FileWriter( Filename ) );
 		} catch ( IOException ex ) {
@@ -45,7 +45,7 @@ public class File extends Obj {
 		try {
 			string = reader.readLine();
 		} catch ( IOException ex ) {
-			Logger.getLogger( File.class.getName() ).log( Level.SEVERE, null, ex );
+			Logger.getLogger( TextFile.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		return string;
 	}
@@ -61,7 +61,7 @@ public class File extends Obj {
 			if( reader != null ) reader.close();
 			if( writer != null ) writer.close();
 		} catch ( IOException ex ) {
-			Logger.getLogger( File.class.getName() ).log( Level.SEVERE, null, ex );
+			Logger.getLogger( TextFile.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 	}
 }

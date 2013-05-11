@@ -10,7 +10,7 @@
 package dwlab.shapes.sprites;
 
 import dwlab.base.Obj;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 
 /**
  * Sprite and tile collision handling class.

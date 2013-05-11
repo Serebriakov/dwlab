@@ -6,15 +6,13 @@ import dwlab.shapes.sprites.shape_types.SpriteTemplate;
 public class SpriteWithSpriteTemplateCollision extends SpritesCollision {
 	public static SpriteWithSpriteTemplateCollision instance = new SpriteWithSpriteTemplateCollision();
 
-	public Sprite serviceSprite = new Sprite();
-
 	@Override
-	public boolean check( Sprite sprite, Sprite spriteTemplateSprite ) {
-		SpriteTemplate spriteTemplate = (SpriteTemplate) spriteTemplateSprite.shapeType;
+	public boolean check( Sprite sprite1, Sprite sprite2 ) {
+		SpriteTemplate spriteTemplate = (SpriteTemplate) sprite1.shapeType;
 		for( Sprite templateSprite : spriteTemplate.sprites ) {
-			spriteTemplate.setShape( spriteTemplateSprite, templateSprite, serviceSprite );
+			spriteTemplate.setShape( sprite1, templateSprite, serviceSprite );
 			serviceSprite.shapeType = templateSprite.shapeType;
-			if( sprite.collidesWithSprite( serviceSprite ) ) return true;
+			if( SpritesCollision.handlers[ serviceSprite.shapeType.getNum() ][ sprite2.shapeType.getNum() ].check( serviceSprite, sprite2 ) ) return true;
 		}
 		return false;
 	}

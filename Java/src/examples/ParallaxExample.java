@@ -4,7 +4,7 @@ import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.layers.World;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
 
 public class ParallaxExample extends Project {

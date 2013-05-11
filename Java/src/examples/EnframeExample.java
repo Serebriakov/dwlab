@@ -3,11 +3,11 @@ import dwlab.base.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.Sys;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.Layers.EditorData;
 import dwlab.shapes.Layers.World;
 import dwlab.shapes.maps.DoubleMap;
-import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.maps.tilemaps.TileSet;
 
 public class EnframeExample extends Project {
 	static int mapSize = 64;

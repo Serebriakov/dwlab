@@ -12,7 +12,7 @@ package dwlab.shapes.layers;
 import dwlab.base.Image;
 import dwlab.base.Obj;
 import dwlab.base.XMLObject;
-import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.visualizers.Color;
 import java.util.LinkedList;
 

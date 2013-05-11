@@ -6,16 +6,22 @@
  * file distributed with this code, or available from
  * http://www.opensource.org/licenses/artistic-license-2.0.php */
 
-package dwlab.shapes.maps;
+package dwlab.shapes.maps.tilemaps;
 
 import dwlab.base.*;
 import dwlab.shapes.Shape;
+import dwlab.shapes.maps.IntMap;
 import dwlab.visualizers.Visualizer;
+import java.io.BufferedReader;
 
 /**
  * Tilemap is displayable rectangular tile-based shape with 2d array of tile indexes and tileset with tile images.
  */
 public class TileMap extends IntMap {
+	public static TileMapLoadingErrorHandler loadingErrorHandler = new TileMapLoadingErrorHandler();
+	public static BufferedReader file;
+	public static int offset = 0;
+	
 	/**
 	 * Tilemap's default tileset.
 	 * @see #lTTileSet
@@ -52,7 +58,9 @@ public class TileMap extends IntMap {
 	 * 1 means drawing tile rows from top to bottom, -1 means otherwise.
 	 */
 	public int verticalOrder = 1	;
-
+	
+	public int loadingTime;
+	
 	// ==================== Parameters ===================	
 
 	/**
@@ -251,33 +259,63 @@ public class TileMap extends IntMap {
 		wrapped = xMLObject.manageBooleanAttribute( "wrapped", wrapped );
 		horizontalOrder = xMLObject.manageIntAttribute( "horizontal-order", horizontalOrder, 1 );
 		verticalOrder = xMLObject.manageIntAttribute( "vertical-order", verticalOrder, 1 );
+		offset = xMLObject.manageIntAttribute( "offset", offset, -1 );
 
-		int chunkLength = Service.getChunkLength( tilesQuantity );
 		if( Sys.xMLGetMode() ) {
-			value = new int[ yQuantity ][];
-			int yy = 0;
-			for( XMLObject xMLRow: xMLObject.children ) {
-				value[ yy ] = new int [ xQuantity ]; 
-				String data = xMLRow.getAttribute( "data" );
-				int pos = 0;
-				int xx = 0;
-				while( pos < data.length() ) {
-					value[ yy ][ xx ] = Service.decode( data.substring( pos, pos + chunkLength ) );
-					pos += chunkLength;
-					xx += 1;
+			long time = System.currentTimeMillis();
+			file.
+			if( file == null ) {
+				if( offset == 0 ) loadingErrorHandler.handleError( Obj.objectFileName + "bin" );
+			} else {
+				file.seekStream( file, offset );
+				if( tilesQuantity <= 256 ) {
+					for( int y = 0; y < yQuantity; y++ ) {
+						for( int x = 0; x < xQuantity; x++ ) {
+							value[ y ][ x ] = readByte( file );
+						}
+					}
+				} else if( tilesQuantity <= 65536 ) {
+					for( int y = 0; y < yQuantity; y++ ) {
+						for( int x = 0; x < xQuantity; x++ ) {
+							value[ y ][ x ] = readShort( file );
+						}
+					}
+				} else {
+					for( int y = 0; y < yQuantity; y++ ) {
+						for( int x = 0; x < xQuantity; x++ ) {
+							value[ y ][ x ] = readInt( file );
+						}
+					}
 				}
-				yy += 1;
 			}
+
+			loadingTime += loadingTime;
+			loadingTime = System.currentTimeMillis()() - time;
+			newTotalLoadingTime += loadingTime;
+			loadingProgress = 1.0 * loadingTime / totalLoadingTime;
+			if( loadingUpdater ) loadingUpdater.update();
 		} else {
-			for( int yy = 0; yy <= yQuantity; yy++ ) {
-				XMLObject xMLRow = new XMLObject();
-				xMLRow.name = "Row";
-				String arrayData = "";
-				for( int xx = 0; xx <= xQuantity; xx++ ) {
-					arrayData += Service.encode( value[ yy ][ xx ], chunkLength );
+			if( tilesQuantity <= 256 ) {
+				for( int y = 0; y < yQuantity; y++ ) {
+					for( int x = 0; x < xQuantity; x++ ) {
+						writeByte( file, value[ x, y ] );
+					}
 				}
-				xMLRow.setAttribute( "data", arrayData );
-				xMLObject.children.addLast( xMLRow );
+				offset += xQuantity * yQuantity;
+			} else if( tilesQuantity <= 65536 ) {
+				for( int y = 0; y < yQuantity; y++ ) {
+					for( int x = 0; x < xQuantity; x++ ) {
+						writeShort( file, value[ x, y ] );
+					}
+				}
+				offset += 2 * xQuantity * yQuantity;
+			} else {
+				for( int y = 0; y < yQuantity; y++ ) {
+					for( int x = 0; x < xQuantity; x++ ) {
+						writeInt( file, value[ x, y ] );
+					}
+				}
+				offset += 4 * xQuantity * yQuantity;
 			}
 		}
 	}

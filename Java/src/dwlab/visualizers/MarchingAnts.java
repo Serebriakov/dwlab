@@ -15,7 +15,7 @@ import dwlab.base.Graphics;
 import dwlab.base.Service;
 import java.util.LinkedList;
 import java.lang.Math;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.base.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;

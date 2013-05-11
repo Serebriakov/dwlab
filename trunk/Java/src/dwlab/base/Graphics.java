@@ -277,6 +277,14 @@ public class Graphics {
 		if( empty ) glBegin( GL_LINE_LOOP ); else glBegin( GL_POLYGON );
 		glColor4d( color.red, color.green, color.blue, color.alpha );
 	}
+	
+	public static void startPolygon( int vertexQuantity, boolean empty ) {
+		startPolygon( vertexQuantity, currentColor, empty );
+	}
+	
+	public static void startPolygon( int vertexQuantity ) {
+		startPolygon( vertexQuantity, currentColor, false );
+	}
 
 	public static void addPolygonVertex( double x, double y ) {
 		glVertex2d( x, y );

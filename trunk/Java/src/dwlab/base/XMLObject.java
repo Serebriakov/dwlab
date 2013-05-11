@@ -595,7 +595,7 @@ public class XMLObject extends Obj {
 	private static String text;
 					
 	public static XMLObject readFromFile( String fileName ) {
-		File file = File.read( fileName );
+		TextFile file = TextFile.read( fileName );
 		text = "";
 
 		version = 0;
@@ -618,7 +618,7 @@ public class XMLObject extends Obj {
 
 
 	public void writeToFile( String fileName ) {
-		File file = File.write( fileName );
+		TextFile file = TextFile.write( fileName );
 		writeObject( file, "" );
 		file.close();
 	}
@@ -652,7 +652,7 @@ public class XMLObject extends Obj {
 
 
 
-	public void writeObject( File file, String indent ) {
+	public void writeObject( TextFile file, String indent ) {
 		String st = indent + "<" + name;
 		for( XMLAttribute attr: attributes ) {
 			String newValue = "";

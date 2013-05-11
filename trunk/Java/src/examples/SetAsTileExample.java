@@ -3,8 +3,8 @@ import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.layers.Layer;
-import dwlab.shapes.maps.TileMap;
-import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.maps.tilemaps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.VectorSprite;
 
 public class SetAsTileExample extends Project {

@@ -1,5 +1,5 @@
 package dwlab.visualizers;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 
 
 /* Digital Wizard's Lab - game development framework

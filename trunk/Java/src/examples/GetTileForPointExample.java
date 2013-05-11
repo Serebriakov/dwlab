@@ -4,9 +4,9 @@ import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.maps.tilemaps.TileSet;
 
 public class GetTileForPointExample extends Project {
 	public static void main(String[] argv) {

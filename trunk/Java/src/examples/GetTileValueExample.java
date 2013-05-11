@@ -1,7 +1,7 @@
 package examples;
 import dwlab.base.*;
-import dwlab.shapes.maps.TileMap;
-import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.maps.tilemaps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.visualizers.Visualizer;
 
 public class GetTileValueExample extends Project {

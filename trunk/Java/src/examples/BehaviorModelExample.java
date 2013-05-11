@@ -8,7 +8,7 @@ import dwlab.controllers.MouseButton;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.Layers.World;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.*;
 import dwlab.visualizers.MarchingAnts;
 import dwlab.visualizers.Visualizer;

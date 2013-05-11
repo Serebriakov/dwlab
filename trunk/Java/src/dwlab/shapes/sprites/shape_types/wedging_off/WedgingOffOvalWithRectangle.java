@@ -9,20 +9,20 @@ public class WedgingOffOvalWithRectangle extends WedgingOffSprites {
 	
 	@Override
 	public void calculateVector( Sprite oval, Sprite rectangle, Vector vector ) {
-		int a = ( Math.abs( oval.getY() - rectangle.getY() ) * rectangle.getWidth() >= Math.abs( oval.getX() - rectangle.getX() ) * rectangle.getHeight() );
+		boolean a = ( Math.abs( oval.getY() - rectangle.getY() ) * rectangle.getWidth() >= Math.abs( oval.getX() - rectangle.getX() ) * rectangle.getHeight() );
 		if( ( oval.getX() > rectangle.leftX() && oval.getX() < rectangle.rightX() ) && a ) {
-			dX = 0;
-			dY = ( 0.5 * ( rectangle.getHeight() + oval.getHeight() ) - Math.abs( rectangle.getY() - oval.getY() ) ) * sgn( oval.getY() - rectangle.getY() );
+			vector.x = 0d;
+			vector.y = ( 0.5d * ( rectangle.getHeight() + oval.getHeight() ) - Math.abs( rectangle.getY() - oval.getY() ) ) * Math.signum( oval.getY() - rectangle.getY() );
 		} else if( oval.getY() > rectangle.topY() && oval.getY() < rectangle.bottomY() && ! a ) {
-			dX = ( 0.5 * ( rectangle.getWidth() + oval.getWidth() ) - Math.abs( rectangle.getX() - oval.getX() ) ) * sgn( oval.getX() - rectangle.getX() );
-			dY = 0;
+			vector.x = ( 0.5d * ( rectangle.getWidth() + oval.getWidth() ) - Math.abs( rectangle.getX() - oval.getX() ) ) * Math.signum( oval.getX() - rectangle.getX() );
+			vector.y = 0d;
 		} else {
-			servicePivots[ 0 ].getX() = rectangle.getX() + 0.5 * rectangle.getWidth() * sgn( oval.getX() - rectangle.getX() );
-			servicePivots[ 0 ].getY() = rectangle.getY() + 0.5 * rectangle.getHeight() * sgn( oval.getY() - rectangle.getY() );
+			servicePivots[ 0 ].setX( rectangle.getX() + 0.5d * rectangle.getWidth() * Math.signum( oval.getX() - rectangle.getX() ) );
+			servicePivots[ 0 ].setY( rectangle.getY() + 0.5d * rectangle.getHeight() * Math.signum( oval.getY() - rectangle.getY() ) );
 			oval = oval.toCircle( servicePivots[ 0 ], serviceOval1 );
-			double k = 1.0 - 0.5 * oval.getWidth() / oval.distanceTo( servicePivots[ 0 ] );
-			dX = ( servicePivots[ 0 ].getX() - oval.getX() ) * k;
-			dY = ( servicePivots[ 0 ].getY() - oval.getY() ) * k;
+			double k = 1d - 0.5d * oval.getWidth() / oval.distanceTo( servicePivots[ 0 ] );
+			vector.x = ( servicePivots[ 0 ].getX() - oval.getX() ) * k;
+			vector.y = ( servicePivots[ 0 ].getY() - oval.getY() ) * k;
 		}
 	}
 }

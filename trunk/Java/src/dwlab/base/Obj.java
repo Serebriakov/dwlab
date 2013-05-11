@@ -14,7 +14,7 @@ import dwlab.base.XMLObject.XMLAttribute;
 import dwlab.base.XMLObject.XMLObjectField;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
-import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.VectorSprite;
 import dwlab.visualizers.Visualizer;
@@ -28,6 +28,13 @@ import org.reflections.Reflections;
  * Global object class
  */
 public class Obj {
+	public static int newTotalLoadingTime;
+	public static int loadingTime;
+	public static int totalLoadingTime;
+	public static float loadingProgress;
+	public static String loadingStatus;
+	public static Object loadingUpdater = null;
+
 	public static HashMap<String, Class<Obj>> classes = new HashMap<String, Class<Obj>>();
 	public static HashMap<Obj, Integer> iDMap;
 	public static HashMap<Obj, XMLObject> removeIDMap;
@@ -177,6 +184,7 @@ public class Obj {
 	}
 
 
+	public static String objectFileName;
 
 	/**
 	 * Loads object with all contents from file.

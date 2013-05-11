@@ -12,13 +12,19 @@ import java.util.Map;
  * Constant for dealing with inaccuracy of double type operations.
  */
 
-public abstract class WedgingOffSprites extends ServiceObjects {
+public class WedgingOffSprites extends ServiceObjects {
+	public static WedgingOffSprites defaultHandler = new WedgingOffSprites();
+	
 	static {
+		register( ShapeType.pivot, ShapeType.oval, WedgingOffPivotWithOval.instance );
+		register( ShapeType.pivot, ShapeType.rectangle, WedgingOffPivotWithRectangle.instance );
+		register( ShapeType.oval, ShapeType.oval, WedgingOffOvalWithOval.instance );
+		register( ShapeType.oval, ShapeType.rectangle, WedgingOffOvalWithRectangle.instance );
+		register( ShapeType.rectangle, ShapeType.rectangle, WedgingOffRectangleWithRectangle.instance );
 		for( ShapeType triangle : ShapeType.triangles ) {
 			register( ShapeType.pivot, triangle, WedgingOffPivotWithTriangle.instance );
 			register( ShapeType.oval, triangle, WedgingOffOvalWithTriangle.instance );
 			register( ShapeType.rectangle, triangle, WedgingOffRectangleWithTriangle.instance );
-			register( ShapeType.ray, triangle, RayWithTriangle.instance );
 			for( ShapeType triangle2 : ShapeType.triangles ) {
 				register( triangle, triangle2, WedgingOffTriangleWithTriangle.instance );
 			}
@@ -26,10 +32,12 @@ public abstract class WedgingOffSprites extends ServiceObjects {
 	}
 
 
-	public abstract void calculateVector( Sprite oval1, Sprite oval2, Vector vector );
+	public void calculateVector( Sprite sprite1, Sprite sprite2, Vector vector ) {
+		
+	}
 
 
-	static HashMap<ShapeType, HashMap<ShapeType, WedgingOffSprites>> spritesCollisionsMap = new HashMap<ShapeType, HashMap<ShapeType, WedgingOffSprites>>();
+	private static HashMap<ShapeType, HashMap<ShapeType, WedgingOffSprites>> spritesCollisionsMap = new HashMap<ShapeType, HashMap<ShapeType, WedgingOffSprites>>();
 
 	static void register( ShapeType shapeType1, ShapeType shapeType2, WedgingOffSprites wedgingOff ) {
 		HashMap map = spritesCollisionsMap.get( shapeType1 );
@@ -41,17 +49,20 @@ public abstract class WedgingOffSprites extends ServiceObjects {
 	}
 
 
-	static WedgingOffSprites wedgingOffArray[][];
+	public static WedgingOffSprites handlers[][];
 
 	static void initSystem() {
 		int quantity = ShapeType.shapeTypes.size();
 
-		wedgingOffArray = new WedgingOffSprites[ quantity ][];
-		for( int n =0; n < quantity; n++ ) wedgingOffArray[ n ] =new WedgingOffSprites[ quantity ];
+		handlers = new WedgingOffSprites[ quantity ][];
+		for( int n =0; n < quantity; n++ ) {
+			handlers[ n ] =new WedgingOffSprites[ quantity ];
+			for( int m = 0; m < quantity; m++ ) handlers[ n ][ m ] = defaultHandler;
+		}
 		for( Map.Entry<ShapeType, HashMap<ShapeType, WedgingOffSprites>> entry1 : spritesCollisionsMap.entrySet() ) {
 			ShapeType shapeType1 = entry1.getKey();
 			for( Map.Entry<ShapeType, WedgingOffSprites> entry2 : entry1.getValue().entrySet() ) {
-				wedgingOffArray[ shapeType1.getNum() ][ entry2.getKey().getNum() ] = entry2.getValue();
+				handlers[ shapeType1.getNum() ][ entry2.getKey().getNum() ] = entry2.getValue();
 			}
 		}
 	}

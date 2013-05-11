@@ -14,8 +14,8 @@ import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.maps.SpriteMap;
-import dwlab.shapes.maps.TileMap;
-import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.maps.tilemaps.TileMap;
+import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.shapes.sprites.Sprite;
@@ -266,7 +266,6 @@ public class Visualizer extends Color {
 	public void drawSpriteShape( Sprite sprite, Color color ) {
 		drawSpriteShape( sprite, sprite, color );
 	}
-
 
 
 	public static void drawShape( ShapeType shapeType, double sX, double sY, double sWidth, double sHeight, double angle, Color color ) {

@@ -6,11 +6,13 @@
  * file distributed with this code, or available from
  * http://www.opensource.org/licenses/artistic-license-2.0.php */
 
-package dwlab.shapes;
+package dwlab.shapes.line_segments;
 
-import dwlab.visualizers.Visualizer;
-import dwlab.shapes.sprites.Sprite;
 import dwlab.base.XMLObject;
+import dwlab.shapes.Line;
+import dwlab.shapes.Shape;
+import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Visualizer;
 
 /**
  * It's line section between 2 pivots (sprites centers).
@@ -23,6 +25,9 @@ public class LineSegment extends Shape {
 
 
 
+	public LineSegment() {
+	}
+	
 	/**
 	 * Creates line section between two pivots.
 	 * @return New line.
@@ -80,14 +85,14 @@ public class LineSegment extends Shape {
 			if( includingPivots ) return true; else return false;
 		}
 
-		double x1 = pivot[ 0 ].x;
-		double y1 = pivot[ 0 ].y;
-		double x2 = pivot[ 1 ].x;
-		double y2 = pivot[ 1 ].y;
-		double x3 = lineSegment.pivot[ 0 ].x;
-		double y3 = lineSegment.pivot[ 0 ].y;
-		double x4 = lineSegment.pivot[ 1 ].x;
-		double y4 = lineSegment.pivot[ 1 ].y;
+		double x1 = pivot[ 0 ].getX();
+		double y1 = pivot[ 0 ].getY();
+		double x2 = pivot[ 1 ].getX();
+		double y2 = pivot[ 1 ].getY();
+		double x3 = lineSegment.pivot[ 0 ].getX();
+		double y3 = lineSegment.pivot[ 0 ].getY();
+		double x4 = lineSegment.pivot[ 1 ].getX();
+		double y4 = lineSegment.pivot[ 1 ].getY();
 		double dX1 = x2 - x1;
 		double dY1 = y2 - y1;
 		double dX3 = x4 - x3;

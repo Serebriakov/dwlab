@@ -12,12 +12,11 @@ import dwlab.base.Graphics;
 import dwlab.base.Service;
 import dwlab.base.Service.Margins;
 import dwlab.base.Sys;
+import dwlab.base.XMLObject;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Collision;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.SpriteGroup;
 import dwlab.visualizers.Visualizer;
-import dwlab.base.XMLObject;
 import java.util.*;
 
 /**
@@ -114,6 +113,12 @@ public class SpriteMap extends Map {
 		this.pivotMode = pivotMode;
 	}
 	
+	public SpriteMap( Shape shape, double cellSize ) {
+		this.setResolution( Service.toPowerOf2( (int) Math.ceil( shape.getWidth() / cellSize ) ), Service.toPowerOf2( (int) Math.ceil( shape.getHeight() / cellSize ) ) );
+		this.cellWidth = cellSize;
+		this.cellHeight = cellSize;
+	}
+	
 	public SpriteMap() {
 	}
 
@@ -127,10 +132,10 @@ public class SpriteMap extends Map {
 
 		lists = new Sprite[ newYQuantity ][][];
 		listSize = new int[ newYQuantity ][];
-		for( int yy = 0; yy <= newYQuantity; yy++ ) {
+		for( int yy = 0; yy < newYQuantity; yy++ ) {
 			lists[ yy ] = new Sprite[ newXQuantity ][];
 			listSize[ yy ] = new int[ newXQuantity ];
-			for( int xx = 0; xx <= newXQuantity; xx++ ) {
+			for( int xx = 0; xx < newXQuantity; xx++ ) {
 				lists[ yy ][ xx ] = new Sprite[ initialArraysSize ];
 			}
 		}
@@ -273,6 +278,9 @@ public class SpriteMap extends Map {
 		if( changeSpriteMapField ) sprite.spriteMap = this;
 	}
 
+	public void insertSprite( Sprite sprite ) {
+		insertSprite( sprite, true );
+	}
 
 
 	public void insertSprite( Sprite sprite, int mapX, int mapY ) {

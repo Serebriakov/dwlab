@@ -12,20 +12,21 @@ public class LimitWithExample extends Project {
 	}
 	
 	
-	public Sprite ball[] = new Sprite()[ 7 ];
-	public Sprite rectangle = Sprite.fromShape( 0, 0, 22, 14 );
+	Sprite ball[] = new Sprite[ 7 ];
+	Sprite rectangle = new Sprite( 0, 0, 22, 14 );
 
+	
+	@Override
 	public void init() {
-		initGraphics();
-		rectangle.visualizer = ContourVisualizer.fromWidthAndHexColor( 0.1, "FF0000" );
+		rectangle.visualizer = new ContourVisualizer( 0.1, "FF0000" );
 		for( int n = 0; n <= 6; n++ ) {
-			ball[ n ] = new Sprite();
-			ball[ n ].shapeType = Sprite.oval;
-			ball[ n ].setDiameter( 0.5 * ( 7 - n ) );
+			ball[ n ] = new Sprite( 0d, 0d, 0.5d * ( 7 - n ) );
 			ball[ n ].visualizer.setRandomColor();
 		}
 	}
+	
 
+	@Override
 	public void logic() {
 		for( int n = 0; n <= 6; n++ ) {
 			ball[ n ].setMouseCoords();
@@ -37,9 +38,10 @@ public class LimitWithExample extends Project {
 		ball[ 4 ].limitTopWith( rectangle );
 		ball[ 5 ].limitRightWith( rectangle );
 		ball[ 6 ].limitBottomWith( rectangle );
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
 	}
+	
 
+	@Override
 	public void render() {
 		rectangle.draw();
 		for( int n = 0; n <= 6; n++ ) {

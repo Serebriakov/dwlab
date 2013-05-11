@@ -2,7 +2,11 @@ package examples;
 import dwlab.base.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
+import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.Visualizer;
 
 public class MoveUsingKeysExample extends Project {
@@ -12,28 +16,38 @@ public class MoveUsingKeysExample extends Project {
 	}
 	
 	
-	public Sprite ball1 = Sprite.fromShape( -8, 0, 1, 1, Sprite.oval, 0, 7 );
-	public Sprite ball2 = Sprite.fromShape( 0, 0, 2, 2, Sprite.oval, 0, 3 );
-	public Sprite ball3 = Sprite.fromShape( 8, 0, 1.5, 1.5, Sprite.oval, 0, 5 );
+	Sprite ball1 = new Sprite( ShapeType.oval, -8d, 0d, 1d, 1d, 0d, 7d );
+	Sprite ball2 = new Sprite( ShapeType.oval, 0d, 0d, 2d, 2d, 0d, 3d );
+	Sprite ball3 = new Sprite( ShapeType.oval, 8d, 0d, 1.5d, 1.5d, 0d, 5d );
+	
+	ButtonAction[] keys = { ButtonAction.create( KeyboardKey.create( Key.I ) ),
+		ButtonAction.create( KeyboardKey.create( Key.K ) ),
+		ButtonAction.create( KeyboardKey.create( Key.J ) ),
+		ButtonAction.create( KeyboardKey.create( Key.L ) )
+	};
+	
 
+	@Override
 	public void init() {
-		ball1.visualizer = Visualizer.fromHexColor( "FF0000" );
-		ball2.visualizer = Visualizer.fromHexColor( "00FF00" );
-		ball3.visualizer = Visualizer.fromHexColor( "0000FF" );
-		initGraphics();
+		ball1.visualizer = new Visualizer( "FF0000" );
+		ball2.visualizer = new Visualizer( "00FF00" );
+		ball3.visualizer = new Visualizer( "0000FF" );
 	}
+	
 
+	@Override
 	public void logic() {
 		ball1.moveUsingWSAD( ball1.velocity );
 		ball2.moveUsingArrows( ball2.velocity );
-		ball3.moveUsingKeys( key_I, key_K, key_J, key_L, ball3.velocity );
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
+		ball3.moveUsingKeys( keys, ball3.velocity );
 	}
+	
 
+	@Override
 	public void render() {
-		printText( "Move red ball using WSAD keys" );
-		drawText( "Move green ball using arrow keys", 0, 16 );
-		drawText( "Move blue ball using IJKL keys", 0, 32 );
+		printText( "Move red ball using WSAD Keys" );
+		printText( "Move green ball using arrow Keys", 1 );
+		printText( "Move blue ball using IJKL Keys", 2 );
 		ball1.draw();
 		ball2.draw();
 		ball3.draw();

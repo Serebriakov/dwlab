@@ -8,9 +8,9 @@
 
 package dwlab.shapes.maps;
 
+import dwlab.base.Image;
 import dwlab.base.Service;
 import dwlab.base.Sys;
-import dwlab.base.Image;
 
 /**
  * DoubleMap is basicaly a heightmap.
@@ -104,7 +104,7 @@ public class DoubleMap extends Map {
 	public final void setResolution( int newXQuantity, int newYQuantity ) {
 		super.setResolution( newXQuantity, newYQuantity );
 		value = new double[ newYQuantity ][];
-		for( int yy = 0; yy < newYQuantity; x++ ) value[ yy ] = new double[ newXQuantity ];
+		for( int yy = 0; yy < newYQuantity; yy++ ) value[ yy ] = new double[ newXQuantity ];
 	}
 
 	// ==================== Manipulations ====================	
@@ -116,19 +116,16 @@ public class DoubleMap extends Map {
 	 * 
 	 * @see #toNewPixmap, #pasteToImage, #pasteToPixmap, #paste example
 	 */
-	/*
+
 	public Image toNewImage( Channel channel ) {
-		Image image = new Image();
-		image.bMaxImage = createImage( xQuantity, yQuantity );
-		midHandleImage( image.bMaxImage );
-
-		tPixmap pixmap = lockImage( image.bMaxImage );
-		pixmap.clearPixels( $fF000000 );
-		pasteToPixmap( pixmap, 0, 0, channel );
-
-		unlockImage( image.bMaxImage );
+		Image image = new Image( xQuantity, yQuantity );
+		pasteTo( image, 0, 0, 0, channel );
 		return image;
-	}*/
+	}
+	
+	public Image toNewImage() {
+		return toNewImage( Channel.RGB );
+	}
 
 
 	/**
@@ -222,6 +219,10 @@ public class DoubleMap extends Map {
 
 	public void paste( DoubleMap sourceMap, PasteMode mode ) {
 		paste( sourceMap, 0, 0, mode );
+	}
+	
+	public void paste( DoubleMap sourceMap ) {
+		paste( sourceMap, 0, 0, PasteMode.ADD );
 	}
 	
 

@@ -1,7 +1,7 @@
 package examples;
-import dwlab.base.Align;
-import dwlab.base.Graphics;
-import dwlab.base.Project;
+import dwlab.base.*;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.MouseButton;
 
 public class DistanceExample extends Project {
 	public static void main(String[] argv) {
@@ -9,23 +9,24 @@ public class DistanceExample extends Project {
 		( new DistanceExample() ).act();
 	}
 	
+	ButtonAction put = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
 	
 	int x = 400;
 	int y = 300;
 
 	@Override
 	public void logic() {
-		if( mouseHit( 1 ) ) {
-			x = mouseX();
-			y = mouseY();
+		if( put.wasPressed() ) {
+			x = Sys.mouseX();
+			y = Sys.mouseY();
 		}
 	}
 
 	@Override
 	public void render() {
 		Graphics.drawOval( x - 2, y - 2, 5, 5 );
-		drawLine( x, y, mouseX(), mouseY() );
-		printText( "Distance is " + Service.trim( distance( y - mouseY(), x - mouseX() ) ) + " pixels" );
+		Graphics.drawLine( x, y, Sys.mouseX(), Sys.mouseY() );
+		printText( "Distance is " + Service.trim( Service.distance( y - Sys.mouseY(), x - Sys.mouseX() ) ) + " pixels" );
 		printText( "L_Distance example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

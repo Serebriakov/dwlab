@@ -4,6 +4,7 @@ import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.Service;
 import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.Shape;
@@ -11,7 +12,6 @@ import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.visualizers.ContourVisualizer;
-import org.lwjgl.input.Keyboard;
 
 public class ActiveExample extends Project {
 	static {
@@ -24,9 +24,9 @@ public class ActiveExample extends Project {
 		instance.act();
 	}
 	
-	public final int spritesQuantity = 50;
+	int spritesQuantity = 50;
 
-	public static Layer layer = new Layer();
+	public static Layer Layer = new Layer();
 	public static Sprite rectangle = new Sprite( 0, 0, 30, 20 );
 
 	
@@ -39,13 +39,13 @@ public class ActiveExample extends Project {
 	}
 
 	
-	private static ButtonAction reset = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_SPACE ) );
+	private static ButtonAction reset = ButtonAction.create( KeyboardKey.create( Key.SPACE ) );
 	
 	@Override
 	public void logic() {
-		layer.act();
+		Layer.act();
 		if( reset.wasPressed() ) {
-			for( Shape shape : layer.children ) {
+			for( Shape shape : Layer.children ) {
 				shape.active = true;
 				shape.visible = true;
 			}
@@ -55,7 +55,7 @@ public class ActiveExample extends Project {
 
 	@Override
 	public void render() {
-		layer.draw();
+		Layer.draw();
 		rectangle.draw();
 		printText( "Press left mouse button on circle to make it inactive, right button to make it invisible." );
 		printText( "Press space to restore all back.", 1 );
@@ -81,9 +81,9 @@ public class ActiveExample extends Project {
 			ball.setDiameter( Service.random( 0.5, 1.5 ) );
 			ball.angle = Service.random( 360 );
 			ball.velocity = Service.random( 3, 7 );
-			ball.shapeType = ShapeType.OVAL;
+			ball.shapeType = ShapeType.oval;
 			ball.visualizer.setRandomColor();
-			layer.addLast( ball );
+			Layer.addLast( ball );
 			return ball;
 		}
 		

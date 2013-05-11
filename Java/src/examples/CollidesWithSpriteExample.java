@@ -8,7 +8,7 @@ import dwlab.controllers.MouseButton;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class CollidesWithSpriteExample extends Project {
 	public static void main(String[] argv) {
@@ -31,7 +31,7 @@ public class CollidesWithSpriteExample extends Project {
 		for( int n = 0; n < 9; n++ ) {
 			ShapeType shapeType = shapeTypes[ n ];
 			Sprite sprite = new Sprite( shapeType, ( n % 3 ) * 8d - 8d, Math.floor( n / 3 ) * 6d - 6d, 6d, 4d );
-			if( shapeType == ShapeType.RASTER ) sprite.visualizer.image = image;
+			if( shapeType == ShapeType.raster ) sprite.visualizer.image = image;
 			sprite.visualizer.set( "7FFF7F" );
 			sprite.angle = 60;
 			sprites.addLast( sprite );
@@ -39,7 +39,7 @@ public class CollidesWithSpriteExample extends Project {
 		cursor.setSize( 5d, 7d );
 		cursor.angle = 45;
 		cursor.visualizer.set( "7FFFFF7F" );
-		cursor.shapeType = ShapeType.RAY;
+		cursor.shapeType = ShapeType.ray;
 	}
 	
 
@@ -48,7 +48,7 @@ public class CollidesWithSpriteExample extends Project {
 		if( change.wasPressed() ) {
 			shapeTypeNum = ( shapeTypeNum + 1 ) % 9;
 			cursor.shapeType = shapeTypes[ shapeTypeNum ];
-			if( cursor.shapeType == ShapeType.RASTER ) cursor.visualizer.image = image; else cursor.visualizer.image = null;
+			if( cursor.shapeType == ShapeType.raster ) cursor.visualizer.image = image; else cursor.visualizer.image = null;
 		}
 	}
 	

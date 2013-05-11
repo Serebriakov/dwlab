@@ -2,13 +2,13 @@ package examples;
 
 import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
-import org.lwjgl.input.Keyboard;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 
 
 public class ActionExample extends Project {
@@ -20,10 +20,10 @@ public class ActionExample extends Project {
 		( new ActionExample() ).act();
 	}
 	
-	static ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Z ), "undo", "ctrl" );
-	static ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Y ), "redo", "ctrl" );
-	static ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F2 ), "save" );
-	static ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_F3 ), "load" );
+	static ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Key.Z ), "undo", "ctrl" );
+	static ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Key.Y ), "redo", "ctrl" );
+	static ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Key.F2 ), "save" );
+	static ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Key.F3 ), "load" );
 	
 	final int spritesQuantity = 50;
 
@@ -35,7 +35,7 @@ public class ActionExample extends Project {
 	@Override
 	public void init() {
 		for( int n = 1; n <= spritesQuantity; n++ ) {
-			Sprite sprite = new Sprite( ShapeType.OVAL, Service.random( -15, 15 ), Service.random( -11, 11 ), 0, 0 );
+			Sprite sprite = new Sprite( ShapeType.oval, Service.random( -15, 15 ), Service.random( -11, 11 ), 0, 0 );
 			sprite.setDiameter( Service.random( 1, 3 ) );
 			sprite.displayingAngle= Service.random( 360 );
 			sprite.visualizer.setRandomColor();
@@ -62,13 +62,13 @@ public class ActionExample extends Project {
 	@Override
 	public void render() {
 		sprites.draw();
-		printText( "Drag sprites with left mouse button, press CTRL-Z to undo, CTRL-Y to redo, F2 to save, F3 to load" );
+		printText( "Drag sprites with left mouse button, press CTRL-Z to undo, CTRL.y to redo, F2 to save, F3 to load" );
 		printText( "LTAction, L_Undo, L_Redo, L_PushActionsList, LTDrag example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 	
 
 	public static class MoveDrag extends Drag {
-		ButtonAction key = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
+		ButtonAction Key = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
 						
 		Shape shape;
 		MoveAction action;
@@ -77,7 +77,7 @@ public class ActionExample extends Project {
 		
 		@Override
 		public boolean dragKey() {
-			return key.isDown();
+			return Key.isDown();
 		}
 		
 

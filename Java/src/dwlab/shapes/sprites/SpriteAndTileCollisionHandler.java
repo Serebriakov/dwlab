@@ -18,7 +18,7 @@ import dwlab.shapes.maps.TileMap;
 
  * @see #active example
  */
-public class SpriteAndTileCollisionHandler extends Obj {
-	public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
+public class SpriteAndTileCollisionHandler<E extends Sprite> extends Obj {
+	public void handleCollision( E sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 	}
 }

@@ -1,7 +1,10 @@
 package examples;
 import dwlab.base.*;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
+import dwlab.controllers.KeyboardKey;
+import dwlab.controllers.MouseButton;
 import java.util.LinkedList;
-import java.lang.Math;
 
 public class XMLIOExample extends Project {
 	public static void main(String[] argv) {
@@ -10,112 +13,132 @@ public class XMLIOExample extends Project {
 	}
 	
 	
-	public LinkedList people = new LinkedList();
-	public LinkedList professions = new LinkedList();
+	static LinkedList<Worker> people = new LinkedList<Worker>();
+	static LinkedList<Profession> professions = new LinkedList<Profession>();
+	final static String[] professionNames = { "director", "engineer", "dispatcher", "driver", "secretary", "bookkeeper", "supply agent", "bookkeeper chief",
+				"lawyer", "programmer", "administrator", "courier" };
 
+	ButtonAction generate = ButtonAction.create( KeyboardKey.create( Key.G ) );
+	ButtonAction clear = ButtonAction.create( KeyboardKey.create( Key.C ) );
+	ButtonAction save = ButtonAction.create( KeyboardKey.create( Key.F2 ) );
+	ButtonAction load = ButtonAction.create( KeyboardKey.create( Key.F3 ) );
+
+	
+	@Override
 	public void init() {
-		initGraphics();
-		for( String name : [ "director", "engineer", "dispatcher", "driver", "secretary", "bookkeeper", "supply agent", "bookkeeper chief", .. ) {
-				"lawyer", "programmer", "administrator", "courier" ];
+		for( String name : professionNames ) {
 			Profession.create( name );
 		}
 	}
 
+	
+	@Override
 	public void logic() {
-		if( keyHit( key_G ) ) {
+		if( generate.wasPressed() ) {
 			people.clear();
 			for( int n = 1; n <= 10; n++ ) {
 				Worker.create();
 			}
-		} else if( keyHit( key_C ) ) {
+		} else if( clear.wasPressed() ) {
 			people.clear();
-		} else if( keyHit( key_F2 ) ) {
+		} else if( save.wasPressed() ) {
 			saveToFile( "people.dat" );
-		} else if( keyHit( key_F3 ) ) {
+		} else if( load.wasPressed() ) {
 			loadFromFile( "people.dat" );
 		}
 
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
 	}
+	
 
+	@Override
 	public void render() {
 		printText( "Press G to generate data, C to clear, F2 to save, F3 to load" );
-		int y = 16;
+		int y = 1;
 		for( Worker worker : people ) {
-			drawText( worker.firstName + " " + worker.lastName + ", " + worker.age + " years, " + Service.trim( worker.height, 1 ) + " cm, " + 
-					Service.trim( worker.weight, 1 ) + " kg, " + worker.profession.name , 0, y );
-			y += 16;
+			printText( worker.firstName + " " + worker.lastName + ", " + worker.age + ".years, " + Service.trim( worker.height, 1 ) + " cm, " + 
+					Service.trim( worker.weight, 1 ) + " kg, " + worker.profession.name , y );
+			y += 1;
 		}
 		printText( "XMLIO, Manage... example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 
+	
+	@Override
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
-		xMLObject.manageListField( "professions", example.professions );
-		xMLObject.manageChildList( example.people );
-	}
-}
-
-
-
-public class Profession extends Object {
-	public String name;
-
-	public static Profession create( String name ) {
-		Profession profession = new Profession();
-		profession.name = name;
-		example.professions.addLast( profession );
+		xMLObject.manageListField( "professions", professions );
+		xMLObject.manageChildList( people );
 	}
 
-	public void xMLIO( XMLObject xMLObject ) {
-		super.xMLIO( xMLObject );
-		xMLObject.manageStringAttribute( "name", name );
-	}
-}
 
 
+	public static class Profession extends Obj {
+		public String name;
 
-public class Worker extends Object {
-	public String firstName;
-	public String lastName;
-	public int age;
-	public double height;
-	public double weight;
-	public Profession profession;
+		public static Profession create( String name ) {
+			Profession profession = new Profession();
+			profession.name = name;
+			professions.addLast( profession );
+			return profession;
+		}
 
-	public static void create() {
-		Worker worker = new Worker();
-		worker.firstName = [ "Alexander", "Alex", "Dmitry", "Sergey", "Andrey", "Anton", "Artem", "Vitaly", "Vladimir", "Denis", "Eugene", 
-				"Igor", "Constantine", "Max", "Michael", "Nicholas", "Paul", "Roman", "Stanislaw", "Anatoly", "Boris", "Vadim", "Valentine", 
-				"Valery", "Victor", "Vladislav", "Vyacheslav", "Gennady", "George", "Gleb", "Egor", "Ilya", "Cyril", "Leonid", "Nikita", "Oleg", 
-				"Peter", "Feodor", "Yury", "Ian", "Jaroslav" ][ rand( 0, 40 ) ];
-		worker.lastName = [ "Ivanov", "Smirnov", "Kuznetsov", "Popov", "Vasiliev", "Petrov", "Sokolov", "Mikhailov", "Novikov", 
-				"Fedorov", "Morozov", "Volkov", "Alekseev", "Lebedev", "Semenov", "Egorov", "Pavlov", "Kozlov", "Stepanov", "Nikolaev", 
-				"Orlovv", "Andreev", "Makarov", "Nikitin", "Zakharov" ][ rand( 0, 24 ) ];
-		worker.age = rand( 20, 50 );
-		worker.height = Service.random( 155, 180 );
-		worker.weight = Service.random( 50, 90 );
-		worker.profession = Profession( example.professions.get( rand( 0, example.professions.size() - 1 ) ) );
-		example.people.addLast( worker );
+		@Override
+		public void xMLIO( XMLObject xMLObject ) {
+			super.xMLIO( xMLObject );
+			xMLObject.manageStringAttribute( "name", name );
+		}
 	}
 
-	public void xMLIO( XMLObject xMLObject ) {
-		// !!!!!! Remember to always include this string at the beginning of the method !!!!!!
 
-		super.xMLIO( xMLObject );
 
-		// !!!!!! !!!!!! 
+	public static class Worker extends Obj {
+		public String firstName;
+		public String lastName;
+		public int age;
+		public double height;
+		public double weight;
+		public Profession profession;
 
-		xMLObject.manageStringAttribute( "first-name", firstName );
-		xMLObject.manageStringAttribute( "last-name", lastName );
-		xMLObject.manageIntAttribute( "age", age );
-		xMLObject.manageDoubleAttribute( "height", height );
-		xMLObject.manageDoubleAttribute( "weight", weight );
+		final static String[] firstNames = { "Alexander", "Alex", "Dmit.y", "Serg.y", "AndRAY", "Anton", "Artem", "Vita.y", "Vladimir", "Denis", "Eugene", 
+					"Igor", "Constantine", "Max", "Michael", "Nicholas", "Paul", "Roman", "Stanislaw", "AnatopY", "Boris", "Vadim", "Valentine", 
+					"Valery", "Victor", "Vladislav", ".yacheslav", "Gennady", "George", "Gleb", "Egor", "Ilya", "Kyril", "Leonid", "Nikita", "Oleg", 
+					"Peter", "Feodor", "Yury", "Ian", "Jaroslav" };
+		
+		final static String[] lastNames = { "Ivanov", "Smirnov", "Kuznetsov", "Popov", "Vasiliev", "Petrov", "Sokolov", "Mikhailov", "Novikov", 
+					"Fedorov", "Morozov", "Volkov", "Alekseev", "Lebedev", "Semenov", "Egorov", "Pavlov", "Kozlov", "Stepanov", "Nikolaev", 
+					"Orlovv", "Andreev", "Makarov", "Nikitin", "Zakharov" };
+						
+		public static void create() {
+			Worker worker = new Worker();
+			worker.firstName = firstNames[ (int) Service.random( 0, 40 ) ];
+			worker.lastName = lastNames[ (int) Service.random( 0, 24 ) ];
+			worker.age = (int) Service.random( 20, 50 );
+			worker.height = Service.random( 155, 180 );
+			worker.weight = Service.random( 50, 90 );
+			worker.profession = professions.get( (int) Service.random( 0, professions.size() - 1 ) );
+			people.addLast( worker );
+		}
+		
 
-		// !!!!!! Remember to equate object to to result of ManageObjectAttribute !!!!!!
+		@Override
+		public void xMLIO( XMLObject xMLObject ) {
+			// !!!!!! Remember to alw.ys include this string at the beginning of the method !!!!!!
 
-		profession = Profession( xMLObject.manageObjectField( "profession", profession ) );
+			super.xMLIO( xMLObject );
 
-		// !!!!!! A = TA( XMLObject.ManageObjectAttribute( "name", A ) ) !!!!!!
+			// !!!!!! !!!!!! 
+
+			xMLObject.manageStringAttribute( "first-name", firstName );
+			xMLObject.manageStringAttribute( "last-name", lastName );
+			xMLObject.manageIntAttribute( "age", age );
+			xMLObject.manageDoubleAttribute( "height", height );
+			xMLObject.manageDoubleAttribute( "weight", weight );
+
+			// !!!!!! Remember to equate object to to result of ManageObjectAttribute !!!!!!
+
+			profession = (Profession) xMLObject.manageObjectField( "profession", profession );
+
+			// !!!!!! A = TA( XMLObject.ManageObjectAttribute( "name", A ) ) !!!!!!
+		}
 	}
 }

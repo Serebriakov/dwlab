@@ -3,15 +3,15 @@ package examples;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
-import org.lwjgl.input.Keyboard;
 
 public class Test extends Project {
 	static {
 		Graphics.init();		
 	}
 	
-	static ButtonAction keyExit = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_ESCAPE ) );
+	static ButtonAction keyExit = ButtonAction.create( KeyboardKey.create( Key.ESCAPE ) );
 	
 	public static void main(String[] argv) {
 		( new Test() ).act();

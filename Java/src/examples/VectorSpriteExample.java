@@ -1,14 +1,16 @@
 package examples;
-import dwlab.base.Align;
-import dwlab.base.Graphics;
-import dwlab.shapes.maps.TileMap;
-import dwlab.base.Image;
-import dwlab.base.Project;
+import dwlab.base.*;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
+import dwlab.controllers.KeyboardKey;
+import dwlab.controllers.MouseButton;
 import dwlab.shapes.Shape;
-import dwlab.shapes.sprites.VectorSprite;
+import dwlab.shapes.maps.TileMap;
+import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
-import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.sprites.VectorSprite;
 
 public class VectorSpriteExample extends Project {
 	public static void main(String[] argv) {
@@ -17,133 +19,125 @@ public class VectorSpriteExample extends Project {
 	}
 	
 	
-	public final int coinsQuantity = 100;
-	public final int platformsQuantity = 100;
-	public final int minPlatformLength = 3;
-	public final int maxPlatformLength = 12;
-	public final int mapSize = 128;
+	int coinsQuantity = 100;
+	int platformsQuantity = 100;
+	int minPlatformLength = 3;
+	int maxPlatformLength = 12;
+	int mapSize = 128;
 
-	public final int void = 0;
-	public final int bricks = 1;
-	public final int coin = 2;
+	int voidTile = 0;
+	int bricksTile = 1;
+	int coinTile = 2;
 
-	public Player player = Player.create();
-	public TileMap tileMap = TileMap.create( TileSet.create( Image.fromFile( " incbintileset .png", 4, 1 ), 0 ), mapSize, mapSize );
+	ButtonAction jump = ButtonAction.create( KeyboardKey.create( Key.UP ) );
+	ButtonAction moveLeft = ButtonAction.create( KeyboardKey.create( Key.LEFT ) );
+	ButtonAction moveRight = ButtonAction.create( KeyboardKey.create( Key.RIGHT ) );
+
+	
+	public VectorSprite player = new VectorSprite() {
+		double gravity = 10.0;
+		double horizontalSpeed = 5.0;
+		double jumpStrength = 15.0;
+
+		boolean onLand;
+		SpriteAndTileCollisionHandler horizontalCollisionHandler = new SpriteAndTileCollisionHandler(){
+			@Override
+			public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
+				if( bricks( tileMap, tileX, tileY ) ) sprite.pushFromTile( tileMap, tileX, tileY );
+			}
+		};
+		SpriteAndTileCollisionHandler verticalCollisionHandler = new SpriteAndTileCollisionHandler(){
+			@Override
+			public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
+				if( bricks( tileMap, tileX, tileY ) ) {
+					sprite.pushFromTile( tileMap, tileX, tileY );
+					VectorSprite vectorSprite = (VectorSprite) sprite;
+					if( vectorSprite.dY > 0 ) onLand = true;
+					vectorSprite.setY( 0 );
+				}
+			}
+		};
+
+		@Override
+		public void act() {
+			move( dX, 0 );
+			collisionsWithTileMap( tileMap, horizontalCollisionHandler );
+
+			onLand = false;
+			move( 0, dY );
+			dY += perSecond( gravity );
+			collisionsWithTileMap( tileMap, verticalCollisionHandler );
+
+			dX = 0.0;
+			if( moveLeft.isDown() ) {
+				dX = -horizontalSpeed;
+				setFacing( Facing.LEFT );
+			} else if( moveRight.isDown() ) {
+				dX = horizontalSpeed;
+				setFacing( Facing.RIGHT );
+			}
+
+			if( onLand && jump.isDown() ) dY = -jumpStrength;
+		}
+		
+					
+		boolean bricks( TileMap tileMap, int tileX, int tileY ) {
+			int tileNum = tileMap.getTile( tileX, tileY );
+			if( tileNum == coinTile ) {
+				tileMap.setTile( tileX, tileY, voidTile );
+				coins += 1;
+			} else if( tileNum == bricksTile ) {
+				return true;
+			}
+			return false;
+		}
+	};
+	public TileMap tileMap = TileMap.create( new TileSet( new Image( "res/tileset.png", 4, 1 ), 0 ), mapSize, mapSize );
 	public int coins;
 
+	
+	@Override
 	public void init() {
+		player.setSize( 0.8, 1.8 );
+		player.setCoords( 0, 2 -0.5 * mapSize );
+		player.visualizer.image = new Image( "mario.png", 4, 1 );
+			
 		tileMap.setSize( mapSize, mapSize );
 		for( int n = 0; n <= coinsQuantity; n++ ) {
-			tileMap.value[ rand( 1, mapSize - 2 ), rand( 1, mapSize - 2 ) ] = coin;
+			tileMap.setTile( (int) Service.random( 1, mapSize - 2 ), (int) Service.random( 1, mapSize - 2 ), coinTile );
 		}
 		for( int n = 0; n <= platformsQuantity; n++ ) {
-			int size = rand( minPlatformLength, maxPlatformLength );
-			int x = rand( 1, mapSize - 1 - size );
-			int y = rand( 1, mapSize - 2 );
-			for( int dX = 0; dX <= size; dX++ ) {
-				tileMap.value[ x + dX, y ] = bricks;
-			}
+			int size = (int) Service.random( minPlatformLength, maxPlatformLength );
+			int x = (int) Service.random( 1, mapSize - 1 - size );
+			int y = (int) Service.random( 1, mapSize - 2 );
+			for( int dX = 0; dX <= size; dX++ ) tileMap.setTile( x + dX, y, bricksTile );
 		}
 		for( int n = 0; n <= mapSize ; n++ ) {
-			tileMap.value[ n, 0 ] = bricks;
-			tileMap.value[ n, mapSize - 1 ] = bricks;
-			tileMap.value[ 0, n ] = bricks;
-			tileMap.value[ mapSize - 1, n ] = bricks;
+			tileMap.setTile( n, 0, bricksTile );
+			tileMap.setTile( n, mapSize - 1, bricksTile );
+			tileMap.setTile( 0, n ,bricksTile );
+			tileMap.setTile( mapSize - 1, n, bricksTile );
 		}
-		tileMap.tileSet.collisionShape = new Shape()[ 3 ];
-		tileMap.tileSet.collisionShape[ 1 ] = Sprite.fromShape( 0.5, 0.5 );
-		tileMap.tileSet.collisionShape[ 2 ] = Sprite.fromShape( 0.5, 0.5, , , Sprite.oval );
-		initGraphics();
+		tileMap.tileSet.collisionShape = new Shape[ 3 ];
+		tileMap.tileSet.collisionShape[ 1 ] = new Sprite( 0.5, 0.5 );
+		tileMap.tileSet.collisionShape[ 2 ] = new Sprite( 0, 0, 0.5 );
 	}
+	
 
+	@Override
 	public void logic() {
-		currentCamera.jumpTo( player );
-		currentCamera.limitWith( tileMap );
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
+		Camera.current.jumpTo( player );
+		Camera.current.limitWith( tileMap );
 		player.act();
 	}
 
+	
+	@Override
 	public void render() {
 		tileMap.draw();
 		player.draw();
-		printText( "Move player with arrow keys" );
-		drawText( " Coins" + coins, 0, 16 );
-		printText( "LTVectorSprite, CollisionsWithTileMap, HandleCollisionWithTile example", currentCamera.x, currentCamera.y + 12, Align.TO_CENTER, Align.TO_BOTTOM );
+		printText( "Move pLayer with arrow Keys" );
+		printText( " Coins" + coins, 1 );
+		printText( "LTVectorSprite, CollisionsWithTileMap, HandleCollisionWithTile example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
-}
-
-
-
-
-public class Player extends VectorSprite {
-	public final double gravity = 10.0;
-	public final double horizontalSpeed = 5.0;
-	public final double jumpStrength = 15.0;
-
-	public int onLand;
-	public HorizontalCollisionHandler horizontalCollisionHandler = new HorizontalCollisionHandler();
-	public VerticalCollisionHandler verticalCollisionHandler = new VerticalCollisionHandler();
-
-	public static Player create() {
-		Player player = new Player();
-		player.setSize( 0.8, 1.8 );
-		player.setCoords( 0, 2 -0.5 * example.mapSize );
-		player.visualizer.image = Image.fromFile( " incbinmario .png", 4 );
-		return player;
-	}
-
-	public void act() {
-		move( dX, 0 );
-		collisionsWithTileMap( example.tileMap, horizontalCollisionHandler );
-
-		onLand = false;
-		move( 0, dY );
-		dY = dY + example.perSecond( gravity );
-		collisionsWithTileMap( example.tileMap, verticalCollisionHandler );
-
-		dX = 0.0;
-		if( keyDown( key_Left ) ) {
-			dX = -horizontalSpeed;
-			setFacing( leftFacing );
-		} else if( keyDown( key_Right ) ) {
-			dX = horizontalSpeed;
-			setFacing( rightFacing );
-		}
-
-		if( onLand ) if keyDown( key_Up ) then dY = -jumpStrength;
-	}
-}
-
-
-
-public class HorizontalCollisionHandler extends SpriteAndTileCollisionHandler {
-	public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
-		if( bricks( tileMap, tileX, tileY ) ) sprite.pushFromTile( tileMap, tileX, tileY );
-	}
-}
-
-
-
-public class VerticalCollisionHandler extends SpriteAndTileCollisionHandler {
-	public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
-		if( bricks( tileMap, tileX, tileY ) ) {
-			sprite.pushFromTile( tileMap, tileX, tileY );
-			Player player = Player( sprite );
-			if( player.dY > 0 ) player.onLand = true;
-			player.dY = 0;
-		}
-	}
-}
-
-
-
-public static int bricks( TileMap tileMap, int tileX, int tileY ) {
-	int tileNum = tileMap.getTile( tileX, tileY );
-	if( tileNum == example.coin ) {
-		tileMap.value[ tileX, tileY ] = example.void;
-		example.coins += 1;
-	} else if( tileNum = example.bricks ) {
-		return true;
-	}
-	return false;
 }

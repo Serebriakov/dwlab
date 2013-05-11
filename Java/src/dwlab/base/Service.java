@@ -385,4 +385,14 @@ public class Service extends Obj {
 	public static int round( double value ) {
 		return (int) Math.round( value );
 	}
+	
+
+	
+	public static int powerOf2( int value ) {
+		return value * value;
+	}
+	
+	public static double powerOf2( double value ) {
+		return value * value;
+	}
 }

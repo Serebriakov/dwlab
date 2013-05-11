@@ -9,11 +9,11 @@
 
 package dwlab.shapes.layers;
 
+import dwlab.base.Image;
 import dwlab.base.Obj;
+import dwlab.base.XMLObject;
 import dwlab.shapes.maps.TileSet;
 import dwlab.visualizers.Color;
-import dwlab.base.Image;
-import dwlab.base.XMLObject;
 import java.util.LinkedList;
 
 public class EditorData extends Obj {

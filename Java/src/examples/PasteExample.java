@@ -1,57 +1,52 @@
 package examples;
-import dwlab.base.Align;
-import dwlab.base.Graphics;
-import dwlab.base.Image;
-import dwlab.base.Project;
+import dwlab.base.*;
 import dwlab.shapes.maps.DoubleMap;
 
-public class EnframeExample extends Project {
-	public final int mapSize = 128;
+public class PasteExample extends Project {
+	static int mapSize = 128;
+	
 	
 	public static void main(String[] argv) {
 		Graphics.init();
 
-		DoubleMap sourceMap = DoubleMap.create( mapSize, mapSize );
-		sourceMap.drawCircle( mapSize * 0.375, mapSize * 0.375, mapSize * 0.35, 0.6 );
+		DoubleMap sourceMap = new DoubleMap( mapSize, mapSize );
+		sourceMap.drawCircle( mapSize * 0.375d, mapSize * 0.375d, mapSize * 0.35d, 0.6d );
 		draw( sourceMap.toNewImage(), "Source map" );
 
-		DoubleMap targetMap = DoubleMap.create( mapSize, mapSize );
-		targetMap.drawCircle( mapSize * 0.625, mapSize * 0.625, mapSize * 0.35, 0.8 );
+		DoubleMap targetMap = new DoubleMap( mapSize, mapSize );
+		targetMap.drawCircle( mapSize * 0.625d, mapSize * 0.625d, mapSize * 0.35d, 0.8d );
 		draw( targetMap.toNewImage(), "Target map" );
 
-		DoubleMap doubleMap = DoubleMap.create( mapSize, mapSize );
+		DoubleMap doubleMap = new DoubleMap( mapSize, mapSize );
 		doubleMap.paste( targetMap );
-		doubleMap.paste( sourceMap, 0, 0, DoubleMap.add );
+		doubleMap.paste( sourceMap, 0, 0, DoubleMap.PasteMode.ADD );
 		doubleMap.limit();
 		draw( doubleMap.toNewImage(), "Adding source map to target map" );
 
 		doubleMap.paste( targetMap );
-		doubleMap.paste( sourceMap, 0, 0, DoubleMap.multiply );
+		doubleMap.paste( sourceMap, 0, 0, DoubleMap.PasteMode.MULTIPLY );
 		draw( doubleMap.toNewImage(), "Multiplying source map with target map" );
 
 		doubleMap.paste( targetMap );
-		doubleMap.paste( sourceMap, 0, 0, DoubleMap.maximum );
+		doubleMap.paste( sourceMap, 0, 0, DoubleMap.PasteMode.MAXIMUM );
 		draw( doubleMap.toNewImage(), "Maximum of source map and target map" );
 
 		doubleMap.paste( targetMap );
-		doubleMap.paste( sourceMap, 0, 0, DoubleMap.minimum );
+		doubleMap.paste( sourceMap, 0, 0, DoubleMap.PasteMode.MINIMUM );
 		draw( doubleMap.toNewImage(), "Minimum of source map and target map" );
 
-		setScale( 4.0, 4.0 );
-		Image image = sourceMap.toNewImage( DoubleMap.red );
-		targetMap.pasteToImage( image, 0, 0, 0, DoubleMap.green );
+		Image image = sourceMap.toNewImage( DoubleMap.Channel.RED );
+		targetMap.pasteTo( image, DoubleMap.Channel.GREEN );
 		draw( image, "Pasting maps to different color channels" );
+	}
 
-
-		public static void draw( Image image, String text ) {
-			setScale ( 4.0, 4.0 );
-			drawImage( image.bMaxImage, 400, 300 );
-			setScale( 1.0, 1.0 );
-			printText( text );
-			printText( "Paste example", Align.TO_CENTER, Align.TO_BOTTOM );
-			Graphics.switchBuffers();
-			waitkey;
-			cls;
-		}
+	
+	public static void draw( Image image, String text ) {
+		image.draw( fPS, 400, 300, mapSize * 4d, mapSize * 4d );
+		printText( text );
+		printText( "Paste example", Align.TO_CENTER, Align.TO_BOTTOM );
+		Graphics.swapBuffers();
+		Sys.waitForKey();
+		Graphics.clearScreen();
 	}
 }

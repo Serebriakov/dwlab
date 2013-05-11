@@ -2,7 +2,7 @@ package examples;
 import dwlab.base.*;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 
 
 public class DirectToExample extends Project {
@@ -14,7 +14,7 @@ public class DirectToExample extends Project {
 
 	int koloboksQuantity = 50;
 
-	Layer layer = new Layer();
+	Layer Layer = new Layer();
 	Image kolobokImage = new Image( "res/kolobok.png" );
 
 	
@@ -24,23 +24,23 @@ public class DirectToExample extends Project {
 			Kolobok kolobok = new Kolobok();
 			kolobok.setCoords( Service.random( -15, 15 ), Service.random( -11, 11 ) );
 			kolobok.setDiameter( Service.random( 1, 3 ) );
-			kolobok.shapeType = ShapeType.OVAL;
+			kolobok.shapeType = ShapeType.oval;
 			kolobok.visualizer.setRandomColor();
 			kolobok.visualizer.image = kolobokImage;
-			layer.addLast( kolobok );
+			Layer.addLast( kolobok );
 		}
 	}
 	
 
 	@Override
 	public void logic() {
-		layer.act();
+		Layer.act();
 	}
 	
 
 	@Override
 	public void render() {
-		layer.draw();
+		Layer.draw();
 		printText( "DirectTo example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 	

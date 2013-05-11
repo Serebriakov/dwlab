@@ -11,30 +11,34 @@ public class LeftXExample extends Project {
 	}
 	
 	
-	public Sprite rectangle = Sprite.fromShape( 0, 0, 8, 6 );
-	public Sprite ball = Sprite.fromShape( 0, 0, 1, 1, Sprite.oval );
+	Sprite rectangle = new Sprite( 0d, 0d, 8d, 6d );
+	Sprite ball = new Sprite( 0d, 0d, 1d );
 
+	
+	@Override
 	public void init() {
-		initGraphics();
-		rectangle.visualizer.Graphics.setColorFromHex( "FF0000" );
-		ball.visualizer.Graphics.setColorFromHex( "FFFF00" );
+		rectangle.visualizer.set( "FF0000" );
+		ball.visualizer.set( "FFFF00" );
 	}
 
+	
+	@Override
 	public void logic() {
 		rectangle.setMouseCoords();
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
 	}
+	
 
+	@Override
 	public void render() {
 		rectangle.draw();
-		ball.setCoords( rectangle.leftX(), rectangle.y );
+		ball.setCoords( rectangle.leftX(), rectangle.getY() );
 		ball.draw();
-		ball.setCoords( rectangle.x, rectangle.topY() );
+		ball.setCoords( rectangle.getX(), rectangle.topY() );
 		ball.draw();
-		ball.setCoords( rectangle.rightX(), rectangle.y );
+		ball.setCoords( rectangle.rightX(), rectangle.getY() );
 		ball.draw();
-		ball.setCoords( rectangle.x, rectangle.bottomY() );
+		ball.setCoords( rectangle.getX(), rectangle.bottomY() );
 		ball.draw();
-		printText( "LeftX, TopY, RightX, BottomY example", Align.TO_CENTER, Align.TO_BOTTOM );
+		printText( "LeftX, topY, RightX, bottomY example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

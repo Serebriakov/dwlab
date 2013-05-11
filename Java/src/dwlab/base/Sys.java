@@ -116,4 +116,8 @@ public class Sys {
 		
 		return false;
 	}
+
+	public static void waitForKey() {
+		throw new UnsupportedOperationException( "Not yet implemented" );
+	}
 }

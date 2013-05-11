@@ -10,7 +10,6 @@
 package dwlab.shapes.sprites;
 
 import dwlab.base.Obj;
-import dwlab.shapes.sprites.Sprite;
 
 /**
  * Sprite collision handling class.
@@ -18,7 +17,7 @@ import dwlab.shapes.sprites.Sprite;
 
  * @see #active example
  */
-public class SpriteCollisionHandler extends Obj {
-	public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
+public class SpriteCollisionHandler<E extends Sprite> extends Obj {
+	public void handleCollision( E sprite1, Sprite sprite2 ) {
 	}
 }

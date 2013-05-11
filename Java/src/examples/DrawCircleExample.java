@@ -2,6 +2,9 @@ package examples;
 import dwlab.base.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
+import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.maps.DoubleMap;
 
 public class DrawCircleExample extends Project {
@@ -11,35 +14,43 @@ public class DrawCircleExample extends Project {
 	}
 	
 	
-	public final int mapSize = 128;
-	public final double mapScale = 4.0;
-	public final double picScale = 5.0;
+	int mapSize = 128;
+	double mapScale = 4.0;
+	double picScale = 5.0;
 
-	public DoubleMap doubleMap = new DoubleMap( mapSize, mapSize );
+	DoubleMap doubleMap = new DoubleMap( mapSize, mapSize );
+	
+	ButtonAction next = ButtonAction.create( KeyboardKey.create( Key.SPACE ) );
 
+	
+	@Override
 	public void init() {
 		Graphics.setClearingColor( 0d, 0d, 1d );
-		float array[][][] = { { { 0.0, -7.0, 5.0 }, { 0.0, -1.5, 7.0 }, { -4.0, -3.0, 2.0 }, { 4.0, -3.0, 2.0 }, { 0.0, 6.0, 9.0 } }, 
-				{ { 0.0, -7.0, 1.5 }, { -1.0, -8.0, 1.0 }, { 1.0, -8.0, 1.0 }, { 0.0, -3.5, 1.0 }, { 0.0, -2.0, 1.0 }, { 0.0, -0.5, 1.0 } } };
+		double Array[][][] = { { { 0, -7, 5 }, { 0, -1.5, 7 }, { -4, -3, 2 }, { 4, -3, 2 }, { 0, 6, 9 } }, 
+				{ { 0, -7, 1.5 }, { -1, -8.0, 1 }, { 1, -8, 1 }, { 0, -3.5, 1.0 }, { 0.0, -2.0, 1.0 }, { 0.0, -0.5, 1.0 } } };
 		for( int col = 0; col <= 1; col++ ) {
-			for local float shape[] = eachin array[ col ];
+			for( double shape[] : Array[ col ] ) {
 				doubleMap.drawCircle( shape[ 0 ] * picScale + 0.5 * mapSize, shape[ 1 ] * picScale + 0.5 * mapSize, 0.5 * shape[ 2 ] * picScale, 1.0 - 0.7 * col );
 			}
 		}
 	}
+	
 
+	@Override
 	public void logic() {
-		if( keyHit( key_Space ) ) doubleMap.blur();
+		if( next.wasPressed() ) doubleMap.blur();
 	}
+	
 
+	@Override
 	public void render() {
-		setScale( mapScale, mapScale );
-		drawImage( doubleMap.toNewImage().bMaxImage, 400, 300 );
-		setScale( 1, 1 );
+		doubleMap.toNewImage( DoubleMap.Channel.RGB ).draw( 0, 400d, 300d, mapScale * mapSize, mapScale * mapSize );
 		printText( "Press space to blur map" );
 		printText( "DrawCircle, Blur example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
+	
 
+	@Override
 	public void deInit() {
 		Graphics.setClearingColor( 0, 0, 0 );
 	}

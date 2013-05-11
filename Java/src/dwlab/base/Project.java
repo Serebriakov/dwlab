@@ -10,10 +10,10 @@
 package dwlab.base;
 
 import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
-import org.lwjgl.input.Keyboard;
 
 /**
  * Class for main project and subprojects.
@@ -100,7 +100,7 @@ public class Project extends Obj {
 	}
 
 	
-	public ButtonAction exitButton = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_ESCAPE ) );
+	public static ButtonAction exitButton = ButtonAction.create( KeyboardKey.create( Key.ESCAPE ) );
 
 	/**
 	 * Executes the project.
@@ -157,7 +157,7 @@ public class Project extends Obj {
 				cursor.setMouseCoords();
 				render();
 
-				if( flipping && Graphics.initialized() ) Graphics.switchBuffers();
+				if( flipping && Graphics.initialized() ) Graphics.swapBuffers();
 
 				logicStepsWithoutRender = 0;
 				fPSCount ++;
@@ -227,12 +227,12 @@ public class Project extends Obj {
 	* See also #wedgeOffWithSprite example
 	*/
 	public static void showDebugInfo() {
-		Graphics.drawText( "FPS" + fPS, 0, 0 );
-		Graphics.drawText( "Memory" + Runtime.getRuntime().totalMemory() / 1024 + "kb", 0, 16 );
+		printText( "FPS" + fPS );
+		printText( "Memory: " + Runtime.getRuntime().totalMemory() / 1024 + "kb", 1 );
 
-		Graphics.drawText( "Collision  checks" + collisionChecks, 0, 32 );
-		Graphics.drawText( "Tiles  displayed" + tilesDisplayed, 0, 48 );
-		Graphics.drawText( "Sprites  displayed" + spritesDisplayed, 0, 64 );
-		Graphics.drawText( "Sprites  acted" + spritesActed, 0, 80 );
+		printText( "Collision  checks: " + collisionChecks, 2 );
+		printText( "Tiles  displayed: " + tilesDisplayed, 3 );
+		printText( "Sprites  displayed: " + spritesDisplayed, 4 );
+		printText( "Sprites  acted: " + spritesActed, 5 );
 	}
 }

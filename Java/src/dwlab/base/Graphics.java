@@ -11,8 +11,6 @@ package dwlab.base;
 
 import dwlab.shapes.sprites.Camera;
 import dwlab.visualizers.Color;
-import java.awt.Font;
-import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.LWJGLException;
@@ -20,17 +18,17 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.util.ResourceLoader;
 
 public class Graphics {
-	private static Color currentColor = Color.white.clone();
-	private static Color currentClearingColor = Color.black.clone();
-	private static double lineWidth = 1.0d;
-	private static int width, height;
-	private static int viewportX, viewportY;
-	private static int viewportWidth, viewportHeight;
-	private static TrueTypeFont currentFont;
+	static Color currentColor = Color.white;
+	static Color currentClearingColor = Color.black;
+	static double lineWidth = 1.0d;
+	static int width, height;
+	static int viewportX, viewportY;
+	static int viewportWidth, viewportHeight;
+	private static Font currentFont;
+	private static org.newdawn.slick.Color currentTextColor = org.newdawn.slick.Color.white;
+	private static org.newdawn.slick.Color currentContourColor = null;
 	
 	/**
 	* Sets graphics mode.
@@ -73,9 +71,9 @@ public class Graphics {
 		Camera.current.viewport.setSize( width, height );
 		Camera.current.setSize( width / unitSize, height / unitSize );
 		
-		if( loadFont ) setCurrentFont( loadFont( "res/font.ttf", 16 ) );
+		if( loadFont ) setCurrentFont( Font.load( "res/font.ttf", 16 ) );
 	}
-
+	
 	public static void init() {
 		init( 800, 600, 25d, true );
 	}
@@ -94,12 +92,42 @@ public class Graphics {
 	}
 	
 	
+	public static double getTextWidth( String text ) {
+		return currentFont.font.getWidth( text );
+	}
+
+	public static double getTextHeight() {
+		return currentFont.font.getHeight();
+	}
+	
+	
+	public static org.newdawn.slick.Color getContourColor() {
+		return currentContourColor;
+	}
+	
+	public static void setContourColor( float red, float green, float blue ) {
+		currentContourColor = new org.newdawn.slick.Color( red, green, blue, 1f );
+	}
+
+	public static void setContourColor( org.newdawn.slick.Color newContourColor ) {
+		currentContourColor = newContourColor;
+	}
+	
+
+	public static Color getColor() {
+		return currentColor;
+	}
+	
 	public static void setColor( double red, double green, double blue, double alpha ) {
 		currentColor.set( red, green, blue, alpha );
 	}
 	
 	public static void setColor( double red, double green, double blue ) {
 		currentColor.set( red, green, blue, 1d );
+	}
+
+	public static void resetColor() {
+		currentColor.set( 1d, 1d, 1d, 1d );
 	}
 	
 	public static void setClearingColor( double red, double green, double blue, double alpha ) {
@@ -110,13 +138,31 @@ public class Graphics {
 		currentClearingColor.set( red, green, blue, 1d );
 	}
 	
+	public static void resetClearingColor() {
+		currentClearingColor.set( 0d, 0d, 0d, 1d );
+	}
+	
+	public static double getLineWidth() {
+		return lineWidth;
+	}
+	
 	public static void setLineWidth( double width ) {
 		lineWidth = width;
 	}
 	
+	
+	public static void setCurrentFont( Font font ) {
+		currentFont = font;
+	}
+	
+	public static void setTextColor( float red, float green, float blue ) {
+		currentTextColor = new org.newdawn.slick.Color( red, green, blue, 1f  );
+	}
+
+	
 
 	public static void drawLine( double x1, double y1, double x2, double y2, double width, Color color ) {
-		glDisable(GL_TEXTURE_2D);
+		glDisable( GL_TEXTURE_2D );
 		
 		glColor4d( color.red, color.green, color.blue, color.alpha );
 		glLineWidth( (float) width );
@@ -161,7 +207,7 @@ public class Graphics {
 		drawRectangle( x, y, width, height, 0d, currentColor, true );
 	}
 	
-	
+		
 	public static void drawOval( double x, double y, double width, double height, double angle, Color color, boolean empty ){
 		width *= 0.5d ;
 		height *= 0.5d ;
@@ -242,67 +288,36 @@ public class Graphics {
 		glEnable( GL_TEXTURE_2D ); 
 	}
 	
-	
-	public static TrueTypeFont loadFont( String fileName, float size ) {
-		try {
-			InputStream inputStream	= ResourceLoader.getResourceAsStream( fileName );
-			Font font = Font.createFont( Font.TRUETYPE_FONT, inputStream );
-			font = font.deriveFont( size ); // set font size
-			return new TrueTypeFont( font, false );
-		} catch (Exception e) {
-		}
-		return null;
-	}
-	
-	public static void setCurrentFont( TrueTypeFont font ) {
-		currentFont = font;
-	}
-	
-	public static void drawText( String string, double x, double y, Color color, Color contourColor ) {
-		for( int dY = -1; dY <= 1; dY++ ) {
-			for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
-				drawText( string, x + dX, y + dY, contourColor );
+
+	public static void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
+		if( currentContourColor != null ) {
+			for( int dY = -1; dY <= 1; dY++ ) {
+				for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
+					currentFont.font.drawString( x +dX, y + dY, string, currentContourColor );
+				}
 			}
 		}
-		drawText( string, x, y, color );
+		currentFont.font.drawString( x, y, string, color );
 	}
-
-	public static void drawText( String string, double x, double y, Color color ) {
-		currentFont.drawString( (float) x, (float) y, string );
+	
+	public static void drawText( String string, float x, float y ) {
+		drawText( string, x, y, currentTextColor );
 	}
 	
 	public static void drawText( String string, double x, double y ) {
-		drawText( string, x, y, currentColor );
-	}
-
-	
-	public static double getTextWidth( String text ) {
-		return currentFont.getWidth( text );
-	}
-
-	public static double getTextHeight() {
-		return currentFont.getHeight();
+		drawText( string, (float) x, (float) y );
 	}
 	
-
-	public static void clearScreen() {
-		clearScreen( currentClearingColor );
-	}
 	
 	public static void clearScreen( Color color ) {
 		glClearColor( (float) color.red, (float) color.green, (float) color.blue, 1.0f );
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		glClearDepth(1);
-		glDisable( GL_TEXTURE_2D );
+	}
+	public static void clearScreen() {
+		clearScreen( currentClearingColor );
 	}
 	
-
-	public static void getViewport( Vector pivot, Vector size ) {
-		pivot.x = viewportX;
-		pivot.y = viewportY;
-		size.x = viewportWidth;
-		size.y = viewportHeight;
-	}
 
 	public static void setViewport( int x, int y, int width, int height ) {
 		viewportX = x;
@@ -311,9 +326,12 @@ public class Graphics {
 		viewportHeight = height;
 		glViewport( x - width / 2, y - height / 2, width, height );
 	}
-
-	public static void setViewport( Vector pivot, Vector size ) {
-		setViewport( Service.round( pivot.x ), Service.round( pivot.y ), Service.round( size.x ), Service.round( size.y ) );
+	
+	public static void getViewport( IntVector pivot, IntVector size ) {
+		pivot.x = viewportX;
+		pivot.y = viewportY;
+		size.x = viewportWidth;
+		size.y = viewportHeight;
 	}
 
 	public static void resetViewport() {
@@ -321,7 +339,7 @@ public class Graphics {
 	}
 	
 
-	public static void switchBuffers() {
+	public static void swapBuffers() {
 		Display.update();
 	}
 }

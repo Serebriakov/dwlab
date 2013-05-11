@@ -1,7 +1,5 @@
 package examples;
-import dwlab.base.Align;
-import dwlab.base.Graphics;
-import dwlab.base.Project;
+import dwlab.base.*;
 
 public class IntInLimitsExample extends Project {
 	public static void main(String[] argv) {
@@ -10,20 +8,23 @@ public class IntInLimitsExample extends Project {
 	}
 	
 	
-	public String word;
+	String word;
 
+	
+	@Override
 	public void logic() {
-		if( intInLimits( mouseX(), 200, 600 ) ) word = ""; else word = "not ";
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
+		if( Service.inLimits( Sys.mouseX(), 200, 600 ) ) word = ""; else word = "not ";
 	}
+	
 
+	@Override
 	public void render() {
-		Graphics.setColor( 255, 0, 0 );
-		drawLine( 200, 0, 200, 599 );
-		drawLine( 600, 0, 600, 599 );
-		Graphics.setColor( 255, 255, 255 );
-		printText( mouseX() + " is " + word + "in limits of [ 200, 600 ]" );
-		Graphics.drawOval( mouseX() - 2, mouseY() - 2, 5, 5 );
+		Graphics.setColor( 1d, 0d, 0d );
+		Graphics.drawLine( 200, 0, 200, 599 );
+		Graphics.drawLine( 600, 0, 600, 599 );
+		Graphics.setColor( 1d, 1d, 1d );
+		printText( Sys.mouseX() + " is " + word + "in limits of [ 200, 600 ]" );
+		Graphics.drawOval( Sys.mouseX(), Sys.mouseY(), 5, 5 );
 		printText( "L_IntInLimits example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

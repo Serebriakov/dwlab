@@ -19,6 +19,7 @@ import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.visualizers.Visualizer;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -126,7 +127,9 @@ public class Layer extends Shape {
 	public void act() {
 		if( active ) {
 			super.act();
-			for( Shape obj: children ) {
+			for ( Iterator<Shape> it = children.iterator(); it.hasNext(); ) {
+				Shape obj = it.next();
+				remove = false;
 				if( obj.active ) {
 					if( Sys.debug ) {
 						Project.spriteActed = false;
@@ -136,6 +139,7 @@ public class Layer extends Shape {
 						obj.act();
 					}
 				}
+				if( remove ) it.remove();
 			}
 		}
 	}

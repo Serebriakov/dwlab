@@ -8,10 +8,7 @@
 
 package dwlab.shapes.maps;
 
-import dwlab.base.Service;
-import dwlab.base.Sys;
-import dwlab.base.Vector;
-import dwlab.base.XMLObject;
+import dwlab.base.*;
 import dwlab.shapes.Shape;
 import dwlab.visualizers.Visualizer;
 
@@ -93,9 +90,9 @@ public class TileMap extends IntMap {
 	 * Returns tile coordinates for given field coordinates.
 	 * @return Tile coordinates for given point.
 	 */	
-	public void getTileForPoint( double x, double y, Vector vector ) {
-		vector.x = Math.floor( ( x - leftX() ) / getTileWidth() );
-		vector.y = Math.floor( ( y - topY() ) / getTileHeight() );
+	public void getTileForPoint( double x, double y, IntVector vector ) {
+		vector.x = (int) Math.floor( ( x - leftX() ) / getTileWidth() );
+		vector.y = (int) Math.floor( ( y - topY() ) / getTileHeight() );
 	}
 
 
@@ -127,8 +124,8 @@ public class TileMap extends IntMap {
 	 * @see #lTTileSet
 	 */
 	public void enframe( TileSet byTileSet ) {
-		for( int yy = 0; yy <= yQuantity; yy++ ) {
-			for( int xx = 0; xx <= xQuantity; xx++ ) {
+		for( int yy = 0; yy < yQuantity; yy++ ) {
+			for( int xx = 0; xx < xQuantity; xx++ ) {
 				byTileSet.enframe( this, xx , yy );
 			}
 		}

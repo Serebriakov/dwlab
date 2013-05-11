@@ -10,7 +10,7 @@
 package dwlab.shapes.sprites;
 
 import dwlab.base.Obj;
-import dwlab.shapes.LineSegment;
+import dwlab.shapes.line_segments.LineSegment;
 
 /**
  * Sprite and line segment collision handling class.
@@ -18,7 +18,7 @@ import dwlab.shapes.LineSegment;
 
  * @see #active example
  */
-public class SpriteAndLineSegmentCollisionHandler extends Obj {
-	public void handleCollision( Sprite sprite, LineSegment lineSegment ) {
+public class SpriteAndLineSegmentCollisionHandler<E extends Sprite> extends Obj {
+	public void handleCollision( E sprite, LineSegment lineSegment ) {
 	}
 }

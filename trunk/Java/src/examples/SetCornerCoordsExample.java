@@ -11,17 +11,16 @@ public class SetCornerCoordsExample extends Project {
 	}
 	
 	
-	public Sprite rectangle = Sprite.fromShape( 0, 0, 8, 6 );
+	Sprite rectangle = new Sprite( 0, 0, 8, 6 );
 
-	public void init() {
-		initGraphics();
-	}
-
+	
+	@Override
 	public void logic() {
-		rectangle.setCornerCoords( cursor.x, cursor.y );
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
+		rectangle.setCornerCoords( cursor.getX(), cursor.getY() );
 	}
+	
 
+	@Override
 	public void render() {
 		rectangle.draw();
 		printText( "SetCornerCoords example", Align.TO_CENTER, Align.TO_BOTTOM );

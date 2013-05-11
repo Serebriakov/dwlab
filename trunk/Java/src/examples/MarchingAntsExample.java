@@ -1,12 +1,11 @@
 package examples;
-import java.lang.Math;
-import dwlab.base.Align;
-import dwlab.base.Graphics;
-import dwlab.base.Image;
-import dwlab.base.Project;
+import dwlab.base.*;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.MouseButton;
 import dwlab.shapes.layers.Layer;
-import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.shape_types.ShapeType;
+import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.visualizers.MarchingAnts;
 
 public class MarchingAntsExample extends Project {
@@ -16,58 +15,59 @@ public class MarchingAntsExample extends Project {
 	}
 	
 	
-	public final int spritesQuantity = 50;
+	int spritesQuantity = 50;
 
-	public Layer layer = new Layer();
-	public Cursor cursor = new Cursor();
-	public Image spriteImage = Image.fromFile( " incbinkolobok .png" );
+	public Layer Layer = new Layer();
+	public Image spriteImage = new Image( "res/kolobok.png" );
 	public Sprite selected;
 	public MarchingAnts marchingAnts = new MarchingAnts();
 
+	ButtonAction select = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
+
+	
+	@Override
 	public void init() {
+		cursor = new Sprite(){
+			SpriteCollisionHandler handler = new SpriteCollisionHandler() {
+				@Override
+				public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
+					selected = sprite2;
+				}
+			};
+
+			@Override
+			public void act() {
+				setMouseCoords();
+				if( select.wasPressed() ) {
+					selected = null;
+					collisionsWithLayer( Layer, handler );
+				}
+			}
+		};
+		
 		for( int n = 1; n <= spritesQuantity; n++ ) {
-			Sprite sprite = Sprite.fromShape( Service.random( -15, 15 ), Service.random( -11, 11 ), , , Sprite.oval, Service.random( 360 ) );
+			Sprite sprite = new Sprite( ShapeType.oval, Service.random( -15, 15 ), Service.random( -11, 11 ), 0d, 0d, 1d, Service.random( 360 ) );
 			sprite.setDiameter( Service.random( 1, 3 ) );
 			sprite.visualizer.setRandomColor();
 			sprite.visualizer.image = spriteImage;
-			layer.addLast( sprite );
+			Layer.addLast( sprite );
 		}
 
 		cursor.setDiameter( 0.5 );
-		initGraphics();
 	}
+	
 
+	@Override
 	public void logic() {
 		cursor.act();
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
 	}
+	
 
+	@Override
 	public void render() {
-		layer.draw();
-		if( selected ) selected.drawUsingVisualizer( example.marchingAnts );
-		printText( "Select Sprite by left-clicking on it" );
+		Layer.draw();
+		if( selected != null ) selected.drawUsingVisualizer( marchingAnts );
+		printText( "Select Sprite .y left-clicking on it" );
 		printText( "LTMarchingAnts example", Align.TO_CENTER, Align.TO_BOTTOM );
-	}
-}
-
-
-
-public class Cursor extends Sprite {
-	public SelectionHandler handler = new SelectionHandler();
-
-	public void act() {
-		setMouseCoords();
-		if( mouseHit( 1 ) ) {
-			example.selected = null;
-			collisionsWithLayer( example.layer, handler );
-		}
-	}
-}
-
-
-
-public class SelectionHandler extends SpriteCollisionHandler {
-	public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
-		example.selected = sprite2;
 	}
 }

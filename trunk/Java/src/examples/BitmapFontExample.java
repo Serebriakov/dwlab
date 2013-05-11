@@ -10,13 +10,16 @@ public class BitmapFontExample extends Project {
 		( new BitmapFontExample() ).act();
 	}
 	
+	
 	private BitmapFont font = new BitmapFont( "res/font.png", 32, 127, 16, false );
+	
 	
 	@Override
 	public void init() {
 		Graphics.setClearingColor( 0d, 0.5d, 0d, 1d );
 	}
 
+	
 	@Override
 	public void render() {
 		font.print( "Hello!", Service.random( -15, 15 ), Service.random( -11, 11 ), Service.random( 0.5, 2.0 ) );

@@ -12,6 +12,7 @@ package dwlab.shapes;
 import dwlab.base.*;
 import dwlab.behavior_models.BehaviorModel;
 import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.sprites.Camera;
@@ -131,14 +132,14 @@ public class Shape extends Obj {
 
 		switch( horizontalAlign ) {
 			case TO_CENTER:
-				servicePivot.x -= 0.5 * Graphics.getTextWidth( text );
+				servicePivot.x -= 0.5d * Graphics.getTextWidth( text );
 			case TO_RIGHT:
 				servicePivot.x -= Graphics.getTextWidth( text );
 		}
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
-				servicePivot.y -= 0.5 * Graphics.getTextHeight();
+				servicePivot.y -= 0.5d * Graphics.getTextHeight();
 			case TO_BOTTOM:
 				servicePivot.y -= Graphics.getTextHeight();
 		}
@@ -152,6 +153,23 @@ public class Shape extends Obj {
 	
 	public void print( String text, Align horizontalAlign, Align verticalAlign ) {
 		print( text, horizontalAlign, verticalAlign, 0, 0 );
+	}	
+	
+	
+	private static Vector serviceVector1 = new Vector();
+	private static Vector serviceVector2 = new Vector();
+	
+	public void drawContour( double lineWidth, double xScale, double yScale ) {
+		double oldLineWidth = Graphics.getLineWidth();
+		Graphics.setLineWidth( lineWidth );
+		Camera.current.fieldToScreen( x, y, serviceVector1 );
+		Camera.current.sizeFieldToScreen( width * xScale, height * yScale, serviceVector2 );
+		Graphics.drawEmptyRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y );
+		Graphics.setLineWidth( oldLineWidth );
+	}
+
+	public void drawContour( double lineWidth ) {
+		drawContour( lineWidth, 1d, 1d );
 	}
 
 
@@ -451,10 +469,10 @@ public class Shape extends Obj {
 
 
 	private static final ButtonAction[] keysWSAD = {
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_W ), "up" ),
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_S ), "down" ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_A ), "left" ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_D ), "right" )
+		ButtonAction.create( KeyboardKey.create( Key.W ), "up" ),
+		ButtonAction.create( KeyboardKey.create( Key.S ), "down" ), 
+		ButtonAction.create( KeyboardKey.create( Key.A ), "left" ), 
+		ButtonAction.create( KeyboardKey.create( Key.D ), "right" )
 	};
 
 	/**
@@ -468,10 +486,10 @@ public class Shape extends Obj {
 
 
 	private static final ButtonAction[] keysArrows = {
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_UP ), "up" ),
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_DOWN ), "down" ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_LEFT ), "left" ), 
-		ButtonAction.create( KeyboardKey.create( Keyboard.KEY_RIGHT ), "right" )
+		ButtonAction.create( KeyboardKey.create( Key.UP ), "up" ),
+		ButtonAction.create( KeyboardKey.create( Key.DOWN ), "down" ), 
+		ButtonAction.create( KeyboardKey.create( Key.LEFT ), "left" ), 
+		ButtonAction.create( KeyboardKey.create( Key.RIGHT ), "right" )
 	};
 
 	/**
@@ -980,8 +998,8 @@ public class Shape extends Obj {
 	public int showModels( int y, String shift ) {
 		if( behaviorModels.isEmpty() ) return y;
 		Graphics.drawText( shift + getTitle() + " ", 0, y );
-	    y += 16;
-	    for( BehaviorModel model: behaviorModels ) {
+		y += 16;
+		for( BehaviorModel model: behaviorModels ) {
 			String activeString;
 			if( model.active ) activeString = "active"; else activeString =  "inactive";
 			Graphics.drawText( shift + model.getClass().getName() + " " + activeString + ", " + model.info( this ), 8, y );
@@ -1306,13 +1324,24 @@ public class Shape extends Obj {
 	}
 	
 	
-	public void getPivots( Shape pivot1, Shape pivot2, Shape pivot3, Shape pivot4 ) {
+	public void getBounds( Shape pivot1, Shape pivot2, Shape pivot3, Shape pivot4 ) {
 		double dWidth = 0.5d * width;
 		double dHeight = 0.5d * height;
-		if( pivot1 != null ) pivot1.setCoords( x - dWidth, y - dHeight );
-		if( pivot2 != null ) pivot2.setCoords( x + dWidth, y - dHeight );
-		if( pivot3 != null ) pivot3.setCoords( x + dWidth, y + dHeight );
-		if( pivot4 != null ) pivot4.setCoords( x - dWidth, y + dHeight );
+		if( pivot1 != null ) pivot1.setX( x - dWidth );
+		if( pivot2 != null ) pivot2.setY( y - dHeight );
+		if( pivot3 != null ) pivot3.setX( x + dWidth );
+		if( pivot4 != null ) pivot4.setY( y + dHeight );
+	}
+	
+	
+	public void getBounds( Shape pivot1, Shape pivot2 ) {
+		getBounds( pivot1, pivot2, pivot1, pivot2 );
+	}
+	
+	
+	public void getPivots( Shape pivot1, Shape pivot2, Shape pivot3, Shape pivot4 ) {
+		getBounds( pivot1, pivot1, pivot3, pivot3 );
+		getBounds( pivot4, pivot2, pivot2, pivot4 );
 	}
 
 	// ==================== Cloning ===================

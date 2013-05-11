@@ -1,9 +1,9 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
+ * Copyright (C) 2012:return Keyboard.KEY_ * Copyright (C) 2012; Matt Merkulov 
 
  * All rights reserved. Use of this code is allowed under the
- * Artistic License 2.0 terms, as specified in the license.txt
- * file distributed with this code, or available from
+ * Artistic License 2.0 terms:return Keyboard.KEY_ * Artistic License 2.0 terms; as specified in the license.txt
+ * file distributed with this code:return Keyboard.KEY_ * file distributed with this code; or available from
  * http://www.opensource.org/licenses/artistic-license-2.0.php
  */
 
@@ -20,212 +20,129 @@ public class KeyboardKey extends Pushable {
 	public int code;
 	
 
-	@Override
-	public String getName() {
-		/*
-		switch( code ) {
-			case kEY_BACKSPACE:
-				return "Backspace";
-			case kEY_TAB:
-				return "Tab";
-			case kEY_CLEAR:
-			case kEY_ENTER:
-				return "Enter";
-			case kEY_ESCAPE:
-				return "Esc";
-			case kEY_SPACE:
-				return "Space";
-			case kEY_PAGEUP:
-				return "Page up";
-			case kEY_PAGEDOWN:
-				return "Page down";
-			case kEY_END:
-				return "End";
-			case kEY_HOME:
-				return "Home";
-			case kEY_LEFT:
-				return "Left arrow";
-			case kEY_UP:
-				return "Up arrow";
-			case kEY_RIGHT:
-				return "Right arrow";
-			case kEY_DOWN:
-				return "Down arrow";
-			case kEY_SELECT:
-				return "Select";
-			case kEY_PRINT:
-				return "Print";
-			case kEY_EXECUTE:
-				return "Execute";
-			case kEY_SCREEN:
-				return "Screen";
-			case kEY_INSERT:
-				return "Insert";
-			case kEY_DELETE:
-				return "Delete";
-			case kEY_0:
-				return "0";
-			case kEY_1:
-				return "1";
-			case kEY_2:
-				return "2";
-			case kEY_3:
-				return "3";
-			case kEY_4:
-				return "4";
-			case kEY_5:
-				return "5";
-			case kEY_6:
-				return "6";
-			case kEY_7:
-				return "7";
-			case kEY_8:
-				return "8";
-			case kEY_9:
-				return "9";
-			case kEY_A:
-				return "A";
-			case kEY_B:
-				return "B";
-			case kEY_C:
-				return "C";
-			case kEY_D:
-				return "D";
-			case kEY_E:
-				return "E";
-			case kEY_F:
-				return "F";
-			case kEY_G:
-				return "G";
-			case kEY_H:
-				return "H";
-			case kEY_I:
-				return "I";
-			case kEY_J:
-				return "J";
-			case kEY_K:
-				return "K";
-			case kEY_L:
-				return "L";
-			case kEY_M:
-				return "M";
-			case kEY_N:
-				return "N";
-			case kEY_O:
-				return "O";
-			case kEY_P:
-				return "P";
-			case kEY_Q:
-				return "Q";
-			case kEY_R:
-				return "R";
-			case kEY_S:
-				return "S";
-			case kEY_T:
-				return "T";
-			case kEY_U:
-				return "U";
-			case kEY_V:
-				return "V";
-			case kEY_W:
-				return "W";
-			case kEY_X:
-				return "X";
-			case kEY_Y:
-				return "Y";
-			case kEY_Z:
-				return "Z";
-			case kEY_NUM0:
-				return "Num 0";
-			case kEY_NUM1:
-				return "Num 1";
-			case kEY_NUM2:
-				return "Num 2";
-			case kEY_NUM3:
-				return "Num 3";
-			case kEY_NUM4:
-				return "Num 4";
-			case kEY_NUM5:
-				return "Num 5";
-			case kEY_NUM6:
-				return "Num 6";
-			case kEY_NUM7:
-				return "Num 7";
-			case kEY_NUM8:
-				return "Num 8";
-			case kEY_NUM9:
-				return "Num 9";
-			case kEY_NUMMULTIPLY:
-				return "Num *";
-			case kEY_NUMADD:
-				return "Num +";
-			case kEY_NUMSUBTRACT:
-				return "Num -";
-			case kEY_NUMDECIMAL:
-				return "Num .";
-			case kEY_NUMDIVIDE:
-				return "Num /";
-			case kEY_F1:
-				return "F1";
-			case kEY_F2:
-				return "F2";
-			case kEY_F3:
-				return "F3";
-			case kEY_F4:
-				return "F4";
-			case kEY_F5:
-				return "F5";
-			case kEY_F6:
-				return "F6";
-			case kEY_F7:
-				return "F7";
-			case kEY_F8:
-				return "F8";
-			case kEY_F9:
-				return "F9";
-			case kEY_F10:
-				return "F10";
-			case kEY_F11:
-				return "F11";
-			case kEY_F12:
-				return "F12";
-			case kEY_TILDE:
-				return "~~";
-			case kEY_MINUS:
-				return "-";
-			case kEY_EQUALS:
-				return "=";
-			case kEY_OPENBRACKET:
-				return "[";
-			case kEY_CLOSEBRACKET:
-				return "]";
-			case kEY_BACKSLASH:
-				return "\";
-			case kEY_SEMICOLON:
-				return ";";
-			case kEY_QUOTES:
-				return "\"";
-			case kEY_COMMA:
-				return ",";
-			case kEY_PERIOD:
-				return ".";
-			case kEY_SLASH:
-				return "/";
-			case kEY_LSHIFT:
-				return "Left Shift";
-			case kEY_RSHIFT:
-				return "Right Shift";
-			case kEY_LCONTROL:
-				return "Left Ctrl";
-			case kEY_RCONTROL:
-				return "Right Ctrl";
-			case kEY_LALT:
-				return "Left Alt";
-			case kEY_RALT:
-				return "Right Alt";
+	public static int getCode( Key keyID ) {
+		switch( keyID ){
+			case ESCAPE: return Keyboard.KEY_ESCAPE;
+			case _1: return Keyboard.KEY_1;
+			case _2: return Keyboard.KEY_2;
+			case _3: return Keyboard.KEY_3;
+			case _4: return Keyboard.KEY_4;
+			case _5: return Keyboard.KEY_5;
+			case _6: return Keyboard.KEY_6;
+			case _7: return Keyboard.KEY_7;
+			case _8: return Keyboard.KEY_8;
+			case _9: return Keyboard.KEY_9;
+			case _0: return Keyboard.KEY_0;
+			case MINUS: return Keyboard.KEY_MINUS;
+			case EQUALS: return Keyboard.KEY_EQUALS;
+			case BACK: return Keyboard.KEY_BACK;
+			case TAB: return Keyboard.KEY_TAB;
+			case Q: return Keyboard.KEY_Q;
+			case W: return Keyboard.KEY_W;
+			case E: return Keyboard.KEY_E;
+			case R: return Keyboard.KEY_R;
+			case T: return Keyboard.KEY_T;
+			case Y: return Keyboard.KEY_Y;
+			case U: return Keyboard.KEY_U;
+			case I: return Keyboard.KEY_I;
+			case O: return Keyboard.KEY_O;
+			case P: return Keyboard.KEY_P;
+			case LBRACKET: return Keyboard.KEY_LBRACKET;
+			case RBRACKET: return Keyboard.KEY_RBRACKET;
+			case RETURN: return Keyboard.KEY_RETURN;
+			case LCONTROL: return Keyboard.KEY_LCONTROL;
+			case A: return Keyboard.KEY_A;
+			case S: return Keyboard.KEY_S;
+			case D: return Keyboard.KEY_D;
+			case F: return Keyboard.KEY_F;
+			case G: return Keyboard.KEY_G;
+			case H: return Keyboard.KEY_H;
+			case J: return Keyboard.KEY_J;
+			case K: return Keyboard.KEY_K;
+			case L: return Keyboard.KEY_L;
+			case SEMICOLON: return Keyboard.KEY_SEMICOLON;
+			case APOSTROPHE: return Keyboard.KEY_APOSTROPHE;
+			case GRAVE: return Keyboard.KEY_GRAVE;
+			case LSHIFT: return Keyboard.KEY_LSHIFT;
+			case BACKSLASH: return Keyboard.KEY_BACKSLASH;
+			case Z: return Keyboard.KEY_Z;
+			case X: return Keyboard.KEY_X;
+			case C: return Keyboard.KEY_C;
+			case V: return Keyboard.KEY_V;
+			case B: return Keyboard.KEY_B;
+			case N: return Keyboard.KEY_N;
+			case M: return Keyboard.KEY_M;
+			case COMMA: return Keyboard.KEY_COMMA;
+			case PERIOD: return Keyboard.KEY_PERIOD;
+			case SLASH: return Keyboard.KEY_SLASH;
+			case RSHIFT: return Keyboard.KEY_RSHIFT;
+			case MULTIPLY: return Keyboard.KEY_MULTIPLY;
+			case LALT: return Keyboard.KEY_LMENU;
+			case SPACE: return Keyboard.KEY_SPACE;
+			case CAPITAL: return Keyboard.KEY_CAPITAL;
+			case F1: return Keyboard.KEY_F1;
+			case F2: return Keyboard.KEY_F2;
+			case F3: return Keyboard.KEY_F3;
+			case F4: return Keyboard.KEY_F4;
+			case F5: return Keyboard.KEY_F5;
+			case F6: return Keyboard.KEY_F6;
+			case F7: return Keyboard.KEY_F7;
+			case F8: return Keyboard.KEY_F8;
+			case F9: return Keyboard.KEY_F9;
+			case F10: return Keyboard.KEY_F10;
+			case NUMLOCK: return Keyboard.KEY_NUMLOCK;
+			case SCROLL: return Keyboard.KEY_SCROLL;
+			case NUMPAD7: return Keyboard.KEY_NUMPAD7;
+			case NUMPAD8: return Keyboard.KEY_NUMPAD8;
+			case NUMPAD9: return Keyboard.KEY_NUMPAD9;
+			case SUBTRACT: return Keyboard.KEY_SUBTRACT;
+			case NUMPAD4: return Keyboard.KEY_NUMPAD4;
+			case NUMPAD5: return Keyboard.KEY_NUMPAD5;
+			case NUMPAD6: return Keyboard.KEY_NUMPAD6;
+			case ADD: return Keyboard.KEY_ADD;
+			case NUMPAD1: return Keyboard.KEY_NUMPAD1;
+			case NUMPAD2: return Keyboard.KEY_NUMPAD2;
+			case NUMPAD3: return Keyboard.KEY_NUMPAD3;
+			case NUMPAD0: return Keyboard.KEY_NUMPAD0;
+			case DECIMAL: return Keyboard.KEY_DECIMAL;
+			case F11: return Keyboard.KEY_F11;
+			case F12: return Keyboard.KEY_F12;
+			case F13: return Keyboard.KEY_F13;
+			case F14: return Keyboard.KEY_F14;
+			case F15: return Keyboard.KEY_F15;
+			case KANA: return Keyboard.KEY_KANA;
+			case CONVERT: return Keyboard.KEY_CONVERT;
+			case NOCONVERT: return Keyboard.KEY_NOCONVERT;
+			case YEN: return Keyboard.KEY_YEN;
+			case NUMPADEQUALS: return Keyboard.KEY_NUMPADEQUALS;
+			case CIRCUMFLEX: return Keyboard.KEY_CIRCUMFLEX;
+			case AT: return Keyboard.KEY_AT;
+			case COLON: return Keyboard.KEY_COLON;
+			case UNDERLINE: return Keyboard.KEY_UNDERLINE;
+			case KANJI: return Keyboard.KEY_KANJI;
+			case STOP: return Keyboard.KEY_STOP;
+			case AX: return Keyboard.KEY_AX;
+			case UNLABELED: return Keyboard.KEY_UNLABELED;
+			case NUMPADENTER: return Keyboard.KEY_NUMPADENTER;
+			case RCONTROL: return Keyboard.KEY_RCONTROL;
+			case NUMPADCOMMA: return Keyboard.KEY_NUMPADCOMMA;
+			case DIVIDE: return Keyboard.KEY_DIVIDE;
+			case SYSRQ: return Keyboard.KEY_SYSRQ;
+			case RALT: return Keyboard.KEY_RMENU;
+			case PAUSE: return Keyboard.KEY_PAUSE;
+			case HOME: return Keyboard.KEY_HOME;
+			case UP: return Keyboard.KEY_UP;
+			case PAGE_UP: return Keyboard.KEY_PRIOR;
+			case LEFT: return Keyboard.KEY_LEFT;
+			case RIGHT: return Keyboard.KEY_RIGHT;
+			case END: return Keyboard.KEY_END;
+			case DOWN: return Keyboard.KEY_DOWN;
+			case PAGE_DOWN: return Keyboard.KEY_NEXT;
+			case INSERT: return Keyboard.KEY_INSERT;
+			case DELETE: return Keyboard.KEY_DELETE;
+			case LMETA: return Keyboard.KEY_LMETA;
+			default: return 0;
 		}
-		*/
-		return "";
 	}
 
 	
@@ -257,8 +174,12 @@ public class KeyboardKey extends Pushable {
 
 	/**
 	 * Creates keyboard key object.
-	 * @return New object of keyboard key with given code.
+	 * @return New object of keyboard key with given key id.
 	 */	
+	public static KeyboardKey create( Key keyID ) {
+		return create( getCode( keyID ) );
+	}
+	
 	public static KeyboardKey create( int code ) {
 		KeyboardKey key = new KeyboardKey();
 		key.code = code;

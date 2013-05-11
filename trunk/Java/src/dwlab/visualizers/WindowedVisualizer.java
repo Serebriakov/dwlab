@@ -10,6 +10,7 @@ package dwlab.visualizers;
 
 import dwlab.base.Graphics;
 import dwlab.base.Image;
+import dwlab.base.IntVector;
 import dwlab.base.Vector;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
@@ -32,8 +33,8 @@ public class WindowedVisualizer extends Visualizer {
 	}
 
 
-	private Vector servicePivot = new Vector();
-	private Vector serviceSizes = new Vector();
+	private IntVector servicePivot = new IntVector();
+	private IntVector serviceSizes = new IntVector();
 	
 	@Override
 	public void drawUsingSprite( Sprite sprite, Sprite spriteShape ) {
@@ -44,7 +45,7 @@ public class WindowedVisualizer extends Visualizer {
 		viewport.setAsViewport();
 		visualizer.drawUsingSprite( sprite, spriteShape );
 
-		Graphics.setViewport( servicePivot, serviceSizes );
+		Graphics.setViewport( servicePivot.x, servicePivot.y, serviceSizes.x, serviceSizes.y );
 	}
 
 

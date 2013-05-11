@@ -13,16 +13,15 @@ import dwlab.base.Obj;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import java.util.LinkedList;
-import org.lwjgl.input.Keyboard;
 
 /**
  * Class for action which can be triggered by activating pushable object (presing a key, mouse button, etc).
  * Key can be binded to several actions and several keys can be binded to one action.
  */	
 public class ButtonAction extends Obj {
-	public static ButtonAction ctrlAction = create( KeyboardKey.create( Keyboard.KEY_LCONTROL ), KeyboardKey.create( Keyboard.KEY_RCONTROL ), "ctrl" );
-	public static ButtonAction altAction = create( KeyboardKey.create( Keyboard.KEY_LMENU ), KeyboardKey.create( Keyboard.KEY_RMENU ), "alt" );
-	public static ButtonAction shiftAction =create( KeyboardKey.create( Keyboard.KEY_LSHIFT ), KeyboardKey.create( Keyboard.KEY_RSHIFT ), "shift" );
+	public static ButtonAction ctrlAction = ButtonAction.create( KeyboardKey.create( Key.LCONTROL ), KeyboardKey.create( Key.RCONTROL ), "ctrl" );
+	public static ButtonAction altAction = ButtonAction.create( KeyboardKey.create( Key.LALT ), KeyboardKey.create( Key.RALT ), "alt" );
+	public static ButtonAction shiftAction =ButtonAction.create( KeyboardKey.create( Key.LSHIFT ), KeyboardKey.create( Key.RSHIFT ), "shift" );
 	
 	public String name;
 	public LinkedList<Pushable> buttonList = new LinkedList();

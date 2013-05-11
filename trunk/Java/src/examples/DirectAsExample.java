@@ -5,7 +5,7 @@ import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 
 public class DirectAsExample extends Project {
@@ -17,7 +17,7 @@ public class DirectAsExample extends Project {
 
 	int spritesQuantity = 50;
 
-	Layer layer = new Layer();
+	Layer Layer = new Layer();
 	Cursor shapeCursor = new Cursor();
 	Image spriteImage = new Image( "res/kolobok.png" );
 	Sprite selected;
@@ -26,18 +26,18 @@ public class DirectAsExample extends Project {
 	@Override
 	public void init() {
 		for( int n = 1; n <= spritesQuantity; n++ ) {
-			Sprite sprite = new Sprite( ShapeType.OVAL, Service.random( -15d, 15d ), Service.random( -11d, 11d ), 1d, 1d, Service.random( 360 ), 0d );
+			Sprite sprite = new Sprite( ShapeType.oval, Service.random( -15d, 15d ), Service.random( -11d, 11d ), 1d, 1d, Service.random( 360 ), 0d );
 			sprite.setDiameter( Service.random( 0.7, 2 ) );
 			sprite.visualizer.setRandomColor();
 			sprite.visualizer.setVisualizerScales( 1.3 );
 			sprite.visualizer.image = spriteImage;
-			layer.addLast( sprite );
+			Layer.addLast( sprite );
 		}
 
 		shapeCursor.setDiameter( 1d );
 		shapeCursor.visualizer.image = spriteImage;
 		shapeCursor.visualizer.setVisualizerScales( 1.3 );
-		shapeCursor.shapeType = ShapeType.OVAL;
+		shapeCursor.shapeType = ShapeType.oval;
 		shapeCursor.angle = Math.PI;
 	}
 	
@@ -50,7 +50,7 @@ public class DirectAsExample extends Project {
 	
 	@Override
 	public void render() {
-		layer.draw();
+		Layer.draw();
 		shapeCursor.draw();
 		printText( "Click left mouse button on sprite to direct cursor sprite as it" );
 		printText( "and right button to set size equal to sprite's", 1 );
@@ -81,8 +81,8 @@ public class DirectAsExample extends Project {
 		@Override
 		public void act() {
 			setMouseCoords();
-			if( setDirection.wasPressed() ) collisionsWithLayer( layer, directionHandler );
-			if( setSize.wasPressed() ) collisionsWithLayer( layer, sizeHandler );
+			if( setDirection.wasPressed() ) collisionsWithLayer( Layer, directionHandler );
+			if( setSize.wasPressed() ) collisionsWithLayer( Layer, sizeHandler );
 		}
 	}
 }

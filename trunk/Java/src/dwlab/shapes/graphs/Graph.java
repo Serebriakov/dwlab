@@ -6,15 +6,14 @@
  * file distributed with this code, or available from
  * http://www.opensource.org/licenses/artistic-license-2.0.php */
 
-package dwlab.graph;
+package dwlab.shapes.graphs;
 
-import dwlab.base.Action;
 import dwlab.base.Sys;
-import dwlab.shapes.LineSegment;
+import dwlab.base.XMLObject;
+import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
-import dwlab.base.XMLObject;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -63,7 +62,6 @@ public class Graph extends Shape {
 	}
 
 
-
 	/**
 	 * Draws LineSegments using given visualizer.
 	 * @see #drawPivotsUsing
@@ -73,7 +71,6 @@ public class Graph extends Shape {
 			for( LineSegment lineSegment: list ) lineSegment.drawUsingVisualizer( visualizer );
 		}
 	}
-
 
 
 	/**
@@ -197,7 +194,6 @@ public class Graph extends Shape {
 	}
 
 
-
 	/**
 	 * Checks if graph contains given line.
 	 * @return True if line is in the graph, otherwise False.
@@ -210,7 +206,6 @@ public class Graph extends Shape {
 	}
 
 
-
 	/**
 	 * Finds a line in the graph for given pivots.
 	 * @see #addLine, #removeLine, #findLineCollidingWith, #containsLine
@@ -219,8 +214,8 @@ public class Graph extends Shape {
 		LinkedList<LineSegment> list = contents.get( pivot1 );
 		if( list == null ) return null;
 		for( LineSegment lineSegment : list ) {
-			if( lineSegment.pivot[ 0 ] == pivot1 && lineSegment.pivot[ 2 ] == pivot2 ) return lineSegment;
-			if( lineSegment.pivot[ 0 ] == pivot2 && lineSegment.pivot[ 2 ] == pivot1 ) return lineSegment;
+			if( lineSegment.pivot[ 0 ] == pivot1 && lineSegment.pivot[ 1 ] == pivot2 ) return lineSegment;
+			if( lineSegment.pivot[ 0 ] == pivot2 && lineSegment.pivot[ 1 ] == pivot1 ) return lineSegment;
 		}
 		return null;
 	}
@@ -274,7 +269,7 @@ public class Graph extends Shape {
 	}
 
 
-
+	@Override
 	public void xMLIO( XMLObject xMLObject ) {
 		/*
 		super.xMLIO( xMLObject );

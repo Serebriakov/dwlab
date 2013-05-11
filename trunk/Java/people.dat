@@ -1,0 +1,46 @@
+<XMLIOExample dwlab_version="1.5">
+	<TList field="professions">
+		<Profession id="1" name="director"/>
+		<Profession name="engineer"/>
+		<Profession id="3" name="dispatcher"/>
+		<Profession id="4" name="driver"/>
+		<Profession id="5" name="secretary"/>
+		<Profession name="bookkeeper"/>
+		<Profession name="supply agent"/>
+		<Profession id="8" name="bookkeeper chief"/>
+		<Profession id="9" name="lawyer"/>
+		<Profession name="programmer"/>
+		<Profession id="11" name="administrator"/>
+		<Profession name="courier"/>
+	</TList>
+	<Worker first-name="Vladislav" last-name="Fedorov" age="37" height="165.68611056" weight="56.08413076">
+		<Object field="profession" id="1"/>
+	</Worker>
+	<Worker first-name="Igor" last-name="Egorov" age="41" height="168.41634417" weight="74.34442256">
+		<Object field="profession" id="1"/>
+	</Worker>
+	<Worker first-name="Yury" last-name="Ivanov" age="40" height="175.74517924" weight="74.95554071">
+		<Object field="profession" id="3"/>
+	</Worker>
+	<Worker first-name="Gleb" last-name="Makarov" age="28" height="174.02967435" weight="84.10993">
+		<Object field="profession" id="4"/>
+	</Worker>
+	<Worker first-name="Victor" last-name="Nikitin" age="22" height="171.77398603" weight="74.84325689">
+		<Object field="profession" id="11"/>
+	</Worker>
+	<Worker first-name="Boris" last-name="Lebedev" age="39" height="159.30018521" weight="60.97141221">
+		<Object field="profession" id="5"/>
+	</Worker>
+	<Worker first-name="Dmit.y" last-name="Sokolov" age="46" height="173.83365429" weight="82.55376977">
+		<Object field="profession" id="9"/>
+	</Worker>
+	<Worker first-name="Oleg" last-name="Nikitin" age="20" height="171.91501068" weight="55.41254262">
+		<Object field="profession" id="9"/>
+	</Worker>
+	<Worker first-name="Egor" last-name="Nikitin" age="49" height="175.65096895" weight="73.63230824">
+		<Object field="profession" id="3"/>
+	</Worker>
+	<Worker first-name=".yacheslav" last-name="Alekseev" age="42" height="170.4425897" weight="75.40432476">
+		<Object field="profession" id="8"/>
+	</Worker>
+</XMLIOExample>

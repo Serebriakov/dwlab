@@ -36,13 +36,13 @@ public class Window extends Layer {
 	public static ButtonAction scaleUp = ButtonAction.create( MouseWheel.create( 1 ) );
 	public static ButtonAction scaleDown = ButtonAction.create( MouseWheel.create( -1 ) );
 
-	public static ButtonAction establish = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_RETURN ) );
-	public static ButtonAction abort = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_ESCAPE ) );
+	public static ButtonAction establish = ButtonAction.create( KeyboardKey.create( Key.RETURN ) );
+	public static ButtonAction abort = ButtonAction.create( KeyboardKey.create( Key.ESCAPE ) );
 
-	public static ButtonAction moveCursorLeft = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_LEFT ) );
-	public static ButtonAction moveCursorRight = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_RIGHT ) );
-	public static ButtonAction deletePreviousCharacter = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_BACK ) );
-	public static ButtonAction deleteNextCharacter = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_DELETE ) );
+	public static ButtonAction moveCursorLeft = ButtonAction.create( KeyboardKey.create( Key.LEFT ) );
+	public static ButtonAction moveCursorRight = ButtonAction.create( KeyboardKey.create( Key.RIGHT ) );
+	public static ButtonAction deletePreviousCharacter = ButtonAction.create( KeyboardKey.create( Key.BACK ) );
+	public static ButtonAction deleteNextCharacter = ButtonAction.create( KeyboardKey.create( Key.DELETE ) );
 
 	public World world;
 	public GUIProject project;

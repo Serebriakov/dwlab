@@ -1,12 +1,13 @@
 package examples;
 import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.maps.TileSet;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import org.lwjgl.input.Keyboard;
 
 public class CameraExample extends Project {
@@ -23,11 +24,11 @@ public class CameraExample extends Project {
 	int tileMapHeight = 64;
 
 	TileMap tileMap = TileMap.create( new TileSet( new Image( "res/tiles.png", 8, 4 ) ), tileMapWidth, tileMapHeight );
-	Sprite player = new Sprite( ShapeType.OVAL, 0, 0, 0.5, 0.5 );
+	Sprite pLayer = new Sprite( ShapeType.oval, 0, 0, 0.5, 0.5 );
 	double z, baseK;
 
-	ButtonAction zoomIn = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_A ), "zoom in" );
-	ButtonAction zoomOut = ButtonAction.create( KeyboardKey.create( Keyboard.KEY_Z ), "zoom out" );
+	ButtonAction zoomIn = ButtonAction.create( KeyboardKey.create( Key.A ), "zoom in" );
+	ButtonAction zoomOut = ButtonAction.create( KeyboardKey.create( Key.Z ), "zoom out" );
 	
 	
 	@Override
@@ -38,15 +39,15 @@ public class CameraExample extends Project {
 				tileMap.setTile( x, y, (int) Service.random( 1, 31 ) );
 			}
 		}
-		player.visualizer.set( "FFBF7F" );
+		pLayer.visualizer.set( "FFBF7F" );
 		baseK = Camera.current.k;
 	}
 	
 
 	@Override
 	public void logic() {
-		player.moveUsingArrows( 10.0 );
-		Camera.current.shiftCameraTo( player, 10.0 );
+		pLayer.moveUsingArrows( 10.0 );
+		Camera.current.shiftCameraTo( pLayer, 10.0 );
 
 		if( zoomIn.isDown() ) z += perSecond( 8.0 );
 		if( zoomOut.isDown() ) z -= perSecond( 8.0 );
@@ -57,8 +58,8 @@ public class CameraExample extends Project {
 	@Override
 	public void render() {
 		tileMap.draw();
-		player.draw();
-		printText( "Shift cursor by arrow keys and alter magnigication by A and Z keys." );
+		pLayer.draw();
+		printText( "Shift cursor .y arrow Keys and alter magnigication .y A and Z Keys." );
 		printText( "LTCamera, AlterCameraMagnification, ShiftCameraToShape example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

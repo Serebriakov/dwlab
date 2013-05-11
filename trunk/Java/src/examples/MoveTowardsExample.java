@@ -3,6 +3,7 @@ import dwlab.base.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.Visualizer;
 
 public class MoveTowardsExample extends Project {
@@ -12,20 +13,24 @@ public class MoveTowardsExample extends Project {
 	}
 	
 	
-	public Sprite ball = Sprite.fromShape( 0, 0, 3, 3, Sprite.oval, 0, 5 );
+	public Sprite ball = new Sprite( ShapeType.oval, 0d, 0d, 3d, 3d, 0d, 5d );
 
+	
+	@Override
 	public void init() {
-		initGraphics();
-		ball.visualizer = Visualizer.fromHexColor( "3F3F7F" );
-		cursor = Sprite.fromShape( 0, 0, 1, 1, Sprite.oval );
-		cursor.visualizer = Visualizer.fromHexColor( "7FFF3F" );
+		ball.visualizer = new Visualizer( "3F3F7F", 1d, true );
+		cursor = new Sprite( 0d, 0d, 1d );
+		cursor.visualizer = new Visualizer( "7FFF3F", 1d, true );
 	}
+	
 
+	@Override
 	public void logic() {
 		ball.moveTowards( cursor, ball.velocity );
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
 	}
+	
 
+	@Override
 	public void render() {
 		ball.draw();
 		cursor.draw();

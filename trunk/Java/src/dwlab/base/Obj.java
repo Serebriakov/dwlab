@@ -17,11 +17,11 @@ import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.VectorSprite;
-import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import org.newdawn.slick.Color;
 import org.reflections.Reflections;
 
 /**
@@ -34,6 +34,8 @@ public class Obj {
 	public static int maxID;
 	public static Obj iDArray[];
 	public static HashSet<Obj> undefinedObjects;
+	public static boolean remove = true;
+	public static double inaccuracy = 0.000001;	
 	
 
 	public Layer toLayer() {
@@ -76,13 +78,6 @@ public class Obj {
 	 */
 	public void drawUsingVisualizer( Visualizer vis ) {
 	}
-
-
-	/**
-	 * Draws the contour of the object.
-	 */
-	public void drawContour( double lineWidth ) {
-	}
 	
 	// ==================== Printing text ===================
 	
@@ -111,7 +106,10 @@ public class Obj {
 				y *= shift;
 		}
 
-		Graphics.drawText( text, x, y, color );
+		Color oldContourColor = Graphics.getContourColor();
+		Graphics.setContourColor( 0f, 0f, 0f );
+		Graphics.drawText( text, (float) x, (float) y );
+		Graphics.setContourColor( oldContourColor );
 	}
 
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift ) {

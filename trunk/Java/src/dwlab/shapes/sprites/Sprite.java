@@ -11,12 +11,13 @@ package dwlab.shapes.sprites;
 
 import dwlab.base.*;
 import dwlab.shapes.Line;
-import dwlab.shapes.LineSegment;
+import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.maps.TileSet;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.Visualizer;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,52 +29,16 @@ import java.util.Iterator;
 public class Sprite extends Shape {
 	private static Vector serviceVector = new Vector();
 	private static Sprite servicePivot = new Sprite();
-	private static Sprite serviceOval = new Sprite( ShapeType.OVAL );
-	private static Sprite serviceRectangle = new Sprite( ShapeType.RECTANGLE );
-	private static Sprite serviceTriangle = new Sprite( ShapeType.TOP_LEFT_TRIANGLE );
-
-	
-	public enum ShapeType {
-		/**
-		* Type of the sprite shape: pivot. It's a point on game field with (X, Y) coordinates.
-		*/
-		PIVOT,
-
-		/**
-		* Type of the sprite shape: oval which is inscribed in shape's rectangle.
-		*/
-		OVAL,
-
-		/**
-		* Type of the sprite shape: rectangle.
-		*/
-		RECTANGLE,
-
-		/**
-		* Type of the sprite shape: ray which starts in (X, Y) and directed as Angle.
-		*/
-		RAY,
-
-		/**
-		* Type of the sprite shape: right triangle which is inscribed in shape's rectangle and have right angle situated in corresponding corner.
-		*/
-		TOP_LEFT_TRIANGLE,
-		TOP_RIGHT_TRIANGLE,
-		BOTTOM_LEFT_TRIANGLE,
-		BOTTOM_RIGHT_TRIANGLE,
-
-		/**
-		* Type of the sprite shape: mask of raster image which is inscribed in shape's rectangle.
-		*/
-		RASTER
-	}
+	private static Sprite serviceOval = new Sprite( ShapeType.oval );
+	private static Sprite serviceRectangle = new Sprite( ShapeType.rectangle );
+	private static Sprite serviceTriangle = new Sprite( ShapeType.topLeftTriangle );
 
 	
 	/**
 	 * Type of the sprite shape.
 	 * @see #pivot, #oval, #rectangle
 	 */
-	public ShapeType shapeType = ShapeType.RECTANGLE;
+	public ShapeType shapeType = ShapeType.rectangle;
 
 
 	/**
@@ -112,7 +77,7 @@ public class Sprite extends Shape {
 	// ==================== Creating ===================	
 
 	public Sprite() {
-		this.shapeType = ShapeType.PIVOT;
+		this.shapeType = ShapeType.pivot;
 	}
 
 	/**
@@ -123,7 +88,7 @@ public class Sprite extends Shape {
 		this.shapeType = shapeType;
 		this.x = 0d;
 		this.y = 0d;
-		if( shapeType == ShapeType.PIVOT ) {
+		if( shapeType == ShapeType.pivot ) {
 			this.width = 0d;
 			this.height = 0d;
 		} else {
@@ -135,7 +100,7 @@ public class Sprite extends Shape {
 	public Sprite( double x, double y ) {
 		this.x = x;
 		this.y = y;
-		this.shapeType = ShapeType.PIVOT;
+		this.shapeType = ShapeType.pivot;
 	}
 
 	public Sprite( double x, double y, double radius ) {
@@ -143,7 +108,7 @@ public class Sprite extends Shape {
 		this.y = y;
 		this.width = radius;
 		this.height = radius;
-		this.shapeType = ShapeType.OVAL;
+		this.shapeType = ShapeType.oval;
 	}
 
 	public Sprite( double x, double y, double width, double height ) {
@@ -151,7 +116,7 @@ public class Sprite extends Shape {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.shapeType = ShapeType.RECTANGLE;
+		this.shapeType = ShapeType.rectangle;
 	}
 
 	public Sprite( ShapeType shapeType, double width, double height ) {
@@ -212,73 +177,73 @@ public class Sprite extends Shape {
 	public boolean collidesWithSprite( Sprite sprite ) {
 		if( Sys.debug ) Project.collisionChecks += 1;
 		switch( shapeType ) {
-			case PIVOT:
+			case pivot:
 				switch( sprite.shapeType ) {
-					case OVAL:
+					case oval:
 						return Collision.pivotWithOval( this, sprite );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.pivotWithRectangle( this, sprite );
-					case PIVOT:
-					case RAY:
-					case RASTER:
+					case pivot:
+					case ray:
+					case raster:
 						break;
 					default:
 						return Collision.pivotWithTriangle( this, sprite );
 				}
-			case OVAL:
+			case oval:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Collision.pivotWithOval( sprite, this );
-					case OVAL:
+					case oval:
 						return Collision.ovalWithOval( this, sprite );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.ovalWithRectangle( this, sprite );
-					case RAY:
+					case ray:
 						return Collision.ovalWithRay( this, sprite );
-					case RASTER:
+					case raster:
 						break;
 					default:
 						return Collision.ovalWithTriangle( this, sprite );
 				}
-			case RECTANGLE:
+			case rectangle:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Collision.pivotWithRectangle( sprite, this );
-					case OVAL:
+					case oval:
 						return Collision.ovalWithRectangle( sprite, this );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.rectangleWithRectangle( this, sprite );
-					case RAY:
+					case ray:
 						return Collision.rectangleWithRay( this, sprite );
 					default:
 						return Collision.rectangleWithTriangle( this, sprite );
 				}
-			case RAY:
+			case ray:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						break;
-					case OVAL:
+					case oval:
 						return Collision.ovalWithRay( sprite, this );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.rectangleWithRay( sprite, this );
-					case RAY:
+					case ray:
 						return Collision.rayWithRay( this, sprite );
 					default:
 						return Collision.triangleWithRay( sprite, this );
 				}
-			case RASTER:
-				if( sprite.shapeType == ShapeType.RASTER ) return Collision.rasterWithRaster( this, sprite );
+			case raster:
+				if( sprite.shapeType == ShapeType.raster ) return Collision.rasterWithRaster( this, sprite );
 			default:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Collision.pivotWithTriangle( sprite, this );
-					case OVAL:
+					case oval:
 						return Collision.ovalWithTriangle( sprite, this );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.rectangleWithTriangle( sprite, this );
-					case RAY:
+					case ray:
 						return Collision.triangleWithRay( this, sprite );
-					case RASTER:
+					case raster:
 						break;
 					default:
 						return Collision.triangleWithTriangle( this, sprite );
@@ -296,14 +261,14 @@ public class Sprite extends Shape {
 	public boolean collidesWithLineSegment( LineSegment lineSegment ) {
 		if( Sys.debug ) Project.collisionChecks += 1;
 		switch( shapeType ) {
-			case PIVOT:
-			case RASTER:
+			case pivot:
+			case raster:
 				break;
-			case OVAL:
+			case oval:
 				return Collision.ovalWithLineSegment( this, lineSegment.pivot[ 0 ], lineSegment.pivot[ 1 ] );
-			case RECTANGLE:
+			case rectangle:
 				return Collision.rectangleWithLineSegment( this, lineSegment.pivot[ 0 ], lineSegment.pivot[ 1 ] );
-			case RAY:
+			case ray:
 				return Collision.rayWithLineSegment( this, lineSegment.pivot[ 0 ], lineSegment.pivot[ 1 ] );
 			default:
 				return Collision.triangleWithLineSegment( this, lineSegment.pivot[ 0 ], lineSegment.pivot[ 1 ] );
@@ -315,63 +280,63 @@ public class Sprite extends Shape {
 	public boolean tileSpriteCollidesWithSprite( Sprite sprite, double dX, double dY, double xScale, double yScale ) {
 		if( Sys.debug ) Project.collisionChecks += 1;
 		switch( shapeType ) {
-			case PIVOT:
+			case pivot:
 				servicePivot.x = x * xScale + dX;
 				servicePivot.y = y * yScale + dY;
 				switch( sprite.shapeType ) {
-					case PIVOT:
-					case RASTER:
-					case RAY:
+					case pivot:
+					case raster:
+					case ray:
 						break;
-					case OVAL:
+					case oval:
 						return Collision.pivotWithOval( servicePivot, sprite );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.pivotWithRectangle( servicePivot, sprite );
 					default:
 						return Collision.pivotWithTriangle( servicePivot, sprite );
 				}
-			case OVAL:
+			case oval:
 				serviceOval.x = x * xScale + dX;
 				serviceOval.y = y * yScale + dY;
 				serviceOval.width = width * xScale;
 				serviceOval.height = height * yScale;
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Collision.pivotWithOval( sprite, serviceOval );
-					case OVAL:
+					case oval:
 						return Collision.ovalWithOval( serviceOval, sprite );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.ovalWithRectangle( serviceOval, sprite );
-					case RAY:
+					case ray:
 						return Collision.ovalWithRay( serviceOval, sprite );
-					case RASTER:
+					case raster:
 						break;
 					default:
 						return Collision.ovalWithTriangle( serviceOval, sprite );
 				}
-			case RECTANGLE:
+			case rectangle:
 				serviceRectangle.x = x * xScale + dX;
 				serviceRectangle.y = y * yScale + dY;
 				serviceRectangle.width = width * xScale;
 				serviceRectangle.height = height * yScale;
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Collision.pivotWithRectangle( sprite, serviceRectangle );
-					case OVAL:
+					case oval:
 						return Collision.ovalWithRectangle( sprite, serviceRectangle );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.rectangleWithRectangle( serviceRectangle, sprite );
-					case RAY:
+					case ray:
 						return Collision.rectangleWithRay( serviceRectangle, sprite );
-					case RASTER:
+					case raster:
 						break;
 					default:
 						return Collision.rectangleWithTriangle( serviceRectangle, sprite );
 				}
-			case RAY:
+			case ray:
 				break;
-			case RASTER:
-				if( sprite.shapeType == ShapeType.RASTER ) return Collision.rasterWithRaster( this, sprite );
+			case raster:
+				if( sprite.shapeType == ShapeType.raster ) return Collision.rasterWithRaster( this, sprite );
 			default:
 				serviceTriangle.x = x * xScale + dX;
 				serviceTriangle.y = y * yScale + dY;
@@ -379,15 +344,15 @@ public class Sprite extends Shape {
 				serviceTriangle.height = height * yScale;
 				serviceTriangle.shapeType = shapeType;
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Collision.pivotWithTriangle( sprite, serviceTriangle );
-					case OVAL:
+					case oval:
 						return Collision.ovalWithTriangle( sprite, serviceTriangle );
-					case RECTANGLE:
+					case rectangle:
 						return Collision.rectangleWithTriangle( sprite, serviceTriangle );
-					case RAY:
+					case ray:
 						return Collision.triangleWithRay( serviceTriangle, sprite );
-					case RASTER:
+					case raster:
 						break;
 					default:
 						return Collision.triangleWithTriangle( serviceTriangle, sprite );
@@ -405,27 +370,27 @@ public class Sprite extends Shape {
 	public boolean overlaps( Sprite sprite ) {
 		if( Sys.debug ) Project.collisionChecks += 1;
 		switch( shapeType ) {
-			case OVAL:
+			case oval:
 				if( width != height ) error( "Only circle supports overlapping." );
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Overlap.circleAndPivot( this, sprite );
-					case OVAL:
+					case oval:
 						return Overlap.circleAndOval( this, sprite );
-					case RECTANGLE:
+					case rectangle:
 						return Overlap.circleAndRectangle( this, sprite );
-					case RAY:
-					case RASTER:
+					case ray:
+					case raster:
 						break;
 					default:
 						return Overlap.circleAndTriangle( this, sprite );
 				}
-			case RECTANGLE:
+			case rectangle:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return Overlap.rectangleAndPivot( this, sprite );
-					case RAY:
-					case RASTER:
+					case ray:
+					case raster:
 						break;
 					default:
 						return Overlap.rectangleAndRectangle( this, sprite );
@@ -525,7 +490,7 @@ public class Sprite extends Shape {
 		TileSet tileset = tileMap.tileSet;
 
 		switch( shapeType ) {
-			case PIVOT:
+			case pivot:
 				int tileX = Service.floor( ( x - x0 ) / cellWidth );
 				int tileY = Service.floor( ( y - y0 ) / cellHeight );
 
@@ -535,7 +500,7 @@ public class Sprite extends Shape {
 							tileMap, tileX, tileY, handler );
 				}
 				break;
-			case RAY:
+			case ray:
 				break;
 			default:
 				int x1 = Service.floor( ( x - 0.5d * width - x0 ) / cellWidth );
@@ -572,7 +537,7 @@ public class Sprite extends Shape {
 	public void collisionsWithSpriteMap( SpriteMap spriteMap, SpriteCollisionHandler handler, HashSet<Sprite> set ) {
 		if( set == null ) set = new HashSet<Sprite>();
 		switch( shapeType ) {
-			case PIVOT:
+			case pivot:
 				for( Sprite mapSprite: spriteMap.lists[ Service.floor( y / spriteMap.cellHeight ) & spriteMap.yMask ][ Service.floor( x / spriteMap.cellWidth ) & spriteMap.xMask ] ) {
 					if( this == mapSprite ) continue;
 					if( collidesWithSprite( mapSprite ) ) {
@@ -582,7 +547,7 @@ public class Sprite extends Shape {
 						}
 					}
 				}
-			case RAY:
+			case ray:
 				break;
 			default:
 				int mapX1 = Service.floor( ( x - 0.5d * width ) / spriteMap.cellWidth );
@@ -620,78 +585,78 @@ public class Sprite extends Shape {
 	public void wedgeOffWithSprite( Sprite sprite, double selfMovingResistance, double spriteMovingResistance ) {
 		boolean swap = false;
 		switch( shapeType ) {
-			case PIVOT:
+			case pivot:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						return;
-					case OVAL:
+					case oval:
 						Wedge.pivotAndOval( this, sprite, serviceVector );
 						break;
-					case RECTANGLE:
+					case rectangle:
 						Wedge.pivotAndRectangle( this, sprite, serviceVector );
 						break;
-					case RAY:
-					case RASTER:
+					case ray:
+					case raster:
 						break;
 					default:
 						Wedge.pivotAndTriangle( this, sprite, serviceVector );
 						break;
 				}
-			case OVAL:
+			case oval:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						Wedge.pivotAndOval( sprite, this, serviceVector );
 						swap = true;
 						break;
-					case OVAL:
+					case oval:
 						Wedge.ovalAndOval( this, sprite, serviceVector );
 						break;
-					case RECTANGLE:
+					case rectangle:
 						Wedge.ovalAndRectangle( this, sprite, serviceVector );
 						break;
-					case RAY:
-					case RASTER:
+					case ray:
+					case raster:
 						break;
 					default:
 						Wedge.ovalAndTriangle( this, sprite, serviceVector );
 				}
-			case RECTANGLE:
+			case rectangle:
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						Wedge.pivotAndRectangle( sprite, this, serviceVector );
 						swap = true;
 						break;
-					case OVAL:
+					case oval:
 						Wedge.ovalAndRectangle( sprite, this, serviceVector );
 						swap = true;
 						break;
-					case RECTANGLE:
+					case rectangle:
 						Wedge.rectangleAndRectangle( this, sprite, serviceVector );
 						break;
-					case RAY:
-					case RASTER:
+					case ray:
+					case raster:
 						break;
 					default:
 						Wedge.rectangleAndTriangle( this, sprite, serviceVector );
 						break;
 				}
-			case RAY:
-			case RASTER:
+			case ray:
+			case raster:
 				break;
 			default:
 				swap = true;
 				switch( sprite.shapeType ) {
-					case PIVOT:
+					case pivot:
 						Wedge.pivotAndTriangle( sprite, this, serviceVector );
 						break;
-					case OVAL:
+					case oval:
 						Wedge.ovalAndTriangle( sprite, this, serviceVector );
 						break;
-					case RECTANGLE:
+					case rectangle:
 						Wedge.rectangleAndTriangle( sprite, this, serviceVector );
 						break;
-					case RAY:
-					case RASTER:
+					case ray:
+					case raster:
 						break;
 					default:
 						Wedge.triangleAndTriangle( sprite, this, serviceVector );
@@ -745,47 +710,47 @@ public class Sprite extends Shape {
 
 	public void pushFromTileSprite( Sprite tileSprite, double dX, double dY, double xScale, double yScale ) {
 		switch( tileSprite.shapeType ) {
-			case PIVOT:
+			case pivot:
 				serviceOval.x = tileSprite.x * xScale + dX;
 				serviceOval.y = tileSprite.y * yScale + dY;
 				switch( shapeType ) {
-					case PIVOT:
+					case pivot:
 						return;
-					case OVAL:
+					case oval:
 						Wedge.ovalAndOval( this, serviceOval, serviceVector );
-					case RECTANGLE:
+					case rectangle:
 						Wedge.rectangleAndRectangle( this, serviceOval, serviceVector );
 				}
-			case OVAL:
+			case oval:
 				serviceOval.x = tileSprite.x * xScale + dX;
 				serviceOval.y = tileSprite.y * yScale + dY;
 				serviceOval.width = tileSprite.width * xScale;
 				serviceOval.height = tileSprite.height * yScale;
 				switch( shapeType ) {
-					case PIVOT:
+					case pivot:
 						serviceOval.x = x;
 						serviceOval.y = y;
 						Wedge.ovalAndOval( serviceOval, serviceOval, serviceVector );
-					case OVAL:
+					case oval:
 						Wedge.ovalAndOval( this, serviceOval, serviceVector );
-					case RECTANGLE:
+					case rectangle:
 						Wedge.ovalAndRectangle( serviceOval, this, serviceVector );
 						Wedge.separate( serviceOval, this, serviceVector, 1.0, 0.0 );
 						return;
 				}
-			case RECTANGLE:
+			case rectangle:
 				serviceRectangle.x = tileSprite.x * xScale + dX;
 				serviceRectangle.y = tileSprite.y * yScale + dY;
 				serviceRectangle.width = tileSprite.width * xScale;
 				serviceRectangle.height = tileSprite.height * yScale;
 				switch( shapeType ) {
-					case PIVOT:
+					case pivot:
 						serviceOval.x = x;
 						serviceOval.y = y;
 						Wedge.rectangleAndRectangle( serviceOval, serviceRectangle, serviceVector );
-					case OVAL:
+					case oval:
 						Wedge.ovalAndRectangle( this, serviceRectangle, serviceVector );
-					case RECTANGLE:
+					case rectangle:
 						Wedge.rectangleAndRectangle( this, serviceRectangle, serviceVector );
 				}
 		}
@@ -1030,7 +995,7 @@ public class Sprite extends Shape {
 
 	public Sprite toCircle( Sprite pivot1, Sprite circleSprite ) {
 		if( width == height ) return this;
-		if( circleSprite !=null ) circleSprite = new Sprite( ShapeType.OVAL );
+		if( circleSprite !=null ) circleSprite = new Sprite( ShapeType.oval );
 		if( width > height ) {
 			circleSprite.x = Service.limit( pivot1.x, x - 0.5 * ( width - height ), x + 0.5 * ( width - height ) );
 			circleSprite.y = y;
@@ -1077,7 +1042,7 @@ public class Sprite extends Shape {
 	}
 	
 	public Sprite toCircleUsingLine( Line line ) {
-		return toCircleUsingLine( line, new Sprite( ShapeType.OVAL ) );
+		return toCircleUsingLine( line, new Sprite( ShapeType.oval ) );
 	}
 
 	// ==================== Methods for ray ====================	
@@ -1126,12 +1091,12 @@ public class Sprite extends Shape {
 
 	public void getHypotenuse( Line line ) {
 		switch( shapeType ) {
-			case TOP_LEFT_TRIANGLE:
-			case BOTTOM_RIGHT_TRIANGLE:
+			case topLeftTriangle:
+			case bottomRightTriangle:
 				line.usePoints( x, y, x - width, y + height );
 				break;
-			case TOP_RIGHT_TRIANGLE:
-			case BOTTOM_LEFT_TRIANGLE:
+			case topRightTriangle:
+			case bottomLeftTriangle:
 				line.usePoints( x, y, x + width, y + height );
 				break;
 		}
@@ -1146,22 +1111,22 @@ public class Sprite extends Shape {
 
 	public void getRightAngleVertex( Sprite vertex ) {
 		switch( shapeType ) {
-			case TOP_LEFT_TRIANGLE:
-			case BOTTOM_LEFT_TRIANGLE:
+			case topLeftTriangle:
+			case bottomLeftTriangle:
 				vertex.setX( x - 0.5 * width );
 				break;
-			case BOTTOM_RIGHT_TRIANGLE:
-			case TOP_RIGHT_TRIANGLE:
+			case bottomRightTriangle:
+			case topRightTriangle:
 				vertex.setX( x + 0.5 * width );
 				break;
 		}
 		switch( shapeType ) {
-			case TOP_LEFT_TRIANGLE:
-			case TOP_RIGHT_TRIANGLE:
+			case topLeftTriangle:
+			case topRightTriangle:
 				vertex.setY( y - 0.5 * height );
 				break;
-			case BOTTOM_LEFT_TRIANGLE:
-			case BOTTOM_RIGHT_TRIANGLE:
+			case bottomLeftTriangle:
+			case bottomRightTriangle:
 				vertex.setY( y + 0.5 * height );
 				break;
 		}
@@ -1175,7 +1140,7 @@ public class Sprite extends Shape {
 
 
 	public void getOtherVertices( Sprite pivot1, Sprite pivot2 ) {
-		if( shapeType == ShapeType.TOP_RIGHT_TRIANGLE || shapeType == ShapeType.BOTTOM_LEFT_TRIANGLE ) {
+		if( shapeType == ShapeType.topRightTriangle || shapeType == ShapeType.bottomLeftTriangle ) {
 			getPivots( pivot1, null, pivot2, null );
 		} else {
 			getPivots( null, pivot1, null, pivot2 );

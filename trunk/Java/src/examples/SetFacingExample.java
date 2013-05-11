@@ -3,6 +3,12 @@ import dwlab.base.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Image;
 import dwlab.base.Project;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
+import dwlab.controllers.KeyboardKey;
+import dwlab.controllers.MouseButton;
+import dwlab.shapes.Shape;
+import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.sprites.Sprite;
 
 public class SetFacingExample extends Project {
@@ -12,19 +18,26 @@ public class SetFacingExample extends Project {
 	}
 	
 	
-	public Sprite sprite = Sprite.fromShape( 0, 0, 8, 8 );
+	Sprite sprite = new Sprite( 0, 0, 8, 8 );
 
+	ButtonAction setLeftFacing = ButtonAction.create( KeyboardKey.create( Key.LEFT ) );
+	ButtonAction setRightFacing = ButtonAction.create( KeyboardKey.create( Key.RIGHT ) );
+
+	
+	@Override
 	public void init() {
-		initGraphics();
-		sprite.visualizer.image = Image.fromFile( " incbinkolobok .png" );
+		sprite.visualizer.image = new Image( "res/kolobok.png" );
 	}
 
+	
+	@Override
 	public void logic() {
-		if( keyHit( key_Left ) ) sprite.setFacing( Sprite.leftFacing );
-		if( keyHit( key_Right ) ) sprite.setFacing( Sprite.rightFacing );
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
+		if( setLeftFacing.wasPressed() ) sprite.setFacing( Facing.LEFT );
+		if( setRightFacing.wasPressed() ) sprite.setFacing( Facing.RIGHT );
 	}
 
+	
+	@Override
 	public void render() {
 		sprite.draw();
 		printText( "Press left and right arrows to change sprite facing" );

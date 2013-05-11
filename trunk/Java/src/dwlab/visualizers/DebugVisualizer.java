@@ -48,6 +48,7 @@ public class DebugVisualizer extends Visualizer {
 	private DebugVisualizer() {
 	}
 	
+	
 	@Override
 	public void drawUsingSprite( Sprite sprite, Sprite spriteShape ) {
 		if( sprite.visible ) {
@@ -82,16 +83,13 @@ public class DebugVisualizer extends Visualizer {
 		}
 
 		if( showNames ) {
-			String titles[] = sprite.getTitle().split( "|" );
+			String titles[] = sprite.getTitle().split( ";" );
 			serviceVector.y -= titles.length * 8;
 			for( String title: titles ) {
-				double txtWidth = 0.5 * Graphics.getTextWidth( title );
-				for( int dy = -1; dy <= 1; dy++ ) {
-					for( int dx = ( dy == 0 ? -1 : 0 ); dx <= ( dy == 0 ? 1 : 0 ); dx += 2 ) {
-						Graphics.drawText( title, serviceVector.x + dx - txtWidth, serviceVector.y + dy );
-					}
-				}
-				Graphics.drawText( title, serviceVector.x - txtWidth, serviceVector.y );
+				org.newdawn.slick.Color oldContourColor = Graphics.getContourColor();
+				Graphics.setContourColor( 0f, 0f, 0f );
+				Graphics.drawText( title, serviceVector.x - 0.5 * Graphics.getTextWidth( title ), serviceVector.y );
+				Graphics.setContourColor( oldContourColor );
 				serviceVector.y += 14;
 			}
 		}
@@ -134,14 +132,14 @@ public class DebugVisualizer extends Visualizer {
 			double shapeWidth = sprite.getWidth() * tileWidth;
 			double shapeHeight = sprite.getHeight() * tileHeight;
 			switch( sprite.shapeType ) {
-				case PIVOT:
+				case pivot:
 					Camera.current.fieldToScreen( shapeX, shapeY, serviceVector );
 					Graphics.drawOval( serviceVector.x - 2d, serviceVector.y - 2d, 5d, 5d, 0d, color, false );
 					break;
-				case OVAL:
+				case oval:
 					drawIsoOval( shapeX, shapeY, shapeWidth, shapeHeight, color );
 					break;
-				case RECTANGLE:
+				case rectangle:
 					drawIsoRectangle( shapeX, shapeY, shapeWidth, shapeHeight, color );
 					break;
 			}

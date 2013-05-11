@@ -1,4 +1,4 @@
-package dwlab.graph;
+package dwlab.shapes.graphs;
 
 import dwlab.base.Action;
 import dwlab.shapes.sprites.Sprite;

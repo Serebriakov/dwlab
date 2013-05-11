@@ -11,31 +11,28 @@ public class PrintTextExample extends Project {
 	}
 	
 	
-	public Sprite rectangle = Sprite.fromShape( 0, 0, 16, 12 );
+	public Sprite rectangle = new Sprite( 0, 0, 16, 12 );
 
-	public void init() {
-		initGraphics();
-	}
 
+	@Override
 	public void logic() {
 		rectangle.setMouseCoords();
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
 	}
+	
 
-	public final double textSize = 0.7;
-
+	@Override
 	public void render() {
 		rectangle.drawContour( 2 );
 
-		rectangle.printText( "topleft corner", textSize, Align.toLeft, Align.toTop );
-		rectangle.printText( "top", textSize, Align.TO_CENTER, Align.toTop );
-		rectangle.printText( "topright corner", textSize, Align.toRight, Align.toTop );
-		rectangle.printText( "left side", textSize, Align.toLeft, Align.TO_CENTER );
-		rectangle.printText( "center", textSize, Align.TO_CENTER, Align.TO_CENTER );
-		rectangle.printText( "right side", textSize, Align.toRight, Align.TO_CENTER );
-		rectangle.printText( "bottomleft corner", textSize, Align.toLeft, Align.TO_BOTTOM );
-		rectangle.printText( "bottom", textSize, Align.TO_CENTER, Align.TO_BOTTOM );
-		rectangle.printText( "bottomright corner", textSize, Align.toRight, Align.TO_BOTTOM );
+		rectangle.print( "topleft corner", Align.TO_LEFT, Align.TO_TOP );
+		rectangle.print( "top", Align.TO_CENTER, Align.TO_TOP );
+		rectangle.print( "topright corner", Align.TO_RIGHT, Align.TO_TOP );
+		rectangle.print( "left side", Align.TO_LEFT, Align.TO_CENTER );
+		rectangle.print( "center", Align.TO_CENTER, Align.TO_CENTER );
+		rectangle.print( "right side", Align.TO_RIGHT, Align.TO_CENTER );
+		rectangle.print( "bottomleft corner", Align.TO_LEFT, Align.TO_BOTTOM );
+		rectangle.print( "bottom", Align.TO_CENTER, Align.TO_BOTTOM );
+		rectangle.print( "bottomright corner", Align.TO_RIGHT, Align.TO_BOTTOM );
 		printText( "PrintText example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

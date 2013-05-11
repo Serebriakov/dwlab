@@ -7,6 +7,7 @@
  * http://www.opensource.org/licenses/artistic-license-2.0.php */
 
 package dwlab.shapes.sprites;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.base.Project;
 import dwlab.base.Service;
 import dwlab.shapes.Shape;

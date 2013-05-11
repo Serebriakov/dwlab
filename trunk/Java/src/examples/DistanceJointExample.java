@@ -4,9 +4,9 @@ import dwlab.base.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.behavior_models.DistanceJoint;
-import dwlab.shapes.LineSegment;
+import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.shapes.sprites.VectorSprite;
 import dwlab.visualizers.ContourVisualizer;
 import dwlab.visualizers.Visualizer;
@@ -18,9 +18,9 @@ public class DistanceJointExample extends Project {
 	}
 	
 	
-	Sprite hinge = new Sprite( ShapeType.OVAL, 0d, -8d, 1d, 1d );
-	VectorSprite weight1 = new VectorSprite( ShapeType.OVAL, -8d, -6d, 3d, 3d );
-	VectorSprite weight2 = new VectorSprite( ShapeType.OVAL, -12d, -9d, 3d, 3d );
+	Sprite hinge = new Sprite( ShapeType.oval, 0d, -8d, 1d, 1d );
+	VectorSprite weight1 = new VectorSprite( ShapeType.oval, -8d, -6d, 3d, 3d );
+	VectorSprite weight2 = new VectorSprite( ShapeType.oval, -12d, -9d, 3d, 3d );
 	LineSegment rope1 = new LineSegment( hinge, weight1 );
 	LineSegment rope2 = new LineSegment( weight1, weight2 );
 

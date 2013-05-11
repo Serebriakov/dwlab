@@ -90,6 +90,7 @@ public class Image extends ImageTemplate {
 	
 	private static FloatBuffer floatBuffer = FloatBuffer.allocate( 4 );
 
+	
 	@Override
 	public Color getPixel( int frame, int x, int y, Color color ) {
 		glReadPixels( x, y, 1, 1, GL_RGBA, GL_FLOAT, floatBuffer );
@@ -100,7 +101,7 @@ public class Image extends ImageTemplate {
 		return color;
 	}
 	
-	private static ByteBuffer byteBuffer = ByteBuffer.allocateDirect( 4 );
+	private static final ByteBuffer byteBuffer = ByteBuffer.allocateDirect( 4 );
 
 	@Override
 	public void setPixel( int frame, int x, int y, Color color ) {
@@ -115,7 +116,6 @@ public class Image extends ImageTemplate {
 	private static IntBuffer intBuffer = byteBuffer.asIntBuffer();
 	
 	public int getPixel( int x, int y ) {
-		
 		glReadPixels( x, y, 1, 1, GL_RGBA, GL_BYTE, intBuffer );
 		return intBuffer.get( 0 );
 	}

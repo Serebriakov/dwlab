@@ -4,7 +4,7 @@ import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class CloneExample extends Project {
 	static {
@@ -18,7 +18,7 @@ public class CloneExample extends Project {
 	}
 	
 	
-	public final int spritesQuantity = 50;
+	int spritesQuantity = 50;
 
 	public Layer sprites = new Layer();
 	public Image spriteImage = new Image( "res/kolobok.png" );
@@ -29,7 +29,7 @@ public class CloneExample extends Project {
 	@Override
 	public void init() {
 		for( int n = 1; n <= spritesQuantity; n++ ) {
-			Sprite sprite = new Sprite( ShapeType.OVAL, Service.random( -15, 15 ), Service.random( -11, 11 ), 1, 1 );
+			Sprite sprite = new Sprite( ShapeType.oval, Service.random( -15, 15 ), Service.random( -11, 11 ), 1, 1 );
 			sprite.setDiameter( Service.random( 1, 3 ) );
 			sprite.displayingAngle= Service.random( 360 );
 			sprite.visualizer.setRandomColor();

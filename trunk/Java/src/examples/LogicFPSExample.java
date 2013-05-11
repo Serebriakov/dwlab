@@ -2,6 +2,10 @@ package examples;
 import dwlab.base.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import dwlab.base.Service;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
+import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
 
@@ -15,29 +19,35 @@ public class LogicFPSExample extends Project {
 	}
 	
 	
-	public Sprite sprite1 = Sprite.fromShape( -10, -2, 2, 2, Sprite.oval );
-	public Sprite sprite2 = Sprite.fromShape( -10, 2, 2, 2, Sprite.oval );
+	Sprite sprite1 = new Sprite( -10, -2, 2 );
+	Sprite sprite2 = new Sprite( -10, 2, 2 );
 
+	ButtonAction increment = ButtonAction.create( KeyboardKey.create( Key.ADD ) );
+	ButtonAction decrement = ButtonAction.create( KeyboardKey.create( Key.SUBTRACT ) );
+
+	
+	@Override
 	public void init() {
-		initGraphics();
-		sprite1.visualizer = Visualizer.fromRGBColor( 1, 1, 0 );
-		sprite2.visualizer = Visualizer.fromRGBColor( 0, 0.5, 1 );
+		sprite1.visualizer = new Visualizer( 1d, 1d, 0d );
+		sprite2.visualizer = new Visualizer( 0d, 0.5d, 1d );
 		logicFPS = 100;
 	}
 
+	
+	@Override
 	public void logic() {
-		sprite1.x += perSecond( 8 );
-		if( sprite1.x > 10 ) sprite1.x -= 20;
+		sprite1.move( 8d, 0d );
+		if( sprite1.getX() > 10 ) sprite1.alterCoords( -20d, 0d );
 
-		sprite2.x += 0.08;
-		if( sprite2.x > 10 ) sprite2.x -= 20;
+		sprite2.alterCoords( 0.08d, 0d );
+		if( sprite2.getX() > 10 ) sprite2.alterCoords( -20d, 0d );
 
-		if( keyDown( key_NumAdd ) ) logicFPS += perSecond( 100 );
-		if( keyDown( key_NumSubtract ) && logicFPS > 20 ) logicFPS -= perSecond( 100 );
-
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
+		if( increment.isDown() ) logicFPS += perSecond( 100 );
+		if( decrement.isDown() && logicFPS > 20 ) logicFPS -= perSecond( 100 );
 	}
-
+	
+	
+	@Override
 	public void render() {
 		sprite1.draw();
 		sprite2.draw();

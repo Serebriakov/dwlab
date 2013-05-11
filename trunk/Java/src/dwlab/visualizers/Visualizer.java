@@ -10,15 +10,16 @@ package dwlab.visualizers;
 
 import dwlab.base.Service.Margins;
 import dwlab.base.*;
-import dwlab.shapes.LineSegment;
+import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.TileMap;
 import dwlab.shapes.maps.TileSet;
 import dwlab.shapes.sprites.Camera;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.Sprite.ShapeType;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import java.util.LinkedList;
 
 /**
@@ -69,6 +70,20 @@ public class Visualizer extends Color {
 	// ==================== Creating ====================
 
 	public Visualizer() {
+		this.set( 1.0d, 1.0d, 1.0d, 1.0d );
+	}
+	
+	/**
+	 * Creates new visualizer using given RGB components and transparency.
+	 * @return New color.
+	 * @see #fromHex
+	 */
+	public Visualizer( double red, double green, double blue, double alpha ) {
+		this.set( red, green, blue, alpha );
+	}
+	
+	public Visualizer( double red, double green, double blue ) {
+		this.set( red, green, blue, 1.0d );
 	}
 	
 	
@@ -216,14 +231,14 @@ public class Visualizer extends Color {
 	 * Isometric camera deformations are also applied.
 	 */
 	public void drawSpriteShape( Sprite sprite, Sprite spriteShape, Color color ) {
-		if( sprite.shapeType == ShapeType.PIVOT ) {
+		if( sprite.shapeType == ShapeType.pivot ) {
 			Camera.current.fieldToScreen( sprite, servicePivot );
 			Graphics.drawOval( servicePivot.x - 2.5d * xScale + 0.5d, servicePivot.y - 2.5d * yScale + 0.5d, 5d * xScale, 5d * yScale );
 		} else if( Camera.current.isometric ) {
 			switch( sprite.shapeType ) {
-				case OVAL:
+				case oval:
 					drawIsoOval( sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), color );
-				case RECTANGLE:
+				case rectangle:
 					drawIsoRectangle( spriteShape.getX(), sprite.getY(), spriteShape.getWidth(), sprite.getHeight(), color );
 			}
 		} else {
@@ -232,7 +247,7 @@ public class Visualizer extends Color {
 			servicePivot.x += dX * serviceSizes.x;
 			servicePivot.y += dY * serviceSizes.y;
 
-			if( sprite.shapeType == ShapeType.RASTER ) {
+			if( sprite.shapeType == ShapeType.raster ) {
 				if( image != null ) {
 					/*
 					int blend = getBlend();
@@ -243,7 +258,7 @@ public class Visualizer extends Color {
 				}
 			} else {
 				drawShape( sprite.shapeType, servicePivot .x, servicePivot .y, serviceSizes.x, serviceSizes.y,
-						( sprite.physics() || sprite.shapeType == ShapeType.RAY ? spriteShape.angle : 0d ), color );
+						( sprite.physics() || sprite.shapeType == ShapeType.ray ? spriteShape.angle : 0d ), color );
 			}
 		}
 	}
@@ -254,19 +269,19 @@ public class Visualizer extends Color {
 
 
 
-	public static void drawShape( Sprite.ShapeType shapeType, double sX, double sY, double sWidth, double sHeight, double angle, Color color ) {
+	public static void drawShape( ShapeType shapeType, double sX, double sY, double sWidth, double sHeight, double angle, Color color ) {
 		switch( shapeType ) {
-			case OVAL:
+			case oval:
 				if( sWidth == sHeight ) {
 					Graphics.drawOval( sX, sY, sWidth, sHeight, angle, color, false );
 				} else {
 					Graphics.drawLongOval( sX, sY, sWidth, sHeight, angle, color, false );
 				}
 				break;
-			case RECTANGLE:
+			case rectangle:
 				Graphics.drawRectangle( sX, sY, sWidth, sHeight, angle, color, false );
 				break;
-			case RAY:
+			case ray:
 				Graphics.drawOval( sX - 2, sY - 2, 5, 5, 0d, color, false );
 				double ang = Service.wrap( angle, 360.0 );
 				if( ang < 45.0 || ang >= 315.0 ) {
@@ -288,22 +303,22 @@ public class Visualizer extends Color {
 				sHeight *= 0.5d;
 				Graphics.startPolygon( 3, color, false );
 				switch( shapeType ) {
-					case TOP_LEFT_TRIANGLE:
+					case topLeftTriangle:
 						Graphics.addPolygonVertex( sX - sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX - sWidth, sY + sHeight );
 						break;
-					case TOP_RIGHT_TRIANGLE:
+					case topRightTriangle:
 						Graphics.addPolygonVertex( sX - sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY - sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY + sHeight );
 						break;
-					case BOTTOM_LEFT_TRIANGLE:
+					case bottomLeftTriangle:
 						Graphics.addPolygonVertex( sX - sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX - sWidth, sY - sHeight );
 						break;
-					case BOTTOM_RIGHT_TRIANGLE:
+					case bottomRightTriangle:
 						Graphics.addPolygonVertex( sX - sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY + sHeight );
 						Graphics.addPolygonVertex( sX + sWidth, sY - sHeight );

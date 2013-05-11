@@ -60,6 +60,24 @@ public class Camera extends VectorSprite {
 	 */
 	public double vX1, vY1,  vX2, vY2, vK, aVK;
 
+	
+	/**
+	 * Creates new camera object using given screen resolution and unit size in pixels.
+	 * @return New camera object.
+	 */
+	public Camera( double width, double height, double unitSize ) {
+		viewport.setCoords( 0.5 * width, 0.5 * height );
+		viewport.setSize( width, height );
+		setSize( width / unitSize, height / unitSize );
+	}
+	
+	public Camera() {
+		double newWidth = 800d, newHeight = 600d, newUnitSize = 25d;
+		viewport.setCoords( 0.5 * newWidth, 0.5 * newHeight );
+		viewport.setSize( newWidth, newHeight );
+		setSize( newWidth / newUnitSize, newHeight / newUnitSize );
+	}
+
 
 	/**
 	 * Transforms screen coordinates to game field coordinates.
@@ -87,8 +105,8 @@ public class Camera extends VectorSprite {
 	 */
 	public void sizeScreenToField( double screenWidth, double screenHeight, Vector sizes ) {
 		if( isometric ) {
-			sizes.x = Math.abs( ( Math.abs( screenWidth * vY2 ) - Math.abs( screenHeight * vX2 ) ) / aVK );
-			sizes.y = Math.abs( ( Math.abs( screenHeight * vY2 ) - Math.abs( screenWidth * vX2 ) ) / aVK );
+			sizes.x = ( screenWidth * vY2 - screenHeight * vX2 ) / vK;
+			sizes.y = ( screenHeight * vY1 - screenWidth * vX1 ) / vK;
 		} else {
 			sizes.x = screenWidth / k;
 			sizes.y = screenHeight / k;
@@ -313,23 +331,6 @@ public class Camera extends VectorSprite {
 	}
 
 	// ==================== Other ====================
-
-	/**
-	 * Creates new camera object using given screen resolution and unit size in pixels.
-	 * @return New camera object.
-	 */
-	public Camera( double width, double height, double unitSize ) {
-		viewport.setCoords( 0.5 * width, 0.5 * height );
-		viewport.setSize( width, height );
-		setSize( width / unitSize, height / unitSize );
-	}
-	
-	public Camera() {
-		double newWidth = 800d, newHeight = 600d, newUnitSize = 25d;
-		viewport.setCoords( 0.5 * newWidth, 0.5 * newHeight );
-		viewport.setSize( newWidth, newHeight );
-		setSize( newWidth / newUnitSize, newHeight / newUnitSize );
-	}
 
 
 	@Override

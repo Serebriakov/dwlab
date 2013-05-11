@@ -1,5 +1,9 @@
 package examples;
 import dwlab.base.*;
+import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
+import dwlab.controllers.KeyboardKey;
+import dwlab.controllers.MouseButton;
 import java.lang.Math;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
@@ -10,56 +14,61 @@ public class RasterFrameExample extends Project {
 		( new RasterFrameExample() ).act();
 	}
 	
+
+	ButtonAction set = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
 	
 	public Sprite frame;
-	public RasterFrame frameImage = RasterFrame.fromFileAndBorders( " incbinborder .png", 8, 8, 8, 8 );
-	public Layer layer = new Layer();
-	public CreateFrame createFrame = new CreateFrame();
+	public RasterFrame frameImage = new RasterFrame( "res/border.png", 8, 8, 8, 8 );
+	public Layer Layer = new Layer();
+	public Drag createFrame = new Drag(){
+		double startingX, startingY;
 
-	public void init() {
-		initGraphics();
-	}
+		
+		@Override
+		public boolean dragKey() {
+			return set.isDown();
+		}
+		
 
+		@Override
+		public void startDragging() {
+			startingX = cursor.getX();
+			startingY = cursor.getY();
+			frame = new Sprite( cursor.getX(), cursor.getY(), 0, 0 );
+			frame.visualizer.setRandomColor();
+			frame.visualizer.image = frameImage;
+		}
+		
+
+		@Override
+		public void dragging() {
+			double cornerX, cornerY;
+			if( startingX < cursor.getX() ) cornerX = startingX; else cornerX = cursor.getX();
+			if( startingY < cursor.getY() ) cornerY = startingY; else cornerY = cursor.getY();
+			frame.setSize( Math.abs( startingX - cursor.getX() ), Math.abs( startingY - cursor.getY() ) );
+			frame.setCornerCoords( cornerX, cornerY );
+		}
+		
+
+		@Override
+		public void endDragging() {
+			Layer.addLast( frame );
+			frame = null;
+		}
+	};
+
+	
+	@Override
 	public void logic() {
-		createFrame.execute();
-		if( appTerminate() || keyHit( key_Escape ) ) exiting = true;
+		createFrame.act();
 	}
 
+	
+	@Override
 	public void render() {
-		layer.draw();
-		if( frame ) frame.draw();
+		Layer.draw();
+		if( frame != null ) frame.draw();
 		printText( "Drag left mouse button to create frames" );
 		printText( "LTRasterFrame, LTDrag example", Align.TO_CENTER, Align.TO_BOTTOM );
-	}
-}
-
-
-
-public class CreateFrame extends Drag {
-	public double startingX, double startingY;
-
-	public int dragKey() {
-		return mouseDown( 1 );
-	}
-
-	public void startDragging() {
-		startingX = cursor.x;
-		startingY = cursor.y;
-		example.frame = Sprite.fromShape( cursor.x, cursor.y, 0, 0 );
-		example.frame.visualizer.setRandomColor();
-		example.frame.visualizer.image = example.frameImage;
-	}
-
-	public void dragging() {
-		double cornerX, double cornerY;
-		if( startingX < cursor.x ) cornerX = startingX; else cornerX = cursor.x;
-		if( startingY < cursor.y ) cornerY = startingY; else cornerY = cursor.y;
-		example.frame.setSize( Math.abs( startingX - cursor.x ), Math.abs( startingY - cursor.y ) );
-		example.frame.setCornerCoords( cornerX, cornerY );
-	}
-
-	public void endDragging() {
-		example.layer.addLast( example.frame );
-		example.frame = null;
 	}
 }

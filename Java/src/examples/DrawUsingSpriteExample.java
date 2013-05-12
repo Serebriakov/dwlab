@@ -6,6 +6,7 @@ import dwlab.base.Project;
 import dwlab.base.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawUsingSpriteExample extends Project {
@@ -27,7 +28,7 @@ public class DrawUsingSpriteExample extends Project {
 
 		
 		@Override
-		public void drawUsingSprite( Sprite sprite, Sprite spriteShape ) {
+		public void drawUsingSprite( Sprite sprite, Sprite spriteShape, Color drawingColor ) {
 			double spriteDiameter = sprite.getDiameter();
 			double circleDiameter = Camera.current.distFieldToScreen( Math.PI * 2d * spriteDiameter / circlesQuantity ) * 1.5;
 			for( int n = 0; n <= circlesQuantity; n++ ) {

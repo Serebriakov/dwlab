@@ -32,6 +32,12 @@ public class DrawingShape extends ServiceObjects {
 	protected void perform( Color drawingColor, boolean empty ) {
 		Graphics.drawRectangle( vector1.x, vector1.y, vector2.x, vector2.y, 0d, drawingColor, empty );
 	}
+	
+	public void perform( Sprite sprite, double x, double y, double width, double height, Color drawingColor, boolean empty ) {
+		Camera.current.fieldToScreen( x, y, vector1 );
+		Camera.current.sizeFieldToScreen( width, height, vector2 );
+		perform( drawingColor, empty );
+	}
 
 
 	public static DrawingShape handlers[];

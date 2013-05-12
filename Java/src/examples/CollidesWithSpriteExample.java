@@ -22,12 +22,13 @@ public class CollidesWithSpriteExample extends Project {
 	
 	ButtonAction change = ButtonAction.create( MouseButton.create( MouseButton.RIGHT_BUTTON ), "clone" );
 	
-	ShapeType[] shapeTypes = ShapeType.values();
+	ShapeType[] shapeTypes;
 	int shapeTypeNum = 3;
 
 	
 	@Override
 	public void init() {
+		ShapeType.shapeTypes.toArray( shapeTypes );
 		for( int n = 0; n < 9; n++ ) {
 			ShapeType shapeType = shapeTypes[ n ];
 			Sprite sprite = new Sprite( shapeType, ( n % 3 ) * 8d - 8d, Math.floor( n / 3 ) * 6d - 6d, 6d, 4d );

@@ -11,6 +11,7 @@ import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.ContourVisualizer;
 
 public class ActiveExample extends Project {

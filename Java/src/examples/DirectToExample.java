@@ -1,4 +1,5 @@
 package examples;
+import dwlab.base.images.Image;
 import dwlab.base.*;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;

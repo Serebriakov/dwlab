@@ -1,7 +1,7 @@
 package examples;
 import dwlab.base.Align;
 import dwlab.base.Graphics;
-import dwlab.base.Image;
+import dwlab.base.images.Image;
 import dwlab.base.Project;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;

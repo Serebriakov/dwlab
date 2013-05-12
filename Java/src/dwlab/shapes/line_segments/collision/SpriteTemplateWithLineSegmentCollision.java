@@ -12,7 +12,7 @@ public class SpriteTemplateWithLineSegmentCollision extends CollisionWithLineSeg
 		SpriteTemplate spriteTemplate = (SpriteTemplate) sprite.shapeType;
 		for( Sprite templateSprite : spriteTemplate.sprites ) {
 			spriteTemplate.setShape( sprite, templateSprite, serviceSprite );
-			if( CollisionWithLineSegment.handlersArray[ sprite.shapeType.getNum() ].check( sprite, lSPivot1, lSPivot2 ) ) return true;
+			if( CollisionWithLineSegment.handlers[ sprite.shapeType.getNum() ].check( sprite, lSPivot1, lSPivot2 ) ) return true;
 		}
 		return false;
 	}

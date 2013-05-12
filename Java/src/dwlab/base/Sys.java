@@ -10,8 +10,6 @@ public class Sys {
 	public static LinkedList<ButtonAction> controllers = new LinkedList<ButtonAction>();
 	public static LinkedList<Integer> keys = new LinkedList<Integer>();
 	
-	public static String version = "1.5";
-	
 	public static final boolean debug = true;
 	
 	

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 public abstract class CollisionWithLineSegment extends ServiceObjects {
-	public static HashMap<ShapeType, CollisionWithLineSegment> handlersMap = new HashMap<ShapeType, CollisionWithLineSegment>();
+	private static HashMap<ShapeType, CollisionWithLineSegment> handlersMap = new HashMap<ShapeType, CollisionWithLineSegment>();
 
 
 
@@ -25,14 +25,14 @@ public abstract class CollisionWithLineSegment extends ServiceObjects {
 	public abstract boolean check( Sprite sprite, Sprite lSPivot1, Sprite lSPivot2 );
 
 
-	public static CollisionWithLineSegment handlersArray[];
+	public static CollisionWithLineSegment handlers[];
 
 	public static void initSystem() {
 		int quantity = ShapeType.shapeTypes.size();
 
-		handlersArray = new CollisionWithLineSegment[ quantity ];
+		handlers = new CollisionWithLineSegment[ quantity ];
 		for( Entry<ShapeType, CollisionWithLineSegment> entry : handlersMap.entrySet() ) {
-			handlersArray[ entry.getKey().getNum() ] = entry.getValue();
+			handlers[ entry.getKey().getNum() ] = entry.getValue();
 		}
 	}
 

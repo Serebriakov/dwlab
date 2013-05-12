@@ -13,6 +13,7 @@ import dwlab.base.XMLObject;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -30,10 +31,10 @@ public class Graph extends Shape {
 	 * LineSegments then pivots will be drawn using graph visualizer.
 	 */
 	@Override
-	public void draw() {
+	public void draw( Color drawingColor ) {
 		if( visible ) {
-			drawLineSegmentsUsing( visualizer );
-			drawPivotsUsing( visualizer );
+			drawLineSegmentsUsing( visualizer, drawingColor );
+			drawPivotsUsing( visualizer, drawingColor );
 		}
 	}
 
@@ -43,10 +44,10 @@ public class Graph extends Shape {
 	 * LineSegments then pivots will be drawn using given visualizer.
 	 */
 	@Override
-	public void drawUsingVisualizer( Visualizer vis ) {
+	public void drawUsingVisualizer( Visualizer vis, Color drawingColor ) {
 		if( visible ) {
-			drawLineSegmentsUsing( vis );
-			drawPivotsUsing( vis );
+			drawLineSegmentsUsing( vis, drawingColor );
+			drawPivotsUsing( vis, drawingColor );
 		}
 	}
 
@@ -55,9 +56,9 @@ public class Graph extends Shape {
 	 * Draws pivots using given visualizer.
 	 * @see #drawLineSegmentsUsing
 	 */
-	public void drawPivotsUsing( Visualizer visualizer ) {
+	public void drawPivotsUsing( Visualizer visualizer, Color drawingColor ) {
 		for( Sprite pivot: contents.keySet() ) {
-			pivot.drawUsingVisualizer( visualizer );
+			pivot.drawUsingVisualizer( visualizer, drawingColor );
 		}
 	}
 
@@ -66,9 +67,9 @@ public class Graph extends Shape {
 	 * Draws LineSegments using given visualizer.
 	 * @see #drawPivotsUsing
 	 */
-	public void drawLineSegmentsUsing( Visualizer visualizer ) {
+	public void drawLineSegmentsUsing( Visualizer visualizer, Color drawingColor ) {
 		for( LinkedList<LineSegment> list: contents.values() ) {
-			for( LineSegment lineSegment: list ) lineSegment.drawUsingVisualizer( visualizer );
+			for( LineSegment lineSegment: list ) lineSegment.drawUsingVisualizer( visualizer, drawingColor );
 		}
 	}
 
@@ -76,11 +77,11 @@ public class Graph extends Shape {
 	/**
 	 * Draws path (given as list of pivots) using given visualizer.
 	 */
-	public static void drawPath( LinkedList<Sprite> path, Visualizer visualizer ) {
+	public static void drawPath( LinkedList<Sprite> path, Visualizer visualizer, Color drawingColor ) {
 		if( path == null ) return;
 		Sprite oldPivot = null;
 		for( Sprite pivot: path ) {
-			if( oldPivot != null ) ( new LineSegment( pivot, oldPivot ) ).drawUsingVisualizer( visualizer );
+			if( oldPivot != null ) ( new LineSegment( pivot, oldPivot ) ).drawUsingVisualizer( visualizer, drawingColor );
 			oldPivot = pivot;
 		}
 	}

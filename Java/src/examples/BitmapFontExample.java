@@ -1,4 +1,5 @@
 package examples;
+import dwlab.base.images.BitmapFont;
 import dwlab.base.*;
 
 public class BitmapFontExample extends Project {

@@ -2,9 +2,11 @@ package dwlab.shapes.sprites.shape_types.drawing_shape;
 
 import dwlab.base.Graphics;
 import dwlab.base.Vector;
+import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
 import dwlab.shapes.sprites.shape_types.ShapeType;
+import dwlab.visualizers.Color;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +23,14 @@ public class DrawingShape extends ServiceObjects {
 
 
 
-	public void perform( Sprite sprite, Sprite spriteShape, Vector coords, Vector sizes ) {
-		Graphics.drawRectangle( coords.x, coords.y, sizes.x, sizes.y );
+	public void perform( Sprite sprite, Color drawingColor, boolean empty ) {
+		Camera.current.fieldToScreen( sprite, vector1 );
+		Camera.current.sizeFieldToScreen( sprite, vector2 );
+		perform( drawingColor, empty );
+	}
+	
+	protected void perform( Color drawingColor, boolean empty ) {
+		Graphics.drawRectangle( vector1.x, vector1.y, vector2.x, vector2.y, 0d, drawingColor, empty );
 	}
 
 

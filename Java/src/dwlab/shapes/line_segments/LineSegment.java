@@ -12,6 +12,7 @@ import dwlab.base.XMLObject;
 import dwlab.shapes.Line;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 /**
@@ -55,14 +56,14 @@ public class LineSegment extends Shape {
 	// ==================== Drawing ===================	
 
 	@Override
-	public void draw() {
-		if( visible ) visualizer.drawUsingLineSegment( this );
+	public void draw( Color drawingColor ) {
+		if( visible ) visualizer.drawUsingLineSegment( this, drawingColor );
 	}
 
 
 	@Override
-	public void drawUsingVisualizer( Visualizer vis ) {
-		if( visible ) vis.drawUsingLineSegment( this );
+	public void drawUsingVisualizer( Visualizer vis, Color drawingColor ) {
+		if( visible ) vis.drawUsingLineSegment( this, drawingColor );
 	}
 
 	// ==================== Collisions ===================

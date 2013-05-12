@@ -9,6 +9,8 @@
 
 package dwlab.base;
 
+import dwlab.base.files.TextFile;
+import dwlab.shapes.Shape;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -79,12 +81,12 @@ public class XMLObject extends Obj {
 		return "";
 	}
 
-	private int getIntegerAttribute( String attrName ) {
+	public int getIntegerAttribute( String attrName ) {
 		String attrValue = getAttribute( attrName );
 		if( attrValue.isEmpty() ) return 0; else return Integer.parseInt( attrValue );
 	}
 
-	private double getDoubleAttribute( String attrName ) {
+	public double getDoubleAttribute( String attrName ) {
 		String attrValue = getAttribute( attrName );
 		if( attrValue.isEmpty() ) return 0; else return Double.parseDouble( getAttribute( attrName ) );
 	}
@@ -179,7 +181,7 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject attribute and framework object field with Int type.
+	 * Transfers data between XMLObject attribute and framework object's boolean field.
 	 * @see #manageDoubleAttribute, #manageStringAttribute, #manageObjectAttribute, #manageIntArrayAttribute, #xMLIO example
 	 */
 	public boolean manageBooleanAttribute( String attrName, boolean attrValue, boolean defaultValue ) {
@@ -200,7 +202,7 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject attribute and framework object field with Int type.
+	 * Transfers data between XMLObject attribute and framework object's int field.
 	 * @see #manageDoubleAttribute, #manageStringAttribute, #manageObjectAttribute, #manageIntArrayAttribute, #xMLIO example
 	 */
 	public int manageIntAttribute( String attrName, int attrValue, int defaultValue ) {
@@ -221,7 +223,7 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject attribute and framework object field with Double type.
+	 * Transfers data between XMLObject attribute and framework object's double field.
 	 * @see #manageIntAttribute, #manageStringAttribute, #manageObjectAttribute, #xMLIO example
 	 */
 	public double manageDoubleAttribute( String attrName, double attrValue, double defaultValue ) {
@@ -242,7 +244,7 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject attribute and framework object field with String type.
+	 * Transfers data between XMLObject attribute and framework object String field.
 	 * @see #manageIntAttribute, #manageDoubleAttribute, #manageObjectAttribute, #xMLIO example
 	 */
 	public String manageStringAttribute( String attrName, String attrValue ) {
@@ -258,7 +260,7 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject attribute and framework object field with String type.
+	 * Transfers data between XMLObject attribute and framework object's enum field.
 	 * @see #manageIntAttribute, #manageDoubleAttribute, #manageObjectAttribute, #xMLIO example
 	 */
 	public <E extends Enum> E manageEnumAttribute( String attrName, E attrValue ) {
@@ -274,7 +276,7 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject attribute and framework object field wit LTObject type.
+	 * Transfers data between XMLObject attribute and framework object's object field.
 	 * @return Loaded object or same object for saving mode.
 	 * Use "ObjField = ObjFieldType( ManageObjectAttribute( FieldName, ObjField ) )" command syntax.
 	 * 
@@ -306,52 +308,33 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject attribute and framework object field with int[] type.
+	 * Transfers data between XMLObject attribute and framework object's int array field.
 	 * @see #manageIntAttribute
 	 */
-	public int[] manageIntArrayAttribute( String attrName, int[] array, int chunkLength ) {
+	public int[] manageIntArrayAttribute( String attrName, int[] intArray ) {
 		if( Sys.xMLGetMode() ) {
 			String data = getAttribute( attrName );
-			if( !attributeExists( attrName ) ) return array;
-			if( chunkLength > 0 ) {
-				array = new int[ data.length() / chunkLength ];
-				int pos = 0;
-				int n = 0;
-				while( pos < data.length() ) {
-					array[ n ] = Service.decode( data.substring( pos, pos + chunkLength ) );
-					pos += chunkLength;
-					n += 1;
-				}
-			} else {
-				String values[] = data.split( "," );
-				int quantity = values.length;
-				array = new int[ quantity ];
-				for( int n=0; n <= quantity; n++ ) {
-					array[ n ] = Integer.parseInt( values[ n ] );
-				}
+			if( data.isEmpty() ) return intArray;
+			String values[] = data.split( "," );
+			int quantity = values.length;
+			intArray = new int[ quantity ];
+			for( int n = 0; n < quantity; n++ ) {
+				intArray[ n ] = Integer.parseInt( values[ n ] );
 			}
-		} else if( array != null ) {
+		} else if( intArray != null ) {
 			String values = "";
-			for( int n=0; n <= array.length; n++ ) {
-				if( chunkLength > 0 ) {
-					values += Service.encode( array[ n ], chunkLength );
-				} else {
-					if( !values.isEmpty() ) values += ",";
-					values += array[ n ];
-				}
+			for( int n = 0; n < intArray.length; n++ ) {
+				if( !values.isEmpty() ) values += ",";
+				values += intArray[ n ];
 			}
 			setAttribute( attrName, values );
 		}
-		return array;
-	}
-	
-	public int[] manageIntArrayAttribute( String attrName, int[] array ) {
-		return manageIntArrayAttribute( attrName, array, 0 );
+		return intArray;
 	}
 
 
 	/**
-	 * Transfers data between XMLObject field and framework object field with LTObject type.
+	 * Transfers data between XMLObject field and framework object's object field.
 	 * @see #xMLIO example
 	 */
 	public <E extends Obj> E manageObjectField( String fieldName, E fieldObject ) {
@@ -368,7 +351,7 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject contents and framework object field with TList type.
+	 * Transfers data between XMLObject contents and framework object's LinkedList field.
 	 * @see #manageChildList, #xMLIO example
 	 */
 	public <E extends Obj> LinkedList<E> manageListField( String fieldName, LinkedList<E> list ) {
@@ -387,26 +370,30 @@ public class XMLObject extends Obj {
 
 
 	/**
-	 * Transfers data between XMLObject contents and framework object field with LTObject[] type.
+	 * Transfers data between XMLObject contents and framework object's object array field.
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectMapField
 	 */
 	public <E extends Obj> E[] manageObjectArrayField( String fieldName, E[] array ) {
 		if( Sys.xMLGetMode() ) {
 			XMLObject xMLArray = getField( fieldName );
-			if( xMLArray != null ) xMLArray.manageChildArray( array );
+			if( xMLArray != null ) xMLArray.manageChildObjectArray( array );
 		} else if( array != null ) {
 			XMLObject xMLArray = new XMLObject();
 			xMLArray.name = "Array";
-			xMLArray.manageChildArray( array );
+			xMLArray.manageChildObjectArray( array );
 			setField( fieldName, xMLArray );
 		}
 		return array;
 	}
 
+	
+	public <E extends Obj> E[][] manageObjectDoubleArrayField( String fieldName, E[][] array ) {
+		return array;
+	}
 
 
 	/**
-	 * Transfers data between XMLObject field and framework object field with TMap type filled with LTObject-LTObject pairs.
+	 * Transfers data between XMLObject field and framework object's field with HashMap filled with object-object pairs.
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
 	public <E extends Obj, F extends Obj> void manageObjectMapField( String fieldName, HashMap<E, F> map ) {
@@ -423,9 +410,8 @@ public class XMLObject extends Obj {
 	}
 
 
-
 	/**
-	 * Transfers data between XMLObject field and framework object field with TMap type filled with LTObject-LTObject pairs.
+	 * Transfers data between XMLObject field and framework object's HashSet field containing objects.
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
 	public <E extends Obj> void manageObjectSetField( String fieldName, HashSet<E> set ) {
@@ -442,9 +428,8 @@ public class XMLObject extends Obj {
 	}
 
 
-
 	/**
-	 * Transfers data between XMLObject contents and framework object field with TList type.
+	 * Transfers data between XMLObject contents and framework object's LinkedList field.
 	 * @see #manageListField, #manageChildArray, #xMLIO example
 	 */
 	public <E extends Obj> LinkedList<E> manageChildList( LinkedList<E> list ) {
@@ -465,29 +450,54 @@ public class XMLObject extends Obj {
  	}
 
 
-
 	/**
-	 * Transfers data between XMLObject contents and framework object parameter with LTObject[] type.
+	 * Transfers data between XMLObject contents and framework object's object array parameter.
 	 * @see #manageChildList, #manageListField
 	 */
-	public <E extends Obj> E[] manageChildArray( E[] childArray ) {
+	public <E extends Obj> E[] manageChildObjectArray( E[] childArray ) {
 		if( Sys.xMLGetMode() ) {
-			childArray = (E[]) Array.newInstance( childArray.getClass(), children.size() );
-			int n = 0;
+			childArray = (E[]) Array.newInstance( childArray.getClass(), getIntegerAttribute( "size" ) );
 			for( XMLObject xMLObject: children ) {
-				childArray[ n ] = (E) xMLObject.manageObject( null );
-				n += 1;
+				childArray[ xMLObject.getIntegerAttribute( "index" ) ] = (E) xMLObject.manageObject( null );
 			}
 		} else {
-			for( Obj obj: childArray ) {
-				XMLObject xMLObject = new XMLObject();
-				xMLObject.manageObject( obj );
-				children.addLast( xMLObject );
+			setAttribute( "size", childArray.length );
+			for( int n = 0; n < childArray.length; n++ ) {
+				if( childArray[ n ] != null ) {
+					XMLObject xMLObject = new XMLObject();
+					xMLObject.manageObject( childArray[ n ] );
+					xMLObject.setAttribute( "index", n );
+					children.addLast( xMLObject );
+				}
 			}
 		}
 		return childArray;
 	}
 
+
+	/**
+	 * Transfers data between XMLObject contents and framework object's double object array parameter.
+	 * @see #manageChildList, #manageListField
+	 */
+	public <E extends Obj> E[] manageChildObjectDoubleArray( E[] childArray ) {
+		if( Sys.xMLGetMode() ) {
+			childArray = (E[]) Array.newInstance( childArray.getClass(), getIntegerAttribute( "size" ) );
+			for( XMLObject xMLObject: children ) {
+				childArray[ xMLObject.getIntegerAttribute( "index" ) ] = (E) xMLObject.manageObject( null );
+			}
+		} else {
+			setAttribute( "size", childArray.length );
+			for( int n = 0; n < childArray.length; n++ ) {
+				if( childArray[ n ] != null ) {
+					XMLObject xMLObject = new XMLObject();
+					xMLObject.manageObject( childArray[ n ] );
+					xMLObject.setAttribute( "index", n );
+					children.addLast( xMLObject );
+				}
+			}
+		}
+		return childArray;
+	}
 
 
 	/**
@@ -514,7 +524,6 @@ public class XMLObject extends Obj {
 	}
 
 
-
 	/**
 	 * Transfers data between XMLObject contents and framework object field with TMap type filled with LTObject keys.
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
@@ -536,7 +545,6 @@ public class XMLObject extends Obj {
 	}
 
 
-
 	public <E extends Obj> E manageObject( E obj ) {
 		if( Sys.xMLGetMode() ) {
 			int iD = getIntegerAttribute( "id" );
@@ -548,7 +556,7 @@ public class XMLObject extends Obj {
 					obj = ( E ) iDArray[ iD ];
 				} else {
 					try {
-						Class objectClass = classes.get( name );;
+						Class objectClass = classes.get( name );
 						if( objectClass == null ) error( "Object \"" + name + "\" not found" );
 
 						obj = ( E ) objectClass.newInstance();
@@ -590,7 +598,6 @@ public class XMLObject extends Obj {
 	}
 
 
-
 	public int escapingBackslash = 0;
 	private static String text;
 					
@@ -616,13 +623,11 @@ public class XMLObject extends Obj {
 	}
 
 
-
 	public void writeToFile( String fileName ) {
 		TextFile file = TextFile.write( fileName );
 		writeObject( file, "" );
 		file.close();
 	}
-
 
 
 	public static XMLObject readObject( StringWrapper fieldName ) {
@@ -649,7 +654,6 @@ public class XMLObject extends Obj {
 		}
 		return obj;
 	}
-
 
 
 	public void writeObject( TextFile file, String indent ) {
@@ -690,7 +694,6 @@ public class XMLObject extends Obj {
 			file.writeLine( indent + "</" + name + ">" );
 		}
 	}
-
 
 
 	public void readAttributes( StringWrapper fieldName ) {

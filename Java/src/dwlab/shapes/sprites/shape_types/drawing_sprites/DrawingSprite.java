@@ -1,11 +1,12 @@
 package dwlab.shapes.sprites.shape_types.drawing_sprites;
 
-import dwlab.base.Image;
+import dwlab.base.images.Image;
 import dwlab.base.Sys;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
 import dwlab.shapes.sprites.shape_types.ShapeType;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class DrawingSprite extends ServiceObjects {
 
 
 
-	public void perform( Visualizer visualizer, Sprite sprite, Sprite spriteShape, double drawingAlpha ) {
+	public void perform( Visualizer visualizer, Sprite sprite, Sprite spriteShape, Color drawingColor ) {
 		Image image = visualizer.image;
 		if( image != null ) {
 			Camera.current.fieldToScreen( spriteShape, vector1 );
@@ -43,14 +44,14 @@ public class DrawingSprite extends ServiceObjects {
 				Camera.current.sizeFieldToScreen( spriteShape, vector2 );
 				double scaledWidth = vector2.x * visualizer.xScale;
 				double scaledHeight = vector2.y * visualizer.yScale;
-				image.draw( sprite.frame, vector1.x + visualizer.dX * scaledWidth, vector1.y + visualizer.dY * scaledHeight, scaledWidth, scaledHeight, angle, visualizer );
+				image.draw( sprite.frame, vector1.x + visualizer.dX * scaledWidth, vector1.y + visualizer.dY * scaledHeight, scaledWidth, scaledHeight, angle, visualizer.multiplyBy( drawingColor ) );
 			} else {
 				double scaledWidth = image.getWidth() * visualizer.xScale;
 				double scaledHeight = image.getHeight() * visualizer.yScale;
-				image.draw( sprite.frame, vector1.x + visualizer.dX * scaledWidth, vector1.y + visualizer.dY * scaledHeight, scaledWidth, scaledHeight, angle, visualizer );
+				image.draw( sprite.frame, vector1.x + visualizer.dX * scaledWidth, vector1.y + visualizer.dY * scaledHeight, scaledWidth, scaledHeight, angle, visualizer.multiplyBy( drawingColor ) );
 			}
 		} else {
-			
+			sprite.drawShape( drawingColor, false );
 		}
 	}
 

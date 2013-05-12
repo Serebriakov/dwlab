@@ -7,8 +7,10 @@
  * http://www.opensource.org/licenses/artistic-license-2.0.php
  */
 
-package dwlab.base;
+package dwlab.base.images;
 
+import dwlab.base.Align;
+import dwlab.base.Vector;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Camera;
 

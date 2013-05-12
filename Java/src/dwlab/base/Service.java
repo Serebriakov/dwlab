@@ -14,6 +14,15 @@ import dwlab.shapes.sprites.Camera;
 import java.util.Arrays;
 
 public class Service extends Obj {
+	public static String version = "1.5.2";
+	
+	public static long newTotalLoadingTime;
+	public static long objectLoadingTime;
+	public static long totalLoadingTime;
+	public static double loadingProgress;
+	public static String loadingStatus;
+	public static Object loadingUpdater = null;
+	
 	/**
 	* Transfers hex string value to Int.
 	*/
@@ -212,34 +221,6 @@ public class Service extends Obj {
 
 	public static double cathetus( double aB, double bC ) {
 		return Math.sqrt( aB * aB - bC * bC );
-	}
-
-
-	/**
-	* Converts full path to path relative to current directory.
-	*/
-	public static String chopFilename( String filename ) {
-		String dir = currentDir();
-		String slash = "/";
-		slash = "\";
-		dir = dir.replaceAll( "/", "\" );
-		filename = filename.replaceAll( "/", "\" );
-		dir += slash;
-		for( int n=0; n <= len( dir ); n++ ) {
-			if( n ==> len( filename ) ) return filename;
-			if( dir[ n ] != filename[ n ] ) {
-				if( n == 0 ) return filename;
-				int slashPos = n - 1;
-				filename = filename[ n.. ];
-				while( true ) {
-					slashPos = dir.indexOf( slash, slashPos + 1 );
-					if( slashPos == -1 ) exit;
-					filename = ".." + slash + filename;
-				}
-				return filename;
-			}
-		}
-		return filename[ len( dir ).. ];
 	}
 
 

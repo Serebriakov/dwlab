@@ -9,12 +9,12 @@
 
 package dwlab.shapes.maps.tilemaps;
 
+import dwlab.base.images.Image;
 import dwlab.base.Obj;
-import dwlab.base.Service;
 import dwlab.base.Sys;
-import dwlab.shapes.Shape;
-import dwlab.base.Image;
 import dwlab.base.XMLObject;
+import dwlab.shapes.Shape;
+import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;
 
 /**
@@ -31,12 +31,11 @@ public class TileSet extends Obj {
 	
 	public String name;
 	public Image image;
-	public Shape collisionShape[];
-	public int blockWidth[];
-	public int blockHeight[];
+	public Sprite[][] collisionSprites;
+	public LinkedList tileBlocks = new LinkedList();
 	public LinkedList<TileCategory> categories = new LinkedList<TileCategory>();
 	public int tilesQuantity;
-	public int tileCategory[];
+	public int[] tileCategory;
 
 	/**
 	 * Number of undrawable tile.
@@ -46,23 +45,31 @@ public class TileSet extends Obj {
 
 
 	/**
+	 * Creates tileset with given image and empty tile number.
+	 * @return Created tileset.
+	 */
+	public TileSet( Image image, int emptyTile ) {
+		this.image = image;
+		this.emptyTile = emptyTile;
+		this.refreshTilesQuantity();
+	}
+	
+	public TileSet( Image image ) {
+		this.image = image;
+		this.refreshTilesQuantity();
+	}
+
+
+	/**
 	 * Updates tileset when tiles quantity was changed.
 	 * Execute this method every time you change TilesQuantity parameter.
 	 */
 	public final void refreshTilesQuantity() {
 		if( image == null ) return;
 		int newTilesQuantity = image.framesQuantity();
-		Shape newCollisionShape[] = new Shape[ newTilesQuantity ];
-		int newBlockWidth[] = new int[ newTilesQuantity ];
-		int newBlockHeight[] = new int[ newTilesQuantity ];
-		for( int n=0; n < Math.min( tilesQuantity, newTilesQuantity ); n++ ) {
-			newBlockWidth[ n ] = blockWidth[ n ];
-			newBlockHeight[ n ] = blockHeight[ n ];
-			newCollisionShape[ n ] = collisionShape[ n ];
-		}
-		blockWidth = newBlockWidth;
-		blockHeight = newBlockHeight;
-		collisionShape = newCollisionShape;
+		Sprite newCollisionSprites[][] = new Sprite[ newTilesQuantity ][];
+		System.arraycopy( collisionSprites, 0, newCollisionSprites, 0, Math.min( tilesQuantity, newTilesQuantity ) );
+		collisionSprites = newCollisionSprites;
 		tilesQuantity = newTilesQuantity;
 		update();
 	}
@@ -172,22 +179,6 @@ public class TileSet extends Obj {
 	}
 
 
-	/**
-	 * Creates tileset with given image and empty tile number.
-	 * @return Created tileset.
-	 */
-	public TileSet( Image image, int emptyTile ) {
-		this.image = image;
-		this.emptyTile = emptyTile;
-		this.refreshTilesQuantity();
-	}
-	
-	public TileSet( Image image ) {
-		this.image = image;
-		this.refreshTilesQuantity();
-	}
-
-
 	@Override
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
@@ -195,41 +186,15 @@ public class TileSet extends Obj {
 		xMLObject.manageStringAttribute( "name", name );
 		image = xMLObject.manageObjectField( "image", image );
 		tilesQuantity = xMLObject.manageIntAttribute( "tiles-quantity", tilesQuantity );
-		blockWidth = xMLObject.manageIntArrayAttribute( "block-width", blockWidth, Service.getChunkLength( image.getXCells() ) );
-		blockHeight = xMLObject.manageIntArrayAttribute( "block-height", blockHeight, Service.getChunkLength( image.getYCells() ) );
+		tileBlocks = xMLObject.manageListField( "tile-blocks", tileBlocks );
 		emptyTile = xMLObject.manageIntAttribute( "empty-tile", emptyTile, -1 );
 		categories = xMLObject.manageChildList( categories );
-
-		if( Sys.xMLGetMode() ) {
-			collisionShape = new Shape[ tilesQuantity ];
-
-			XMLObject arrayXMLObject = xMLObject.getField( "collision-shapes" );
-			if( arrayXMLObject != null ) {
-				int n = 0;
-				for( XMLObject childXMLObject: arrayXMLObject.children ) {
-					if( !childXMLObject.name.equals( "null" ) ) collisionShape[ n ] = (Shape) childXMLObject.manageObject( null );
-					n += 1;
-				}
-			}
-
-			update();
-		} else {
-			XMLObject arrayXMLObject = new XMLObject();
-			arrayXMLObject.name = "ShapeArray";
-			xMLObject.setField( "collision-shapes", arrayXMLObject );
-			for( int n=0; n <= collisionShape.length; n++ ) {
-				XMLObject newXMLObject = new XMLObject();
-				if( collisionShape[ n ] != null ) {
-					newXMLObject.manageObject( collisionShape[ n ] );
-				} else {
-					newXMLObject.name = "Null";
-				}
-				arrayXMLObject.children.addLast( newXMLObject );
-			}
-		}
+		collisionSprites = xMLObject.manageObjectDoubleArrayField( "collision-sprites", collisionSprites );
+		if( Sys.xMLGetMode() ) update();
 
 		//If Not L_EditorData.Tilesets.Contains( Self ) L_EditorData.Tilesets.AddLast( Self )
 	}
+
 
 
 	public class TileCategory extends Obj {

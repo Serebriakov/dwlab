@@ -174,6 +174,10 @@ public class Graphics {
 		glEnable( GL_TEXTURE_2D ); 
 	}
 	
+	public static void drawLine( double x1, double y1, double x2, double y2, Color color ) {
+		drawLine( x1, y1, x2, y2, lineWidth, color );
+	}
+	
 	public static void drawLine( double x1, double y1, double x2, double y2 ) {
 		drawLine( x1, y1, x2, y2, lineWidth, currentColor );
 	}

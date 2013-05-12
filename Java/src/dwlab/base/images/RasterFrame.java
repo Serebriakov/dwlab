@@ -6,8 +6,9 @@
  * file distributed with this code, or available from
  * http://www.opensource.org/licenses/artistic-license-2.0.php */
 
-package dwlab.base;
+package dwlab.base.images;
 
+import dwlab.base.XMLObject;
 import dwlab.visualizers.Color;
 
 /**

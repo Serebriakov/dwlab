@@ -17,6 +17,7 @@ import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.Collection;
 import java.util.Iterator;
@@ -64,19 +65,19 @@ public class Layer extends Shape {
 	// ==================== Drawing ===================	
 
 	@Override
-	public void draw() {
-		drawUsingVisualizer( visualizer );
+	public void draw( Color drawingColor ) {
+		drawUsingVisualizer( visualizer, drawingColor.multiplyBy( visualizer ) );
 	}
 
 
 	@Override
-	public void drawUsingVisualizer( Visualizer vis ) {
+	public void drawUsingVisualizer( Visualizer vis, Color drawingColor ) {
 		if( ! visible ) return;
 
 		if( mixContent ) {
 			LinkedList shapes = new LinkedList();
 			TileMap mainTileMap = null;
-			for( Shape shape: children ) {
+			for( Shape shape : children ) {
 				TileMap tileMap = shape.toTileMap();
 				if( tileMap != null ) {
 					if( tileMap.tileSet.image != null ) {
@@ -89,18 +90,18 @@ public class Layer extends Shape {
 			}
 			if( mainTileMap != null ) {
 				if( shapes.size() == 1 ) shapes = null;
-				vis.drawUsingTileMap( mainTileMap, shapes );
+				vis.drawUsingTileMap( mainTileMap, shapes, drawingColor );
 				return;
 			}
 		}
 
 		if( vis == visualizer ) {
-			for( Shape shape: children ) {
-				shape.draw();
+			for( Shape shape : children ) {
+				shape.draw( drawingColor );
 			}
 		} else {
-			for( Shape shape: children ) {
-				shape.drawUsingVisualizer( vis );
+			for( Shape shape : children ) {
+				shape.drawUsingVisualizer( vis, drawingColor );
 			}
 		}
 	}
@@ -163,18 +164,6 @@ public class Layer extends Shape {
 	@Override
 	public void spriteLayerCollisions( Sprite sprite, SpriteCollisionHandler handler ) {
 		sprite.collisionsWithLayer( this, handler );
-	}
-
-
-	@Override
-	public void tileShapeCollisionsWithSprite( Sprite sprite, double dX, double dY, double xScale, double yScale, TileMap tileMap, int tileX, int tileY, SpriteAndTileCollisionHandler handler ) {
-		for( Shape groupShape: children ) {
-			Sprite groupSprite = groupShape.toSprite();
-			if( groupSprite.tileSpriteCollidesWithSprite( sprite, dX, dY, xScale, yScale ) ) {
-				handler.handleCollision( sprite, tileMap, tileX, tileY, groupSprite );
-				return;
-			}
-		}
 	}
 
 	// ==================== Other ===================	
@@ -302,31 +291,38 @@ public class Layer extends Shape {
 		}
 		return null;
 	}
-
-
+	
+	
 	@Override
-	public boolean insertBeforeShape( Shape shape, Shape beforeShape ) {
-		for ( ListIterator<Shape> iterator = children.listIterator(); iterator.hasNext(); ) {
-			Shape childShape = iterator.next();
-			if( childShape == beforeShape ) {
-				children.add( iterator.previousIndex(), shape );
+	public boolean insertShape( Shape shape, Shape pivotShape, Relativity relativity ) {
+		for ( ListIterator<Shape> it = children.listIterator(); it.hasNext(); ) {
+			int index = it.nextIndex();
+			Shape childShape = it.next();
+			if( childShape == pivotShape ) {
+				if( relativity == Relativity.AFTER ) index++;
+				if( relativity == Relativity.INSTEAD_OF ) it.remove();
+				children.set( index, shape );
 				return true;
 			} else {
-				if( childShape.insertBeforeShape( shape, beforeShape ) ) return true;
+				if( childShape.insertShape( shape, pivotShape, relativity ) ) return true;
 			}
 		}
 		return false;
 	}
 	
+	
 	@Override
-	public boolean insertBeforeShape( Collection<Shape> shapes, Shape beforeShape ) {
-		for ( ListIterator<Shape> iterator = children.listIterator(); iterator.hasNext(); ) {
-			Shape childShape = iterator.next();
-			if( childShape == beforeShape ) {
-				children.addAll( iterator.previousIndex(), shapes );
+	public boolean insertShape( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
+		for ( ListIterator<Shape> it = children.listIterator(); it.hasNext(); ) {
+			int index = it.nextIndex();
+			Shape childShape = it.next();
+			if( childShape == pivotShape ) {
+				if( relativity == Relativity.AFTER ) index++;
+				if( relativity == Relativity.INSTEAD_OF ) it.remove();
+				children.addAll( index, shapes );
 				return true;
 			} else {
-				if( childShape.insertBeforeShape( shapes, beforeShape ) ) return true;
+				if( childShape.insertShape( shapes, pivotShape, relativity ) ) return true;
 			}
 		}
 		return false;

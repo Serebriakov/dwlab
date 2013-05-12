@@ -132,6 +132,13 @@ public class Color extends Obj {
 		blue = Service.limit( blue + d1 + Math.random() * ( d2 - d1 ), 0.0d, 1.0d );
 	}
 
+	
+	public Color multiplyBy( Color color ) {
+		if( color == white ) return this;
+		if( this == white ) return color;
+		return new Color( red * color.red, green * color.green, blue * color.blue, alpha * color.alpha );
+	}
+
 	// ==================== I/O ====================
 
 	public void copyColorTo( Color color ) {

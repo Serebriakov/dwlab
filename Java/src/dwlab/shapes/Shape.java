@@ -9,11 +9,13 @@
 
 package dwlab.shapes;
 
+import dwlab.base.images.Image;
 import dwlab.base.*;
 import dwlab.behavior_models.BehaviorModel;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
@@ -33,6 +35,12 @@ import org.lwjgl.input.Keyboard;
  * Common object for item of game field.
  */
 public class Shape extends Obj {
+	public enum Relativity {
+		BEFORE,
+		INSTEAD_OF,
+		AFTER
+	}
+	
 	private LinkedList<Parameter> parameters = null;
 
 	public class Parameter extends Obj {
@@ -199,11 +207,6 @@ public class Shape extends Obj {
 
 
 	public void spriteLayerCollisions( Sprite sprite, SpriteCollisionHandler handler ) {
-	}
-
-
-
-	public void tileShapeCollisionsWithSprite( Sprite sprite, double dX, double dY, double xScale, double yScale, TileMap tileMap, int tileX, int tileY, SpriteAndTileCollisionHandler handler ) {
 	}
 
 	// ==================== Position ====================
@@ -1240,7 +1243,7 @@ public class Shape extends Obj {
 	 * Inserts the shape before given.
 	 * Included layers and sprite maps will be also checked for given shape.
 	 */
-	public boolean insertBeforeShape( Shape shape, Shape beforeShape ) {
+	public boolean insertShape( Shape shape, Shape pivotShape, Relativity relativity ) {
 		return false;
 	}
 
@@ -1248,7 +1251,7 @@ public class Shape extends Obj {
 	 * Inserts collection of shapes before given.
 	 * Included layers and sprite maps will be also checked for given shape.
 	 */
-	public boolean insertBeforeShape( Collection<Shape> shapes, Shape beforeShape ) {
+	public boolean insertShape( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
 		return false;
 	}
 

@@ -7,8 +7,9 @@
  * http://www.opensource.org/licenses/artistic-license-2.0.php
  */
 
-package dwlab.base;
+package dwlab.base.images;
 
+import dwlab.base.Sys;
 import dwlab.visualizers.Color;
 import java.io.IOException;
 import java.nio.ByteBuffer;

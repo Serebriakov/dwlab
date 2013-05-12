@@ -8,7 +8,7 @@
 
 package dwlab.shapes.maps;
 
-import dwlab.base.Image;
+import dwlab.base.images.Image;
 import dwlab.base.Service;
 import dwlab.base.Sys;
 

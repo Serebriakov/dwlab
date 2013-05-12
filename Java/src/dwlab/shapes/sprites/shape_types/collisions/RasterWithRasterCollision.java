@@ -1,6 +1,6 @@
 package dwlab.shapes.sprites.shape_types.collisions;
 
-import dwlab.base.Image;
+import dwlab.base.images.Image;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
 

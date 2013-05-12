@@ -36,14 +36,14 @@ public class SpritesCollision extends ServiceObjects {
 	}
 
 
-	boolean check( Sprite sprite1, Sprite sprite2 ) {
+	public boolean check( Sprite sprite1, Sprite sprite2 ) {
 		return false;
 	}
 
 
-	static HashMap<ShapeType, HashMap<ShapeType, SpritesCollision>> spritesCollisionsMap = new HashMap<ShapeType, HashMap<ShapeType, SpritesCollision>>();
+	private static HashMap<ShapeType, HashMap<ShapeType, SpritesCollision>> spritesCollisionsMap = new HashMap<ShapeType, HashMap<ShapeType, SpritesCollision>>();
 
-	static void register( ShapeType shapeType1, ShapeType shapeType2, SpritesCollision collsion ) {
+	public static void register( ShapeType shapeType1, ShapeType shapeType2, SpritesCollision collsion ) {
 		HashMap map = spritesCollisionsMap.get( shapeType1 );
 		if( map == null ) {
 			map = new HashMap();
@@ -53,9 +53,9 @@ public class SpritesCollision extends ServiceObjects {
 	}
 
 
-	static SpritesCollision handlers[][];
+	public static SpritesCollision handlers[][];
 
-	static void initSystem() {
+	public static void initSystem() {
 		int quantity = ShapeType.shapeTypes.size();
 
 		handlers = new SpritesCollision[ quantity ][];

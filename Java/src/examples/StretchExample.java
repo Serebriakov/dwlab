@@ -1,4 +1,5 @@
 package examples;
+import dwlab.base.images.Image;
 import dwlab.base.*;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;

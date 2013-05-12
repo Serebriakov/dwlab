@@ -9,6 +9,7 @@
 
 package dwlab.base;
 
+import dwlab.base.files.BinaryFile;
 import dwlab.base.Sys.XMLMode;
 import dwlab.base.XMLObject.XMLAttribute;
 import dwlab.base.XMLObject.XMLObjectField;
@@ -17,30 +18,23 @@ import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.VectorSprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import org.newdawn.slick.Color;
 import org.reflections.Reflections;
 
 /**
  * Global object class
  */
 public class Obj {
-	public static int newTotalLoadingTime;
-	public static int loadingTime;
-	public static int totalLoadingTime;
-	public static float loadingProgress;
-	public static String loadingStatus;
-	public static Object loadingUpdater = null;
+	static HashMap<String, Class<Obj>> classes = new HashMap<String, Class<Obj>>();
+	static HashMap<Obj, Integer> iDMap;
+	static HashMap<Obj, XMLObject> removeIDMap;
+	static int maxID;
+	static Obj iDArray[];
+	static HashSet<Obj> undefinedObjects;
 
-	public static HashMap<String, Class<Obj>> classes = new HashMap<String, Class<Obj>>();
-	public static HashMap<Obj, Integer> iDMap;
-	public static HashMap<Obj, XMLObject> removeIDMap;
-	public static int maxID;
-	public static Obj iDArray[];
-	public static HashSet<Obj> undefinedObjects;
 	public static boolean remove = true;
 	public static double inaccuracy = 0.000001;	
 	
@@ -73,7 +67,11 @@ public class Obj {
 	 * 
 	 * @see #drawUsingVisualizer, #lTVisualizer
 	 */
+	public void draw( Color drawingColor ) {
+	}
+	
 	public void draw() {
+		draw( Color.white );
 	}
 
 
@@ -83,7 +81,11 @@ public class Obj {
 	 * 
 	 * @see #draw, #lTVisualizer
 	 */
+	public void drawUsingVisualizer( Visualizer vis, Color drawingColor ) {
+	}
+	
 	public void drawUsingVisualizer( Visualizer vis ) {
+		drawUsingVisualizer( vis, Color.white );
 	}
 	
 	// ==================== Printing text ===================
@@ -113,7 +115,7 @@ public class Obj {
 				y *= shift;
 		}
 
-		Color oldContourColor = Graphics.getContourColor();
+		org.newdawn.slick.Color oldContourColor = Graphics.getContourColor();
 		Graphics.setContourColor( 0f, 0f, 0f );
 		Graphics.drawText( text, (float) x, (float) y );
 		Graphics.setContourColor( oldContourColor );
@@ -201,7 +203,12 @@ public class Obj {
 		if( xMLObject == null ) {
 			maxID = 0;
 			xMLObject = XMLObject.readFromFile( fileName );
-		}
+		}		
+		
+		objectFileName = fileName;
+		Service.loadingStatus = "Serializing objects...";
+		Service.totalLoadingTime = xMLObject.getIntegerAttribute( "total-loading-time" );
+		Service.newTotalLoadingTime = 0;
 
 		iDArray = new Obj[ maxID + 1 ];
 		fillIDArray( xMLObject );
@@ -218,15 +225,18 @@ public class Obj {
 		}
 
 		Sys.xMLMode = XMLMode.GET;
+		
+		TileMap.file = new BinaryFile( fileName + "bin" );
 		object.xMLIO( xMLObject );
+		if( TileMap.file != null ) TileMap.file.close();
 
 		return object;
 	}
 	
 	public static Obj loadFromFile( String fileName ) {
-		 return loadFromFile( fileName, null );
+		return loadFromFile( fileName, null );
 	}
-	
+
 
 	public static void fillIDArray( XMLObject xMLObject ) {
 		if( xMLObject.name.equals( "Object" ) ) return;
@@ -253,27 +263,31 @@ public class Obj {
 	}
 
 
-
 	/**
 	 * Saves object with all contents to file.
 	 * @see #loadFromFile, #xMLIO
 	 */
 	public void saveToFile( String fileName ) {
-		iDMap = new HashMap<Obj, Integer>();
-		removeIDMap = new HashMap<Obj, XMLObject>();
+		objectFileName = fileName;
+		iDMap = new HashMap();
+		removeIDMap = new HashMap();
 		maxID = 1;
 
-		Sys.xMLMode = XMLMode.SET;
+		Sys.xMLMode = Sys.XMLMode.SET;
 		XMLObject xMLObject = new XMLObject();
 		undefinedObjects = new HashSet<Obj>();
+
+		TileMap.offset = 0;
+		TileMap.file = new BinaryFile( fileName + "bin" );
 		xMLIO( xMLObject );
+		TileMap.file.close();
 
-		xMLObject.setAttribute( "dwlab_version", String.valueOf( Sys.version ) );
+		xMLObject.setAttribute( "dwlab_version", Service.version );
+		xMLObject.setAttribute( "total-loading-time", Service.newTotalLoadingTime );
 
-		for( XMLObject xMLObject2: removeIDMap.values() ) {
-			for ( Iterator<XMLAttribute> iterator = xMLObject2.attributes.iterator(); iterator.hasNext(); ) {
-				XMLAttribute attr = iterator.next();
-				if( attr.name.equals( "id" ) ) iterator.remove();
+		for( XMLObject xMLObject2 : removeIDMap.values() ) {
+			for( XMLAttribute attr : xMLObject2.attributes ) {
+				if( attr.name.equals( "id" ) ) xMLObject2.attributes.remove( attr );
 			}
 		}
 

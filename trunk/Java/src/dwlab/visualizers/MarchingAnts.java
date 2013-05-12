@@ -10,7 +10,7 @@
 
 package dwlab.visualizers;
 
-import dwlab.base.Image;
+import dwlab.base.images.Image;
 import dwlab.base.Graphics;
 import dwlab.base.Service;
 import java.util.LinkedList;

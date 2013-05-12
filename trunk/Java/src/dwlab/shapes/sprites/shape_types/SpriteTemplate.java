@@ -2,6 +2,7 @@ package dwlab.shapes.sprites.shape_types;
 
 import dwlab.base.XMLObject;
 import dwlab.shapes.Shape;
+import dwlab.shapes.Shape.Relativity;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;
@@ -62,7 +63,7 @@ public class SpriteTemplate extends ShapeType {
 
 
 
-	public static SpriteTemplate fromSprites( LinkedList<Sprite> sprites, Layer layer, Shape pivotShape, int relativity ) {
+	public static SpriteTemplate fromSprites( LinkedList<Sprite> sprites, Layer layer, Shape pivotShape, Relativity relativity ) {
 		SpriteTemplate template = null;
 		double leftX = 0d, topY = 0d, rightX = 0d, bottomY = 0d;
 		Sprite newSprite = new Sprite();
@@ -88,7 +89,7 @@ public class SpriteTemplate extends ShapeType {
 			newSprite.setCoords( 0.5d * ( leftX + rightX ), 0.5d * ( topY + bottomY ) );
 			newSprite.setHeight( bottomY - topY );
 			newSprite.shapeType = template;
-			if( layer != null ) layer.insertShape( newSprite, , pivotShape, relativity );
+			if( layer != null ) layer.insertShape( newSprite, pivotShape, relativity );
 
 			for( Sprite sprite : sprites ) {
 				if( sprite.shapeType.getNum() == ShapeType.spriteTemplate.getNum() ) continue;
@@ -103,11 +104,11 @@ public class SpriteTemplate extends ShapeType {
 	}
 	
 	public static SpriteTemplate fromSprites( LinkedList<Sprite> sprites ){
-		return fromSprites( sprites, null, null, 0 );
+		return fromSprites( sprites, null, null, Relativity.INSTEAD_OF );
 	}
 
 
-	public void toSprites( Sprite sprite, Layer layer, Shape pivotShape, int relativity ) {
+	public void toSprites( Sprite sprite, Layer layer, Shape pivotShape, Relativity relativity ) {
 		LinkedList newSprites = new LinkedList();
 		if( pivotShape == null ) pivotShape = sprite;
 		for( Sprite templateSprite : sprites ) {
@@ -116,11 +117,11 @@ public class SpriteTemplate extends ShapeType {
 			setShape( sprite, templateSprite, newSprite );
 			newSprites.addLast( newSprite );
 		}
-		layer.insertShape( , newSprites, pivotShape, relativity );
+		layer.insertShape( newSprites, pivotShape, relativity );
 	}
 	
 	public void toSprites( Sprite sprite, Layer layer ) {
-		toSprites( sprite, layer, null, 0 );
+		toSprites( sprite, layer, null, Relativity.INSTEAD_OF );
 	}
 
 	// ==================== Saving / loading ====================

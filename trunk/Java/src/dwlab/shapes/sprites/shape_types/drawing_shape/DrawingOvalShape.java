@@ -1,12 +1,11 @@
 package dwlab.shapes.sprites.shape_types.drawing_shape;
 
 import dwlab.base.Graphics;
-import dwlab.base.Vector;
-import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 
 public class DrawingOvalShape extends DrawingShape {
 	@Override
-	public void perform( Sprite sprite, Sprite spriteShape, Vector coords, Vector sizes ) {
-		Graphics.drawLongOval( coords.x, coords.y, sizes.x, sizes.y );
+	public void perform( Color drawingColor, boolean empty ) {
+		Graphics.drawLongOval( vector1.x, vector1.y, vector2.x, vector2.y, 0d, drawingColor, empty );
 	}
 }

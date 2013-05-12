@@ -1,5 +1,6 @@
 package examples;
 
+import dwlab.base.images.Image;
 import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;

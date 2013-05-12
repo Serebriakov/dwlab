@@ -1,5 +1,8 @@
-package dwlab.base;
+package dwlab.base.images;
 
+import dwlab.base.Obj;
+import dwlab.base.Sys;
+import dwlab.base.XMLObject;
 import dwlab.visualizers.Color;
 import java.util.HashSet;
 

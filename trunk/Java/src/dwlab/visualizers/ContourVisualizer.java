@@ -62,22 +62,22 @@ public class ContourVisualizer extends Visualizer {
 	private static Vector serviceVector2 = new Vector();
 	
 	@Override
-	public void drawUsingSprite( Sprite sprite, Sprite spriteShape ) {
+	public void drawUsingSprite( Sprite sprite, Sprite spriteShape, Color drawingColor ) {
 		if( ! sprite.visible ) return;
 
 		Camera.current.fieldToScreen( spriteShape.getX(), spriteShape.getY(), serviceVector1 );
 		Camera.current.sizeFieldToScreen( spriteShape.getWidth() * xScale, spriteShape.getHeight() * yScale, serviceVector2 );
-		Graphics.drawRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y, 0d, this, true );
+		Graphics.drawRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y, 0d, multiplyBy( drawingColor ), true );
 	}
 	
 	@Override
 	public void drawUsingSprite( Sprite sprite ) {
-		drawUsingSprite( sprite, sprite );
+		drawUsingSprite( sprite, sprite, Color.white );
 	}
 
 
 	@Override
-	public void drawUsingLineSegment( LineSegment lineSegment ) {
+	public void drawUsingLineSegment( LineSegment lineSegment, Color drawingColor ) {
 		if( ! lineSegment.visible ) return;
 
 		Camera.current.fieldToScreen( lineSegment.pivot[ 0 ].getX(), lineSegment.pivot[ 0 ].getY(), serviceVector1 );
@@ -86,8 +86,8 @@ public class ContourVisualizer extends Visualizer {
 
 		double radius =pivotScale ;
 		if( scaling ) radius = Camera.current.distFieldToScreen( lineWidth ) * pivotScale;
-		Graphics.drawOval( serviceVector1.x, serviceVector1.y, radius, radius, 0d, this, false );
-		Graphics.drawOval( serviceVector2.x, serviceVector2.y, radius, radius, 0d, this, false );
+		Graphics.drawOval( serviceVector1.x, serviceVector1.y, radius, radius, 0d, multiplyBy( drawingColor ), false );
+		Graphics.drawOval( serviceVector2.x, serviceVector2.y, radius, radius, 0d, multiplyBy( drawingColor ), false );
 	}
 
 

@@ -32,9 +32,9 @@ public class SpritesOverlapping extends ServiceObjects {
 	}
 
 
-	static HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>> spritesOverlappingMap = new HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>>();
+	private static HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>> spritesOverlappingMap = new HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>>();
 
-	static void register( ShapeType shapeType1, ShapeType shapeType2, SpritesOverlapping handler ) {
+	public static void register( ShapeType shapeType1, ShapeType shapeType2, SpritesOverlapping handler ) {
 		HashMap map = spritesOverlappingMap.get( shapeType1 );
 		if( map == null ) {
 			map = new HashMap();
@@ -44,9 +44,9 @@ public class SpritesOverlapping extends ServiceObjects {
 	}
 
 
-	static SpritesOverlapping handlers[][];
+	public static SpritesOverlapping handlers[][];
 
-	static void initSystem() {
+	public static void initSystem() {
 		int quantity = ShapeType.shapeTypes.size();
 
 		handlers = new SpritesOverlapping[ quantity ][];

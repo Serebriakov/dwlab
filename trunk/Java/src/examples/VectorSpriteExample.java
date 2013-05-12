@@ -1,4 +1,5 @@
 package examples;
+import dwlab.base.images.Image;
 import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
@@ -118,9 +119,9 @@ public class VectorSpriteExample extends Project {
 			tileMap.setTile( 0, n ,bricksTile );
 			tileMap.setTile( mapSize - 1, n, bricksTile );
 		}
-		tileMap.tileSet.collisionShape = new Shape[ 3 ];
-		tileMap.tileSet.collisionShape[ 1 ] = new Sprite( 0.5, 0.5 );
-		tileMap.tileSet.collisionShape[ 2 ] = new Sprite( 0, 0, 0.5 );
+		tileMap.tileSet.collisionSprites = new Shape[ 3 ];
+		tileMap.tileSet.collisionSprites[ 1 ] = new Sprite( 0.5, 0.5 );
+		tileMap.tileSet.collisionSprites[ 2 ] = new Sprite( 0, 0, 0.5 );
 	}
 	
 

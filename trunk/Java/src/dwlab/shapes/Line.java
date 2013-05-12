@@ -8,12 +8,13 @@
 
 package dwlab.shapes;
 
-import dwlab.base.Vector;
 import dwlab.base.Graphics;
 import dwlab.base.Service;
 import dwlab.base.Sys;
+import dwlab.base.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 
 /**
  * Line is represented by A B and C values in Ax + Bx + C = 0 equation.
@@ -151,8 +152,7 @@ public class Line extends Shape {
 	private static Vector serviceVector4 = new Vector();
 	
 	@Override
-	public void draw() {
-		double leftX, topY, rightX, bottomY;
+	public void draw( Color drawingColor ) {
 		Camera.current.screenToField( Camera.current.viewport.leftX(), Camera.current.viewport.topY(), serviceVector1 );
 		Camera.current.screenToField( Camera.current.viewport.rightX(), Camera.current.viewport.bottomY(), serviceVector2 );
 		if( Math.abs( a ) <= Math.abs( b ) ) {
@@ -162,6 +162,6 @@ public class Line extends Shape {
 			Camera.current.fieldToScreen( ( -b * serviceVector1.y - c ) / a, serviceVector1.y, serviceVector3 );
 			Camera.current.fieldToScreen( ( -b * serviceVector2.y - c ) / a, serviceVector2.y, serviceVector4 );
 		}
-		Graphics.drawLine( serviceVector3.x, serviceVector3.y, serviceVector4.x, serviceVector4.y );
+		Graphics.drawLine( serviceVector3.x, serviceVector3.y, serviceVector4.x, serviceVector4.y, Graphics.getLineWidth(), drawingColor );
 	}
 }

@@ -1,4 +1,5 @@
 package examples;
+import dwlab.base.images.Image;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.base.*;
 import dwlab.behavior_models.*;

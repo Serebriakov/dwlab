@@ -9,7 +9,7 @@
 
 package dwlab.shapes.layers;
 
-import dwlab.base.Image;
+import dwlab.base.images.Image;
 import dwlab.base.Obj;
 import dwlab.base.XMLObject;
 import dwlab.shapes.maps.tilemaps.TileSet;
@@ -49,6 +49,7 @@ public class EditorData extends Obj {
 	public int collisionGridCellXDiv = 16;
 	public int collisionGridCellYDiv = 16;
 
+	
 	@Override
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );

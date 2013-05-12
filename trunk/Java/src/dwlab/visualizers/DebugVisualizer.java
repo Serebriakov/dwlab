@@ -38,7 +38,9 @@ public class DebugVisualizer extends Visualizer {
 	public boolean showCollisionShapes = true;
 	public boolean showVectors = true;
 	public boolean showNames = true;
-	public double alphaOfInvisible = 0.5d;
+	
+	public Color invisibleSpritesColor = new Color( 1d, 1d, 1d, 0.5d );
+	public Color collisionShapesColor = new Color( 1d, 0d, 1d, 0.5d );
 
 
 	private static Vector serviceVector = new Vector();
@@ -50,25 +52,18 @@ public class DebugVisualizer extends Visualizer {
 	
 	
 	@Override
-	public void drawUsingSprite( Sprite sprite, Sprite spriteShape ) {
+	public void drawUsingSprite( Sprite sprite, Sprite spriteShape, Color drawingColor ) {
 		if( sprite.visible ) {
-			sprite.visualizer.drawUsingSprite( sprite, spriteShape );
+			sprite.visualizer.drawUsingSprite( sprite, spriteShape, Color.white );
 		} else {
-			double oldAlpha = sprite.visualizer.alpha;
-			sprite.visualizer.alpha *= alphaOfInvisible;
-			sprite.visible = true;
-
-			sprite.visualizer.drawUsingSprite( sprite );
-
-			sprite.visualizer.alpha = oldAlpha;
-			sprite.visible = false;
+			sprite.visualizer.drawUsingSprite( sprite, spriteShape, invisibleSpritesColor );
 		}
 
 		Camera.current.fieldToScreen( spriteShape, serviceVector );
 		Camera.current.sizeFieldToScreen( spriteShape, serviceSizes );
 
 		Color color = colors[ sprite.collisionLayer & maxColor ];
-		if( showCollisionShapes ) drawSpriteShape( spriteShape, color );
+		if( showCollisionShapes ) sprite.drawShape( collisionShapesColor, false );
 
 		if( showVectors ) {
 			double size = Math.max( serviceSizes.x, serviceSizes.y );
@@ -97,14 +92,14 @@ public class DebugVisualizer extends Visualizer {
 
 
 	@Override
-	public void drawUsingTileMap( TileMap tileMap, LinkedList shapes ) {
-		tileMap.visualizer.drawUsingTileMap( tileMap, shapes );
-		if( showCollisionShapes ) super.drawUsingTileMap( tileMap, shapes );
+	public void drawUsingTileMap( TileMap tileMap, LinkedList shapes, Color drawingColor ) {
+		tileMap.visualizer.drawUsingTileMap( tileMap, shapes, drawingColor );
+		if( showCollisionShapes ) super.drawUsingTileMap( tileMap, shapes, drawingColor );
 	}
 
 
 	@Override
-	public void drawTile( TileMap tileMap, double x, double y, double width, double height, int tileX, int tileY ) {
+	public void drawTile( TileMap tileMap, double x, double y, double width, double height, int tileX, int tileY, Color drawingColor ) {
 		Shape shape = tileMap.getTileCollisionShape( tileMap.wrapX( tileX ), tileMap.wrapY( tileY ) );
 		if( shape == null ) return;
 
@@ -153,7 +148,7 @@ public class DebugVisualizer extends Visualizer {
 
 
 	@Override
-	public void drawSpriteMapTile( SpriteMap spriteMap, double x, double y ) {
+	public void drawSpriteMapTile( SpriteMap spriteMap, double x, double y, Color drawingColor ) {
 		int tileX = Service.floor( x / spriteMap.cellWidth ) & spriteMap.xMask;
 		int tileY = Service.floor( y / spriteMap.cellHeight ) & spriteMap.yMask;
 		for( int n = 0; n <= spriteMap.listSize[ tileY ][ tileX ]; n++ ) {

@@ -8,18 +8,20 @@
 
 package dwlab.shapes.maps.tilemaps;
 
+import dwlab.base.files.BinaryFile;
 import dwlab.base.*;
 import dwlab.shapes.Shape;
 import dwlab.shapes.maps.IntMap;
+import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
-import java.io.BufferedReader;
 
 /**
  * Tilemap is displayable rectangular tile-based shape with 2d array of tile indexes and tileset with tile images.
  */
 public class TileMap extends IntMap {
 	public static TileMapLoadingErrorHandler loadingErrorHandler = new TileMapLoadingErrorHandler();
-	public static BufferedReader file;
+	public static BinaryFile file;
 	public static int offset = 0;
 	
 	/**
@@ -59,7 +61,7 @@ public class TileMap extends IntMap {
 	 */
 	public int verticalOrder = 1	;
 	
-	public int loadingTime;
+	public long loadingTime;
 	
 	// ==================== Parameters ===================	
 
@@ -86,11 +88,11 @@ public class TileMap extends IntMap {
 	 * Returns tile collision shape.
 	 * @return Tile collision shape of tilemap's tile with given coordinates using default tilemap tileset.
 	 */
-	public Shape getTileCollisionShape( int tileX, int tileY ) {
+	public Sprite[] getTileCollisionSprites( int tileX, int tileY ) {
 		if( tileX < 0 || tileX >= xQuantity ) error( "Incorrect tile X position" );
 		if( tileY < 0 || tileY >= yQuantity ) error( "Incorrect tile Y position" );
 
-		return tileSet.collisionShape[ value[ tileY ][ tileX ] ];
+		return tileSet.collisionSprites[ value[ tileY ][ tileX ] ];
 	}
 
 
@@ -112,15 +114,15 @@ public class TileMap extends IntMap {
 	// ==================== Drawing ===================	
 
 	@Override
-	public void draw() {
-		if( visible ) visualizer.drawUsingTileMap( this );
+	public void draw( Color drawingColor ) {
+		if( visible ) visualizer.drawUsingTileMap( this, null, drawingColor );
 	}
 
 
 
 	@Override
-	public void drawUsingVisualizer( Visualizer visualizer ) {
-		if( visible ) visualizer.drawUsingTileMap( this );
+	public void drawUsingVisualizer( Visualizer visualizer, Color drawingColor ) {
+		if( visible ) visualizer.drawUsingTileMap( this, null, drawingColor );
 	}
 
 	// ==================== Other ===================	
@@ -263,56 +265,55 @@ public class TileMap extends IntMap {
 
 		if( Sys.xMLGetMode() ) {
 			long time = System.currentTimeMillis();
-			file.
 			if( file == null ) {
 				if( offset == 0 ) loadingErrorHandler.handleError( Obj.objectFileName + "bin" );
 			} else {
-				file.seekStream( file, offset );
+				file.seek( offset );
 				if( tilesQuantity <= 256 ) {
-					for( int y = 0; y < yQuantity; y++ ) {
-						for( int x = 0; x < xQuantity; x++ ) {
-							value[ y ][ x ] = readByte( file );
+					for( int yy = 0; yy < yQuantity; yy++ ) {
+						for( int xx = 0; xx < xQuantity; xx++ ) {
+							value[ yy ][ xx ] = file.readByte();
 						}
 					}
 				} else if( tilesQuantity <= 65536 ) {
-					for( int y = 0; y < yQuantity; y++ ) {
-						for( int x = 0; x < xQuantity; x++ ) {
-							value[ y ][ x ] = readShort( file );
+					for( int yy = 0; yy < yQuantity; yy++ ) {
+						for( int xx = 0; xx < xQuantity; xx++ ) {
+							value[ yy ][ xx ] = file.readShort();
 						}
 					}
 				} else {
-					for( int y = 0; y < yQuantity; y++ ) {
-						for( int x = 0; x < xQuantity; x++ ) {
-							value[ y ][ x ] = readInt( file );
+					for( int yy = 0; yy < yQuantity; yy++ ) {
+						for( int xx = 0; xx < xQuantity; xx++ ) {
+							value[ yy ][ xx ] = file.readInt();
 						}
 					}
 				}
 			}
 
-			loadingTime += loadingTime;
-			loadingTime = System.currentTimeMillis()() - time;
-			newTotalLoadingTime += loadingTime;
-			loadingProgress = 1.0 * loadingTime / totalLoadingTime;
-			if( loadingUpdater ) loadingUpdater.update();
+			Service.objectLoadingTime += loadingTime;
+			loadingTime = System.currentTimeMillis() - time;
+			Service.newTotalLoadingTime += loadingTime;
+			Service.loadingProgress = 1d * loadingTime / Service.totalLoadingTime;
+			if( Service.loadingUpdater != null ) Service.loadingUpdater.update();
 		} else {
 			if( tilesQuantity <= 256 ) {
-				for( int y = 0; y < yQuantity; y++ ) {
-					for( int x = 0; x < xQuantity; x++ ) {
-						writeByte( file, value[ x, y ] );
+				for( int yy = 0; yy < yQuantity; yy++ ) {
+					for( int xx = 0; xx < xQuantity; xx++ ) {
+						file.writeByte( value[ yy ][ xx ] );
 					}
 				}
 				offset += xQuantity * yQuantity;
 			} else if( tilesQuantity <= 65536 ) {
-				for( int y = 0; y < yQuantity; y++ ) {
-					for( int x = 0; x < xQuantity; x++ ) {
-						writeShort( file, value[ x, y ] );
+				for( int yy = 0; yy < yQuantity; yy++ ) {
+					for( int xx = 0; xx < xQuantity; xx++ ) {
+						file.writeShort( value[ yy ][ xx ]);
 					}
 				}
 				offset += 2 * xQuantity * yQuantity;
 			} else {
-				for( int y = 0; y < yQuantity; y++ ) {
-					for( int x = 0; x < xQuantity; x++ ) {
-						writeInt( file, value[ x, y ] );
+				for( int yy = 0; yy < yQuantity; yy++ ) {
+					for( int xx = 0; xx < xQuantity; xx++ ) {
+						file.writeInt( value[ yy ][ xx ] );
 					}
 				}
 				offset += 4 * xQuantity * yQuantity;

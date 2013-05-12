@@ -14,8 +14,8 @@ import dwlab.base.Service.Margins;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.shapes.Shape;
-import dwlab.shapes.sprites.Collision;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.*;
 
@@ -175,15 +175,15 @@ public class SpriteMap extends Map {
 	 * Draws all objects of sprite map which are in cells under camera's rectangle plus margins.
 	 */
 	@Override
-	public void draw() {
-		drawUsingVisualizer( null );
+	public void draw( Color drawingColor ) {
+		drawUsingVisualizer( null, drawingColor );
 	}
 
 
 	Margins serviceMargins = new Margins();
 	
 	@Override
-	public void drawUsingVisualizer( Visualizer vis ) {
+	public void drawUsingVisualizer( Visualizer vis, Color drawingColor ) {
 		if( visible ) {
 			Service.getEscribedRectangle( leftMargin, topMargin, rightMargin, bottomMargin, serviceMargins );
 
@@ -221,9 +221,9 @@ public class SpriteMap extends Map {
 
 						if( !spriteMap.containsKey( storedSprite ) ) {
 							if( vis != null ) {
-								vis.drawUsingSprite( storedSprite );
+								vis.drawUsingSprite( storedSprite, storedSprite, drawingColor );
 							} else {
-								storedSprite.draw();
+								storedSprite.draw( drawingColor );
 							}
 							spriteMap.put( storedSprite, null );
 						}
@@ -238,9 +238,9 @@ public class SpriteMap extends Map {
 							Sprite sprite = array[ n ];
 							if( ! spriteMap.containsKey( sprite ) ) {
 								if( vis != null ) {
-									sprite.drawUsingVisualizer( vis );
+									sprite.drawUsingVisualizer( vis, drawingColor );
 								} else {
-									sprite.draw();
+									sprite.draw( drawingColor );
 								}
 								spriteMap.put( sprite, null );
 							}
@@ -266,8 +266,8 @@ public class SpriteMap extends Map {
 		} else {
 			int mapX1 = Service.floor( ( sprite.getX() - 0.5d * sprite.getWidth() ) / cellWidth );
 			int mapY1 = Service.floor( ( sprite.getY() - 0.5d * sprite.getHeight() ) / cellHeight );
-			int mapX2 = Service.floor( ( sprite.getX() + 0.5d * sprite.getWidth() - Collision.inaccuracy ) / cellWidth );
-			int mapY2 = Service.floor( ( sprite.getY() + 0.5d * sprite.getHeight() - Collision.inaccuracy ) / cellHeight );
+			int mapX2 = Service.floor( ( sprite.getX() + 0.5d * sprite.getWidth() - inaccuracy ) / cellWidth );
+			int mapY2 = Service.floor( ( sprite.getY() + 0.5d * sprite.getHeight() - inaccuracy ) / cellHeight );
 
 			for( int yy = mapY1; yy <= mapY2; yy++ ) {
 				for( int xx = mapX1; xx <= mapX2; xx++ ) {
@@ -324,8 +324,8 @@ public class SpriteMap extends Map {
 		} else {
 			int mapX1 = Service.floor( ( sprite.getX() - 0.5d * sprite.getWidth() ) / cellWidth );
 			int mapY1 = Service.floor( ( sprite.getY() - 0.5d * sprite.getHeight() ) / cellHeight );
-			int mapX2 = Service.floor( ( sprite.getX() + 0.5d * sprite.getWidth() - Collision.inaccuracy ) / cellWidth );
-			int mapY2 = Service.floor( ( sprite.getY() + 0.5d * sprite.getHeight() - Collision.inaccuracy ) / cellHeight );
+			int mapX2 = Service.floor( ( sprite.getX() + 0.5d * sprite.getWidth() - inaccuracy ) / cellWidth );
+			int mapY2 = Service.floor( ( sprite.getY() + 0.5d * sprite.getHeight() - inaccuracy ) / cellHeight );
 
 			for( int yy = mapY1; yy <= mapY2; yy++ ) {
 				for( int xx = mapX1; xx <= mapX2; xx++ ) {
@@ -415,8 +415,8 @@ public class SpriteMap extends Map {
 
 
 	@Override
-	public boolean insertBeforeShape( Shape shape, Shape beforeShape ) {
-		Sprite sprite = beforeShape.toSprite();
+	public boolean insertShape( Shape shape, Shape pivotShape, Relativity relativity ) {
+		Sprite sprite = pivotShape.toSprite();
 		if( sprite == null ) return false;
 		if( sprites.contains( sprite ) ) {
 			sprite = shape.toSprite();
@@ -429,8 +429,8 @@ public class SpriteMap extends Map {
 	
 	
 	@Override
-	public boolean insertBeforeShape( Collection<Shape> shapes, Shape beforeShape ) {
-		Sprite sprite = beforeShape.toSprite();
+	public boolean insertShape( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
+		Sprite sprite = pivotShape.toSprite();
 		if( sprite == null ) return false;
 		if( sprites.contains( sprite ) ) {
 			for( Shape shape : shapes ) {

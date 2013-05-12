@@ -61,6 +61,10 @@ public class Graph extends Shape {
 			pivot.drawUsingVisualizer( visualizer, drawingColor );
 		}
 	}
+	
+	public void drawPivotsUsing( Visualizer visualizer ) {
+		drawUsingVisualizer( visualizer, Color.white );
+	}
 
 
 	/**
@@ -71,6 +75,10 @@ public class Graph extends Shape {
 		for( LinkedList<LineSegment> list: contents.values() ) {
 			for( LineSegment lineSegment: list ) lineSegment.drawUsingVisualizer( visualizer, drawingColor );
 		}
+	}
+	
+	public void drawPivotsUsing( Visualizer visualizer ) {
+		drawUsingVisualizer( visualizer, Color.white );
 	}
 
 

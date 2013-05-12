@@ -160,7 +160,6 @@ public class Sprite extends Shape {
 	}
 
 
-
 	@Override
 	public void drawUsingVisualizer( Visualizer vis, Color drawingColor ) {
 		vis.drawUsingSprite( this, this, drawingColor );
@@ -291,14 +290,14 @@ public class Sprite extends Shape {
 		double cellHeight = tileMap.getTileHeight();
 		int xQuantity = tileMap.xQuantity;
 		int yQuantity = tileMap.yQuantity;
-		TileSet tileset = tileMap.tileSet;
+		Sprite[][] collisionSprites = tileMap.tileSet.collisionSprites;
 
 		if( shapeType.getNum() == ShapeType.pivot.getNum() ) {
 			int tileX = Service.floor( ( x - x0 ) / cellWidth );
 			int tileY = Service.floor( ( y - y0 ) / cellHeight );
 
 			if( tileX >= 0 && tileY >= 0 && tileX < xQuantity && tileY < yQuantity ) {
-				Sprite[] spriteArray = tileset.collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
+				Sprite[] spriteArray = collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
 				if( spriteArray != null ) {
 					for( int n = 0; n < spriteArray.length; n++ ) {
 						Sprite sprite = spriteArray[ n ];
@@ -321,10 +320,9 @@ public class Sprite extends Shape {
 
 				for( int tileY = y1; tileY < y2; tileY++ ) {
 					for( int tileX = x1; tileX < x2; tileX++ ) {
-						Sprite[] spriteArray = tileset.collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
+						Sprite[] spriteArray = collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
 						if( spriteArray != null ) {
-							for( int n = 0; n < spriteArray.length; n++ ) {
-								Sprite sprite = spriteArray[ n ];
+							for( Sprite sprite : spriteArray ) {
 								sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
 								if( collidesWithSprite( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, sprite );
 							}
@@ -347,7 +345,12 @@ public class Sprite extends Shape {
 	public void collisionsWithSpriteMap( SpriteMap spriteMap, SpriteCollisionHandler handler ) {
 		checkNum++;
 		if( shapeType.getNum() == ShapeType.pivot.getNum() ) {
-			for( Sprite mapSprite: spriteMap.lists[ Service.floor( y / spriteMap.cellHeight ) & spriteMap.yMask ][ Service.floor( x / spriteMap.cellWidth ) & spriteMap.xMask ] ) {
+			int wrappedCellX = ( (int) Service.floor( x / spriteMap.cellWidth ) ) & spriteMap.xMask;
+			int wrappedCellY = ( (int) Service.floor( y / spriteMap.cellHeight ) ) & spriteMap.yMask;
+			Sprite[] sprites = spriteMap.lists[ wrappedCellY ][ wrappedCellX ];
+			int quantity = spriteMap.listSize[ wrappedCellY ][ wrappedCellX ];
+			for( int n = 0; n < quantity; n++ ) {
+				Sprite mapSprite = sprites[ n ];
 				if( this == mapSprite ) continue;
 				if( collidesWithSprite( mapSprite ) ) {
 					if( mapSprite.checkValue != checkNum ) {
@@ -362,9 +365,14 @@ public class Sprite extends Shape {
 			int mapX2 = Service.floor( ( x + 0.5d * width - smallNum ) / spriteMap.cellWidth );
 			int mapY2 = Service.floor( ( y + 0.5d * height - smallNum ) / spriteMap.cellHeight );
 
-			for( int cellY=mapY1; cellY <= mapY2; cellY++ ) {
-				for( int cellX=mapX1; cellX <= mapX2; cellX++ ) {
-					for( Sprite mapSprite: spriteMap.lists[ cellY & spriteMap.yMask ][ cellX & spriteMap.xMask ] ) {
+			for( int cellY = mapY1; cellY <= mapY2; cellY++ ) {
+				int wrappedCellY = cellY & spriteMap.yMask;
+				for( int cellX = mapX1; cellX <= mapX2; cellX++ ) {
+					int wrappedCellX = cellX & spriteMap.xMask;
+					Sprite[] sprites = spriteMap.lists[ wrappedCellY ][ wrappedCellX ];
+					int quantity = spriteMap.listSize[ wrappedCellY ][ wrappedCellX ];
+					for( int n = 0; n < quantity; n++ ) {
+						Sprite mapSprite = sprites[ n ];
 						if( this == mapSprite ) continue;
 						if( collidesWithSprite( mapSprite ) ) {
 							if( mapSprite.checkValue != checkNum ) {

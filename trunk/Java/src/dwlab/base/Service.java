@@ -21,7 +21,7 @@ public class Service extends Obj {
 	public static long totalLoadingTime;
 	public static double loadingProgress;
 	public static String loadingStatus;
-	public static Object loadingUpdater = null;
+	public static Obj loadingUpdater = null;
 	
 	/**
 	* Transfers hex string value to Int.

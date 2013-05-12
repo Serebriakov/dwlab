@@ -4,6 +4,7 @@ import dwlab.base.*;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.Camera;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawTileExample extends Project {
@@ -41,7 +42,7 @@ public class DrawTileExample extends Project {
 			
 			
 			@Override
-			public void drawTile( TileMap tileMap, double x, double y, double width, double height, int tileX, int tileY ) {
+			public void drawTile( TileMap tileMap, double x, double y, double width, double height, int tileX, int tileY, Color drawingColor ) {
 				TileSet tileSet =tileMap.tileSet;
 				int tileValue = getTileValue( tileMap, tileX, tileY );
 				if( tileValue == tileSet.emptyTile ) return;

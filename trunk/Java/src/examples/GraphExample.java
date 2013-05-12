@@ -9,6 +9,7 @@ import dwlab.shapes.graphs.Graph;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.ContourVisualizer;
 import dwlab.visualizers.Visualizer;
 import java.util.LinkedList;

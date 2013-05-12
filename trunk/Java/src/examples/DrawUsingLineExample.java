@@ -4,6 +4,7 @@ import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
+import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawUsingLineExample extends Project {
@@ -24,7 +25,7 @@ public class DrawUsingLineExample extends Project {
 			
 			
 			@Override
-			public void drawUsingLineSegment( LineSegment lineSegment ) {
+			public void drawUsingLineSegment( LineSegment lineSegment, Color drawingColor ) {
 				Vector vector1 = new Vector();
 				Vector vector2 = new Vector();
 				Camera.current.fieldToScreen( lineSegment.pivot[ 0 ].getX(), lineSegment.pivot[ 0 ].getY(), vector1 );

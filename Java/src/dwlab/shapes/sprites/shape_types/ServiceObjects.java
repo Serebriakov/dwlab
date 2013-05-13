@@ -1,8 +1,8 @@
 package dwlab.shapes.sprites.shape_types;
 
 import dwlab.base.Obj;
-import dwlab.base.Service;
-import dwlab.base.Vector;
+import dwlab.base.service.Service;
+import dwlab.base.service.Vector;
 import dwlab.shapes.Line;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;

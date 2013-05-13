@@ -9,6 +9,7 @@
 
 package dwlab.base;
 
+import dwlab.base.service.IntVector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.visualizers.Color;
 import java.util.logging.Level;

@@ -9,7 +9,7 @@
 package dwlab.shapes.maps;
 
 import dwlab.base.images.Image;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.base.Sys;
 
 /**

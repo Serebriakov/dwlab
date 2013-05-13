@@ -1,6 +1,6 @@
 package dwlab.shapes.graphs;
 
-import dwlab.base.Action;
+import dwlab.base.service.Action;
 import dwlab.shapes.sprites.Sprite;
 
 public class AddPivotToGraph extends Action {

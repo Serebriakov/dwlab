@@ -1,8 +1,8 @@
 package examples;
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 
 public class DrawEmptyRectangleExample extends Project {
 	public static void main(String[] argv) {

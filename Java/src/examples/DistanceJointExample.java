@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.behavior_models.DistanceJoint;

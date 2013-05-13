@@ -1,4 +1,6 @@
 package examples;
+import dwlab.base.service.Align;
+import dwlab.base.service.Drag;
 import dwlab.base.images.RasterFrame;
 import dwlab.base.*;
 import dwlab.controllers.ButtonAction;

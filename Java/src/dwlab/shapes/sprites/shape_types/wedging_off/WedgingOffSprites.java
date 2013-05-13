@@ -1,7 +1,7 @@
 package dwlab.shapes.sprites.shape_types.wedging_off;
 
-import dwlab.base.Service;
-import dwlab.base.Vector;
+import dwlab.base.service.Service;
+import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
 import dwlab.shapes.sprites.shape_types.ShapeType;

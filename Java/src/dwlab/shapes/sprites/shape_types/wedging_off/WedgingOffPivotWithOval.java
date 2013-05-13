@@ -1,6 +1,6 @@
 package dwlab.shapes.sprites.shape_types.wedging_off;
 
-import dwlab.base.Vector;
+import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Sprite;
 
 public class WedgingOffPivotWithOval extends WedgingOffSprites {

@@ -1,7 +1,7 @@
 package dwlab.shapes.sprites.shape_types.collisions;
 
 import dwlab.base.Obj;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.shapes.Line;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;

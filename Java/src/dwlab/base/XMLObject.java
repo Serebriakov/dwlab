@@ -9,6 +9,7 @@
 
 package dwlab.base;
 
+import dwlab.base.service.Service;
 import dwlab.base.files.TextFile;
 import dwlab.shapes.Shape;
 import java.lang.reflect.Array;

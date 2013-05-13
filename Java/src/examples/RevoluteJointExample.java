@@ -2,7 +2,7 @@ package examples;
 import dwlab.behavior_models.FixedJoint;
 import java.lang.Math;
 import dwlab.behavior_models.RevoluteJoint;
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.layers.Layer;

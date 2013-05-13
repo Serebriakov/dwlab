@@ -10,7 +10,7 @@
 package dwlab.visualizers;
 
 import dwlab.base.Obj;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 

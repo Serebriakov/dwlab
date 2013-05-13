@@ -1,4 +1,6 @@
 package examples;
+import dwlab.base.service.Align;
+import dwlab.base.service.Service;
 import dwlab.base.images.Image;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.base.*;

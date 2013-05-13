@@ -1,5 +1,6 @@
-package dwlab.base;
+package dwlab.base.service;
 
+import dwlab.base.Obj;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Camera;
 

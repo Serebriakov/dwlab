@@ -12,11 +12,11 @@ package dwlab.visualizers;
 
 import dwlab.base.images.Image;
 import dwlab.base.Graphics;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import java.util.LinkedList;
 import java.lang.Math;
 import dwlab.shapes.maps.tilemaps.TileMap;
-import dwlab.base.Vector;
+import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 

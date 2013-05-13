@@ -63,7 +63,7 @@ public class Graph extends Shape {
 	}
 	
 	public void drawPivotsUsing( Visualizer visualizer ) {
-		drawUsingVisualizer( visualizer, Color.white );
+		drawPivotsUsing( visualizer, Color.white );
 	}
 
 
@@ -77,8 +77,8 @@ public class Graph extends Shape {
 		}
 	}
 	
-	public void drawPivotsUsing( Visualizer visualizer ) {
-		drawUsingVisualizer( visualizer, Color.white );
+	public void drawLineSegmentsUsing( Visualizer visualizer ) {
+		drawLineSegmentsUsing( visualizer, Color.white );
 	}
 
 

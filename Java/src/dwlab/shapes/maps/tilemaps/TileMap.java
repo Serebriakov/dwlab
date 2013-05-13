@@ -8,6 +8,8 @@
 
 package dwlab.shapes.maps.tilemaps;
 
+import dwlab.base.service.Service;
+import dwlab.base.service.IntVector;
 import dwlab.base.files.BinaryFile;
 import dwlab.base.*;
 import dwlab.shapes.Shape;

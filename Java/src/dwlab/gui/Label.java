@@ -8,7 +8,7 @@
  */
 
 package dwlab.gui;
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.shapes.Shape;
 import dwlab.visualizers.Visualizer;
 

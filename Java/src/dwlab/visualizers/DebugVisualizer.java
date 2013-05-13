@@ -1,14 +1,14 @@
 package dwlab.visualizers;
 import dwlab.base.Graphics;
 import dwlab.base.Obj;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import java.util.LinkedList;
 import java.lang.Math;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.Shape;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
-import dwlab.base.Vector;
+import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;

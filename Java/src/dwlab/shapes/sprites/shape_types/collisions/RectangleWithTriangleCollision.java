@@ -1,6 +1,6 @@
 package dwlab.shapes.sprites.shape_types.collisions;
 
-import dwlab.base.Service.Margins;
+import dwlab.base.service.Service.Margins;
 import dwlab.shapes.sprites.Sprite;
 
 public class RectangleWithTriangleCollision extends SpritesCollision {

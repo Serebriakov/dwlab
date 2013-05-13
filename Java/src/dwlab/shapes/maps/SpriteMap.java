@@ -9,8 +9,8 @@
 package dwlab.shapes.maps;
 
 import dwlab.base.Graphics;
-import dwlab.base.Service;
-import dwlab.base.Service.Margins;
+import dwlab.base.service.Service;
+import dwlab.base.service.Service.Margins;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.shapes.Shape;
@@ -185,14 +185,14 @@ public class SpriteMap extends Map {
 	@Override
 	public void drawUsingVisualizer( Visualizer vis, Color drawingColor ) {
 		if( visible ) {
+			Sprite.checkNum++;
+			
 			Service.getEscribedRectangle( leftMargin, topMargin, rightMargin, bottomMargin, serviceMargins );
 
 			int mapX1 = Service.floor( serviceMargins.min.x / cellWidth );
 			int mapY1 = Service.floor( serviceMargins.min.y / cellHeight );
 			int mapX2 = Service.floor( serviceMargins.max.x / cellWidth );
 			int mapY2 = Service.floor( serviceMargins.max.y / cellHeight );
-
-			HashMap spriteMap = new HashMap();
 
 			int xN[] = new int[ mapX2 - mapX1 + 1 ];
 
@@ -219,13 +219,13 @@ public class SpriteMap extends Map {
 						}
 						if( storedSprite == null ) break;
 
-						if( !spriteMap.containsKey( storedSprite ) ) {
+						if( storedSprite.checkValue != Sprite.checkNum ) {
 							if( vis != null ) {
 								vis.drawUsingSprite( storedSprite, storedSprite, drawingColor );
 							} else {
 								storedSprite.draw( drawingColor );
 							}
-							spriteMap.put( storedSprite, null );
+							storedSprite.checkValue = Sprite.checkNum;
 						}
 
 						xN[ storedX ] += 1;
@@ -236,13 +236,13 @@ public class SpriteMap extends Map {
 						Sprite array[] = lists[ maskedY ][ maskedX ];
 						for( int n = 0; n <= listSize[ maskedY ][ maskedX ]; n++ ) {
 							Sprite sprite = array[ n ];
-							if( ! spriteMap.containsKey( sprite ) ) {
+							if( sprite.checkValue != Sprite.checkNum ) {
 								if( vis != null ) {
 									sprite.drawUsingVisualizer( vis, drawingColor );
 								} else {
 									sprite.draw( drawingColor );
 								}
-								spriteMap.put( sprite, null );
+								sprite.checkValue = Sprite.checkNum;
 							}
 						}
 					}
@@ -262,7 +262,7 @@ public class SpriteMap extends Map {
 	public void insertSprite( Sprite sprite, boolean changeSpriteMapField ) {
 		sprites.add( sprite );
 		if( pivotMode ) {
-			insertSprite( sprite, Service.round( sprite.getX() / cellWidth ) & xMask, (int) Service.round( sprite.getY() / cellHeight ) & yMask );
+			insertSprite( sprite, ( (int) Service.round( sprite.getX() / cellWidth ) ) & xMask, ( (int) Service.round( sprite.getY() / cellHeight ) ) & yMask );
 		} else {
 			int mapX1 = Service.floor( ( sprite.getX() - 0.5d * sprite.getWidth() ) / cellWidth );
 			int mapY1 = Service.floor( ( sprite.getY() - 0.5d * sprite.getHeight() ) / cellHeight );
@@ -320,7 +320,7 @@ public class SpriteMap extends Map {
 	public void removeSprite( Sprite sprite, boolean changeSpriteMapField ) {
 		sprites.remove( sprite );
 		if( pivotMode ) {
-			removeSprite( sprite, Service.round( sprite.getX() / cellWidth ) & xMask, Service.round( sprite.getY() / cellHeight ) & yMask );
+			removeSprite( sprite, ( (int) Service.round( sprite.getX() / cellWidth ) ) & xMask, ( (int) Service.round( sprite.getY() / cellHeight ) ) & yMask );
 		} else {
 			int mapX1 = Service.floor( ( sprite.getX() - 0.5d * sprite.getWidth() ) / cellWidth );
 			int mapY1 = Service.floor( ( sprite.getY() - 0.5d * sprite.getHeight() ) / cellHeight );

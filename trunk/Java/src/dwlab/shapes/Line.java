@@ -9,9 +9,9 @@
 package dwlab.shapes;
 
 import dwlab.base.Graphics;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.base.Sys;
-import dwlab.base.Vector;
+import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Color;

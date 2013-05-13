@@ -9,9 +9,9 @@
 
 package dwlab.shapes.layers;
 
-import dwlab.base.images.Image;
 import dwlab.base.Obj;
 import dwlab.base.XMLObject;
+import dwlab.base.images.Image;
 import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.visualizers.Color;
 import java.util.LinkedList;

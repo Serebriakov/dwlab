@@ -1,9 +1,9 @@
 package examples;
 import java.lang.Math;
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
-import dwlab.base.Vector;
+import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Color;

@@ -9,7 +9,7 @@
 
 package dwlab.behavior_models;
 
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
 

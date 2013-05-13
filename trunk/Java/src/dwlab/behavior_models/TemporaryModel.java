@@ -10,7 +10,7 @@
 package dwlab.behavior_models;
 
 import dwlab.base.Project;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.shapes.Shape;
 
 public class TemporaryModel<E extends Shape> extends ChainedModel<E> {

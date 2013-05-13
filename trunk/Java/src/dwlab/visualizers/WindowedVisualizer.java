@@ -10,8 +10,8 @@ package dwlab.visualizers;
 
 import dwlab.base.Graphics;
 import dwlab.base.images.Image;
-import dwlab.base.IntVector;
-import dwlab.base.Vector;
+import dwlab.base.service.IntVector;
+import dwlab.base.service.Vector;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.sprites.Sprite;

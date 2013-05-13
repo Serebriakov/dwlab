@@ -1,4 +1,7 @@
 package examples;
+import dwlab.base.service.Align;
+import dwlab.base.service.Vector;
+import dwlab.base.service.Service;
 import dwlab.base.*;
 import java.lang.Math;
 import dwlab.shapes.line_segments.LineSegment;

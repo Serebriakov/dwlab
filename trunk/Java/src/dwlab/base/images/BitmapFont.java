@@ -9,8 +9,8 @@
 
 package dwlab.base.images;
 
-import dwlab.base.Align;
-import dwlab.base.Vector;
+import dwlab.base.service.Align;
+import dwlab.base.service.Vector;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Camera;
 

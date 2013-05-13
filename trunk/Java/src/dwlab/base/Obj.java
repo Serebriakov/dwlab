@@ -9,6 +9,8 @@
 
 package dwlab.base;
 
+import dwlab.base.service.Align;
+import dwlab.base.service.Service;
 import dwlab.base.files.BinaryFile;
 import dwlab.base.Sys.XMLMode;
 import dwlab.base.XMLObject.XMLAttribute;

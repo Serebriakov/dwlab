@@ -8,9 +8,11 @@
 
 package dwlab.visualizers;
 
+import dwlab.base.service.Vector;
 import dwlab.base.images.Image;
-import dwlab.base.Service.Margins;
+import dwlab.base.service.Service.Margins;
 import dwlab.base.*;
+import dwlab.base.service.Service;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.line_segments.LineSegment;

@@ -1,6 +1,6 @@
 package dwlab.shapes.graphs;
 
-import dwlab.base.Action;
+import dwlab.base.service.Action;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;

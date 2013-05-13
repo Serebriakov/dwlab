@@ -8,7 +8,7 @@
 
 package dwlab.shapes.maps;
 
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.base.Sys;
 import dwlab.shapes.Shape;
 import dwlab.base.XMLObject;

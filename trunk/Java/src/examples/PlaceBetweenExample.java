@@ -1,5 +1,5 @@
 package examples;
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.line_segments.LineSegment;

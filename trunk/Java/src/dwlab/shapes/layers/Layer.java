@@ -15,7 +15,6 @@ import dwlab.base.XMLObject;
 import dwlab.shapes.Shape;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;

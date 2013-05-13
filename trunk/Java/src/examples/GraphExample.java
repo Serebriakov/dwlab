@@ -1,8 +1,8 @@
 package examples;
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.graphs.Graph;

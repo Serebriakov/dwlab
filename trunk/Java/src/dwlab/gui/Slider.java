@@ -1,6 +1,6 @@
 package dwlab.gui;
 import dwlab.base.Project;
-import dwlab.base.Service;
+import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.shapes.sprites.Sprite;
 

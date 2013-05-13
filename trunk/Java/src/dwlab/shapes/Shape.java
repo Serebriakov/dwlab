@@ -9,6 +9,9 @@
 
 package dwlab.shapes;
 
+import dwlab.base.service.Align;
+import dwlab.base.service.Vector;
+import dwlab.base.service.Service;
 import dwlab.base.images.Image;
 import dwlab.base.*;
 import dwlab.behavior_models.BehaviorModel;

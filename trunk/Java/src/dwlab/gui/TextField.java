@@ -1,6 +1,6 @@
 package dwlab.gui;
 import dwlab.controllers.ButtonAction;
-import dwlab.base.Align;
+import dwlab.base.service.Align;
 import dwlab.visualizers.Visualizer;
 
 

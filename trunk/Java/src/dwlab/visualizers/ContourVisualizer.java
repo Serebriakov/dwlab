@@ -1,7 +1,7 @@
 package dwlab.visualizers;
 import dwlab.base.Graphics;
 import dwlab.shapes.line_segments.LineSegment;
-import dwlab.base.Vector;
+import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 

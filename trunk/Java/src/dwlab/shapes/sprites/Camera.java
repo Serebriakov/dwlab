@@ -9,6 +9,8 @@
 
 package dwlab.shapes.sprites;
 
+import dwlab.base.service.Vector;
+import dwlab.base.service.Service;
 import dwlab.base.*;
 import dwlab.shapes.Shape;
 import dwlab.visualizers.Color;

@@ -17,12 +17,12 @@ public class DrawEmptyRectangleExample extends Project {
 		for( int n = 1; n <= 10; n++ ) {
 			double width = Service.random( 700 );
 			double height = Service.random( 500 );
-			Graphics.setColor( Service.random( 0.5d, 1d ), Service.random( 0.5d, 1d ), Service.random( 0.5d, 1d ) );
+			Graphics.setCurrentColor( Service.random( 0.5d, 1d ), Service.random( 0.5d, 1d ), Service.random( 0.5d, 1d ) );
 			Graphics.drawEmptyRectangle( Service.random( 0.5 * width, 800 - 0.5 * width ), Service.random( 0.5 * height, 600 - 0.5 * height ), width, height );
 		}
-		Graphics.setColor( 0d, 0d, 0d, 0.04d );
+		Graphics.setCurrentColor( 0d, 0d, 0d, 0.04d );
 		Graphics.drawRectangle( 400, 300, 800, 600 );
-		Graphics.resetColor();
+		Graphics.resetCurrentColor();
 		printText( "Graphics.drawEmptyRectangle example", Align.TO_CENTER, Align.TO_BOTTOM );
 		Graphics.swapBuffers();
 	}

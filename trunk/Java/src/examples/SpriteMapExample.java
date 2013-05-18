@@ -121,7 +121,7 @@ public class SpriteMapExample extends Project {
 		public void draw() {
 			double a = 1d - ( instance.time - startingTime ) / fadingTime;
 			if( a >= 0 ) {
-				Graphics.setColor( 1d, 0.75d, 0d, a );
+				Graphics.setCurrentColor( 1d, 0.75d, 0d, a );
 				for( Sprite sprite : particles ) {
 					double dX = Math.cos( sprite.angle ) * sprite.getDiameter() * 0.5d;
 					double dY = Math.sin( sprite.angle ) * sprite.getDiameter() * 0.5d;
@@ -131,7 +131,7 @@ public class SpriteMapExample extends Project {
 					Graphics.drawLine( vector1.x, vector1.y , vector2.x, vector2.y );
 					sprite.moveForward();
 				}
-				Graphics.resetColor();
+				Graphics.resetCurrentColor();
 			}
 		}
 		

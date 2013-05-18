@@ -352,12 +352,12 @@ public class BehaviorModelExample extends Project {
 		super.draw();
 		Graphics.drawEmptyRectangle( 5, 580, 104, 15 );
 		if( health >= 50.0 ) {
-			Graphics.setColor( ( 100.0 - health ) * 255.0 / 50.0 , 255, 0 );
+			Graphics.setCurrentColor( ( 100.0 - health ) * 255.0 / 50.0 , 255, 0 );
 		} else {
-			Graphics.setColor( 255, health * 255.0 / 50.0, 0 );
+			Graphics.setCurrentColor( 255, health * 255.0 / 50.0, 0 );
 		}
 		Graphics.drawRectangle( 7, 582, health, 11 );
-		Graphics.resetColor();
+		Graphics.resetCurrentColor();
 	}
 
 

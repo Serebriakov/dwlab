@@ -1,7 +1,6 @@
 package dwlab.shapes.sprites.shape_types.drawing_shape;
 
 import dwlab.base.Graphics;
-import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
@@ -15,12 +14,22 @@ public class DrawingShape extends ServiceObjects {
 	
 	public static HashMap<ShapeType, DrawingShape> handlersMap = new HashMap<ShapeType, DrawingShape>();
 
+	static {
+		register( ShapeType.bottomLeftTriangle, DrawingBottomLeftTriangleShape.instance );
+		register( ShapeType.bottomRightTriangle, DrawingBottomRightTriangleShape.instance );
+		register( ShapeType.oval, DrawingOvalShape.instance );
+		register( ShapeType.pivot, DrawingPivotShape.instance );
+		register( ShapeType.ray, DrawingRayShape.instance );
+		register( ShapeType.spriteTemplate, DrawingSpriteTemplateShape.instance );
+		register( ShapeType.topLeftTriangle, DrawingTopLeftTriangleShape.instance );
+		register( ShapeType.topRightTriangle, DrawingTopRightTriangleShape.instance );
+		initSystem();
+	}
 
 
 	public static void register( ShapeType shapeType, DrawingShape handler ) {
 		handlersMap.put( shapeType, handler );
 	}
-
 
 
 	public void perform( Sprite sprite, Color drawingColor, boolean empty ) {

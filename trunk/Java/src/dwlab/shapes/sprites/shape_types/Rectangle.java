@@ -6,6 +6,10 @@ public class Rectangle extends ShapeType {
 	public static Sprite serviceRectangle = Rectangle.serviceRectangle;
 
 	
+	protected Rectangle() {
+	}
+	
+	
 	@Override
 	public int getNum() {
 		return 2;

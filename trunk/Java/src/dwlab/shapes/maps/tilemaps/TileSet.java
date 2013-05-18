@@ -68,7 +68,7 @@ public class TileSet extends Obj {
 		if( image == null ) return;
 		int newTilesQuantity = image.framesQuantity();
 		Sprite newCollisionSprites[][] = new Sprite[ newTilesQuantity ][];
-		System.arraycopy( collisionSprites, 0, newCollisionSprites, 0, Math.min( tilesQuantity, newTilesQuantity ) );
+		for( int n = 0; n < Math.min( tilesQuantity, newTilesQuantity ); n++ ) newCollisionSprites[ n ] = collisionSprites[ n ];
 		collisionSprites = newCollisionSprites;
 		tilesQuantity = newTilesQuantity;
 		update();

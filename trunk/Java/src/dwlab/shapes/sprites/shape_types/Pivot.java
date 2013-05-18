@@ -6,6 +6,10 @@ public class Pivot extends ShapeType {
 	public static Sprite servicePivot = new Sprite( ShapeType.pivot );
 
 	
+	protected Pivot() {
+	}
+	
+	
 	@Override
 	public int getNum() {
 		return 0;

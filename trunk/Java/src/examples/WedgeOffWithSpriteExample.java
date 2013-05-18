@@ -9,6 +9,7 @@ import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.DebugVisualizer;
 
 public class WedgeOffWithSpriteExample extends Project {

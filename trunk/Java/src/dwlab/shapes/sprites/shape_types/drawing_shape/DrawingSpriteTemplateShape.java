@@ -1,11 +1,13 @@
 package dwlab.shapes.sprites.shape_types.drawing_shape;
 
-import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.SpriteTemplate;
 import dwlab.visualizers.Color;
 
 public class DrawingSpriteTemplateShape extends DrawingShape {
+	public static DrawingSpriteTemplateShape instance = new DrawingSpriteTemplateShape();
+	
+	
 	@Override
 	public void perform( Sprite sprite, Color drawingColor, boolean empty ) {
 		SpriteTemplate spriteTemplate = (SpriteTemplate) sprite.shapeType;

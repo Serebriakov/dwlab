@@ -4,6 +4,9 @@ import dwlab.base.Graphics;
 import dwlab.visualizers.Color;
 
 public class DrawingBottomLeftTriangleShape extends DrawingShape {
+	public static DrawingBottomLeftTriangleShape instance = new DrawingBottomLeftTriangleShape();
+	
+	
 	@Override
 	public void perform( Color drawingColor, boolean empty ) {
 		vector2.x *= 0.5d;

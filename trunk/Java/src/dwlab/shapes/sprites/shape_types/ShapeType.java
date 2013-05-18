@@ -5,6 +5,8 @@ import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;
 
 public abstract class ShapeType extends Obj {
+	public static LinkedList<ShapeType> shapeTypes = new LinkedList();
+	
 	/**
 	 * Type of the sprite shape: pivot. It's a point on game field with (X, Y) coordinates.
 	 */
@@ -55,9 +57,6 @@ public abstract class ShapeType extends Obj {
 		register( raster );
 		register( spriteTemplate );
 	}
-	
-	
-	public static LinkedList<ShapeType> shapeTypes = new LinkedList();
 
 
 	public abstract int getNum();

@@ -17,16 +17,14 @@ public class WedgingOffTriangleWithTriangle extends WedgingOffSprites {
 		double d2 = Service.distance2( vector2.x, vector2.y );
 
 		while( true ) {
-			int triangle2shapeTypeNum = triangle2.shapeType.getNum();
-			int num = triangle1.shapeType.getNum();
-			if( num == ShapeType.topLeftTriangle.getNum() ) {
-				if( triangle2shapeTypeNum != ShapeType.bottomRightTriangle.getNum() ) break;
-			} else if( num == ShapeType.topRightTriangle.getNum() ) {
-				if( triangle2shapeTypeNum != ShapeType.bottomLeftTriangle.getNum() ) break;
-			} else if( num == ShapeType.bottomLeftTriangle.getNum() ) {
-				if( triangle2shapeTypeNum != ShapeType.topRightTriangle.getNum() ) break;
-			} else if( num == ShapeType.bottomRightTriangle.getNum() ) {
-				if( triangle2shapeTypeNum != ShapeType.topLeftTriangle.getNum() ) break;
+			if( triangle1.shapeType == ShapeType.topLeftTriangle ) {
+				if( triangle2.shapeType != ShapeType.bottomRightTriangle ) break;
+			} else if( triangle1.shapeType == ShapeType.topRightTriangle ) {
+				if( triangle2.shapeType != ShapeType.bottomLeftTriangle ) break;
+			} else if( triangle1.shapeType == ShapeType.bottomLeftTriangle ) {
+				if( triangle2.shapeType != ShapeType.topRightTriangle ) break;
+			} else if( triangle1.shapeType == ShapeType.bottomRightTriangle ) {
+				if( triangle2.shapeType != ShapeType.topLeftTriangle ) break;
 			}
 
 			double dY3 = 0;

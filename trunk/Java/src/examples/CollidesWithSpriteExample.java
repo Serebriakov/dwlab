@@ -22,15 +22,13 @@ public class CollidesWithSpriteExample extends Project {
 	
 	ButtonAction change = ButtonAction.create( MouseButton.create( MouseButton.RIGHT_BUTTON ), "clone" );
 	
-	ShapeType[] shapeTypes;
 	int shapeTypeNum = 3;
 
 	
 	@Override
 	public void init() {
-		ShapeType.shapeTypes.toArray( shapeTypes );
 		for( int n = 0; n < 9; n++ ) {
-			ShapeType shapeType = shapeTypes[ n ];
+			ShapeType shapeType = ShapeType.shapeTypes.get( n );
 			Sprite sprite = new Sprite( shapeType, ( n % 3 ) * 8d - 8d, Math.floor( n / 3 ) * 6d - 6d, 6d, 4d );
 			if( shapeType == ShapeType.raster ) sprite.visualizer.image = image;
 			sprite.visualizer.set( "7FFF7F" );
@@ -48,7 +46,7 @@ public class CollidesWithSpriteExample extends Project {
 	public void logic() {
 		if( change.wasPressed() ) {
 			shapeTypeNum = ( shapeTypeNum + 1 ) % 9;
-			cursor.shapeType = shapeTypes[ shapeTypeNum ];
+			cursor.shapeType = ShapeType.shapeTypes.get( shapeTypeNum );
 			if( cursor.shapeType == ShapeType.raster ) cursor.visualizer.image = image; else cursor.visualizer.image = null;
 		}
 	}

@@ -1,7 +1,7 @@
 package dwlab.shapes.sprites.shape_types.drawing_sprites;
 
-import dwlab.base.images.Image;
 import dwlab.base.Sys;
+import dwlab.base.images.Image;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
@@ -16,6 +16,11 @@ public class DrawingSprite extends ServiceObjects {
 	
 	private static HashMap<ShapeType, DrawingSprite> handlersMap = new HashMap<ShapeType, DrawingSprite>();
 
+	
+	static {
+		register( ShapeType.spriteTemplate, DrawingSpriteTemplate.instance );
+		initSystem();
+	}
 
 
 	public static void register( ShapeType shapeType, DrawingSprite handler ) {
@@ -51,7 +56,7 @@ public class DrawingSprite extends ServiceObjects {
 				image.draw( sprite.frame, vector1.x + visualizer.dX * scaledWidth, vector1.y + visualizer.dY * scaledHeight, scaledWidth, scaledHeight, angle, visualizer.multiplyBy( drawingColor ) );
 			}
 		} else {
-			sprite.drawShape( drawingColor, false );
+			sprite.drawShape( visualizer.multiplyBy( drawingColor ), false );
 		}
 	}
 

@@ -9,17 +9,18 @@
 
 package dwlab.shapes.sprites;
 
-import dwlab.base.service.Vector;
+import dwlab.base.Project;
+import dwlab.base.Sys;
+import dwlab.base.XMLObject;
 import dwlab.base.service.Service;
-import dwlab.base.*;
+import dwlab.base.service.Vector;
 import dwlab.shapes.Line;
-import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
+import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.line_segments.collision.CollisionWithLineSegment;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
-import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.shapes.sprites.shape_types.collisions.SpritesCollision;
 import dwlab.shapes.sprites.shape_types.drawing_shape.DrawingShape;
@@ -27,7 +28,6 @@ import dwlab.shapes.sprites.shape_types.overlapping.SpritesOverlapping;
 import dwlab.shapes.sprites.shape_types.wedging_off.WedgingOffSprites;
 import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
-import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -181,7 +181,13 @@ public class Sprite extends Shape {
 	 */
 	public boolean collidesWithSprite( Sprite sprite ) {
 		if( Sys.debug ) Project.collisionChecks += 1;
-		return SpritesCollision.handlers[ shapeType.getNum() ][ sprite.shapeType.getNum() ].check( this, sprite );
+		int num1 = shapeType.getNum();
+		int num2 = sprite.shapeType.getNum();
+		if( num1 <= num2 ) {
+			return SpritesCollision.handlers[ num1 ][ num2 ].check( this, sprite );
+		} else {
+			return SpritesCollision.handlers[ num2 ][ num1 ].check( sprite, this );
+		}
 	}
 
 
@@ -294,7 +300,7 @@ public class Sprite extends Shape {
 		int yQuantity = tileMap.yQuantity;
 		Sprite[][] collisionSprites = tileMap.tileSet.collisionSprites;
 
-		if( shapeType.getNum() == ShapeType.pivot.getNum() ) {
+		if( shapeType == ShapeType.pivot ) {
 			int tileX = Service.floor( ( x - x0 ) / cellWidth );
 			int tileY = Service.floor( ( y - y0 ) / cellHeight );
 
@@ -308,7 +314,7 @@ public class Sprite extends Shape {
 					}
 				}
 			}
-		} else if( shapeType.getNum() != ShapeType.ray.getNum() ) {
+		} else if( shapeType != ShapeType.ray ) {
 			int x1 = Service.floor( ( x - 0.5d * width - x0 ) / cellWidth );
 			int y1 = Service.floor( ( y - 0.5d * height - y0 ) / cellHeight );
 			int x2 = Service.floor( ( x + 0.5d * width - x0 - smallNum ) / cellWidth );
@@ -346,7 +352,7 @@ public class Sprite extends Shape {
 	 */
 	public void collisionsWithSpriteMap( SpriteMap spriteMap, SpriteCollisionHandler handler ) {
 		checkNum++;
-		if( shapeType.getNum() == ShapeType.pivot.getNum() ) {
+		if( shapeType == ShapeType.pivot ) {
 			int wrappedCellX = ( (int) Service.floor( x / spriteMap.cellWidth ) ) & spriteMap.xMask;
 			int wrappedCellY = ( (int) Service.floor( y / spriteMap.cellHeight ) ) & spriteMap.yMask;
 			Sprite[] sprites = spriteMap.lists[ wrappedCellY ][ wrappedCellX ];
@@ -361,7 +367,7 @@ public class Sprite extends Shape {
 					}
 				}
 			}
-		} else if( shapeType.getNum() != ShapeType.ray.getNum() ) {
+		} else if( shapeType != ShapeType.ray ) {
 			int mapX1 = Service.floor( ( x - 0.5d * width ) / spriteMap.cellWidth );
 			int mapY1 = Service.floor( ( y - 0.5d * height ) / spriteMap.cellHeight );
 			int mapX2 = Service.floor( ( x + 0.5d * width - smallNum ) / spriteMap.cellWidth );
@@ -400,8 +406,15 @@ public class Sprite extends Shape {
 	 * </ul>
 	 */
 	public void wedgeOffWithSprite( Sprite sprite, double selfMovingResistance, double spriteMovingResistance ) {
-		WedgingOffSprites.handlers[ shapeType.getNum() ][ sprite.shapeType.getNum() ].calculateVector( this, sprite, serviceVector );
-		WedgingOffSprites.separate( this, sprite, serviceVector, selfMovingResistance, spriteMovingResistance );
+		int num1 = shapeType.getNum();
+		int num2 = sprite.shapeType.getNum();
+		if( num1 <= num2 ) {
+			WedgingOffSprites.handlers[ num1 ][ num2 ].calculateVector( this, sprite, serviceVector );
+			WedgingOffSprites.separate( this, sprite, serviceVector, selfMovingResistance, spriteMovingResistance );
+		} else {
+			WedgingOffSprites.handlers[ num2 ][ num1 ].calculateVector( sprite, this, serviceVector );
+			WedgingOffSprites.separate( sprite, this, serviceVector, spriteMovingResistance, selfMovingResistance );
+		}
 	}
 	
 	public void wedgeOffWithSprite( Sprite sprite ) {
@@ -770,10 +783,9 @@ public class Sprite extends Shape {
 
 
 	public void getHypotenuse( Line line ) {
-		int num = shapeType.getNum();
-		if( num == ShapeType.topLeftTriangle.getNum() || num == ShapeType.bottomRightTriangle.getNum() ) {
+		if( shapeType == ShapeType.topLeftTriangle || shapeType == ShapeType.bottomRightTriangle ) {
 			line.usePoints( x, y, x - width, y + height );
-		} else if( num == ShapeType.topRightTriangle.getNum() || num == ShapeType.bottomLeftTriangle.getNum() ) {
+		} else if( shapeType == ShapeType.topRightTriangle || shapeType == ShapeType.bottomLeftTriangle ) {
 			line.usePoints( x, y, x + width, y + height );
 		}
 	}
@@ -786,15 +798,14 @@ public class Sprite extends Shape {
 
 
 	public void getRightAngleVertex( Sprite vertex ) {
-		int num = shapeType.getNum();
-		if( num == ShapeType.topLeftTriangle.getNum() || num == ShapeType.bottomLeftTriangle.getNum() ) {
+		if( shapeType == ShapeType.topLeftTriangle || shapeType == ShapeType.bottomLeftTriangle ) {
 			vertex.setX( x - 0.5 * width );
-		} else if( num == ShapeType.topRightTriangle.getNum() || num == ShapeType.bottomRightTriangle.getNum() ) {
+		} else if( shapeType == ShapeType.topRightTriangle || shapeType == ShapeType.bottomRightTriangle ) {
 			vertex.setX( x + 0.5 * width );
 		}
-		if( num == ShapeType.topLeftTriangle.getNum() || num == ShapeType.topRightTriangle.getNum() ) {
+		if( shapeType == ShapeType.topLeftTriangle || shapeType == ShapeType.topRightTriangle ) {
 			vertex.setY( y - 0.5 * height );
-		} else if( num == ShapeType.bottomLeftTriangle.getNum() || num == ShapeType.bottomRightTriangle.getNum() ) {
+		} else if( shapeType == ShapeType.bottomLeftTriangle || shapeType == ShapeType.bottomRightTriangle ) {
 			vertex.setY( y + 0.5 * height );
 		}
 	}

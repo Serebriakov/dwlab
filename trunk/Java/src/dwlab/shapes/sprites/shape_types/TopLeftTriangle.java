@@ -6,6 +6,10 @@ public class TopLeftTriangle extends ShapeType {
 	public static Sprite serviceTriangle = new Sprite();
 	
 
+	protected TopLeftTriangle() {
+	}
+	
+	
 	@Override
 	public int getNum() {
 		return 4;

@@ -2,12 +2,14 @@ package dwlab.shapes.sprites.shape_types.drawing_shape;
 
 import dwlab.base.Graphics;
 import dwlab.base.service.Service;
-import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Color;
 
 public class DrawingRayShape extends DrawingShape {
+	public static DrawingRayShape instance = new DrawingRayShape();
+	
+	
 	@Override
 	public void perform( Sprite sprite, Color drawingColor, boolean empty ) {
 		Camera.current.fieldToScreen( sprite, vector1 );

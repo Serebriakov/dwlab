@@ -5,6 +5,7 @@ import dwlab.shapes.sprites.Sprite;
 public class OvalWithOvalCollision extends SpritesCollision {
 	public static OvalWithOvalCollision instance = new OvalWithOvalCollision();
 
+	
 	@Override
 	public boolean check( Sprite oval1, Sprite oval2 ) {
 		oval1 = oval1.toCircle( oval2, serviceOval1 );

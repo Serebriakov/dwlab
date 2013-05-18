@@ -13,14 +13,14 @@ public class WedgingOffRectangleWithTriangle extends WedgingOffSprites {
 	@Override
 	public void calculateVector( Sprite rectangle, Sprite triangle, Vector vector ) {
 		double x;
-		if( triangle.shapeType.getNum() == ShapeType.topLeftTriangle.getNum() || triangle.shapeType.getNum() == ShapeType.bottomLeftTriangle.getNum() ) {
+		if( triangle.shapeType == ShapeType.topLeftTriangle || triangle.shapeType == ShapeType.bottomLeftTriangle ) {
 			x = rectangle.leftX();
 		} else {
 			x = rectangle.rightX();
 		}
 
 		triangle.getHypotenuse( serviceLines[ 0 ] );
-		if( triangle.shapeType.getNum() == ShapeType.topLeftTriangle.getNum() || triangle.shapeType.getNum() == ShapeType.topRightTriangle.getNum() ) {
+		if( triangle.shapeType == ShapeType.topLeftTriangle || triangle.shapeType == ShapeType.topRightTriangle ) {
 			vector.y = Math.min( serviceLines[ 0 ].getY( x ), triangle.bottomY() ) - rectangle.topY();
 		} else {
 			vector.y = Math.max( serviceLines[ 0 ].getY( x ), triangle.topY() ) - rectangle.bottomY();

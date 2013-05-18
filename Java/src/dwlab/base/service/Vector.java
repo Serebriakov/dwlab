@@ -15,6 +15,18 @@ import dwlab.shapes.sprites.Camera;
 
 public class Vector extends Obj {
 	public double x, y;
+	
+	
+	public Vector( double x, double y ) {
+		this.x = x;
+		this.y = y;
+	}
+		
+	
+	public Vector() {
+		this.x = 0d;
+		this.y = 0d;
+	}
 		
 	
 	public static Vector fieldToScreen( Shape shape ) {

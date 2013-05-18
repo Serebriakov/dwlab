@@ -18,9 +18,8 @@ public class WedgingOffOvalWithTriangle extends WedgingOffSprites {
 		double dHeight = 0.5 * ( oval.getHeight() - serviceOval1.getHeight() );
 		double dDX = 0.5 * serviceOval1.getWidth() / vDistance * Service.cathetus( vDistance, 0.5 * serviceOval1.getWidth() );
 		int dir = -1;
-		int triangleNum = triangle.shapeType.getNum();
-		if( triangleNum == ShapeType.bottomLeftTriangle.getNum() || triangleNum == ShapeType.bottomRightTriangle.getNum() ) dir = 1;
-		if( triangleNum == ShapeType.topRightTriangle.getNum() || triangleNum == ShapeType.bottomRightTriangle.getNum() ) dDX = -dDX;
+		if( triangle.shapeType == ShapeType.bottomLeftTriangle || triangle.shapeType == ShapeType.bottomRightTriangle ) dir = 1;
+		if( triangle.shapeType == ShapeType.topRightTriangle || triangle.shapeType == ShapeType.bottomRightTriangle ) dDX = -dDX;
 		if( serviceOval1.getX() < triangle.leftX() + dDX ) {
 			vector.y = servicePivots[ 0 ].getY() - dir * Service.cathetus( serviceOval1.getWidth() * 0.5, serviceOval1.getX() - servicePivots[ 0 ].getX() ) - serviceOval1.getY();
 		} else if( serviceOval1.getX() > triangle.rightX() + dDX ) {

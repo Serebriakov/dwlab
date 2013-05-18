@@ -6,6 +6,10 @@ public class Oval extends ShapeType {
 	private static Sprite serviceOval = new Sprite( ShapeType.oval );
 
 	
+	protected Oval() {
+	}
+	
+	
 	@Override
 	public int getNum() {
 		return 1;

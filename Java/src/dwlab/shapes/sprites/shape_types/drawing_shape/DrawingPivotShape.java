@@ -6,6 +6,9 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Color;
 
 public class DrawingPivotShape extends DrawingShape {
+	public static DrawingPivotShape instance = new DrawingPivotShape();
+	
+	
 	@Override
 	public void perform( Sprite sprite, Color drawingColor, boolean empty ) {
 		Camera.current.fieldToScreen( sprite, vector1 );

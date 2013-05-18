@@ -1,9 +1,11 @@
 package examples;
-import dwlab.base.service.Align;
-import dwlab.base.service.Vector;
-import dwlab.base.service.Service;
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.Sound;
 import dwlab.base.images.Image;
-import dwlab.base.*;
+import dwlab.base.service.Align;
+import dwlab.base.service.Service;
+import dwlab.base.service.Vector;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.Camera;
@@ -13,6 +15,7 @@ import dwlab.visualizers.Visualizer;
 public class DrawTileExample extends Project {
 	public static void main(String[] argv) {
 		Graphics.init();
+		
 		( new DrawTileExample() ).act();
 	}
 	

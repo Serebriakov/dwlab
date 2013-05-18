@@ -12,6 +12,8 @@ import java.util.Map;
 
 public class SpritesOverlapping extends ServiceObjects {
 	public static SpritesOverlapping defaultHandler = new SpritesOverlapping();
+
+	private static HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>> spritesOverlappingMap = new HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>>();
 	
 	static {
 		register( ShapeType.oval, ShapeType.pivot, OvalOverlapsPivot.instance );
@@ -24,15 +26,13 @@ public class SpritesOverlapping extends ServiceObjects {
 			register( ShapeType.oval, triangle, OvalOverlapsTriangle.instance );
 			register( ShapeType.rectangle, triangle, RectangleOverlapsRectangle.instance );
 		}
+		initSystem();
 	}
 
 
 	public boolean check( Sprite sprite1, Sprite sprite2 ) {
 		return false;
 	}
-
-
-	private static HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>> spritesOverlappingMap = new HashMap<ShapeType, HashMap<ShapeType, SpritesOverlapping>>();
 
 	public static void register( ShapeType shapeType1, ShapeType shapeType2, SpritesOverlapping handler ) {
 		HashMap map = spritesOverlappingMap.get( shapeType1 );

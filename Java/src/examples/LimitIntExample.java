@@ -12,10 +12,10 @@ public class LimitIntExample extends Project {
 	
 	@Override
 	public void render() {
-		Graphics.setColor( 255, 0, 0 );
+		Graphics.setCurrentColor( 255, 0, 0 );
 		Graphics.drawLine( 200, 0, 200, 599 );
 		Graphics.drawLine( 600, 0, 600, 599 );
-		Graphics.setColor( 255, 255, 255 );
+		Graphics.setCurrentColor( 255, 255, 255 );
 		int x = Service.limit( Sys.mouseX(), 200, 600 );
 		Graphics.drawOval( x - 2, Sys.mouseY() - 2, 5, 5 );
 		printText( "LimitInt(Sys.mouseX(),200,600) = " + x );

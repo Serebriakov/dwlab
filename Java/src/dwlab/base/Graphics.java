@@ -38,6 +38,8 @@ public class Graphics {
 	* @see #parallax example
 	*/
 	public static void init( int newWidth, int newHeight, double unitSize, boolean loadFont ) {
+		if( Display.isCreated() ) Display.destroy();
+		
 		width =newWidth;
 		height = newHeight;
 		try {
@@ -115,19 +117,19 @@ public class Graphics {
 	}
 	
 
-	public static Color getColor() {
+	public static Color getCurrentColor() {
 		return currentColor;
 	}
 	
-	public static void setColor( double red, double green, double blue, double alpha ) {
+	public static void setCurrentColor( double red, double green, double blue, double alpha ) {
 		currentColor.set( red, green, blue, alpha );
 	}
 	
-	public static void setColor( double red, double green, double blue ) {
+	public static void setCurrentColor( double red, double green, double blue ) {
 		currentColor.set( red, green, blue, 1d );
 	}
 
-	public static void resetColor() {
+	public static void resetCurrentColor() {
 		currentColor.set( 1d, 1d, 1d, 1d );
 	}
 	

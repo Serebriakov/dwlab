@@ -6,6 +6,9 @@ import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawingSpriteTemplate extends DrawingSprite {
+	public static DrawingSpriteTemplate instance = new DrawingSpriteTemplate();
+	
+	
 	@Override
 	public void perform( Visualizer visualizer, Sprite sprite, Sprite spriteShape, Color drawingColor ) {
 		SpriteTemplate spriteTemplate = (SpriteTemplate) sprite.shapeType;

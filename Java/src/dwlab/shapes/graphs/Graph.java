@@ -8,6 +8,7 @@
 
 package dwlab.shapes.graphs;
 
+import dwlab.base.Graphics;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.shapes.line_segments.LineSegment;
@@ -92,6 +93,10 @@ public class Graph extends Shape {
 			if( oldPivot != null ) ( new LineSegment( pivot, oldPivot ) ).drawUsingVisualizer( visualizer, drawingColor );
 			oldPivot = pivot;
 		}
+	}
+	
+	public static void drawPath( LinkedList<Sprite> path, Visualizer visualizer ) {
+		drawPath( path, visualizer, Graphics.getCurrentColor() );
 	}
 
 	// ==================== Add / Remove items ===================	

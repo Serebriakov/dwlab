@@ -44,14 +44,14 @@ public class DrawUsingLineExample extends Project {
 					double y = vector1.y + ( vector2.y - vector1.y ) * n / chunkQuantity + Math.sin( angle ) * radius;
 
 					Graphics.setLineWidth( 9 );
-					Graphics.setColor( 0, 1d, 1d );
+					Graphics.setCurrentColor( 0, 1d, 1d );
 					Graphics.drawOval( x, y, 9, 9 );
 					if( n > 0 ) {
 						Graphics.drawOval( oldX, oldY, 9, 9 );
 						Graphics.drawLine( x, y, oldX, oldY );
 					}
 					Graphics.setLineWidth( 4 );
-					Graphics.setColor( 1d, 1d, 1d );
+					Graphics.setCurrentColor( 1d, 1d, 1d );
 					Graphics.drawOval( x, y, 5, 5 );
 					if( n > 0 ) {
 						Graphics.drawOval( oldX, oldY, 5, 5 );

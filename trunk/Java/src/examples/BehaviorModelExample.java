@@ -772,8 +772,3 @@ public class BehaviorModelExample extends Project {
 		}
 	}
 }
-	
-
-
-
-

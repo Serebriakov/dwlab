@@ -29,9 +29,9 @@ public class MoveUsingKeysExample extends Project {
 
 	@Override
 	public void init() {
-		ball1.visualizer = new Visualizer( "FF0000" );
-		ball2.visualizer = new Visualizer( "00FF00" );
-		ball3.visualizer = new Visualizer( "0000FF" );
+		ball1.visualizer = new Visualizer( "FF0000", 1d, true );
+		ball2.visualizer = new Visualizer( "00FF00", 1d, true );
+		ball3.visualizer = new Visualizer( "0000FF", 1d, true );
 	}
 	
 

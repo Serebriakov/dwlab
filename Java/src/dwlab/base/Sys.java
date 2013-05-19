@@ -47,6 +47,8 @@ public class Sys {
 	
 	
 	public static void processEvents( Project project ) {
+		Display.processMessages();
+			
 		for( ButtonAction controller: controllers ) {
 			for( Pushable pushable : controller.buttonList ) {
 				pushable.reset();
@@ -81,7 +83,6 @@ public class Sys {
 		while( !exiting ) {
 			exiting = true;
 			
-			Display.processMessages();
 			processEvents( null );
 			
 			for( ButtonAction controller: controllers ) {
@@ -92,6 +93,8 @@ public class Sys {
 	
 
 	public static boolean getPushable( ButtonAction action ) {
+		Display.processMessages();
+		
 		while ( Keyboard.next() ) {
 			if( Keyboard.getEventKeyState() ) {
 				action.addButton( KeyboardKey.create( Keyboard.getEventKey() ) );
@@ -114,8 +117,11 @@ public class Sys {
 		
 		return false;
 	}
+	
 
+	@SuppressWarnings( "empty-statement" )
 	public static void waitForKey() {
-		throw new UnsupportedOperationException( "Not yet implemented" );
+		ButtonAction action = new ButtonAction();
+		while( !getPushable( action ) );
 	}
 }

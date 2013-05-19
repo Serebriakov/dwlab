@@ -9,6 +9,7 @@ public class DrawEmptyRectangleExample extends Project {
 		Graphics.init();
 		flipping = false;
 		( new DrawEmptyRectangleExample() ).act();
+		flipping = true;
 	}
 	
 	

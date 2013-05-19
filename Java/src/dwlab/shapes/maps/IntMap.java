@@ -57,11 +57,11 @@ public class IntMap extends Map {
 	@Override
 	public void stretch( int xMultiplier, int yMultiplier ) {
 		int newArray[][] = new int[ yQuantity * yMultiplier ][];
-		for( int y1=0; y1 <= yQuantity; y1++ ) {
-			newArray[ y1 ] = new int [ xQuantity * xMultiplier ];
-			for( int x1=0; x1 <= xQuantity; x1++ ) {
-				for( int y2=0; y2 <= yMultiplier; y2++ ) {
-					for( int x2=0; x2 <= xMultiplier; x2++ ) {
+		for( int y1 = 0; y1 < yQuantity; y1++ ) {
+			for( int x1 = 0; x1 < xQuantity; x1++ ) {
+				for( int y2 = 0; y2 < yMultiplier; y2++ ) {
+					if( x1 == 0 ) newArray[ y1 * yMultiplier + y2 ] = new int [ xQuantity * xMultiplier ];
+					for( int x2 = 0; x2 < xMultiplier; x2++ ) {
 						newArray[ y1 * yMultiplier + y2 ][ x1 * xMultiplier + x2 ] = value[ y1 ][ x1 ];
 					}
 				}

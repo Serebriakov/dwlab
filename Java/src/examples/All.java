@@ -31,18 +31,18 @@ public class All {
 		LimitIntExample.main( argv );
 		LimitWithExample.main( argv );
 		LogicFPSExample.main( argv );
-		MarchingAntsExample.main( argv );
+		//MarchingAntsExample.main( argv );
 		MoveTowardsExample.main( argv );
 		MoveUsingKeysExample.main( argv );
 		OverlapsExample.main( argv );
-		ParallaxExample.main( argv );
-		PasteExample.main( argv );
-		PerlinNoiseExample.main( argv );
+		//ParallaxExample.main( argv );
+		//PasteExample.main( argv );
+		//PerlinNoiseExample.main( argv );
 		PlaceBetweenExample.main( argv );
 		PrintTextExample.main( argv );
 		RasterFrameExample.main( argv );
-		RevoluteJointExample.main( argv );
-		SaveToFileExample.main( argv );
+		//RevoluteJointExample.main( argv );
+		//SaveToFileExample.main( argv );
 		SetAsTileExample.main( argv );
 		SetAsViewportExample.main( argv );
 		SetCornerCoordsExample.main( argv );
@@ -50,11 +50,11 @@ public class All {
 		//SpringExample.main( argv );
 		//SpriteMapExample.main( argv );
 		StretchExample.main( argv );
-		Test.main( argv );
+		//Test.main( argv );
 		TurnExample.main( argv );
 		//VectorSpriteExample.main( argv );
 		WedgeOffWithSpriteExample.main( argv );
 		WrapExample.main( argv );
-		XMLIOExample.main( argv );
+		//XMLIOExample.main( argv );
 	}
 }

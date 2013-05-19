@@ -15,7 +15,6 @@ import dwlab.visualizers.Visualizer;
 public class DrawTileExample extends Project {
 	public static void main(String[] argv) {
 		Graphics.init();
-		
 		( new DrawTileExample() ).act();
 	}
 	
@@ -34,14 +33,14 @@ public class DrawTileExample extends Project {
 	@Override
 	public void init() {
 		tileMap.setSize( tileMapWidth * 2, tileMapHeight * 2 );
-		for( int y = 0; y <= tileMapHeight; y++ ) {
-			for( int x = 0; x <= tileMapWidth; x++ ) {
+		for( int y = 0; y < tileMapHeight; y++ ) {
+			for( int x = 0; x < tileMapWidth; x++ ) {
 				tileMap.setTile( x, y, (int) Service.random( 1, 31 ) );
 			}
 		}
 		
 		tileMap.visualizer = new Visualizer(){
-			double dAngle = 15;
+			double dAngle = Math.PI / 6d;
 			double dCoord = 0.2;
 
 			Vector vector = new Vector();
@@ -53,11 +52,12 @@ public class DrawTileExample extends Project {
 				int tileValue = getTileValue( tileMap, tileX, tileY );
 				if( tileValue == tileSet.emptyTile ) return;
 
-				x += Service.random( -dCoord * shakingK, dCoord * shakingK );
-				y += Service.random( -dCoord * shakingK, dCoord * shakingK );
+				double power = Math.max( 0d, 1d - Service.distance( x, y ) / 24d );
+				x += Service.random( -dCoord * shakingK, dCoord * shakingK ) * power;
+				y += Service.random( -dCoord * shakingK, dCoord * shakingK ) * power;
 
 				Camera.current.fieldToScreen( x, y, vector );
-				tileSet.image.draw( tileValue, vector.x, vector.y, width, height, Service.random( -dAngle * shakingK, dAngle * shakingK ) );
+				tileSet.image.draw( tileValue, vector.x, vector.y, width, height, Service.random( -dAngle * shakingK, dAngle * shakingK ) * power );
 			}
 		};
 	}

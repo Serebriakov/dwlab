@@ -18,13 +18,12 @@ public class StretchExample extends Project {
 		TileMap tileMap = TileMap.create( tileSet, tileMapWidth, tileMapHeight );
 
 		tileMap.setSize( tileMapWidth * 2, tileMapHeight * 2 );
-		for( int y = 0; y <= tileMapHeight; y++ ) {
-			for( int x = 0; x <= tileMapWidth; x++ ) {
+		for( int y = 0; y < tileMapHeight; y++ ) {
+			for( int x = 0; x < tileMapWidth; x++ ) {
 				tileMap.setTile( x, y, (int) Service.random( 1, 31 ) );
 			}
 		}
 
-		Graphics.init();
 		for( int n = 1; n <= 3; n++ ) {
 			Graphics.clearScreen();
 			tileMap.draw();

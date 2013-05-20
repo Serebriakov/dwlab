@@ -13,10 +13,13 @@ import dwlab.base.Sys;
 import dwlab.visualizers.Color;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -26,7 +29,7 @@ import org.newdawn.slick.util.ResourceLoader;
  * Image class.
  */
 public class Image extends ImageTemplate {
-	Texture texture;
+	int textureID;
 		
 	public Image() {
 	}
@@ -39,17 +42,18 @@ public class Image extends ImageTemplate {
 		this.frameHeight = height;
 		this.xCells = 1;
 		this.yCells = 1;
+		this.textureID = createTexture( width, height );
 	}
 	
 	public Image( int xCells, int yCells, int width, int height ) {
 		if( Sys.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
 		if( Sys.debug ) if( width <= 0 || height <= 0 ) error( "Cell sizes must be more than 0" );
 		
-		this.texture = null;
 		this.xCells = xCells;
 		this.yCells = yCells;
 		this.frameWidth = width;
 		this.frameHeight = height;
+		this.textureID = createTexture( width * xCells, height * yCells );
 	}
 	
 	/**
@@ -79,14 +83,17 @@ public class Image extends ImageTemplate {
 	 */
 	@Override
 	public final void init() {
-		try {
-			texture = TextureLoader.getTexture( fileName.substring( fileName.length() - 3 ).toUpperCase(), 
-					ResourceLoader.getResourceAsStream( fileName ) );
-		} catch ( IOException ex ) {
-			Logger.getLogger( Image.class.getName() ).log( Level.SEVERE, null, ex );
+		if( !fileName.isEmpty() ) {
+			try {
+				Texture texture = TextureLoader.getTexture( fileName.substring( fileName.length() - 3 ).toUpperCase(), 
+						ResourceLoader.getResourceAsStream( fileName ) );
+				textureID = texture.getTextureID();
+				frameWidth = texture.getTextureWidth() / xCells;
+				frameHeight = texture.getTextureHeight() / yCells;
+			} catch ( IOException ex ) {
+				Logger.getLogger( Image.class.getName() ).log( Level.SEVERE, null, ex );
+			}
 		}
-		frameWidth = texture.getTextureWidth() / xCells;
-		frameHeight = texture.getTextureHeight() / yCells;
 	}
 	
 	private static FloatBuffer floatBuffer = FloatBuffer.allocate( 4 );
@@ -136,9 +143,7 @@ public class Image extends ImageTemplate {
 		double kx = frameWidth / getTextureWidth();
 		double ky = frameHeight / getTextureHeight();
 		
-		texture.bind();
-		
-		glBindTexture( GL_TEXTURE_2D, texture.getTextureID() );
+		glBindTexture( GL_TEXTURE_2D, textureID );
 		glBegin( GL_QUADS );
 			glColor4d( color.red, color.green, color.blue, color.alpha );
 			
@@ -176,8 +181,7 @@ public class Image extends ImageTemplate {
 		double kx = 1d / getTextureWidth();
 		double ky = 1d / getTextureHeight();
 		
-		texture.bind();
-		
+		glBindTexture( GL_TEXTURE_2D, textureID );
 		glColor4d( color.red, color.green, color.blue, color.alpha );
 		glBegin( GL_QUADS );
 			glColor4d( color.red, color.green, color.blue, color.alpha );
@@ -211,10 +215,21 @@ public class Image extends ImageTemplate {
 	}
 
 	private double getTextureWidth() {
-		return texture.getImageWidth();
+		return xCells * frameWidth;
 	}
 
 	private double getTextureHeight() {
-		return texture.getImageHeight();
+		return yCells * frameHeight;
+	}
+
+	private static int createTexture( int width, int height ) {
+		ByteBuffer textureBuffer = BufferUtils.createByteBuffer( width * height * 4 );
+		textureBuffer.order( ByteOrder.nativeOrder() );
+		int textureID = GL11.glGenTextures();
+		textureBuffer.flip();
+		
+		GL11.glBindTexture( GL11.GL_TEXTURE_2D, textureID );
+		GL11.glTexImage2D( GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, textureBuffer );
+		return textureID;
 	}
 }

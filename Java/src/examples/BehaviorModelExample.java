@@ -1,21 +1,20 @@
 package examples;
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
-import dwlab.base.images.Image;
-import dwlab.shapes.sprites.Sprite;
-import dwlab.base.*;
 import dwlab.behavior_models.*;
 import dwlab.controllers.ButtonAction;
+import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
-import dwlab.shapes.Layers.World;
+import dwlab.shapes.layers.World;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.*;
 import dwlab.visualizers.MarchingAnts;
-import dwlab.visualizers.Visualizer;
-import org.lwjgl.input.Keyboard;
 
 public class BehaviorModelExample extends Project {
 	static {
@@ -39,20 +38,20 @@ public class BehaviorModelExample extends Project {
 
 	public BumpingWalls bumpingWalls = new BumpingWalls();
 	public PushFromWalls pushFromWalls = new PushFromWalls();
-	public DestRAYBullet destroyBullet = new DestroyBullet();
+	public DestroyBullet destroyBullet = new DestroyBullet();
 	public AwPossumHurtingCollision awPossumHurtingCollision = new AwPossumHurtingCollision();
 	public AwPossumHitCollision awPossumHitCollision = new AwPossumHitCollision();
 
 	//Field LTSprite HitArea
 	public int score;
 
-	ButtonAction KeyExit = ButtonAction.create( KeyboardKey.create( Key.ESCAPE) );
+	ButtonAction KeyExit = ButtonAction.create( KeyboardKey.create( Key.ESCAPE ) );
 	
 	@Override
 	public void init() {
-	 	world = World.fromFile( "res/jel.ys.lw" );
+		Graphics.init();
 
-		initGraphics();
+	 	world = World.fromFile( "res/jellys.lw" );
 
 		Sprite sprite = new Sprite( Camera.current );
 		sprite.visualizer.image = new Image( "res/scheme2.png" );
@@ -71,7 +70,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 	public void initLevel() {
-		Layer = loadLayer( world.findShape( "Level" ).toLayer() );
+		Layer = world.findShape( "Level" ).load().toLayer();
 		Layer.init();
 		tileMap = Layer.findShape( "Field" ).toTileMap();
 	}
@@ -81,7 +80,7 @@ public class BehaviorModelExample extends Project {
 	@Override
 	public void logic() {
 		Camera.current.jumpTo( tileMap );
-		if( buttonSelect.wasPressed() ) selectedSprite = cursor.firstCollidedSpriteOfLayer( Layer );
+		if( buttonSelect.wasPressed() ) selectedSprite = cursor.lastCollidedSpriteOfLayer( Layer );
 		Layer.act();
 		if( KeyExit.wasPressed() ) exiting = true;
 	}
@@ -90,15 +89,15 @@ public class BehaviorModelExample extends Project {
 	public void render() {
 		Layer.draw();
 		if( selectedSprite != null ) {
-			selectedSprite.showModels( 100 );
+			//selectedSprite.showModels( 100 );
 			selectedSprite.drawUsingVisualizer( marchingAnts );
 		}
 		//If HitArea Then HitArea.Draw()
 		showDebugInfo();
-		Graphics.drawText( "Guide AwesomePossum to exit from maze using arrow and space Keys", tileMap.rightX(), tileMap.topY() - 12, Align.TO_RIGHT, Align.TO_TOP );
-		Graphics.drawText( .you can view sprite behavior models .y clicking left mouse button on it", tileMap.rightX(), tileMap.topY() - 0.5, Align.TO_RIGHT, Align.TO_TOP );
-		Graphics.drawText( " Score" + Service.firstZeroes( score, 6 ), tileMap.rightX() - 0.1, tileMap.bottomY() - 0.1, Align.TO_RIGHT, Align.TO_BOTTOM, true );
-		Graphics.drawText( "LTBehaviorModel example", tileMap.getX(), tileMap.bottomY(), Align.TO_CENTER, Align.TO_BOTTOM );
+		printText( "Guide AwesomePossum to exit from maze using arrow and space Keys", Align.TO_RIGHT, Align.TO_TOP );
+		printText( "You can view sprite behavior models .y clicking left mouse button on it", Align.TO_RIGHT, Align.TO_TOP, 1 );
+		printText( "Score: " + Service.firstZeroes( score, 6 ), Align.TO_RIGHT, Align.TO_BOTTOM );
+		printText( "LTBehaviorModel example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 	public class GameObject extends VectorSprite {
 		public OnLand onLand = new OnLand();
@@ -111,7 +110,7 @@ public class BehaviorModelExample extends Project {
 
 
 
-	public class Jel.y extends GameObject {
+	public class Jelly extends GameObject {
 		double jumpingAnimationSpeed = 0.2;
 		double firingAnimationSpeed = 0.1;
 		double walkingAnimationSpeed = 0.2;
@@ -142,7 +141,7 @@ public class BehaviorModelExample extends Project {
 
 
 			String jumping = getParameter( "jumping" );
-			if( jumping ) {
+			if( jumping != 0 ) {
 				String parameters[] = jumping.split( "-" );
 				RandomWaitingModel waitingForJump = RandomWaitingModel.create( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() );
 				attachModel( waitingForJump );
@@ -489,21 +488,21 @@ public class BehaviorModelExample extends Project {
 
 		public int collisions = true;
 
-		public static void create( VectorSprite jel.y, double speed ) {
+		public static void create( VectorSprite Jelly, double speed ) {
 			Bullet bullet = new Bullet();
-			bullet.setCoords( jel.y.getX() + sgn( jel.y.dX ) * jel.y.width * 2.2, jel.y.y - 0.15 * jel.y.height );
-			bullet.setSize( 0.45 * jel.y.width, 0.45 * jel.y.width );
+			bullet.setCoords( Jelly.getX() + sgn( Jelly.dX ) * Jelly.width * 2.2, Jelly.y - 0.15 * Jelly.height );
+			bullet.setSize( 0.45 * Jelly.width, 0.45 * Jelly.width );
 			bullet.shapeType = Sprite.oval;
-			bullet.dX = sgn( jel.y.dX ) * speed;
+			bullet.dX = sgn( Jelly.dX ) * speed;
 			bullet.visualizer.setVisualizerScale( 12, 4 );
-			bullet.visualizer.image = jel.y.visualizer.image;
+			bullet.visualizer.image = Jelly.visualizer.image;
 			bullet.frame = 6;
 			example.Layer.addLast( bullet );
 		}
 
 		public void act() {
 			moveForward();
-			if( collisions ) collisionsWithTileMap( example.tileMap, example.destRAYBullet );
+			if( collisions ) collisionsWithTileMap( example.tileMap, example.DestroyBullet );
 			super.act();
 		}
 
@@ -520,7 +519,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class DestRAYBullet extends SpriteAndTileCollisionHandler {
+	public class DestroyBullet extends SpriteAndTileCollisionHandler {
 		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 			if( tileMap.getTile( tileX, tileY ) == example.bricks ) Bullet.disable( sprite );
 		}
@@ -559,7 +558,7 @@ public class BehaviorModelExample extends Project {
 			if( sprite2.findModel( "TDeath" ) ) return;
 
 			double damage = 0;
-			if( Jel.y( sprite2 ) ) damage = Service.random( Jel.y.minAttack, Jel.y.maxAttack );
+			if( Jelly( sprite2 ) ) damage = Service.random( Jelly.minAttack, Jelly.maxAttack );
 			Bullet bullet = Bullet( sprite2 );
 			if( bullet ) {
 				if( bullet.collisions ) {
@@ -662,19 +661,19 @@ public class BehaviorModelExample extends Project {
 		public int collided ;
 
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
-			Jel.y jel.y = Jel.y( sprite2 );
-			if( jel.y ) {
-				jel.y.health -= Service.random( AwPossum.minAttack, AwPossum.maxAttack );
-				if( jel.y.health > 0 ) {
-					jel.y.attachModel( new Jel.yHurt() );
-				} else if( ! jel.y.findModel( "TDeath" ) ) {
-					Score.create( jel.y, jel.y.score );
+			Jelly Jelly = Jelly( sprite2 );
+			if( Jelly ) {
+				Jelly.health -= Service.random( AwPossum.minAttack, AwPossum.maxAttack );
+				if( Jelly.health > 0 ) {
+					Jelly.attachModel( new JellyHurt() );
+				} else if( ! Jelly.findModel( "TDeath" ) ) {
+					Score.create( Jelly, Jelly.score );
 
 					AwPossum awPossum = AwPossum( example.Layer.findShapeWithType( "TAwPossum" ) );
 					awPossum.health = Math.min( awPossum.health + Service.random( AwPossum.minHealthGain, AwPossum.maxHealthGain ), 100.0 );
 
-					jel.y.behaviorModels.clear();
-					jel.y.attachModel( new Death() );
+					Jelly.behaviorModels.clear();
+					Jelly.attachModel( new Death() );
 				}
 				collided = true;
 			} else if( Bullet( sprite2 ) ) {
@@ -687,9 +686,9 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class Jel.yHurt extends FixedWaitingModel {
+	public class JellyHurt extends FixedWaitingModel {
 		public void init( Shape shape ) {
-			period = Jel.y.hurtingTime;
+			period = Jelly.hurtingTime;
 			shape.deactivateModel( "THorizontalMovement" );
 		}
 

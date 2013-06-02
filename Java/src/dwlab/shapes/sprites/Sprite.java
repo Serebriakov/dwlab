@@ -154,6 +154,13 @@ public class Sprite extends Shape {
 		this.velocity = velocity;
 	}
 
+	public Sprite( Shape shape ) {
+		this.x = shape.getX();
+		this.y = shape.getY();
+		this.width = shape.getWidth();
+		this.height = shape.getWidth();
+	}
+	
 	// ==================== Drawing ===================	
 
 	@Override

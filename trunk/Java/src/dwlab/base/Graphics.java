@@ -279,7 +279,7 @@ public class Graphics {
 	
 
 	public static void startPolygon( int vertexQuantity, Color color, boolean empty ) {
-		glDisable(GL_TEXTURE_2D);
+		glDisable( GL_TEXTURE_2D );
 		
 		if( empty ) glBegin( GL_LINE_LOOP ); else glBegin( GL_POLYGON );
 		glColor4d( color.red, color.green, color.blue, color.alpha );

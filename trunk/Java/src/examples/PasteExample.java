@@ -1,7 +1,10 @@
 package examples;
-import dwlab.base.service.Align;
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.Sys;
 import dwlab.base.images.Image;
-import dwlab.base.*;
+import dwlab.base.images.ImageBuffer;
+import dwlab.base.service.Align;
 import dwlab.shapes.maps.DoubleMap;
 
 public class PasteExample extends Project {
@@ -37,9 +40,9 @@ public class PasteExample extends Project {
 		doubleMap.paste( sourceMap, 0, 0, DoubleMap.PasteMode.MINIMUM );
 		draw( doubleMap.toNewImage(), "Minimum of source map and target map" );
 
-		Image image = sourceMap.toNewImage( DoubleMap.Channel.RED );
-		targetMap.pasteTo( image, DoubleMap.Channel.GREEN );
-		draw( image, "Pasting maps to different color channels" );
+		ImageBuffer buffer = sourceMap.toNewImageBuffer( DoubleMap.Channel.RED );
+		targetMap.paste( buffer, DoubleMap.Channel.GREEN );
+		draw( buffer.toImage(), "Pasting maps to different color channels" );
 	}
 
 	

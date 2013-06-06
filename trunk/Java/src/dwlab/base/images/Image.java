@@ -12,14 +12,8 @@ package dwlab.base.images;
 import dwlab.base.Sys;
 import dwlab.visualizers.Color;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -35,14 +29,13 @@ public class Image extends ImageTemplate {
 	}
 	
 	public Image( int width, int height ) {
-		if( Sys.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
 		if( Sys.debug ) if( width <= 0 || height <= 0 ) error( "Cell sizes must be more than 0" );
 		
 		this.frameWidth = width;
 		this.frameHeight = height;
 		this.xCells = 1;
 		this.yCells = 1;
-		this.textureID = createTexture( width, height );
+		this.textureID = glGenTextures();
 	}
 	
 	public Image( int xCells, int yCells, int width, int height ) {
@@ -53,7 +46,7 @@ public class Image extends ImageTemplate {
 		this.yCells = yCells;
 		this.frameWidth = width;
 		this.frameHeight = height;
-		this.textureID = createTexture( width * xCells, height * yCells );
+		this.textureID = glGenTextures();
 	}
 	
 	/**
@@ -96,41 +89,22 @@ public class Image extends ImageTemplate {
 		}
 	}
 	
-	private static FloatBuffer floatBuffer = FloatBuffer.allocate( 4 );
-
 	
-	@Override
-	public Color getPixel( int frame, int x, int y, Color color ) {
-		glReadPixels( x, y, 1, 1, GL_RGBA, GL_FLOAT, floatBuffer );
-		color.red = floatBuffer.get( 0 );
-		color.green = floatBuffer.get( 1 );
-		color.blue = floatBuffer.get( 2 );
-		color.alpha = floatBuffer.get( 3 );
-		return color;
+	public ImageBuffer getBuffer() {
+		ImageBuffer buffer = new ImageBuffer( getTextureWidth(), getTextureHeight() );
+		glBindTexture( GL_TEXTURE_2D, textureID );
+		glGetTexImage( GL_TEXTURE_2D,  0, GL_RGBA, GL_INT, buffer.buffer );
+		return buffer;
 	}
 	
-	private static final ByteBuffer byteBuffer = ByteBuffer.allocateDirect( 4 );
-
-	@Override
-	public void setPixel( int frame, int x, int y, Color color ) {
-		byteBuffer.put( 0, (byte) ( 255d * color.red ) );
-		byteBuffer.put( 1, (byte) ( 255d * color.green ) );
-		byteBuffer.put( 2, (byte) ( 255d * color.blue ) );
-		byteBuffer.put( 3, (byte) ( 255d * color.alpha ) );
-		glDrawPixels( x, y, GL_RGBA, GL_BYTE, byteBuffer );
+	public void applyBuffer( ImageBuffer buffer ) {
+		glBindTexture( GL_TEXTURE_2D, textureID );
+		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, buffer.getWidth(), buffer.getHeight(), 0, GL_RGBA, GL_BYTE, buffer.buffer );
 	}
 	
-	
-	private static IntBuffer intBuffer = byteBuffer.asIntBuffer();
-	
-	public int getPixel( int x, int y ) {
-		glReadPixels( x, y, 1, 1, GL_RGBA, GL_BYTE, intBuffer );
-		return intBuffer.get( 0 );
-	}
-	
-	public void setPixel( int x, int y, int color ) {
-		intBuffer.put( 0, color );
-		glDrawPixels( x, y, GL_RGBA, GL_UNSIGNED_INT, intBuffer );
+	public void applyBuffer( ImageBuffer buffer, int x, int y ) {
+		glBindTexture( GL_TEXTURE_2D, textureID );
+		glTexSubImage2D( GL_TEXTURE_2D,  0,  x,  y,  buffer.getWidth(), buffer.getHeight(), GL_RGBA, GL_BYTE,  buffer.buffer );
 	}
 	
 	
@@ -140,8 +114,8 @@ public class Image extends ImageTemplate {
 		height *= 0.5d;
 		double tx = frame % xCells;
 		double ty = Math.floor( frame / xCells );
-		double kx = frameWidth / getTextureWidth();
-		double ky = frameHeight / getTextureHeight();
+		double kx = 1d / xCells;
+		double ky = 1d / yCells;
 		
 		glBindTexture( GL_TEXTURE_2D, textureID );
 		glBegin( GL_QUADS );
@@ -214,22 +188,11 @@ public class Image extends ImageTemplate {
 		throw new UnsupportedOperationException( "Not yet implemented" );
 	}
 
-	private double getTextureWidth() {
+	private int getTextureWidth() {
 		return xCells * frameWidth;
 	}
 
-	private double getTextureHeight() {
+	private int getTextureHeight() {
 		return yCells * frameHeight;
-	}
-
-	private static int createTexture( int width, int height ) {
-		ByteBuffer textureBuffer = BufferUtils.createByteBuffer( width * height * 4 );
-		textureBuffer.order( ByteOrder.nativeOrder() );
-		int textureID = GL11.glGenTextures();
-		textureBuffer.flip();
-		
-		GL11.glBindTexture( GL11.GL_TEXTURE_2D, textureID );
-		GL11.glTexImage2D( GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, textureBuffer );
-		return textureID;
 	}
 }

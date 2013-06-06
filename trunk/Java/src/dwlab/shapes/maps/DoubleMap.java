@@ -11,6 +11,7 @@ package dwlab.shapes.maps;
 import dwlab.base.images.Image;
 import dwlab.base.service.Service;
 import dwlab.base.Sys;
+import dwlab.base.images.ImageBuffer;
 
 /**
  * DoubleMap is basicaly a heightmap.
@@ -116,11 +117,19 @@ public class DoubleMap extends Map {
 	 * 
 	 * @see #toNewPixmap, #pasteToImage, #pasteToPixmap, #paste example
 	 */
+	
+	public ImageBuffer toNewImageBuffer( Channel channel ) {
+		ImageBuffer buffer = new ImageBuffer( xQuantity, yQuantity );
+		paste( buffer, 0, 0, 0, channel );
+		return buffer;
+	}
+	
+	public ImageBuffer toNewImageBuffer() {
+		return toNewImageBuffer( Channel.RGB );
+	}
 
 	public Image toNewImage( Channel channel ) {
-		Image image = new Image( xQuantity, yQuantity );
-		pasteTo( image, 0, 0, 0, channel );
-		return image;
+		return toNewImageBuffer( channel ).toImage();
 	}
 	
 	public Image toNewImage() {
@@ -134,9 +143,9 @@ public class DoubleMap extends Map {
 	 * 
 	 * @see #toNewImage, #toNewPixmap, #pasteToPixmap, #paste example
 	 */
-	public void pasteTo( Image image, int frame, int xShift, int yShift, Channel channel ) {
-		for( int y1=0; y1 <= yQuantity; y1++ ) {
-			for( int x1=0; x1 <= xQuantity; x1++ ) {
+	public void paste( ImageBuffer buffer, int frame, int xShift, int yShift, Channel channel ) {
+		for( int y1=0; y1 < yQuantity; y1++ ) {
+			for( int x1=0; x1 < xQuantity; x1++ ) {
 				int col = (int) Math.round( 255.0 * value[ y1 ][ x1 ] + 0.5 );
 
 				int x2, y2;
@@ -148,31 +157,31 @@ public class DoubleMap extends Map {
 					y2 = wrapY( y1 + yShift );
 				}
 
-				int pixel = image.getPixel( x2, y2 );
+				int pixel = buffer.getPixel( x2, y2 );
 
 				switch( channel ) {
 					case RGB:
-						image.setPixel( x2, y2, ( col * 0x010101 ) | ( pixel & 0xFF000000 )  );
+						buffer.setPixel( x2, y2, ( col * 0x010101 ) | ( pixel & 0xFF000000 )  );
 						break;
 					case ALPHA:
-						image.setPixel( x2, y2, ( col << 24 ) | ( pixel & 0x00FFFFFF )  );
+						buffer.setPixel( x2, y2, ( col << 24 ) | ( pixel & 0x00FFFFFF )  );
 						break;
 					case BLUE:
-						image.setPixel( x2, y2, col | ( pixel & 0xFFFFFF00 )  );
+						buffer.setPixel( x2, y2, col | ( pixel & 0xFFFFFF00 )  );
 						break;
 					case GREEN:
-						image.setPixel( x2, y2, ( col << 8 ) | ( pixel & 0xFFFF00FF )  );
+						buffer.setPixel( x2, y2, ( col << 8 ) | ( pixel & 0xFFFF00FF )  );
 						break;
 					case RED:
-						image.setPixel( x2, y2, ( col << 16 ) | ( pixel & 0xFF00FFFF )  );
+						buffer.setPixel( x2, y2, ( col << 16 ) | ( pixel & 0xFF00FFFF )  );
 						break;
 				}
 			}
 		}
 	}
 	
-	public void pasteTo( Image image, Channel channel ) {
-		pasteTo( image, 0, 0, 0, channel );
+	public void paste( ImageBuffer buffer, Channel channel ) {
+		paste( buffer, 0, 0, 0, channel );
 	}
 
 
@@ -184,8 +193,8 @@ public class DoubleMap extends Map {
 	 * @see #overwrite, #add, #multiply, #maximum, #minimum
 	 */
 	public void paste( DoubleMap sourceMap, int xx, int yy, PasteMode mode ) {
-		for( int y0=0; y0 <= sourceMap.yQuantity; y0++ ) {
-			for( int x0=0; x0 <= sourceMap.xQuantity; x0++ ) {
+		for( int y0=0; y0 < sourceMap.yQuantity; y0++ ) {
+			for( int x0=0; x0 < sourceMap.xQuantity; x0++ ) {
 				int x1, y1;
 
 				if( masked ) {
@@ -236,8 +245,8 @@ public class DoubleMap extends Map {
 	public void extractTo( IntMap tileMap, double vFrom, double vTo, int tileNum ) {
 		if( Sys.debug ) if( tileMap.xQuantity != xQuantity || tileMap.yQuantity != yQuantity ) error( "Sizes of source heightmap and resulting tilemap are different." );
 
-		for( int yy=0; yy <= yQuantity; yy++ ) {
-			for( int xx=0; xx <= xQuantity; xx++ ) {
+		for( int yy=0; yy < yQuantity; yy++ ) {
+			for( int xx=0; xx < xQuantity; xx++ ) {
 				if( value[ yy ][ xx ] >= vFrom && value[ yy ][ xx ] < vTo ) tileMap.value[ yy ][ xx ] = tileNum;
 			}
 		}
@@ -251,9 +260,9 @@ public class DoubleMap extends Map {
 	public void blur() {
 		double[][] newArray = new double[ yQuantity ][];
 
-		for( int y0 = 0; y0 <= yQuantity; y0++ ) {
+		for( int y0 = 0; y0 < yQuantity; y0++ ) {
 			newArray[ y0 ] = new double[ xQuantity ];
-			for( int x0=0; x0 <= xQuantity; x0++ ) {
+			for( int x0=0; x0 < xQuantity; x0++ ) {
 				double sum = 0;
 				for( int xX=-1; xX <= 1; xX++ ) {
 					for( int yY=-1; yY <= 1; yY++ ) {
@@ -280,8 +289,8 @@ public class DoubleMap extends Map {
 		int yFrequency = startingYFrequency;
 		double amplitude = startingAmplitude;
 
-		for( int xx = 0; xx <= xQuantity; xx++ ) {
-			for( int yy = 0; yy <= yQuantity; yy++ ) {
+		for( int xx = 0; xx <  xQuantity; xx++ ) {
+			for( int yy = 0; yy <  yQuantity; yy++ ) {
 				value[ yy ][ xx ] = 0.5d;
 			}
 		}
@@ -289,9 +298,9 @@ public class DoubleMap extends Map {
 		for( int n=1; n <= layersQuantity; n++ ) {
 			double array[][] = new double[ yFrequency ][];
 
-			for( int aY = 0; aY <= yFrequency; aY++ ) {
+			for( int aY = 0; aY <  yFrequency; aY++ ) {
 				array[ aY ] = new double[ xFrequency ];
-				for( int aX = 0; aX <= xFrequency; aX++ ) {
+				for( int aX = 0; aX <  xFrequency; aX++ ) {
 					array[ aY ][ aX ] = Service.random( -amplitude, amplitude );
 				}
 			}
@@ -302,8 +311,8 @@ public class DoubleMap extends Map {
 			double kX = 1.0 * xFrequency / xQuantity;
 			double kY = 1.0 * yFrequency / yQuantity;
 
-			for( int yy = 0; yy <= yQuantity; yy++ ) {
-				for( int xx = 0; xx <= xQuantity; xx++ ) {
+			for( int yy = 0; yy <  yQuantity; yy++ ) {
+				for( int xx = 0; xx <  xQuantity; xx++ ) {
 					double xK = kX * xx;
 					double yK = kY * yy;
 					
@@ -343,8 +352,8 @@ public class DoubleMap extends Map {
 	 * @see #paste example
 	 */
 	public void drawCircle( double xCenter, double yCenter, double radius, double color ) {
-		for( int y0 = Service.floor( yCenter - radius ); y0 <= Math.ceil( yCenter + radius ); y0++ ) {
-			for( int x0 = Service.floor( xCenter - radius ); x0 <= Math.ceil( xCenter + radius ); x0++ ) {
+		for( int y0 = Service.floor( yCenter - radius ); y0 <  Math.ceil( yCenter + radius ); y0++ ) {
+			for( int x0 = Service.floor( xCenter - radius ); x0 <  Math.ceil( xCenter + radius ); x0++ ) {
 				int xx, yy;
 				if( masked ) {
 					xx = x0 & xMask;
@@ -381,8 +390,8 @@ public class DoubleMap extends Map {
 	 * @see #paste example
 	 */
 	public void limit() {
-		for( int yy = 0; yy <= yQuantity; yy++ ) {
-			for( int xx = 0; xx <= xQuantity; xx++ ) {
+		for( int yy = 0; yy <  yQuantity; yy++ ) {
+			for( int xx = 0; xx <  xQuantity; xx++ ) {
 				if( value[ yy ][ xx ] < 0.0 ) value[ yy ][ xx ] = 0d;
 				if( value[ yy ][ xx ] > 1.0 ) value[ yy ][ xx ] = 1d;
 			}

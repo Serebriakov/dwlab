@@ -61,23 +61,6 @@ public abstract class ImageTemplate extends Obj {
 		if( Sys.xMLGetMode() && loadImages ) init();
 	}
 	
-
-	public abstract Color getPixel( int frame, int x, int y, Color color );
-	
-	public Color getPixel( int frame, int x, int y ) {
-		return getPixel( frame, x, y, new Color() );
-	}
-
-	public Color getPixel( int x, int y, Color color ) {
-		return getPixel( 0, x, y, color );
-	}
-
-	public abstract void setPixel( int frame, int x, int y, Color color );
-	
-	public void setPixel( int x, int y, Color color ) {
-		setPixel( 0, x, y, color );
-	}
-	
 	
 	public abstract void draw( int frame, double x, double y, double width, double height, double angle, Color color );
 	

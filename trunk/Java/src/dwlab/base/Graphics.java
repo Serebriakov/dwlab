@@ -305,6 +305,7 @@ public class Graphics {
 	
 
 	public static void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
+		glBindTexture( GL_TEXTURE_2D, currentFont.textureID );
 		if( currentContourColor != null ) {
 			for( int dY = -1; dY <= 1; dY++ ) {
 				for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {

@@ -120,6 +120,7 @@ public class DoubleMap extends Map {
 	
 	public ImageBuffer toNewImageBuffer( Channel channel ) {
 		ImageBuffer buffer = new ImageBuffer( xQuantity, yQuantity );
+		buffer.clear( 0xFF );
 		paste( buffer, 0, 0, 0, channel );
 		return buffer;
 	}
@@ -146,7 +147,7 @@ public class DoubleMap extends Map {
 	public void paste( ImageBuffer buffer, int frame, int xShift, int yShift, Channel channel ) {
 		for( int y1=0; y1 < yQuantity; y1++ ) {
 			for( int x1=0; x1 < xQuantity; x1++ ) {
-				int col = (int) Math.round( 255.0 * value[ y1 ][ x1 ] + 0.5 );
+				int col = (int) Math.round( 255d * value[ y1 ][ x1 ] );
 
 				int x2, y2;
 				if( masked ) {
@@ -161,19 +162,19 @@ public class DoubleMap extends Map {
 
 				switch( channel ) {
 					case RGB:
-						buffer.setPixel( x2, y2, ( col * 0x010101 ) | ( pixel & 0xFF000000 )  );
+						buffer.setPixel( x2, y2, ( col * 0x01010100 ) | ( pixel & 0xFF )  );
 						break;
 					case ALPHA:
-						buffer.setPixel( x2, y2, ( col << 24 ) | ( pixel & 0x00FFFFFF )  );
-						break;
-					case BLUE:
 						buffer.setPixel( x2, y2, col | ( pixel & 0xFFFFFF00 )  );
 						break;
-					case GREEN:
+					case BLUE:
 						buffer.setPixel( x2, y2, ( col << 8 ) | ( pixel & 0xFFFF00FF )  );
 						break;
-					case RED:
+					case GREEN:
 						buffer.setPixel( x2, y2, ( col << 16 ) | ( pixel & 0xFF00FFFF )  );
+						break;
+					case RED:
+						buffer.setPixel( x2, y2, ( col << 24 ) | ( pixel & 0x00FFFFFF )  );
 						break;
 				}
 			}
@@ -205,7 +206,7 @@ public class DoubleMap extends Map {
 					y1 = wrapY( yy + y0 );
 				}
 
-			switch( mode ) {
+				switch( mode ) {
 					case OVERWRITE:
 						value[ y1 ][ x1 ] = sourceMap.value[ y0 ][ x0 ];
 						break;
@@ -352,8 +353,8 @@ public class DoubleMap extends Map {
 	 * @see #paste example
 	 */
 	public void drawCircle( double xCenter, double yCenter, double radius, double color ) {
-		for( int y0 = Service.floor( yCenter - radius ); y0 <  Math.ceil( yCenter + radius ); y0++ ) {
-			for( int x0 = Service.floor( xCenter - radius ); x0 <  Math.ceil( xCenter + radius ); x0++ ) {
+		for( int y0 = Service.floor( yCenter - radius ); y0 < Math.ceil( yCenter + radius ); y0++ ) {
+			for( int x0 = Service.floor( xCenter - radius ); x0 < Math.ceil( xCenter + radius ); x0++ ) {
 				int xx, yy;
 				if( masked ) {
 					xx = x0 & xMask;
@@ -369,12 +370,12 @@ public class DoubleMap extends Map {
 					value[ yy ][ xx ] = color;
 				} else if( dist < -circleBound ) {
 				} else {
-					double dist00 = radius - Math.sqrt( ( x - 0.5 - xCenter ) * ( x - 0.5 - xCenter ) + ( y - 0.5 - yCenter ) * ( y - 0.5 - yCenter ) );
-					double dist01 = radius - Math.sqrt( ( x - 0.5 - xCenter ) * ( x - 0.5 - xCenter ) + ( y + 0.5 - yCenter ) * ( y + 0.5 - yCenter ) );
-					double dist10 = radius - Math.sqrt( ( x + 0.5 - xCenter ) * ( x + 0.5 - xCenter ) + ( y - 0.5 - yCenter ) * ( y - 0.5 - yCenter ) );
-					double dist11 = radius - Math.sqrt( ( x + 0.5 - xCenter ) * ( x + 0.5 - xCenter ) + ( y + 0.5 - yCenter ) * ( y + 0.5 - yCenter ) );
-					double k = Service.limit( 0.125 / circleBound * ( dist00 + dist01 + dist10 + dist11 ) + 0.5, 0.0, 1.0 );
-					value[ yy ][ xx ] = value[ yy ][ xx ] * ( 1 - k ) + k * color;
+					double dist00 = radius - Math.sqrt( ( x - 0.5d - xCenter ) * ( x - 0.5d - xCenter ) + ( y - 0.5d - yCenter ) * ( y - 0.5d - yCenter ) );
+					double dist01 = radius - Math.sqrt( ( x - 0.5d - xCenter ) * ( x - 0.5d - xCenter ) + ( y + 0.5d - yCenter ) * ( y + 0.5d - yCenter ) );
+					double dist10 = radius - Math.sqrt( ( x + 0.5d - xCenter ) * ( x + 0.5d - xCenter ) + ( y - 0.5d - yCenter ) * ( y - 0.5d - yCenter ) );
+					double dist11 = radius - Math.sqrt( ( x + 0.5d - xCenter ) * ( x + 0.5d - xCenter ) + ( y + 0.5d - yCenter ) * ( y + 0.5d - yCenter ) );
+					double k = Service.limit( 0.125d / circleBound * ( dist00 + dist01 + dist10 + dist11 ) + 0.5d, 0d, 1d );
+					value[ yy ][ xx ] = value[ yy ][ xx ] * ( 1d - k ) + k * color;
 				}
 			}
 		}

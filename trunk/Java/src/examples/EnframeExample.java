@@ -1,12 +1,13 @@
 package examples;
-import dwlab.base.service.Align;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.Sys;
-import dwlab.shapes.maps.tilemaps.TileMap;
-import dwlab.shapes.Layers.EditorData;
-import dwlab.shapes.Layers.World;
+import dwlab.base.images.Image;
+import dwlab.base.service.Align;
+import dwlab.shapes.layers.EditorData;
+import dwlab.shapes.layers.World;
 import dwlab.shapes.maps.DoubleMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 
 public class EnframeExample extends Project {
@@ -17,39 +18,37 @@ public class EnframeExample extends Project {
 	public static void main(String[] argv) {
 		Graphics.init();
 		
-		editorData = new EditorData();
-		Graphics.setClearingColor( 64, 128, 0 );
+		Graphics.setClearingColor( 0.25d, 0.5d, 0d );
 
 		Graphics.clearScreen();
-		DoubleMap doubleMap = new DoubleMap();
-		doubleMap.setResolution( mapSize, mapSize );
+		DoubleMap doubleMap = new DoubleMap( mapSize, mapSize );
 		drawDoubleMap( doubleMap );
-		printText( "Step creating 1 Double map and set its resolution" );
+		printText( "Step 1: creating Double map and set its resolution" );
 		Graphics.swapBuffers();
 		Sys.waitForKey();
 
 		Graphics.clearScreen();
 		doubleMap.perlinNoise( 16, 16, 0.25, 0.5, 4 );
 		drawDoubleMap( doubleMap );
-		printText( "Step filling 2 DoubleMap with Perlin noise" );
+		printText( "Step 2: filling DoubleMap with Perlin noise" );
 		Graphics.swapBuffers();
 		Sys.waitForKey();
 
 		Graphics.clearScreen();
-		World world = World.fromFile( "res/tileset.lw" );
-		TileSet tileSet = TileSet( editorData.tilesets.getFirst() );
+		World.editorData = new EditorData();
+		World.fromFile( "res/tileset.lw" );
+		TileSet tileSet = World.editorData.tilesets.getFirst();
 		TileMap tileMap = TileMap.create( tileSet, mapSize, mapSize );
-		tileMap.setSize( mapSize * mapScale / 25.0, mapSize * mapScale / 25.0 );
-		Project.printText( "Step loading 3 world, extract tileset from there and" );
+		tileMap.setSize( mapSize * mapScale / 25.0d, mapSize * mapScale / 25.0 );
+		Project.printText( "Step 3: loading world, extract tileset from there and" );
 		Project.printText( "creating tilemap with same size and this tileset", 1 );
 		drawDoubleMap( doubleMap );
 		Graphics.swapBuffers();
 		Sys.waitForKey();
 
-
 		Graphics.clearScreen();
 		doubleMap.extractTo( tileMap, 0.5, 1.0, filledTileNum );
-		Project.printText( "Step setting 4 tiles number of tilemap to FilledTileNum" );
+		Project.printText( "Step 4: setting tiles number of tilemap to FilledTileNum" );
 		Project.printText( "if corresponding value of Double map is higher than 0.5", 1 );
 		tileMap.draw();
 		drawSignature();
@@ -62,7 +61,7 @@ public class EnframeExample extends Project {
 				fix( tileMap, x, y );
 			}
 		}
-		printText( "Step preparing 5 tilemap .y fixing some unmanaged cell positions" );
+		printText( "Step 5: preparing tilemap by fixing some unmanaged cell positions" );
 		tileMap.draw();
 		drawSignature();
 		Graphics.swapBuffers();
@@ -70,17 +69,16 @@ public class EnframeExample extends Project {
 
 		Graphics.clearScreen();
 		tileMap.enframe();
-		printText( "Step enframing 6a tile map" );
+		printText( "Step 6a: enframing tile map" );
 		tileMap.draw();
 		drawSignature();
 		Graphics.swapBuffers();
 		Sys.waitForKey();
 
-
 		Graphics.clearScreen();
-		prolongTiles = false;
+		TileSet.prolongTiles = false;
 		tileMap.enframe() ;
-		printText( "Step enframing 6b tile map with prolonging tiles off" );
+		printText( "Step 6b: enframing tile map with prolonging tiles off" );
 		tileMap.draw();
 		drawSignature();
 		Graphics.swapBuffers();
@@ -92,14 +90,8 @@ public class EnframeExample extends Project {
 
 	
 	public static void drawDoubleMap( DoubleMap map ) {
-		tImage image = createImage( mapSize, mapSize );
-		tPixmap pixmap = lockimage( image );
-		clearPixels( pixmap, $fF000000 );
-		map.pasteToPixmap( pixmap );
-		unlockimage( image );
-		setScale( mapScale, mapScale );
-		drawImage( image, 400 - 0.5 * mapScale * mapSize, 300 - 0.5 * mapScale * mapSize );
-		setScale( 1, 1 );
+		Image image = map.toNewImage();
+		image.draw( 0, 400, 300, 400, 400 );
 		drawSignature();
 	}
 

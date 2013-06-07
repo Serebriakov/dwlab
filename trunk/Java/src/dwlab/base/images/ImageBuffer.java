@@ -31,6 +31,10 @@ public class ImageBuffer extends Obj {
 	public void setPixel( int x, int y, int color ) {
 		buffer.put( x + y * width, color );
 	}
+	
+	public void clear( int color ) {
+		for( int n = 0; n < width * height; n++ ) buffer.put( n, color );
+	}
 
 	public Image toImage() {
 		Image image = new Image( width, height );

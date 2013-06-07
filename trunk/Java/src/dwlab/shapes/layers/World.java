@@ -36,7 +36,6 @@ public class World extends Layer {
 		if( editorData != null ) {
 			editorData = xMLObject.manageObjectField( "editor_data", editorData );
 			if( xMLObject.fieldExists( "images" ) ) {
-				xMLObject.manageIntAttribute( "incbin", editorData.incbinValue );
 				editorData.images = xMLObject.manageListField( "images", editorData.images );
 				editorData.tilesets = xMLObject.manageListField( "tilesets", editorData.tilesets );
 			}

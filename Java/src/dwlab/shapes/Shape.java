@@ -144,15 +144,19 @@ public class Shape extends Obj {
 		switch( horizontalAlign ) {
 			case TO_CENTER:
 				servicePivot.x -= 0.5d * Graphics.getTextWidth( text );
+				break;
 			case TO_RIGHT:
 				servicePivot.x -= Graphics.getTextWidth( text );
+				break;
 		}
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
 				servicePivot.y -= 0.5d * Graphics.getTextHeight();
+				break;
 			case TO_BOTTOM:
 				servicePivot.y -= Graphics.getTextHeight();
+				break;
 		}
 
 		Graphics.drawText( text, servicePivot.x, servicePivot.y );

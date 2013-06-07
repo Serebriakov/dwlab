@@ -9,12 +9,12 @@
 
 package dwlab.base;
 
-import dwlab.base.service.Align;
-import dwlab.base.service.Service;
-import dwlab.base.files.BinaryFile;
 import dwlab.base.Sys.XMLMode;
 import dwlab.base.XMLObject.XMLAttribute;
 import dwlab.base.XMLObject.XMLObjectField;
+import dwlab.base.files.BinaryFile;
+import dwlab.base.service.Align;
+import dwlab.base.service.Service;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
@@ -22,15 +22,18 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.VectorSprite;
 import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
-import java.util.HashMap;
-import java.util.HashSet;
-import org.reflections.Reflections;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Global object class
  */
 public class Obj {
-	static HashMap<String, Class<Obj>> classes = new HashMap<String, Class<Obj>>();
+	public static HashMap<String, Class> classes = null;
 	static HashMap<Obj, Integer> iDMap;
 	static HashMap<Obj, XMLObject> removeIDMap;
 	static int maxID;
@@ -126,7 +129,6 @@ public class Obj {
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift ) {
 		printText( text, horizontalAlign, verticalAlign, shift, Color.white );
 	}
-	
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign ) {
 		printText( text, horizontalAlign, verticalAlign, 0, Color.white );
 	}
@@ -195,12 +197,7 @@ public class Obj {
 	 * @see #saveToFile, #xMLIO
 	 */
 	public static Obj loadFromFile( String fileName, XMLObject xMLObject ) {
-		if( classes.isEmpty() ) {
-			Reflections reflections = new Reflections("");
-			for( Class objectClass : reflections.getSubTypesOf( Obj.class ) ) {
-				if( objectClass != null ) classes.put( objectClass.getSimpleName(), objectClass );
-			}
-		}
+		if( classes == null ) getClasses();
 		
 		if( xMLObject == null ) {
 			maxID = 0;
@@ -215,11 +212,11 @@ public class Obj {
 		iDArray = new Obj[ maxID + 1 ];
 		fillIDArray( xMLObject );
 		
+		Class objectClass = classes.get( xMLObject.name );
+		
 		Obj object = null;
-		Class<Obj> objectClass = classes.get( xMLObject.name );
-		if( objectClass == null ) error( "Class \"" + xMLObject.name + "\" not found" );
 		try {
-			object = objectClass.newInstance();
+			object = (Obj) objectClass.newInstance();
 		} catch ( InstantiationException ex ) {
 			error( "\"" + xMLObject.name + "\" is abstract class or interface" );
 		} catch ( IllegalAccessException ex ) {
@@ -242,18 +239,24 @@ public class Obj {
 
 	public static void fillIDArray( XMLObject xMLObject ) {
 		if( xMLObject.name.equals( "Object" ) ) return;
-		int iD = 0;
-		if( xMLObject.attributeExists( "id" ) ) iD = Integer.parseInt( xMLObject.getAttribute( "id" ) );
 		
-		Class objectClass = classes.get( xMLObject.name );
-		if( objectClass == null ) error( "Class \"" + xMLObject.name + "\" not found" );
-						
-		if( iD > 0 ) try {
-			iDArray[ iD ] = (Obj) objectClass.newInstance();
-		} catch ( InstantiationException ex ) {
-			error( "\"" + xMLObject.name + "\" is abstract class or interface" );
-		} catch ( IllegalAccessException ex ) {
-			error( "Class \"" + xMLObject.name + "\" is unaccessible" );
+		if( xMLObject.name.equals( "TList" ) ) xMLObject.name = "List";
+		
+		if( !xMLObject.name.equals( "List" ) && !xMLObject.name.equals( "Array" ) ) {
+			int iD = 0;
+			if( xMLObject.attributeExists( "id" ) ) iD = Integer.parseInt( xMLObject.getAttribute( "id" ) );
+		
+			if( xMLObject.name.startsWith( "LT" ) ) xMLObject.name = xMLObject.name.substring( 2 );
+			Class objectClass = classes.get( xMLObject.name );
+			if( objectClass == null ) error( "Class \"" + xMLObject.name + "\" not found" );
+
+			if( iD > 0 ) try {
+				iDArray[ iD ] = (Obj) objectClass.newInstance();
+			} catch ( InstantiationException ex ) {
+				error( "\"" + xMLObject.name + "\" is abstract class or interface" );
+			} catch ( IllegalAccessException ex ) {
+				error( "Class \"" + xMLObject.name + "\" is unaccessible" );
+			}
 		}
 		
 		for( XMLObject child: xMLObject.children ) {
@@ -263,7 +266,43 @@ public class Obj {
 			fillIDArray( objectField.value );
 		}
 	}
+	
 
+    private static void getClasses() {
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		assert classLoader != null;
+		classes = new HashMap<String, Class>();
+		Enumeration<URL> resources = null;
+		try {
+			resources = classLoader.getResources( "dwlab" );
+		} catch ( IOException ex ) {
+			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
+		}
+		List<File> dirs = new ArrayList<File>();
+		while ( resources.hasMoreElements() ) {
+				URL resource = resources.nextElement();
+				dirs.add( new File( resource.getFile() ) );
+		}
+		for ( File directory : dirs ) try {
+			addClasses( directory, "dwlab" );
+		} catch ( ClassNotFoundException ex ) {
+			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
+		}
+	}
+
+	private static void addClasses( File directory, String packageName ) throws ClassNotFoundException {
+	if ( !directory.exists() ) return;
+	File[] files = directory.listFiles();
+	for (File file : files) {
+			if (file.isDirectory()) {
+					assert !file.getName().contains( "." );
+					addClasses( file, packageName + "." + file.getName() );
+			} else if( file.getName().endsWith( ".class" ) ) {
+				Class cl = Class.forName( packageName + '.' + file.getName().substring( 0, file.getName().length() - 6 ) );
+				classes.put( cl.getSimpleName(), cl );
+			}
+	}
+    }
 
 	/**
 	 * Saves object with all contents to file.

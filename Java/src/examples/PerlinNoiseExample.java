@@ -30,6 +30,7 @@ public class PerlinNoiseExample extends Project {
 
 	public static void main(String[] argv) {
 		Graphics.init();
+		( new PerlinNoiseExample() ).act();
 	}
 	
 	
@@ -82,9 +83,7 @@ public class PerlinNoiseExample extends Project {
 	
 	@Override
 	public void update() {
-		Graphics.clearScreen();
 		doubleMap.perlinNoise( frequency, frequency, amplitude, dAmplitude, Layers );
 		image = doubleMap.toNewImage();
-		Graphics.swapBuffers();
 	}
 }

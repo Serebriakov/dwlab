@@ -45,13 +45,13 @@ public class BehaviorModelExample extends Project {
 	//Field LTSprite HitArea
 	public int score;
 
-	ButtonAction KeyExit = ButtonAction.create( KeyboardKey.create( Key.ESCAPE ) );
+	ButtonAction KeyExit = ButtonAction.create( KeyboardKey.create( Key.ESCAPE) );
 	
 	@Override
 	public void init() {
-		Graphics.init();
-
 	 	world = World.fromFile( "res/jellys.lw" );
+
+		Graphics.init();
 
 		Sprite sprite = new Sprite( Camera.current );
 		sprite.visualizer.image = new Image( "res/scheme2.png" );
@@ -70,7 +70,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 	public void initLevel() {
-		Layer = world.findShape( "Level" ).load().toLayer();
+		Layer = loadLayer( world.findShape( "Level" ).toLayer() );
 		Layer.init();
 		tileMap = Layer.findShape( "Field" ).toTileMap();
 	}
@@ -89,15 +89,15 @@ public class BehaviorModelExample extends Project {
 	public void render() {
 		Layer.draw();
 		if( selectedSprite != null ) {
-			//selectedSprite.showModels( 100 );
+			selectedSprite.showModels( 100 );
 			selectedSprite.drawUsingVisualizer( marchingAnts );
 		}
 		//If HitArea Then HitArea.Draw()
 		showDebugInfo();
-		printText( "Guide AwesomePossum to exit from maze using arrow and space Keys", Align.TO_RIGHT, Align.TO_TOP );
-		printText( "You can view sprite behavior models .y clicking left mouse button on it", Align.TO_RIGHT, Align.TO_TOP, 1 );
-		printText( "Score: " + Service.firstZeroes( score, 6 ), Align.TO_RIGHT, Align.TO_BOTTOM );
-		printText( "LTBehaviorModel example", Align.TO_CENTER, Align.TO_BOTTOM );
+		Graphics.drawText( "Guide AwesomePossum to exit from maze using arrow and space Keys", tileMap.rightX(), tileMap.topY() - 12, Align.TO_RIGHT, Align.TO_TOP );
+		Graphics.drawText( .you can view sprite behavior models .y clicking left mouse button on it", tileMap.rightX(), tileMap.topY() - 0.5, Align.TO_RIGHT, Align.TO_TOP );
+		Graphics.drawText( " Score" + Service.firstZeroes( score, 6 ), tileMap.rightX() - 0.1, tileMap.bottomY() - 0.1, Align.TO_RIGHT, Align.TO_BOTTOM, true );
+		Graphics.drawText( "LTBehaviorModel example", tileMap.getX(), tileMap.bottomY(), Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 	public class GameObject extends VectorSprite {
 		public OnLand onLand = new OnLand();
@@ -141,7 +141,7 @@ public class BehaviorModelExample extends Project {
 
 
 			String jumping = getParameter( "jumping" );
-			if( jumping != 0 ) {
+			if( jumping ) {
 				String parameters[] = jumping.split( "-" );
 				RandomWaitingModel waitingForJump = RandomWaitingModel.create( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() );
 				attachModel( waitingForJump );
@@ -266,6 +266,7 @@ public class BehaviorModelExample extends Project {
 		public ButtonAction jumpKey = ButtonAction.create( KeyboardKey.create( Key.Up ), "Jump" );
 		public ButtonAction hitKey = ButtonAction.create( KeyboardKey.create( Key.Space ), "Hit" );
 
+		@Override
 		public void init() {
 			attachModel( gravity );
 
@@ -360,20 +361,20 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class OnLand extends BehaviorModel {
+	public static class OnLand extends BehaviorModel {
 	}
 
 
-	public class gravity extends BehaviorModel {
+	public static class gravity extends BehaviorModel {
 		double gravity = 8.0;
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			VectorSprite( shape )..y += perSecond( gravity );
 		}
 	}
 
 
-	public class HorizontalMovement extends BehaviorModel {
+	public static class HorizontalMovement extends BehaviorModel {
 		public SpriteAndTileCollisionHandler collisionHandler;
 
 		public static HorizontalMovement create( SpriteAndTileCollisionHandler collisionHandler ) {
@@ -382,7 +383,7 @@ public class BehaviorModelExample extends Project {
 			return horizontalMovement;
 		}
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			VectorSprite sprite = VectorSprite( shape );
 			sprite.move( sprite.dX, 0 );
 			sprite.collisionsWithTileMap( example.tileMap, collisionHandler );
@@ -394,7 +395,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class BumpingWalls extends SpriteAndTileCollisionHandler {
+	public static class BumpingWalls extends SpriteAndTileCollisionHandler {
 		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 			sprite.pushFromTile( tileMap, tileX, tileY );
 			VectorSprite( sprite ).dX *= -1;
@@ -403,14 +404,14 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class PushFromWalls extends SpriteAndTileCollisionHandler {
+	public static class PushFromWalls extends SpriteAndTileCollisionHandler {
 		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 			if( tileMap.getTile( tileX, tileY ) == example.bricks ) sprite.pushFromTile( tileMap, tileX, tileY );
 		}
 	}
 
 
-	public class VerticalMovement extends BehaviorModel {
+	public static class VerticalMovement extends BehaviorModel {
 		public VerticalCollisionHandler handler = new VerticalCollisionHandler();
 
 		public static VerticalMovement create( int forPLayer ) {
@@ -419,7 +420,7 @@ public class BehaviorModelExample extends Project {
 			return verticalMovement;
 		}
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			VectorSprite sprite = VectorSprite( shape );
 			sprite.move( 0, sprite..y );
 			sprite.collisionsWithTileMap( example.tileMap, handler );
@@ -431,7 +432,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class VerticalCollisionHandler extends SpriteAndTileCollisionHandler {
+	public static class VerticalCollisionHandler extends SpriteAndTileCollisionHandler {
 		public int forPLayer;
 
 		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
@@ -448,7 +449,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class Jump extends BehaviorModel {
+	public static class Jump extends BehaviorModel {
 		public double fromStrength, double toStrength;
 
 		public static Jump create( double fromStrength, double toStrength ) {
@@ -458,14 +459,14 @@ public class BehaviorModelExample extends Project {
 			return jump;
 		}
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			VectorSprite( shape )..y = -Service.random( fromStrength, toStrength );
 			remove( shape );
 		}
 	}
 
 
-	public class CreateBullet extends BehaviorModel {
+	public static class CreateBullet extends BehaviorModel {
 		public double fromSpeed, double toSpeed;
 
 		public static CreateBullet create( double fromSpeed, double toSpeed ) {
@@ -475,14 +476,14 @@ public class BehaviorModelExample extends Project {
 			return createBullet;
 		}
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			Bullet.create( VectorSprite( shape ), Service.random( fromSpeed, toSpeed ) );
 			remove( shape );
 		}
 	}
 
 
-	public class Bullet extends VectorSprite {
+	public static class Bullet extends VectorSprite {
 		double minAttack = 5.0;
 		double maxAttack = 10.0;
 
@@ -502,7 +503,7 @@ public class BehaviorModelExample extends Project {
 
 		public void act() {
 			moveForward();
-			if( collisions ) collisionsWithTileMap( example.tileMap, example.DestroyBullet );
+			if( collisions ) collisionsWithTileMap( example.tileMap, example.destRAYBullet );
 			super.act();
 		}
 
@@ -519,15 +520,15 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class DestroyBullet extends SpriteAndTileCollisionHandler {
+	public static class DestroyBullet extends SpriteAndTileCollisionHandler {
 		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 			if( tileMap.getTile( tileX, tileY ) == example.bricks ) Bullet.disable( sprite );
 		}
 	}
 
 
-	public class MovementControl extends BehaviorModel {
-		public void app.yTo( Shape shape ) {
+	public static class MovementControl extends BehaviorModel {
+		public void applyTo( Shape shape ) {
 			AwPossum awPossum = AwPossum( shape );
 			if( awPossum.gravity.active ) {
 				if( awPossum.moveLeftKey.isDown() ) {
@@ -552,9 +553,9 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class AwPossumHurtingCollision extends SpriteCollisionHandler {
+	public static class AwPossumHurtingCollision extends SpriteCollisionHandler {
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
-			if( sprite1.findModel( "TImmortali.y" ) ) return;
+			if( sprite1.findModel( "TImmortality" ) ) return;
 			if( sprite2.findModel( "TDeath" ) ) return;
 
 			double damage = 0;
@@ -570,7 +571,7 @@ public class BehaviorModelExample extends Project {
 				AwPossum awPossum = AwPossum( sprite1 );
 				awPossum.health -= damage;
 				if( awPossum.health > 0.0 ) {
-					sprite1.attachModel( new Immortali.y() );
+					sprite1.attachModel( new Immortality() );
 					sprite1.attachModel( new KnockOut() );
 				} else if( ! sprite1.findModel( "TDeath" ) ) {
 					sprite1.behaviorModels.clear();
@@ -581,16 +582,16 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class Immortali.y extends FixedWaitingModel {
+	public static class Immortality extends FixedWaitingModel {
 		double blinkingSpeed = 0.05;
 
 		public void init( Shape shape ) {
 			period = AwPossum.immortalPeriod;
 		}
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			shape.visible = Math.floor( currentProject.time / blinkingSpeed ) % 2;
-			super.app.yTo( shape );
+			super.applyTo( shape );
 		}
 
 		public void deactivate( Shape shape ) {
@@ -599,7 +600,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class KnockOut extends FixedWaitingModel {
+	public static class KnockOut extends FixedWaitingModel {
 		public void init( Shape shape ) {
 			AwPossum awPossum = AwPossum( shape );
 			period = awPossum.knockOutPeriod;
@@ -608,9 +609,9 @@ public class BehaviorModelExample extends Project {
 			awPossum.hurtingAnimation.activateModel( shape );
 		}
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			VectorSprite( shape ).dX *= 0.9;
-			super.app.yTo( shape );
+			super.applyTo( shape );
 		}
 
 		public void deactivate( Shape shape ) {
@@ -621,7 +622,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class HittingArea extends FixedWaitingModel {
+	public static class HittingArea extends FixedWaitingModel {
 		public Sprite Area;
 		public int punch;
 
@@ -639,7 +640,7 @@ public class BehaviorModelExample extends Project {
 			example.awPossumHitCollision.collided = false;
 		}
 
-		public void app.yTo( Shape shape ) {
+		public void applyTo( Shape shape ) {
 			if( punch ) {
 				Area.setCoords( shape.getX() + shape.getFacing() * 0.95, shape.y + 0.15 );
 			} else {
@@ -648,7 +649,7 @@ public class BehaviorModelExample extends Project {
 			//Example.HitArea = Area
 			Area.collisionsWithLayer( example.Layer, example.awPossumHitCollision );
 			if( example.awPossumHitCollision.collided ) remove( shape );
-			super.app.yTo( shape );
+			super.applyTo( shape );
 		}
 
 		//Method Deactivate( LTShape Shape )
@@ -657,7 +658,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class AwPossumHitCollision extends SpriteCollisionHandler {
+	public static class AwPossumHitCollision extends SpriteCollisionHandler {
 		public int collided ;
 
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
@@ -686,14 +687,14 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class JellyHurt extends FixedWaitingModel {
+	public static class JellyHurt extends FixedWaitingModel {
 		public void init( Shape shape ) {
 			period = Jelly.hurtingTime;
 			shape.deactivateModel( "THorizontalMovement" );
 		}
 
-		public void app.yTo( Shape shape ) {
-			super.app.yTo( shape );
+		public void applyTo( Shape shape ) {
+			super.applyTo( shape );
 			double intensi.y = ( currentProject.time - startingTime ) / period;
 			if( intensi.y <= 1.0 ) shape.visualizer.Graphics.setColorFromRGB( 1.0, intensi.y, intensi.y );
 		}
@@ -705,13 +706,13 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class Death extends FixedWaitingModel {
+	public static class Death extends FixedWaitingModel {
 		public void init( Shape shape ) {
 			period = example.deathPeriod;
 		}
 
-		public void app.yTo( Shape shape ) {
-			super.app.yTo( shape );
+		public void applyTo( Shape shape ) {
+			super.applyTo( shape );
 			double alpha = 1.0 - ( currentProject.time - startingTime ) / period;
 			if( alpha >= 0.0 ) shape.visualizer.alpha = alpha;
 		}
@@ -722,7 +723,7 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class Score extends Sprite {
+	public static class Score extends Sprite {
 		double speed = 2.0;
 		double period = 3.0;
 
@@ -750,21 +751,21 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public class Restart extends Project {
-		public int startingTime = .ystem.currentTimeMillis();
+	public static class Restart extends Project {
+		public int startingTime = System.currentTimeMillis();
 		public int initialized;
 
 		public void render() {
-			if( .ystem.currentTimeMillis() < startingTime + 2000 ) {
+			if( System.currentTimeMillis() < startingTime + 2000 ) {
 				example.render();
-				Camera.current.darken( 0.0005 * ( .ystem.currentTimeMillis() - startingTime ) );
-			} else if( .ystem.currentTimeMillis() < startingTime + 4000 ) {
+				Camera.current.darken( 0.0005 * ( System.currentTimeMillis() - startingTime ) );
+			} else if( System.currentTimeMillis() < startingTime + 4000 ) {
 				if( ! initialized ) {
 					example.initLevel();
 					initialized = true;
 				}
 				example.render();
-				Camera.current.darken( 0.0005 * ( 4000 - .ystem.currentTimeMillis() + startingTime ) );
+				Camera.current.darken( 0.0005 * ( 4000 - System.currentTimeMillis() + startingTime ) );
 			} else {
 				exiting = true;
 			}

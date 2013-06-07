@@ -17,12 +17,9 @@ import dwlab.visualizers.Color;
 import java.util.LinkedList;
 
 public class EditorData extends Obj {
-	public static EditorData current;
-
 	public LinkedList<Image> images = new LinkedList<Image>();
 	public LinkedList<TileSet> tilesets = new LinkedList<TileSet>();
 
-	public int incbinValue;
 	public Color backgroundColor = new Color( "FFFFFF" );
 	public double gridCellWidth = 1d;
 	public double gridCellHeight = 1d;
@@ -54,7 +51,6 @@ public class EditorData extends Obj {
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
 
-		xMLObject.manageIntAttribute( "incbin", incbinValue );
 		images = xMLObject.manageListField( "images", images );
 		tilesets = xMLObject.manageListField( "tilesets", tilesets );
 

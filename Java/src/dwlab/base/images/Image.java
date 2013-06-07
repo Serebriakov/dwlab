@@ -15,15 +15,18 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static org.lwjgl.opengl.GL11.*;
+import org.newdawn.slick.opengl.InternalTextureLoader;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.util.ResourceLoader;
 	
 /**
  * Image class.
  */
 public class Image extends ImageTemplate {
-	int textureID;
+	private int textureID;
 		
 	public Image() {
 	}
@@ -59,6 +62,7 @@ public class Image extends ImageTemplate {
 		this.fileName = fileName;
 		this.xCells = xCells;
 		this.yCells = yCells;
+		this.textureID = glGenTextures();
 		this.init();
 	}
 
@@ -66,6 +70,7 @@ public class Image extends ImageTemplate {
 		this.fileName = fileName;
 		this.xCells = 1;
 		this.yCells = 1;
+		this.textureID = glGenTextures();
 		this.init();
 	}
 
@@ -99,12 +104,17 @@ public class Image extends ImageTemplate {
 	
 	public void applyBuffer( ImageBuffer buffer ) {
 		glBindTexture( GL_TEXTURE_2D, textureID );
-		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, buffer.getWidth(), buffer.getHeight(), 0, GL_RGBA, GL_BYTE, buffer.buffer );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); 
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); 
+		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, buffer.getWidth(), buffer.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer.buffer );
+		glBindTexture( GL_TEXTURE_2D, 1 );
 	}
 	
 	public void applyBuffer( ImageBuffer buffer, int x, int y ) {
 		glBindTexture( GL_TEXTURE_2D, textureID );
-		glTexSubImage2D( GL_TEXTURE_2D,  0,  x,  y,  buffer.getWidth(), buffer.getHeight(), GL_RGBA, GL_BYTE,  buffer.buffer );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+		glTexSubImage2D( GL_TEXTURE_2D,  0,  x,  y,  buffer.getWidth(), buffer.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,  buffer.buffer );
 	}
 	
 	

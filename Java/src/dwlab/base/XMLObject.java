@@ -357,7 +357,7 @@ public class XMLObject extends Obj {
 	public <E extends Obj> LinkedList<E> manageListField( String fieldName, LinkedList<E> list ) {
 		if( Sys.xMLGetMode() ) {
 			XMLObject xMLObject = getField( fieldName );
-			if( xMLObject != null ) xMLObject.manageChildList( list );
+			if( xMLObject != null ) return xMLObject.manageChildList( list );
 		} else if( list != null ) {
 			if( list.isEmpty() ) return list;
 			XMLObject xMLObject = new XMLObject();
@@ -376,7 +376,7 @@ public class XMLObject extends Obj {
 	public <E extends Obj> E[] manageObjectArrayField( String fieldName, E[] array ) {
 		if( Sys.xMLGetMode() ) {
 			XMLObject xMLArray = getField( fieldName );
-			if( xMLArray != null ) xMLArray.manageChildObjectArray( array );
+			if( xMLArray != null ) return xMLArray.manageChildObjectArray( array );
 		} else if( array != null ) {
 			XMLObject xMLArray = new XMLObject();
 			xMLArray.name = "Array";
@@ -396,17 +396,18 @@ public class XMLObject extends Obj {
 	 * Transfers data between XMLObject field and framework object's field with HashMap filled with object-object pairs.
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
-	public <E extends Obj, F extends Obj> void manageObjectMapField( String fieldName, HashMap<E, F> map ) {
+	public <E extends Obj, F extends Obj> HashMap<E, F> manageObjectMapField( String fieldName, HashMap<E, F> map ) {
 		if( Sys.xMLGetMode() ) {
 			XMLObject xMLMap = getField( fieldName );
-			if( xMLMap != null ) xMLMap.manageChildMap( map );
+			if( xMLMap != null ) return xMLMap.manageChildMap( map );
 		} else if( map != null ) {
-			if( map.isEmpty() ) return;
+			if( map.isEmpty() ) return map;
 			XMLObject xMLMap = new XMLObject();
 			xMLMap.name = "Map";
 			xMLMap.manageChildMap( map );
 			setField( fieldName, xMLMap );
 		}
+		return map;
 	}
 
 
@@ -414,17 +415,18 @@ public class XMLObject extends Obj {
 	 * Transfers data between XMLObject field and framework object's HashSet field containing objects.
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
-	public <E extends Obj> void manageObjectSetField( String fieldName, HashSet<E> set ) {
+	public <E extends Obj> HashSet<E> manageObjectSetField( String fieldName, HashSet<E> set ) {
 		if( Sys.xMLGetMode() ) {
 			XMLObject xMLSet = getField( fieldName );
-			if( xMLSet != null ) xMLSet.manageChildSet( set );
+			if( xMLSet != null ) return xMLSet.manageChildSet( set );
 		} else if( set != null ) {
-			if( set.isEmpty() ) return;
+			if( set.isEmpty() ) return set;
 			XMLObject xMLMap = new XMLObject();
 			xMLMap.name = "Set";
 			xMLMap.manageChildSet( set );
 			setField( fieldName, xMLMap );
 		}
+		return set;
 	}
 
 
@@ -434,7 +436,8 @@ public class XMLObject extends Obj {
 	 */
 	public <E extends Obj> LinkedList<E> manageChildList( LinkedList<E> list ) {
 		if( Sys.xMLGetMode() ) {
-			list = new LinkedList<E>();
+			if( list == null && children.isEmpty() ) return null;
+			list = new LinkedList();
 			for( XMLObject xMLObject: children ) {
 				list.addLast( xMLObject.manageObject( (E) null ) );
 			}
@@ -456,11 +459,12 @@ public class XMLObject extends Obj {
 	 */
 	public <E extends Obj> E[] manageChildObjectArray( E[] childArray ) {
 		if( Sys.xMLGetMode() ) {
+			if( childArray == null && children.isEmpty() ) return null;
 			childArray = (E[]) Array.newInstance( childArray.getClass(), getIntegerAttribute( "size" ) );
 			for( XMLObject xMLObject: children ) {
 				childArray[ xMLObject.getIntegerAttribute( "index" ) ] = (E) xMLObject.manageObject( null );
 			}
-		} else {
+		} else if( childArray != null ) {
 			setAttribute( "size", childArray.length );
 			for( int n = 0; n < childArray.length; n++ ) {
 				if( childArray[ n ] != null ) {
@@ -481,11 +485,12 @@ public class XMLObject extends Obj {
 	 */
 	public <E extends Obj> E[] manageChildObjectDoubleArray( E[] childArray ) {
 		if( Sys.xMLGetMode() ) {
+			if( childArray == null && children.isEmpty() ) return null;
 			childArray = (E[]) Array.newInstance( childArray.getClass(), getIntegerAttribute( "size" ) );
 			for( XMLObject xMLObject: children ) {
 				childArray[ xMLObject.getIntegerAttribute( "index" ) ] = (E) xMLObject.manageObject( null );
 			}
-		} else {
+		} else if( childArray != null ) {
 			setAttribute( "size", childArray.length );
 			for( int n = 0; n < childArray.length; n++ ) {
 				if( childArray[ n ] != null ) {
@@ -506,13 +511,14 @@ public class XMLObject extends Obj {
 	 */
 	public <E extends Obj, F extends Obj> HashMap<E, F> manageChildMap( HashMap<E, F> map ) {
 		if( Sys.xMLGetMode() ) {
+			if( map == null && children.isEmpty() ) return null;
 			map = new HashMap();
 			for( XMLObject xMLObject: children ) {
 				E key = null;
 				xMLObject.manageObjectAttribute( "key", key );
 				map.put( key, xMLObject.manageObject( (F) null ) );
 			}
-		} else {
+		} else if( map != null ) {
 			for( Entry<E, F> entry: map.entrySet() ) {
 				XMLObject xMLValue = new XMLObject();
 				xMLValue.manageObject( entry.getValue() );
@@ -530,11 +536,12 @@ public class XMLObject extends Obj {
 	 */
 	public <E extends Obj> HashSet<E> manageChildSet( HashSet<E> set ) {
 		if( Sys.xMLGetMode() ) {
+			if( set == null && children.isEmpty() ) return null;
 			set = new HashSet<E>();
 			for( XMLObject xMLObject: children ) {
 				set.add( xMLObject.manageObject( (E) null ) );
 			}
-		} else {
+		} else if( set != null ) {
 			for( Obj obj: set ) {
 				XMLObject xMLValue = new XMLObject();
 				xMLValue.manageObject( obj );
@@ -549,7 +556,7 @@ public class XMLObject extends Obj {
 		if( Sys.xMLGetMode() ) {
 			int iD = getIntegerAttribute( "id" );
 
-			if( name.equals( "object" ) ) {
+			if( name.equals( "Object" ) ) {
 				obj = ( E ) iDArray[ iD ];
 			} else {
 				if( iD > 0 && iDArray[ iD ] != null ) {

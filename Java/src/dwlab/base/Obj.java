@@ -291,17 +291,17 @@ public class Obj {
 	}
 
 	private static void addClasses( File directory, String packageName ) throws ClassNotFoundException {
-	if ( !directory.exists() ) return;
-	File[] files = directory.listFiles();
-	for (File file : files) {
+		if ( !directory.exists() ) return;
+		File[] files = directory.listFiles();
+		for (File file : files) {
 			if (file.isDirectory()) {
-					assert !file.getName().contains( "." );
-					addClasses( file, packageName + "." + file.getName() );
+				assert !file.getName().contains( "." );
+				addClasses( file, packageName + "." + file.getName() );
 			} else if( file.getName().endsWith( ".class" ) ) {
 				Class cl = Class.forName( packageName + '.' + file.getName().substring( 0, file.getName().length() - 6 ) );
 				classes.put( cl.getSimpleName(), cl );
 			}
-	}
+		}
     }
 
 	/**

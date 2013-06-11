@@ -12,7 +12,7 @@ public abstract class ImageTemplate extends Obj {
 
 	String fileName;
 	int frameWidth, frameHeight;
-	int xCells, yCells;
+	int xCells = 1, yCells = 1;
 
 
 	/**
@@ -58,6 +58,7 @@ public abstract class ImageTemplate extends Obj {
 		xCells = xMLObject.manageIntAttribute( "xcells", xCells, 1 );
 		yCells = xMLObject.manageIntAttribute( "ycells", yCells, 1 );
 
+		if( Sys.xMLGetMode() ) fileName = objectFileName.substring( 0, objectFileName.lastIndexOf( "/" ) ) + "/" + fileName;
 		if( Sys.xMLGetMode() && loadImages ) init();
 	}
 	

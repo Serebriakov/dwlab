@@ -1,8 +1,8 @@
-<LTWorld dwlab_version="1.4.34" total-loading-time="9">
+<LTWorld dwlab_version="1.4.34" total-loading-time="8">
 	<LTVisualizer field="visualizer" id="1"/>
 	<LTEditorData field="editor_data" x_div="4" y_div="4" coll_x_div="16" coll_y_div="16">
 		<TList field="images">
-			<LTImage id="3" filename="curved_areas.png" xcells="9" ycells="10" loading-time="9"/>
+			<LTImage id="3" filename="curved_areas.png" xcells="9" ycells="10" loading-time="8"/>
 		</TList>
 		<TList field="tilesets">
 			<LTTileSet name="CurvedAreas" tiles-quantity="90">

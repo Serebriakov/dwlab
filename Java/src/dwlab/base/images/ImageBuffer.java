@@ -37,7 +37,7 @@ public class ImageBuffer extends Obj {
 	}
 
 	public Image toImage() {
-		Image image = new Image( width, height );
+		Image image = new Image();
 		image.applyBuffer( this );
 		return image;
 	}

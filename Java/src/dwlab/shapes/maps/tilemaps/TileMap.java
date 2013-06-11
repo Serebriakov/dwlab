@@ -8,10 +8,12 @@
 
 package dwlab.shapes.maps.tilemaps;
 
-import dwlab.base.service.Service;
-import dwlab.base.service.IntVector;
+import dwlab.base.Obj;
+import dwlab.base.Sys;
+import dwlab.base.XMLObject;
 import dwlab.base.files.BinaryFile;
-import dwlab.base.*;
+import dwlab.base.service.IntVector;
+import dwlab.base.service.Service;
 import dwlab.shapes.Shape;
 import dwlab.shapes.maps.IntMap;
 import dwlab.shapes.sprites.Sprite;

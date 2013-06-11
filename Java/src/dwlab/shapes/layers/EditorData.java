@@ -49,8 +49,6 @@ public class EditorData extends Obj {
 	
 	@Override
 	public void xMLIO( XMLObject xMLObject ) {
-		super.xMLIO( xMLObject );
-
 		images = xMLObject.manageListField( "images", images );
 		tilesets = xMLObject.manageListField( "tilesets", tilesets );
 

@@ -95,8 +95,8 @@ public class Map extends Shape {
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
 
-		xMLObject.manageIntAttribute( "xquantity", xQuantity );
-		xMLObject.manageIntAttribute( "yquantity", yQuantity );
+		xQuantity = xMLObject.manageIntAttribute( "xquantity", xQuantity );
+		yQuantity = xMLObject.manageIntAttribute( "yquantity", yQuantity );
 
 		if( Sys.xMLGetMode() ) setResolution( xQuantity, yQuantity );
 	}

@@ -1,15 +1,29 @@
 package dwlab.base.files;
 
+import java.io.*;
+import java.nio.channels.FileChannel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class BinaryFile {
-	public BinaryFile( String string ) {
+	private FileChannel channel;
+	private BufferedOutputStream outStream = null;
+	
+	public BinaryFile( String fileName ) {
+		channel = FileChannel.open( new File( fileName ) );
 	}
 
 	public void close() {
-		throw new UnsupportedOperationException( "Not yet implemented" );
+		try {
+			if( inStream != null ) inStream.close();
+			if( outStream != null ) outStream.close();
+		} catch ( IOException ex ) {
+			Logger.getLogger( BinaryFile.class.getName() ).log( Level.SEVERE, null, ex );
+		}
 	}
 
 	public void seek( int offset ) {
-		throw new UnsupportedOperationException( "Not yet implemented" );
+		inStream.
 	}
 
 	public int readByte() {

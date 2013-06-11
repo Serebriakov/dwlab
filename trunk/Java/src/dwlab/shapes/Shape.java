@@ -9,22 +9,19 @@
 
 package dwlab.shapes;
 
-import dwlab.base.service.Align;
-import dwlab.base.service.Vector;
-import dwlab.base.service.Service;
-import dwlab.base.images.Image;
 import dwlab.base.*;
+import dwlab.base.images.Image;
+import dwlab.base.service.Align;
+import dwlab.base.service.Service;
+import dwlab.base.service.Vector;
 import dwlab.behavior_models.BehaviorModel;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
-import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
-import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import dwlab.visualizers.WindowedVisualizer;
 import java.util.Collection;
@@ -32,7 +29,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lwjgl.input.Keyboard;
 
 /**
  * Common object for item of game field.
@@ -45,20 +41,6 @@ public class Shape extends Obj {
 	}
 	
 	private LinkedList<Parameter> parameters = null;
-
-	public class Parameter extends Obj {
-		public String name;
-		public String value;
-
-
-		@Override
-		public void xMLIO( XMLObject xMLObject ) {
-			super.xMLIO( xMLObject );
-			xMLObject.manageStringAttribute( "name", name );
-			xMLObject.manageStringAttribute( "value", value );
-		}
-	}
-	
 	
 	/**
 	 * Shape coordinates in units.

@@ -9,11 +9,10 @@
 
 package dwlab.shapes.maps.tilemaps;
 
-import dwlab.base.images.Image;
 import dwlab.base.Obj;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
-import dwlab.shapes.Shape;
+import dwlab.base.images.Image;
 import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;
 
@@ -43,7 +42,10 @@ public class TileSet extends Obj {
 	 */
 	public int emptyTile = -1;
 
-
+	
+	public TileSet() {
+	}
+	
 	/**
 	 * Creates tileset with given image and empty tile number.
 	 * @return Created tileset.
@@ -193,65 +195,5 @@ public class TileSet extends Obj {
 		if( Sys.xMLGetMode() ) update();
 
 		//If Not L_EditorData.Tilesets.Contains( Self ) L_EditorData.Tilesets.AddLast( Self )
-	}
-
-
-
-	public class TileCategory extends Obj {
-		public String name;
-		public int num;
-		public LinkedList<TileRule> tileRules = new LinkedList<TileRule>();
-
-
-		@Override
-		public void xMLIO( XMLObject xMLObject ) {
-			super.xMLIO( xMLObject );
-
-			name = xMLObject.manageStringAttribute( "name", name );
-			tileRules = xMLObject.manageChildList( tileRules );
-		}
-	}
-
-
-	public class TileRule extends Obj {
-		public int tileNums[];
-		public LinkedList<TilePos> tilePositions = new LinkedList<TilePos>();
-		public int x, y;
-		public int xDivider = 1, yDivider = 1;
-
-
-		public int tilesQuantity() {
-			return tileNums.length;
-		}
-
-
-		@Override
-		public void xMLIO( XMLObject xMLObject ) {
-			super.xMLIO( xMLObject );
-
-			tileNums = xMLObject.manageIntArrayAttribute( "tilenums", tileNums );
-			x = xMLObject.manageIntAttribute( "x", x );
-			y = xMLObject.manageIntAttribute( "y", y );
-			xDivider = xMLObject.manageIntAttribute( "xdiv", xDivider, 1 );
-			yDivider = xMLObject.manageIntAttribute( "ydiv", yDivider, 1 );
-			tilePositions = xMLObject.manageChildList( tilePositions );
-		}
-	}
-
-
-	public class TilePos extends Obj {
-		public int dX, dY;
-		public int tileNum;
-		public int category;
-
-
-		@Override
-		public void xMLIO( XMLObject xMLObject ) {
-			super.xMLIO( xMLObject );
-
-			xMLObject.manageIntAttribute( "dx", dX );
-			xMLObject.manageIntAttribute( "dy", dY );
-			xMLObject.manageIntAttribute( "tilenum", tileNum );
-		}
 	}
 }

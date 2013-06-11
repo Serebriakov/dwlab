@@ -14,12 +14,10 @@ import dwlab.visualizers.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
-import org.newdawn.slick.opengl.InternalTextureLoader;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.opengl.renderer.Renderer;
 import org.newdawn.slick.util.ResourceLoader;
 	
 /**
@@ -27,29 +25,9 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class Image extends ImageTemplate {
 	private int textureID;
+	private double kx = 1d, ky = 1d;
 		
 	public Image() {
-	}
-	
-	public Image( int width, int height ) {
-		if( Sys.debug ) if( width <= 0 || height <= 0 ) error( "Cell sizes must be more than 0" );
-		
-		this.frameWidth = width;
-		this.frameHeight = height;
-		this.xCells = 1;
-		this.yCells = 1;
-		this.textureID = glGenTextures();
-	}
-	
-	public Image( int xCells, int yCells, int width, int height ) {
-		if( Sys.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
-		if( Sys.debug ) if( width <= 0 || height <= 0 ) error( "Cell sizes must be more than 0" );
-		
-		this.xCells = xCells;
-		this.yCells = yCells;
-		this.frameWidth = width;
-		this.frameHeight = height;
-		this.textureID = glGenTextures();
 	}
 	
 	/**
@@ -68,12 +46,17 @@ public class Image extends ImageTemplate {
 
 	public Image( String fileName ) {
 		this.fileName = fileName;
-		this.xCells = 1;
-		this.yCells = 1;
 		this.textureID = glGenTextures();
 		this.init();
 	}
 
+	
+	public final void setFields( int imageWidth, int imageHeight, int textureWidth, int textureHeight ) {
+		frameWidth = imageWidth / xCells;
+		frameHeight = imageHeight / yCells;
+		kx = 1d * frameWidth / textureWidth;
+		ky = 1d * frameHeight / textureHeight;
+	}
 
 	/**
 	 * Initializes image.
@@ -86,8 +69,7 @@ public class Image extends ImageTemplate {
 				Texture texture = TextureLoader.getTexture( fileName.substring( fileName.length() - 3 ).toUpperCase(), 
 						ResourceLoader.getResourceAsStream( fileName ) );
 				textureID = texture.getTextureID();
-				frameWidth = texture.getTextureWidth() / xCells;
-				frameHeight = texture.getTextureHeight() / yCells;
+				setFields( texture.getImageWidth(), texture.getImageHeight(), texture.getTextureWidth(), texture.getTextureHeight() );
 			} catch ( IOException ex ) {
 				Logger.getLogger( Image.class.getName() ).log( Level.SEVERE, null, ex );
 			}
@@ -103,18 +85,25 @@ public class Image extends ImageTemplate {
 	}
 	
 	public void applyBuffer( ImageBuffer buffer ) {
+		applyBuffer( buffer, 1, 1 );
+	}
+	
+	public void applyBuffer( ImageBuffer buffer, int xCells, int yCells ) {
 		glBindTexture( GL_TEXTURE_2D, textureID );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); 
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); 
 		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, buffer.getWidth(), buffer.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer.buffer );
-		glBindTexture( GL_TEXTURE_2D, 1 );
+		setFields( buffer.getWidth(), buffer.getHeight(), glGetTexLevelParameteri( GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH ),
+				glGetTexLevelParameteri( GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT ) );
 	}
 	
-	public void applyBuffer( ImageBuffer buffer, int x, int y ) {
+	public void pasteBuffer( ImageBuffer buffer, int x, int y ) {
 		glBindTexture( GL_TEXTURE_2D, textureID );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 		glTexSubImage2D( GL_TEXTURE_2D,  0,  x,  y,  buffer.getWidth(), buffer.getHeight(), GL_RGBA, GL_UNSIGNED_BYTE,  buffer.buffer );
+		setFields( buffer.getWidth(), buffer.getHeight(), glGetTexLevelParameteri( GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH ),
+				glGetTexLevelParameteri( GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT ) );
 	}
 	
 	
@@ -124,8 +113,6 @@ public class Image extends ImageTemplate {
 		height *= 0.5d;
 		double tx = frame % xCells;
 		double ty = Math.floor( frame / xCells );
-		double kx = 1d / xCells;
-		double ky = 1d / yCells;
 		
 		glBindTexture( GL_TEXTURE_2D, textureID );
 		glBegin( GL_QUADS );
@@ -162,8 +149,6 @@ public class Image extends ImageTemplate {
 		double height2 = 0.5d * height;
 		double tx = frameWidth * ( frame % xCells );
 		double ty = frameHeight * Math.floor( frame / xCells );
-		double kx = 1d / getTextureWidth();
-		double ky = 1d / getTextureHeight();
 		
 		glBindTexture( GL_TEXTURE_2D, textureID );
 		glColor4d( color.red, color.green, color.blue, color.alpha );

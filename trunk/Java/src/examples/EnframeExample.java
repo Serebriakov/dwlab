@@ -12,7 +12,6 @@ import dwlab.shapes.maps.tilemaps.TileSet;
 
 public class EnframeExample extends Project {
 	static int mapSize = 64;
-	static double mapScale = 8;
 	static int filledTileNum = 20;
 	
 	public static void main(String[] argv) {
@@ -35,11 +34,10 @@ public class EnframeExample extends Project {
 		Sys.waitForKey();
 
 		Graphics.clearScreen();
-		World.editorData = new EditorData();
 		World.fromFile( "res/tileset.lw" );
 		TileSet tileSet = World.editorData.tilesets.getFirst();
 		TileMap tileMap = TileMap.create( tileSet, mapSize, mapSize );
-		tileMap.setSize( mapSize * mapScale / 25.0d, mapSize * mapScale / 25.0 );
+		tileMap.setSize( 400d / 25d, 400d / 25d );
 		Project.printText( "Step 3: loading world, extract tileset from there and" );
 		Project.printText( "creating tilemap with same size and this tileset", 1 );
 		drawDoubleMap( doubleMap );
@@ -47,7 +45,7 @@ public class EnframeExample extends Project {
 		Sys.waitForKey();
 
 		Graphics.clearScreen();
-		doubleMap.extractTo( tileMap, 0.5, 1.0, filledTileNum );
+		doubleMap.extractTo( tileMap, 0.5d, 1d, filledTileNum );
 		Project.printText( "Step 4: setting tiles number of tilemap to FilledTileNum" );
 		Project.printText( "if corresponding value of Double map is higher than 0.5", 1 );
 		tileMap.draw();

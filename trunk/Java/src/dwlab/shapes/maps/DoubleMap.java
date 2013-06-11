@@ -370,10 +370,14 @@ public class DoubleMap extends Map {
 					value[ yy ][ xx ] = color;
 				} else if( dist < -circleBound ) {
 				} else {
-					double dist00 = radius - Math.sqrt( ( x - 0.5d - xCenter ) * ( x - 0.5d - xCenter ) + ( y - 0.5d - yCenter ) * ( y - 0.5d - yCenter ) );
-					double dist01 = radius - Math.sqrt( ( x - 0.5d - xCenter ) * ( x - 0.5d - xCenter ) + ( y + 0.5d - yCenter ) * ( y + 0.5d - yCenter ) );
-					double dist10 = radius - Math.sqrt( ( x + 0.5d - xCenter ) * ( x + 0.5d - xCenter ) + ( y - 0.5d - yCenter ) * ( y - 0.5d - yCenter ) );
-					double dist11 = radius - Math.sqrt( ( x + 0.5d - xCenter ) * ( x + 0.5d - xCenter ) + ( y + 0.5d - yCenter ) * ( y + 0.5d - yCenter ) );
+					double x1 = x0 - 0.5d - xCenter;
+					double y1 = y0 - 0.5d - yCenter;
+					double x2 = x0 + 0.5d - xCenter;
+					double y2 = y0 + 0.5d - yCenter;
+					double dist00 = radius - Math.sqrt( x1 * x1 + y1 * y1 );
+					double dist01 = radius - Math.sqrt( x1 * x1 + y2 * y2 );
+					double dist10 = radius - Math.sqrt( x2 * x2 + y1 * y1 );
+					double dist11 = radius - Math.sqrt( x2 * x2 + y2 * y2 );
 					double k = Service.limit( 0.125d / circleBound * ( dist00 + dist01 + dist10 + dist11 ) + 0.5d, 0d, 1d );
 					value[ yy ][ xx ] = value[ yy ][ xx ] * ( 1d - k ) + k * color;
 				}

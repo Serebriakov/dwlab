@@ -21,7 +21,8 @@ public class ParallaxExample extends Project {
 	@Override
 	public void init() {
 		Camera.current.setZoom( 32.0 );
-		Layer layer = (Layer) ( (Layer) World.fromFile( "res/parallax.lw" ).findShape( Layer.class ) ).load();
+		World world = World.fromFile( "res/parallax.lw" );
+		Layer layer = (Layer) ( (Layer) world.findShape( Layer.class ) ).load();
 		ground = (TileMap) layer.findShape( "Ground" );
 		grid = (TileMap) layer.findShape( "Grid" );
 		clouds = (TileMap) layer.findShape( "Clouds" );

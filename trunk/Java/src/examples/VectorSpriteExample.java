@@ -1,13 +1,13 @@
 package examples;
+
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
-import dwlab.base.images.Image;
-import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
-import dwlab.controllers.MouseButton;
-import dwlab.shapes.Shape;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.Camera;
@@ -95,6 +95,7 @@ public class VectorSpriteExample extends Project {
 			return false;
 		}
 	};
+	
 	public TileMap tileMap = TileMap.create( new TileSet( new Image( "res/tileset.png", 4, 1 ), 0 ), mapSize, mapSize );
 	public int coins;
 
@@ -103,27 +104,28 @@ public class VectorSpriteExample extends Project {
 	public void init() {
 		player.setSize( 0.8, 1.8 );
 		player.setCoords( 0, 2 -0.5 * mapSize );
-		player.visualizer.image = new Image( "mario.png", 4, 1 );
+		player.visualizer.image = new Image( "res/mario.png", 4, 1 );
 			
 		tileMap.setSize( mapSize, mapSize );
-		for( int n = 0; n <= coinsQuantity; n++ ) {
+		for( int n = 0; n < coinsQuantity; n++ ) {
 			tileMap.setTile( (int) Service.random( 1, mapSize - 2 ), (int) Service.random( 1, mapSize - 2 ), coinTile );
 		}
-		for( int n = 0; n <= platformsQuantity; n++ ) {
+		for( int n = 0; n < platformsQuantity; n++ ) {
 			int size = (int) Service.random( minPlatformLength, maxPlatformLength );
 			int x = (int) Service.random( 1, mapSize - 1 - size );
 			int y = (int) Service.random( 1, mapSize - 2 );
 			for( int dX = 0; dX <= size; dX++ ) tileMap.setTile( x + dX, y, bricksTile );
 		}
-		for( int n = 0; n <= mapSize ; n++ ) {
+		for( int n = 0; n < mapSize ; n++ ) {
 			tileMap.setTile( n, 0, bricksTile );
 			tileMap.setTile( n, mapSize - 1, bricksTile );
 			tileMap.setTile( 0, n ,bricksTile );
 			tileMap.setTile( mapSize - 1, n, bricksTile );
 		}
-		tileMap.tileSet.collisionSprites = new Shape[ 3 ];
-		tileMap.tileSet.collisionSprites[ 1 ] = new Sprite( 0.5, 0.5 );
-		tileMap.tileSet.collisionSprites[ 2 ] = new Sprite( 0, 0, 0.5 );
+		tileMap.tileSet.collisionSprites = new Sprite[ 3 ][];
+		for( int n = 1; n < 3; n ++ ) tileMap.tileSet.collisionSprites[ n ] = new Sprite[ 1 ];
+		tileMap.tileSet.collisionSprites[ 1 ][ 0 ] = new Sprite( 0.5, 0.5 );
+		tileMap.tileSet.collisionSprites[ 2 ][ 0 ] = new Sprite( 0, 0, 0.5 );
 	}
 	
 

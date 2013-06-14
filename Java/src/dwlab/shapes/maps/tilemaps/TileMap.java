@@ -229,8 +229,8 @@ public class TileMap extends IntMap {
 		tileMap.tilesQuantity = tilesQuantity;
 		tileMap.wrapped = wrapped;
 		tileMap.setResolution( xQuantity, yQuantity );
-		for( int yy = 0; yy <= yQuantity; yy++ ) {
-			for( int xx = 0; xx <= xQuantity; xx++ ) {
+		for( int yy = 0; yy < yQuantity; yy++ ) {
+			for( int xx = 0; xx < xQuantity; xx++ ) {
 				tileMap.value[ yy ][ xx ] = value[ yy ][ xx ];
 			}
 		}

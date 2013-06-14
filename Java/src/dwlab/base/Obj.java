@@ -225,9 +225,8 @@ public class Obj {
 
 		Sys.xMLMode = XMLMode.GET;
 		
-		TileMap.file = new BinaryFile( fileName + "bin" );
+		TileMap.file = BinaryFile.read( fileName + "bin" );
 		object.xMLIO( xMLObject );
-		if( TileMap.file != null ) TileMap.file.close();
 
 		return object;
 	}
@@ -319,7 +318,7 @@ public class Obj {
 		undefinedObjects = new HashSet<Obj>();
 
 		TileMap.offset = 0;
-		TileMap.file = new BinaryFile( fileName + "bin" );
+		TileMap.file = BinaryFile.write( fileName + "bin" );
 		xMLIO( xMLObject );
 		TileMap.file.close();
 

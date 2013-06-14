@@ -11,7 +11,7 @@ public class Parameter extends Obj {
 	@Override
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
-		xMLObject.manageStringAttribute( "name", name );
-		xMLObject.manageStringAttribute( "value", value );
+		name = xMLObject.manageStringAttribute( "name", name );
+		value = xMLObject.manageStringAttribute( "value", value );
 	}
 }

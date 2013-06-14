@@ -261,7 +261,7 @@ public class Layer extends Shape {
 
 	@Override
 	public Shape findShape( String parameterName, String parameterValue ) {
-		super.findShape( parameterName, parameterValue );
+		if( getParameter( parameterName ).equals( parameterValue ) || parameterName.isEmpty() ) return this;
 		for( Shape childShape: children ) {
 			Shape shape = childShape.findShape( parameterName, parameterValue );
 			if( shape != null ) return shape;
@@ -272,7 +272,7 @@ public class Layer extends Shape {
 
 	@Override
 	public Shape findShape( Class shapeClass ) {
-		super.findShape( shapeClass );
+		if( getClass() == shapeClass ) return this;
 		for( Shape childShape: children ) {
 			Shape shape = childShape.findShape( shapeClass );
 			if( shape != null ) return shape;
@@ -283,9 +283,10 @@ public class Layer extends Shape {
 
 	@Override
 	public Shape findShape( String parameterName, String parameterValue, Class shapeClass ) {
-		super.findShape( parameterName, parameterValue, shapeClass );
+		Shape shape = super.findShape( parameterName, parameterValue, shapeClass );
+		if( shape != null ) return shape;
 		for( Shape childShape: children ) {
-			Shape shape = childShape.findShape( parameterName, parameterValue, shapeClass );
+			shape = childShape.findShape( parameterName, parameterValue, shapeClass );
 			if( shape != null ) return shape;
 		}
 		return null;

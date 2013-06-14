@@ -7,6 +7,7 @@ import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.ContourVisualizer;
 import java.util.LinkedList;
 
@@ -86,7 +87,7 @@ public class SpriteMapExample extends Project {
 			Camera.current.bounceInside( rectangle );
 			moveForward();
 			bounceInside( rectangle );
-			collisionsWithSpriteMap( fieldSpriteMap, collisionHandler, null );
+			collisionsWithSpriteMap( fieldSpriteMap, collisionHandler );
 		}
 	}
 

@@ -9,6 +9,7 @@
 
 package dwlab.shapes.sprites;
 
+import dwlab.base.Obj;
 import dwlab.base.Project;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
@@ -508,20 +509,20 @@ public class Sprite extends Shape {
 
 	@Override
 	public Shape setCoords( double newX, double newY ) {
-		if( spriteMap != null ) spriteMap.removeSprite( this, false );
+		if( spriteMap != null ) spriteMap.removeSprite( this, false, false );
 
 		x = newX;
 		y = newY;
 
 		update();
-		if( spriteMap != null ) spriteMap.insertSprite( this, false );
+		if( spriteMap != null ) spriteMap.insertSprite( this, false, false );
 		return this;
 	}
 
 
 	@Override
 	public Shape setCoordsAndSize( double x1, double y1, double x2, double y2 ) {
-		if( spriteMap != null ) spriteMap.removeSprite( this, false );
+		if( spriteMap != null ) spriteMap.removeSprite( this, false, false );
 
 		x = 0.5d * ( x1 + x2 );
 		y = 0.5d * ( y1 + y2 );
@@ -529,7 +530,7 @@ public class Sprite extends Shape {
 		height = y2 - y1;
 
 		update();
-		if( spriteMap != null ) spriteMap.insertSprite( this, false );
+		if( spriteMap != null ) spriteMap.insertSprite( this, false, false );
 		return this;
 	}
 
@@ -556,13 +557,13 @@ public class Sprite extends Shape {
 
 	@Override
 	public Shape setSize( double newWidth, double newHeight ) {
-		if( spriteMap != null ) spriteMap.removeSprite( this, false );
+		if( spriteMap != null ) spriteMap.removeSprite( this, false, false );
 
 		width = newWidth;
 		height = newHeight;
 
 		update();
-		if( spriteMap != null ) spriteMap.insertSprite( this, false );
+		if( spriteMap != null ) spriteMap.insertSprite( this, false, false );
 		return this;
 	}
 
@@ -697,13 +698,13 @@ public class Sprite extends Shape {
 		if( width == height ) return this;
 		if( circleSprite !=null ) circleSprite = new Sprite( ShapeType.oval );
 		if( width > height ) {
-			circleSprite.x = Service.limit( pivot1.x, x - 0.5 * ( width - height ), x + 0.5 * ( width - height ) );
+			circleSprite.x = Service.limit( pivot1.getX(), x - 0.5 * ( width - height ), x + 0.5 * ( width - height ) );
 			circleSprite.y = y;
 			circleSprite.width = height;
 			circleSprite.height = height;
 		} else {
 			circleSprite.x = x;
-			circleSprite.y = Service.limit( pivot1.y, y - 0.5 * ( height - width ), y + 0.5 * ( height - width ) );
+			circleSprite.y = Service.limit( pivot1.getY(), y - 0.5 * ( height - width ), y + 0.5 * ( height - width ) );
 			circleSprite.width = width;
 			circleSprite.height = width;
 		}
@@ -867,6 +868,42 @@ public class Sprite extends Shape {
 
 	// ==================== Other ====================
 
+	private class SpriteMapRemover extends Obj {
+		SpriteMap map;
+		Sprite sprite;
+		
+		@Override
+		public void act() {
+			map.removeSprite( sprite, true, true );
+		}
+	}
+	
+	public void removeFrom( SpriteMap map ) {
+		SpriteMapRemover remover = new SpriteMapRemover();
+		remover.map = map;
+		remover.sprite = this;
+		Project.managers.add( remover );
+	}
+	
+	
+	private class SpriteMapInserter extends Obj {
+		SpriteMap map;
+		Sprite sprite;
+		
+		@Override
+		public void act() {
+			map.insertSprite( sprite, true, true );
+		}
+	}	
+	
+	public void insertTo( SpriteMap map ) {
+		SpriteMapInserter inserter = new SpriteMapInserter();
+		inserter.map = map;
+		inserter.sprite = this;
+		Project.managers.add( inserter );
+	}
+	
+	
 	public void updateFromAngularModel() {
 	}
 	

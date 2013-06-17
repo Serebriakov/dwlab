@@ -75,7 +75,7 @@ public class Obj {
 	public void draw( Color drawingColor ) {
 	}
 	
-	public void draw() {
+	public final void draw() {
 		draw( Color.white );
 	}
 

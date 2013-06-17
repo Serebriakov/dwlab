@@ -18,6 +18,8 @@ import dwlab.behavior_models.BehaviorModel;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.shapes.layers.Layer;
+import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
@@ -1259,6 +1261,42 @@ public class Shape extends Obj {
 	 */
 	public Shape remove( Class shapeClass ) {
 		return this;
+	}
+	
+	
+	private class LayerInserter extends Obj {
+		Layer layer;
+		Shape shape;
+		
+		@Override
+		public void act() {
+			layer.addLast( shape );
+		}
+	}
+	
+	public void insertTo( Layer layer ) {
+		LayerInserter inserter= new LayerInserter();
+		inserter.layer = layer;
+		inserter.shape = this;
+		Project.managers.add( inserter );
+	}
+	
+	
+	private class LayerRemover extends Obj {
+		Layer layer;
+		Shape shape;
+		
+		@Override
+		public void act() {
+			layer.remove( shape );
+		}
+	}
+	
+	public void removeFrom( Layer layer ) {
+		LayerRemover remover = new LayerRemover();
+		remover.layer = layer;
+		remover.shape = this;
+		Project.managers.add( remover );
 	}
 
 	// ==================== Management ===================

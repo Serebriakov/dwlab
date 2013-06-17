@@ -15,10 +15,10 @@ import org.lwjgl.input.Keyboard;
 
 public class CameraExample extends Project {
 	static {
-		Graphics.init();
 	}
 	
 	public static void main(String[] argv) {
+		Graphics.init();
 		( new CameraExample() ).act();
 	}
 	

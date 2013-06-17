@@ -135,9 +135,7 @@ public class SpriteMap extends Map {
 		for( int yy = 0; yy < newYQuantity; yy++ ) {
 			lists[ yy ] = new Sprite[ newXQuantity ][];
 			listSize[ yy ] = new int[ newXQuantity ];
-			for( int xx = 0; xx < newXQuantity; xx++ ) {
-				lists[ yy ][ xx ] = new Sprite[ initialArraysSize ];
-			}
+			for( int xx = 0; xx < newXQuantity; xx++ ) lists[ yy ][ xx ] = new Sprite[ initialArraysSize ];
 		}
 	}
 
@@ -198,8 +196,8 @@ public class SpriteMap extends Map {
 
 			for( int yy = mapY1; yy <= mapY2; yy++ ) {
 				int maskedY = yy & yMask;
-				double maxY = ( yy + 1 ) * cellHeight;
 				if( sorted ) {
+					double maxY = ( yy + 1 ) * cellHeight;
 					while( true ) {
 						double minY = 0;
 						int storedX = 0;
@@ -234,7 +232,7 @@ public class SpriteMap extends Map {
 					for( int xx = mapX1; xx <= mapX2; xx++ ) {
 						int maskedX = xx & xMask;
 						Sprite array[] = lists[ maskedY ][ maskedX ];
-						for( int n = 0; n <= listSize[ maskedY ][ maskedX ]; n++ ) {
+						for( int n = 0; n < listSize[ maskedY ][ maskedX ]; n++ ) {
 							Sprite sprite = array[ n ];
 							if( sprite.checkValue != Sprite.checkNum ) {
 								if( vis != null ) {
@@ -259,8 +257,8 @@ public class SpriteMap extends Map {
 	 * 
 	 * @see #removeSprite
 	 */
-	public void insertSprite( Sprite sprite, boolean changeSpriteMapField ) {
-		sprites.add( sprite );
+	public void insertSprite( Sprite sprite, boolean changeSpriteMapField, boolean modifySet ) {
+		if( modifySet ) sprites.add( sprite );
 		if( pivotMode ) {
 			insertSprite( sprite, ( (int) Service.round( sprite.getX() / cellWidth ) ) & xMask, ( (int) Service.round( sprite.getY() / cellHeight ) ) & yMask );
 		} else {
@@ -279,7 +277,7 @@ public class SpriteMap extends Map {
 	}
 
 	public void insertSprite( Sprite sprite ) {
-		insertSprite( sprite, true );
+		insertSprite( sprite, true, true );
 	}
 
 
@@ -295,9 +293,7 @@ public class SpriteMap extends Map {
 		if( sorted ) {
 			for( int n=0; n <= size; n++ ) {
 				if( sprite.getY() < array[ n ].getY() ) {
-					for( int m=size - 1; m <= n; m += -1 ) {
-						array[ m + 1 ] = array[ m ];
-					}
+					for( int m=size - 1; m <= n; m += -1 ) array[ m + 1 ] = array[ m ];
 					array[ n ] = sprite;
 					break;
 				}
@@ -317,8 +313,8 @@ public class SpriteMap extends Map {
 	 * 
 	 * @see #insertSprite
 	 */
-	public void removeSprite( Sprite sprite, boolean changeSpriteMapField ) {
-		sprites.remove( sprite );
+	public void removeSprite( Sprite sprite, boolean changeSpriteMapField, boolean modifySet ) {
+		if( modifySet ) sprites.remove( sprite );
 		if( pivotMode ) {
 			removeSprite( sprite, ( (int) Service.round( sprite.getX() / cellWidth ) ) & xMask, ( (int) Service.round( sprite.getY() / cellHeight ) ) & yMask );
 		} else {
@@ -335,6 +331,10 @@ public class SpriteMap extends Map {
 		}
 		if( changeSpriteMapField ) sprite.spriteMap = null;
 	}
+	
+	public void removeSprite( Sprite sprite ) {
+		removeSprite( sprite, true, true );
+	}
 
 
 
@@ -344,9 +344,7 @@ public class SpriteMap extends Map {
 		for( int n = 0; n <= size; n++ ) {
 			if( array[ n ] == sprite ) {
 				if( sorted ) {
-					for( int m=n + 1; m <= size; m++ ) {
-						array[ m - 1 ] = array[ m ];
-					}
+					for( int m=n + 1; m <= size; m++ ) array[ m - 1 ] = array[ m ];
 				} else {
 					array[ n ] = array[ size - 1 ];
 				}
@@ -375,7 +373,7 @@ public class SpriteMap extends Map {
 	public Shape load() {
 		SpriteMap newSpriteMap = loadShape().toSpriteMap();
 		for( Sprite childSprite: sprites ) {
-			newSpriteMap.insertSprite( childSprite.loadShape().toSprite(), true );
+			newSpriteMap.insertSprite( childSprite.loadShape().toSprite(), true, true );
 		}
 		return newSpriteMap;
 	}
@@ -442,6 +440,7 @@ public class SpriteMap extends Map {
 			return false;
 		}
 	}
+	
 
 	@Override
 	public Shape remove( Shape shape ) {
@@ -464,25 +463,19 @@ public class SpriteMap extends Map {
 	
 	@Override
 	public void init() {
-		for( Sprite sprite: sprites ) {
-			sprite.init();
-		}
+		for( Sprite sprite: sprites ) sprite.init();
 	}
 
 
 	@Override
 	public void act() {
-		for( Sprite sprite: sprites ) {
-			sprite.act();
-		}
+		for( Sprite sprite: sprites ) sprite.act();
 	}
 
 
 	@Override
 	public void update() {
-		for( Shape obj: sprites ) {
-			obj.update();
-		}
+		for( Shape obj: sprites ) obj.update();
 	}
 
 
@@ -490,9 +483,7 @@ public class SpriteMap extends Map {
 	public Shape clone() {
 		SpriteMap newSpriteMap = new SpriteMap();
 		copyTo( newSpriteMap );
-		for( Sprite sprite: sprites ) {
-			newSpriteMap.insertSprite( sprite, true );
-		}
+		for( Sprite sprite: sprites ) newSpriteMap.insertSprite( sprite, true, true );
 		return newSpriteMap;
 	}
 
@@ -525,9 +516,7 @@ public class SpriteMap extends Map {
 		} else {
 			y = super.showModels( y, shift );
 		}
-		for( Shape shape: sprites ) {
-			y = shape.showModels( y, shift + " " );
-		}
+		for( Shape shape: sprites ) y = shape.showModels( y, shift + " " );
 		return y;
 	}
 
@@ -547,9 +536,7 @@ public class SpriteMap extends Map {
 		super.xMLIO( xMLObject );
 
 		if( Sys.xMLGetMode() ) {
-			for( XMLObject spriteXMLObject: xMLObject.children ) {
-				insertSprite( (Sprite) spriteXMLObject.manageObject( null ), true );
-			}
+			for( XMLObject spriteXMLObject: xMLObject.children ) insertSprite( (Sprite) spriteXMLObject.manageObject( null ), true, true );
 		} else {
 			for( Sprite sprite: sprites ) {
 				XMLObject newXMLObject = new XMLObject();

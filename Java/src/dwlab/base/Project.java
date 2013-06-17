@@ -14,6 +14,7 @@ import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
+import java.util.LinkedList;
 
 /**
  * Class for main project and subprojects.
@@ -27,6 +28,8 @@ public class Project extends Obj {
 
 	public static Project current;
 	public static Sprite cursor = new Sprite();
+	public static LinkedList<Obj> managers = new LinkedList<Obj>();
+	
 
 	/**
 	* Quantity of logic frames per second.
@@ -139,6 +142,8 @@ public class Project extends Obj {
 
 			cursor.setMouseCoords();
 			logic();
+			for( Obj manager : managers ) manager.act();
+			managers.clear();
 			
 			if( exiting ) break;
 

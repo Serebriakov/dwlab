@@ -38,7 +38,7 @@ public class Graphics {
 	* @see #parallax example
 	*/
 	public static void init( int newWidth, int newHeight, double unitSize, boolean loadFont ) {
-		if( Display.isCreated() ) Display.destroy();
+		if( Display.isCreated() ) return;
 		
 		width =newWidth;
 		height = newHeight;

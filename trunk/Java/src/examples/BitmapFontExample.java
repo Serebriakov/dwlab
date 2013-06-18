@@ -10,7 +10,9 @@ public class BitmapFontExample extends Project {
 	}
 	
 	public static void main(String[] argv) {
+		Graphics.setClearingColor( 0d, 0.5d, 0d, 1d );
 		( new BitmapFontExample() ).act();
+		Graphics.setClearingColor( 0d, 0d, 0d, 1d );
 	}
 	
 	
@@ -18,14 +20,8 @@ public class BitmapFontExample extends Project {
 	
 	
 	@Override
-	public void init() {
-		Graphics.setClearingColor( 0d, 0.5d, 0d, 1d );
-	}
-
-	
-	@Override
 	public void render() {
-		font.print( "Hello!", Service.random( -15, 15 ), Service.random( -11, 11 ), Service.random( 0.5, 2.0 ) );
-		Graphics.drawText( "LTBitmapFont example", 0, 12, Align.TO_CENTER, Align.TO_BOTTOM );
+		font.print( "Hello!", Service.random( -15d, 15d ), Service.random( -11d, 11d ), Service.random( 0.5d, 2d ) );
+		printText( "LTBitmapFont example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

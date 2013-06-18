@@ -318,7 +318,7 @@ public class Sprite extends Shape {
 					for( int n = 0; n < spriteArray.length; n++ ) {
 						Sprite sprite = spriteArray[ n ];
 						sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
-						if( collidesWithSprite( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, sprite );
+						if( collidesWithSprite( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
 					}
 				}
 			}
@@ -334,13 +334,14 @@ public class Sprite extends Shape {
 				x2 = Service.limit( x2, 0, xQuantity - 1 );
 				y2 = Service.limit( y2, 0, yQuantity - 1 );
 
-				for( int tileY = y1; tileY < y2; tileY++ ) {
-					for( int tileX = x1; tileX < x2; tileX++ ) {
+				for( int tileY = y1; tileY <= y2; tileY++ ) {
+					for( int tileX = x1; tileX <= x2; tileX++ ) {
 						Sprite[] spriteArray = collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
 						if( spriteArray != null ) {
-							for( Sprite sprite : spriteArray ) {
+							for( int n = 0; n < spriteArray.length; n++ ) {
+								Sprite sprite = spriteArray[ n ];
 								sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
-								if( collidesWithSprite( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, sprite );
+								if( collidesWithSprite( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
 							}
 						}
 					}
@@ -444,16 +445,16 @@ public class Sprite extends Shape {
 	 * See also : #pushFromSprite
 	 */
 	public void pushFromTile( TileMap tileMap, int tileX, int tileY ) {
+		double x0 = tileMap.leftX();
+		double y0 = tileMap.topY();
 		double cellWidth = tileMap.getTileWidth();
 		double cellHeight = tileMap.getTileHeight();
-		double x0 = tileMap.leftX() + cellWidth * tileX;
-		double y0 = tileMap.topY() + cellHeight * tileY;
 		Sprite[] spriteArray = tileMap.tileSet.collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
 		if( spriteArray != null ) {
 			for( int n = 0; n < spriteArray.length; n++ ) {
 				Sprite sprite = spriteArray[ n ];
 				sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
-				pushFromSprite( sprite );
+				pushFromSprite( serviceSprite );
 			}
 		}
 	}

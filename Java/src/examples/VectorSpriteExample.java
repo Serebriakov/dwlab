@@ -14,6 +14,7 @@ import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.VectorSprite;
+import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class VectorSpriteExample extends Project {
 	static {
@@ -53,14 +54,13 @@ public class VectorSpriteExample extends Project {
 				if( bricks( tileMap, tileX, tileY ) ) sprite.pushFromTile( tileMap, tileX, tileY );
 			}
 		};
-		SpriteAndTileCollisionHandler verticalCollisionHandler = new SpriteAndTileCollisionHandler(){
+		SpriteAndTileCollisionHandler verticalCollisionHandler = new SpriteAndTileCollisionHandler<VectorSprite>(){
 			@Override
-			public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
+			public void handleCollision( VectorSprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 				if( bricks( tileMap, tileX, tileY ) ) {
 					sprite.pushFromTile( tileMap, tileX, tileY );
-					VectorSprite vectorSprite = (VectorSprite) sprite;
-					if( vectorSprite.dY > 0 ) onLand = true;
-					vectorSprite.setY( 0 );
+					if( sprite.dY > 0 ) onLand = true;
+					sprite.dY = 0;
 				}
 			}
 		};
@@ -106,8 +106,9 @@ public class VectorSpriteExample extends Project {
 	
 	@Override
 	public void init() {
-		player.setSize( 0.8, 1.8 );
-		player.setCoords( 0, 2 -0.5 * mapSize );
+		player.shapeType = ShapeType.rectangle;
+		player.setCoords( 0d, 2d - 0.5d * mapSize );
+		player.setSize( 0.8d, 1.8d );
 		player.visualizer.image = new Image( "res/mario.png", 4, 1 );
 			
 		tileMap.setSize( mapSize, mapSize );
@@ -128,8 +129,8 @@ public class VectorSpriteExample extends Project {
 		}
 		tileMap.tileSet.collisionSprites = new Sprite[ 3 ][];
 		for( int n = 1; n < 3; n ++ ) tileMap.tileSet.collisionSprites[ n ] = new Sprite[ 1 ];
-		tileMap.tileSet.collisionSprites[ 1 ][ 0 ] = new Sprite( 0.5, 0.5 );
-		tileMap.tileSet.collisionSprites[ 2 ][ 0 ] = new Sprite( 0, 0, 0.5 );
+		tileMap.tileSet.collisionSprites[ 1 ][ 0 ] = new Sprite( 0.5d, 0.5d, 1d, 1d );
+		tileMap.tileSet.collisionSprites[ 2 ][ 0 ] = new Sprite( 0.5d, 0.5d, 1d );
 	}
 	
 
@@ -145,8 +146,8 @@ public class VectorSpriteExample extends Project {
 	public void render() {
 		tileMap.draw();
 		player.draw();
-		printText( "Move pLayer with arrow Keys" );
-		printText( " Coins" + coins, 1 );
+		printText( "Move player with arrow Keys" );
+		printText( "Coins: " + coins, 1 );
 		printText( "LTVectorSprite, CollisionsWithTileMap, HandleCollisionWithTile example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

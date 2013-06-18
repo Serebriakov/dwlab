@@ -12,8 +12,11 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 
 public class DirectAsExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new DirectAsExample() ).act();
 	}
 	

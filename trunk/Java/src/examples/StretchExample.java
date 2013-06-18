@@ -1,8 +1,11 @@
 package examples;
+
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.Sys;
+import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
-import dwlab.base.images.Image;
-import dwlab.base.*;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 
@@ -11,9 +14,11 @@ public class StretchExample extends Project {
 	static int tileMapWidth = 4;
 	static int tileMapHeight = 3;
 	
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
-		
+	}
+	
+	public static void main(String[] argv) {
 		TileSet tileSet = new TileSet( new Image( "res/tiles.png", 8, 4 ) );
 		TileMap tileMap = TileMap.create( tileSet, tileMapWidth, tileMapHeight );
 

@@ -12,8 +12,11 @@ import dwlab.visualizers.ContourVisualizer;
 import dwlab.visualizers.Visualizer;
 
 public class DistanceJointExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new DistanceJointExample() ).act();
 	}
 	

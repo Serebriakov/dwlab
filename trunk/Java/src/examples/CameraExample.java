@@ -1,8 +1,10 @@
 package examples;
+
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
-import dwlab.base.images.Image;
-import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
@@ -11,15 +13,16 @@ import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
-import org.lwjgl.input.Keyboard;
 
 public class CameraExample extends Project {
 	static {
+		Graphics.init();
 	}
 	
+	
 	public static void main(String[] argv) {
-		Graphics.init();
 		( new CameraExample() ).act();
+		Graphics.initCamera();
 	}
 	
 	

@@ -13,8 +13,11 @@ import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawTileExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new DrawTileExample() ).act();
 	}
 	

@@ -11,9 +11,13 @@ import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawUsingLineExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new DrawUsingLineExample() ).act();
+		Graphics.initCamera();
 	}
 	
 	
@@ -62,8 +66,8 @@ public class DrawUsingLineExample extends Project {
 					oldY = y;
 				}
 			}
-		}
-;
+		};
+
 		int allPivots[][] = { { -4, -2, -2, -2 }, { -4, -2, -4, 0 }, { -4, 0, -4, 2 }, { -4, 0, -3, 0 }, { 1, -2, -1, -2 }, { -1, -2, -1, 0 }, { -1, 0, 1, 0 }, 
 				{ 1, 0, 1, 2 }, { 1, 2, -1, 2 }, { 4, -2, 2, -2 }, { 2, -2, 2, 0 }, { 2, 0, 2, 2 }, { 2, 0, 3, 0 } };
 		for( int[] pivots : allPivots ) {

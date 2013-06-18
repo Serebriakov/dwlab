@@ -1,8 +1,11 @@
 package examples;
+
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.Sys;
 import dwlab.base.service.Align;
-import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
-import dwlab.base.*;
+import dwlab.base.service.Vector;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
@@ -15,9 +18,13 @@ import java.util.LinkedList;
 public class SpriteMapExample extends Project {
 	static SpriteMapExample instance = new SpriteMapExample();
 	
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		instance.act();
+		Graphics.initCamera();
 	}
 	
 	

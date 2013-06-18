@@ -1,6 +1,5 @@
 package examples;
 
-import dwlab.base.Font;
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.images.Image;
@@ -9,12 +8,16 @@ import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.maps.DoubleMap;
-import org.newdawn.slick.opengl.InternalTextureLoader;
 
 public class DrawCircleExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
+		Graphics.setClearingColor( 0d, 0d, 1d );
 		( new DrawCircleExample() ).act();
+		Graphics.setClearingColor( 0d, 0d, 0d );
 	}
 	
 	
@@ -30,7 +33,6 @@ public class DrawCircleExample extends Project {
 	
 	@Override
 	public void init() {
-		Graphics.setClearingColor( 0d, 0d, 1d );
 		double Array[][][] = { { { 0, -7, 5 }, { 0, -1.5, 7 }, { -4, -3, 2 }, { 4, -3, 2 }, { 0, 6, 9 } }, 
 				{ { 0, -7, 1.5 }, { -1, -8, 1 }, { 1, -8, 1 }, { 0, -3, 1.0 }, { 0, -2, 1 }, { 0, -0.5, 1 } } };
 		for( int col = 0; col <= 1; col++ ) {

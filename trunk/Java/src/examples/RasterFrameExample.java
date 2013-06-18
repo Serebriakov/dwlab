@@ -12,8 +12,11 @@ import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 
 public class RasterFrameExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new RasterFrameExample() ).act();
 	}
 	

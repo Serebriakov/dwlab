@@ -14,9 +14,11 @@ public class EnframeExample extends Project {
 	static int mapSize = 64;
 	static int filledTileNum = 20;
 	
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
-		
+	}
+	
+	public static void main( String[] argv ) {
 		Graphics.setClearingColor( 0.25d, 0.5d, 0d );
 
 		Graphics.clearScreen();

@@ -4,8 +4,11 @@ import dwlab.base.service.Service;
 import dwlab.base.*;
 
 public class IntInLimitsExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new IntInLimitsExample() ).act();
 	}
 	

@@ -28,8 +28,11 @@ public class PerlinNoiseExample extends Project {
 	Image image;
 					
 
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new PerlinNoiseExample() ).act();
 	}
 	

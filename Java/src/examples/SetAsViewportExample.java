@@ -1,7 +1,8 @@
 package examples;
-import dwlab.base.service.Align;
+
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
@@ -9,8 +10,11 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class SetAsViewportExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new SetAsViewportExample() ).act();
 	}
 	

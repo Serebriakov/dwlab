@@ -1,9 +1,11 @@
 package examples;
-import dwlab.base.service.Align;
-import dwlab.base.service.Service;
-import dwlab.base.service.IntVector;
+
+import dwlab.base.Graphics;
+import dwlab.base.Project;
 import dwlab.base.images.Image;
-import dwlab.base.*;
+import dwlab.base.service.Align;
+import dwlab.base.service.IntVector;
+import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
 import dwlab.shapes.layers.Layer;
@@ -12,8 +14,11 @@ import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.VectorSprite;
 
 public class SetAsTileExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new SetAsTileExample() ).act();
 	}
 	

@@ -1,11 +1,17 @@
 package examples;
+
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.Sys;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
-import dwlab.base.*;
 
 public class WrapExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new WrapExample() ).act();
 	}
 	

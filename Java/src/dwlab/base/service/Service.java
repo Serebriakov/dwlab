@@ -69,6 +69,7 @@ public class Service extends Obj {
 			n--;
 			switch( strVal.charAt( n ) ) {
 				case '0':
+					break;
 				case '.':
 					return strVal.substring( 0, n );
 				default:

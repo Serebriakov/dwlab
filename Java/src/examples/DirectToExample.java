@@ -9,8 +9,11 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 
 
 public class DirectToExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new DirectToExample() ).act();
 	}
 	

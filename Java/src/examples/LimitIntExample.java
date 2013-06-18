@@ -6,8 +6,11 @@ import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 
 public class LimitIntExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new LimitIntExample() ).act();
 	}
 

@@ -5,8 +5,11 @@ import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 
 public class PrintTextExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new PrintTextExample() ).act();
 	}
 	

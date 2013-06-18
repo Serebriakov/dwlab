@@ -70,10 +70,6 @@ public class Graphics {
 			Logger.getLogger( Graphics.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		
-		Camera.current.viewport.setCoords( 0.5d * width, 0.5d * height );
-		Camera.current.viewport.setSize( width, height );
-		Camera.current.setSize( width / unitSize, height / unitSize );
-		
 		if( loadFont ) setCurrentFont( Font.load( "res/font.ttf", 16 ) );
 	}
 	
@@ -81,6 +77,16 @@ public class Graphics {
 		init( 800, 600, 25d, true );
 	}
 	
+	public static void initCamera( double unitSize ) {
+		Camera.current.viewport.setCoords( 0.5d * width, 0.5d * height );
+		Camera.current.viewport.setSize( width, height );
+		Camera.current.setSize( width / unitSize, height / unitSize );
+		Camera.current.setCoords( 0d, 0d );
+	}
+	
+	public static void initCamera() {
+		initCamera( 25d );
+	}
 	
 	public static boolean initialized() {
 		return width == 0 ? false : true;

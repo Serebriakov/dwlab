@@ -326,8 +326,8 @@ public class Obj {
 		xMLObject.setAttribute( "total-loading-time", Service.newTotalLoadingTime );
 
 		for( XMLObject xMLObject2 : removeIDMap.values() ) {
-			for( XMLAttribute attr : xMLObject2.attributes ) {
-				if( attr.name.equals( "id" ) ) xMLObject2.attributes.remove( attr );
+			for ( Iterator<XMLAttribute> it = xMLObject2.attributes.iterator(); it.hasNext(); ) {
+				if( it.next().name.equals( "id" ) ) it.remove();
 			}
 		}
 

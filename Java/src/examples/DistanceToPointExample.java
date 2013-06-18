@@ -12,8 +12,11 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class DistanceToPointExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new DistanceToPointExample() ).act();
 	}
 	

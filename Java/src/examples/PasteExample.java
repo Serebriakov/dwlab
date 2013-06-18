@@ -10,10 +10,12 @@ import dwlab.shapes.maps.DoubleMap;
 public class PasteExample extends Project {
 	static int mapSize = 128;
 	
+	static {
+		Graphics.init();
+	}
+	
 	
 	public static void main(String[] argv) {
-		Graphics.init();
-
 		DoubleMap sourceMap = new DoubleMap( mapSize, mapSize );
 		sourceMap.drawCircle( mapSize * 0.375d, mapSize * 0.375d, mapSize * 0.35d, 0.6d );
 		draw( sourceMap.toNewImage(), "Source map" );

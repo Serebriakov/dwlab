@@ -6,8 +6,11 @@ import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
 
 public class DistanceExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new DistanceExample() ).act();
 	}
 	

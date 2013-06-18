@@ -12,8 +12,11 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
 
 public class CorrectHeightExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new CorrectHeightExample() ).act();
 	}
 	

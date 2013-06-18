@@ -10,8 +10,11 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.Visualizer;
 
 public class MoveUsingKeysExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new MoveUsingKeysExample() ).act();
 	}
 	

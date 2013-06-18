@@ -1,16 +1,21 @@
 package examples;
-import dwlab.base.service.Align;
+
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import dwlab.base.service.Align;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.layers.World;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
 
 public class ParallaxExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new ParallaxExample() ).act();
+		Graphics.initCamera();
 	}
 	
 	

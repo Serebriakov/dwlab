@@ -16,9 +16,13 @@ import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.VectorSprite;
 
 public class VectorSpriteExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new VectorSpriteExample() ).act();
+		Graphics.initCamera();
 	}
 	
 	

@@ -1,7 +1,8 @@
 package examples;
-import dwlab.base.service.Align;
+
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import dwlab.base.service.Align;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
@@ -10,8 +11,11 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.Visualizer;
 
 public class TurnExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new TurnExample() ).act();
 	}
 	

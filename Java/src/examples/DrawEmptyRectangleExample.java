@@ -5,8 +5,11 @@ import dwlab.base.Project;
 import dwlab.base.service.Service;
 
 public class DrawEmptyRectangleExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		flipping = false;
 		( new DrawEmptyRectangleExample() ).act();
 		flipping = true;

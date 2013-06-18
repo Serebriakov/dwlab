@@ -6,8 +6,11 @@ import dwlab.visualizers.ContourVisualizer;
 import dwlab.shapes.sprites.Sprite;
 
 public class LimitWithExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new LimitWithExample() ).act();
 	}
 	

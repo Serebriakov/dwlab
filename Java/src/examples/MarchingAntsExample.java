@@ -12,8 +12,11 @@ import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.visualizers.MarchingAnts;
 
 public class MarchingAntsExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new MarchingAntsExample() ).act();
 	}
 	

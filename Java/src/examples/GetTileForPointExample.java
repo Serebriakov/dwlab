@@ -13,8 +13,11 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.maps.tilemaps.TileSet;
 
 public class GetTileForPointExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new GetTileForPointExample() ).act();
 	}
 	

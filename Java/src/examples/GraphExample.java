@@ -1,7 +1,8 @@
 package examples;
-import dwlab.base.service.Align;
+
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
@@ -9,14 +10,16 @@ import dwlab.shapes.graphs.Graph;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
-import dwlab.visualizers.Color;
 import dwlab.visualizers.ContourVisualizer;
 import dwlab.visualizers.Visualizer;
 import java.util.LinkedList;
 
 public class GraphExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new GraphExample() ).act();
 	}
 	

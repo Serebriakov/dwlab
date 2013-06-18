@@ -1,19 +1,21 @@
 package examples;
-import dwlab.base.service.Align;
+
 import dwlab.base.Graphics;
-import dwlab.base.images.Image;
 import dwlab.base.Project;
+import dwlab.base.images.Image;
+import dwlab.base.service.Align;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
-import dwlab.controllers.MouseButton;
-import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.sprites.Sprite;
 
 public class SetFacingExample extends Project {
-	public static void main(String[] argv) {
+	static {
 		Graphics.init();
+	}
+	
+	public static void main(String[] argv) {
 		( new SetFacingExample() ).act();
 	}
 	

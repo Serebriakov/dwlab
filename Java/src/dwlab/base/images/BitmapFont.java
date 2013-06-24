@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov
+ * Copyright (C) 2013, Matt Merkulov
  *
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -9,6 +9,7 @@
 
 package dwlab.base.images;
 
+import dwlab.base.files.TextFile;
 import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.shapes.Shape;
@@ -62,7 +63,7 @@ public class BitmapFont extends Image {
 			if( variableLength ) {
 				realLetterWidth *= letterWidth[ frame ];
 			} else {
-				realLetterWidth *= super.getWidth();
+				realLetterWidth *= getWidth();
 			}
 			draw( frame, servicePivot.x, servicePivot.y, scale * realLetterWidth, scale * height, 0 );
 			servicePivot.x += realLetterWidth;
@@ -117,7 +118,7 @@ public class BitmapFont extends Image {
 	 * @return Text width in pixels for current bitmap font.
 	 */
 	public double getWidth( String text ) {
-		if( !variableLength ) return super.getWidth() * text.length();
+		if( !variableLength ) return getWidth() * text.length();
 			
 		double x = 0;
 		for( int n=0; n < text.length(); n++ ) {
@@ -144,10 +145,22 @@ public class BitmapFont extends Image {
 		this.fileName = fileName;
 		this.xCells = symbolsPerRow;
 		this.yCells = symbolsQuantity / symbolsPerRow;
-		this.init();		
+		
+		this.init();
 		
 		this.fromNum = fromNum;
 		this.toNum = toNum;
-		this.variableLength = variableLength;
+		
+		if( variableLength ) {
+			this.variableLength = variableLength;
+			TextFile file = TextFile.read( fileName + "len" );
+			this.letterWidth = new int[ symbolsQuantity ];
+			while( true ) {
+				String line = file.readLine();
+				if( line == null ) break;
+				letterWidth[ line.charAt( 0 ) - fromNum ] = Integer.parseInt( line.substring( 2 ) );
+			}
+		}
+	
 	}
 }

@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov
+ * Copyright (C) 2013, Matt Merkulov
  *
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -10,9 +10,9 @@
 package dwlab.visualizers;
 
 import dwlab.base.Obj;
-import dwlab.base.service.Service;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
+import dwlab.base.service.Service;
 
 public class Color extends Obj {
 	public static Color black = new Color( "000000" );

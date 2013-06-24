@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov
+ * Copyright (C) 2013, Matt Merkulov
  *
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -341,12 +341,16 @@ public class Graphics {
 	}
 	
 
-	public static void setViewport( int x, int y, int width, int height ) {
-		viewportX = x;
-		viewportY = y;
-		viewportWidth = width;
-		viewportHeight = height;
-		glViewport( x - width / 2, y - height / 2, width, height );
+	public static void setViewport( int vX, int vY, int vWidth, int vHeight ) {
+		viewportX = vX;
+		viewportY = vY;
+		viewportWidth = vWidth;
+		viewportHeight = vHeight;
+		glViewport( vX - vWidth / 2, height - ( vY + vHeight / 2 ), vWidth, vHeight );
+		glMatrixMode( GL_PROJECTION ) ;
+		glLoadIdentity();
+		glOrtho( vX - vWidth / 2, vX + vWidth / 2, vY + vHeight / 2, vY - vHeight / 2, -1d, 1d );
+		glMatrixMode( GL_MODELVIEW ) ;
 	}
 	
 	public static void getViewport( IntVector pivot, IntVector size ) {
@@ -357,7 +361,7 @@ public class Graphics {
 	}
 
 	public static void resetViewport() {
-		setViewport( getScreenWidth() / 2, getScreenHeight() / 2, getScreenWidth(), getScreenHeight() );
+		setViewport( width / 2, height / 2, width, height );
 	}
 	
 

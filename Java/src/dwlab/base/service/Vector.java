@@ -1,17 +1,17 @@
-package dwlab.base.service;
-
-import dwlab.base.Obj;
-import dwlab.shapes.Shape;
-import dwlab.shapes.sprites.Camera;
-
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
-
+ * Copyright (C) 2013, Matt Merkulov
+ *
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
  * file distributed with this code, or available from
  * http://www.opensource.org/licenses/artistic-license-2.0.php
  */
+
+package dwlab.base.service;
+
+import dwlab.base.Obj;
+import dwlab.shapes.Shape;
+import dwlab.shapes.sprites.Camera;
 
 public class Vector extends Obj {
 	public double x, y;
@@ -58,5 +58,12 @@ public class Vector extends Obj {
 	
 	public double length2() {
 		return x * x + y * y;
+	}
+	
+	
+	public double distanceTo( Vector vector ) {
+		double dX = x - vector.x;
+		double dY = y - vector.y;
+		return Math.sqrt( dX * dX + dY * dY );
 	}
 }

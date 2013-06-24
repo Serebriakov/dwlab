@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
+ * Copyright (C) 2013, Matt Merkulov 
 
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -11,13 +11,12 @@ package dwlab.visualizers;
 import dwlab.base.Graphics;
 import dwlab.base.images.Image;
 import dwlab.base.service.IntVector;
-import dwlab.base.service.Vector;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.sprites.Sprite;
 
 public class WindowedVisualizer extends Visualizer {
-	public Shape viewport;
+	public Shape[] viewports;
 	public Visualizer visualizer;
 
 
@@ -37,13 +36,15 @@ public class WindowedVisualizer extends Visualizer {
 	private IntVector serviceSizes = new IntVector();
 	
 	@Override
-	public void drawUsingSprite( Sprite sprite, Sprite spriteShape ) {
+	public void drawUsingSprite( Sprite sprite, Sprite spriteShape, Color color ) {
 		if( ! sprite.visible ) return;
 
 		Graphics.getViewport( servicePivot, serviceSizes );
 
-		viewport.setAsViewport();
-		visualizer.drawUsingSprite( sprite, spriteShape );
+		for( Shape viewport : viewports ) {
+			viewport.setAsViewport();
+			visualizer.drawUsingSprite( sprite, spriteShape, color );
+		}
 
 		Graphics.setViewport( servicePivot.x, servicePivot.y, serviceSizes.x, serviceSizes.y );
 	}

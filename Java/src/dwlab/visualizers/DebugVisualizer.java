@@ -1,36 +1,30 @@
-package dwlab.visualizers;
-import dwlab.base.Graphics;
-import dwlab.base.Obj;
-import dwlab.base.service.Service;
-import java.util.LinkedList;
-import java.lang.Math;
-import dwlab.shapes.layers.Layer;
-import dwlab.shapes.Shape;
-import dwlab.shapes.maps.SpriteMap;
-import dwlab.shapes.maps.tilemaps.TileMap;
-import dwlab.base.service.Vector;
-import dwlab.shapes.sprites.Camera;
-import dwlab.shapes.sprites.Sprite;
-import dwlab.shapes.sprites.shape_types.ServiceObjects;
-import dwlab.shapes.sprites.shape_types.drawing_shape.DrawingShape;
-
-
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
+ * Copyright (C) 2013, Matt Merkulov 
 
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
  * file distributed with this code, or available from
- * http://www.opensource.org/licenses/artistic-license-2.0.php */
-
-
-/**
- * Global variable for debug visualizer.
+ * http://www.opensource.org/licenses/artistic-license-2.0.php
  */
+
+package dwlab.visualizers;
+
+import dwlab.base.Graphics;
+import dwlab.base.service.Service;
+import dwlab.base.service.Vector;
+import dwlab.shapes.Shape;
+import dwlab.shapes.maps.SpriteMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
+import dwlab.shapes.sprites.Camera;
+import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.shape_types.drawing_shape.DrawingShape;
+import java.util.LinkedList;
+
 /**
  * This visualizer can draw collision shape, vector and name of the shape with this shape itself.
  * See also #wedgeOffWithSprite example
  */
+
 public class DebugVisualizer extends Visualizer {
 	public static DebugVisualizer instance = new DebugVisualizer();
 	

@@ -29,8 +29,8 @@ public class SetAsViewportExample extends Project {
 	public void init() {
 		cursor = new Sprite( 0, 0, 8, 6 );
 		for( int n = 1; n < spritesQuantity; n++ ) {
-			Sprite sprite = new Sprite( ShapeType.oval, Service.random( -13, 13 ), Service.random( -8, 8 ), 0d, 0d, Service.random( Math.PI * 2 ),
-					Service.random( 3, 7 ) );
+			Sprite sprite = new Sprite( ShapeType.oval, Service.random( -13d, 13d ), Service.random( -8d, 8d ), 0d, 0d, Service.random( Math.PI * 2d ),
+					Service.random( 3d, 7d ) );
 			sprite.setDiameter( Service.random( 0.5d, 1.5d ) );
 			sprite.visualizer.setRandomColor();
 			layer.addLast( sprite );
@@ -52,9 +52,9 @@ public class SetAsViewportExample extends Project {
 	public void render() {
 		cursor.setAsViewport();
 		layer.draw();
-		rectangle.drawContour( 2 );
+		rectangle.drawContour( 2d );
 		Graphics.resetViewport();
-		cursor.drawContour( 2 );
+		cursor.drawContour( 2d );
 		printText( "SetAsViewport, ResetViewport example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

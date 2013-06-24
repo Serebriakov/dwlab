@@ -27,25 +27,26 @@ public class BehaviorModelExample extends Project {
 		instance.act();
 	}
 	
-	int bricks = 1;
-	double deathPeriod = 1.0;
+	static int bricks = 1;
+	static double deathPeriod = 1.0;
 
-	public World world;
-	public Layer Layer;
-	public TileMap tileMap;
-	public Sprite selectedSprite;
-	public MarchingAnts marchingAnts = new MarchingAnts();
+	static World world;
+	static Layer Layer;
+	static TileMap tileMap;
+	static Sprite selectedSprite;
+	static MarchingAnts marchingAnts = new MarchingAnts();
 
-	public BumpingWalls bumpingWalls = new BumpingWalls();
-	public PushFromWalls pushFromWalls = new PushFromWalls();
-	public DestroyBullet destroyBullet = new DestroyBullet();
-	public AwPossumHurtingCollision awPossumHurtingCollision = new AwPossumHurtingCollision();
-	public AwPossumHitCollision awPossumHitCollision = new AwPossumHitCollision();
+	static BumpingWalls bumpingWalls = new BumpingWalls();
+	static PushFromWalls pushFromWalls = new PushFromWalls();
+	static DestroyBullet destroyBullet = new DestroyBullet();
+	static AwPossumHurtingCollision awPossumHurtingCollision = new AwPossumHurtingCollision();
+	static AwPossumHitCollision awPossumHitCollision = new AwPossumHitCollision();
 
 	//Field LTSprite HitArea
-	public int score;
+	static int score;
 
 	ButtonAction KeyExit = ButtonAction.create( KeyboardKey.create( Key.ESCAPE) );
+	
 	
 	@Override
 	public void init() {
@@ -69,12 +70,14 @@ public class BehaviorModelExample extends Project {
 		initLevel();
 	}
 
+	
 	public void initLevel() {
-		Layer = loadLayer( world.findShape( "Level" ).toLayer() );
+		Layer = world.findShape( "Level" ).load().toLayer();
 		Layer.init();
 		tileMap = Layer.findShape( "Field" ).toTileMap();
 	}
 
+	
 	ButtonAction buttonSelect = ButtonAction.create( MouseButton.create( MouseButton.LEFT_BUTTON ) );
 	
 	@Override
@@ -85,32 +88,36 @@ public class BehaviorModelExample extends Project {
 		if( KeyExit.wasPressed() ) exiting = true;
 	}
 
+	
 	@Override
 	public void render() {
 		Layer.draw();
 		if( selectedSprite != null ) {
-			selectedSprite.showModels( 100 );
+			selectedSprite.showModels( 100, "" );
 			selectedSprite.drawUsingVisualizer( marchingAnts );
 		}
 		//If HitArea Then HitArea.Draw()
 		showDebugInfo();
-		Graphics.drawText( "Guide AwesomePossum to exit from maze using arrow and space Keys", tileMap.rightX(), tileMap.topY() - 12, Align.TO_RIGHT, Align.TO_TOP );
-		Graphics.drawText( .you can view sprite behavior models .y clicking left mouse button on it", tileMap.rightX(), tileMap.topY() - 0.5, Align.TO_RIGHT, Align.TO_TOP );
-		Graphics.drawText( " Score" + Service.firstZeroes( score, 6 ), tileMap.rightX() - 0.1, tileMap.bottomY() - 0.1, Align.TO_RIGHT, Align.TO_BOTTOM, true );
-		Graphics.drawText( "LTBehaviorModel example", tileMap.getX(), tileMap.bottomY(), Align.TO_CENTER, Align.TO_BOTTOM );
+		printText( "Guide AwesomePossum to exit from maze using arrow and space keys", Align.TO_RIGHT, Align.TO_TOP );
+		printText( "you can view sprite behavior models by clicking left mouse button on it", Align.TO_RIGHT, Align.TO_TOP, 1 );
+		printText( " Score" + Service.firstZeroes( score, 6 ), Align.TO_RIGHT, Align.TO_BOTTOM );
+		printText( "LTBehaviorModel example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
-	public class GameObject extends VectorSprite {
-		public OnLand onLand = new OnLand();
-		public gravity gravity = new gravity();
-		public AnimationModel jumpingAnimation;
-		public AnimationModel fallingAnimation;
+	
+	
+	
+	public static class GameObject extends VectorSprite {
+		OnLand onLand = new OnLand();
+		gravity gravity = new gravity();
+		AnimationModel jumpingAnimation;
+		AnimationModel fallingAnimation;
 
-		public double health = 100.0;
+		double health = 100.0;
 	}
 
 
 
-	public class Jelly extends GameObject {
+	public static class Jelly extends GameObject {
 		double jumpingAnimationSpeed = 0.2;
 		double firingAnimationSpeed = 0.1;
 		double walkingAnimationSpeed = 0.2;
@@ -122,28 +129,21 @@ public class BehaviorModelExample extends Project {
 		double jumpingPause = jumpingAnimationSpeed * 2.0;
 		double bulletPause = firingAnimationSpeed * 5.0;
 
-		public int score = 100;
+		int score = 100;
 
 
 		@Override
 		public void init() {
 			attachModel( gravity );
 
-			ModelStack animationStack = new ModelStack();
-			attachModel( animationStack );
-
 			jumpingAnimation = new AnimationModel( false, jumpingAnimationSpeed, 8, 8 );
 			fallingAnimation = new AnimationModel( true, jumpingAnimationSpeed, 3, 13, true );
 			AnimationModel firingAnimation = new AnimationModel( false, firingAnimationSpeed, 8, 16 );
 
-
-			HorizontalMovement horizontalMovement = new HorizontalMovement( example.bumpingWalls );
-
-
-			String jumping = getParameter( "jumping" );
-			if( jumping ) {
-				String parameters[] = jumping.split( "-" );
-				RandomWaitingModel waitingForJump = RandomWaitingModel.create( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() );
+			
+			if( parameterExists( "jumping" ) ) {
+				String parameters[] = getParameter( "jumping" ).split( "-" );
+				RandomWaitingModel waitingForJump = RandomWaitingModel.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) );
 				attachModel( waitingForJump );
 
 				IsModelActive onLandCondition = new IsModelActive( onLand );
@@ -162,38 +162,37 @@ public class BehaviorModelExample extends Project {
 
 				parameters = getParameter( "jumping_strength" ).split( "-" );
 				FixedWaitingModel pauseBeforeJump = FixedWaitingModel.create( jumpingPause );
-				pauseBeforeJump.nextModels.addLast( Jump.create( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() ) );
+				pauseBeforeJump.nextModels.addLast( Jump.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) ) );
 				pauseBeforeJump.nextModels.addLast( new ModelActivator( horizontalMovement ) );
 				pauseBeforeJump.nextModels.addLast( new ModelActivator( gravity ) );
 				pauseBeforeJump.nextModels.addLast( waitingForJump );
 				animationActive.falseModels.addLast( pauseBeforeJump );
 
-				animationStack.add( jumpingAnimation, false );
+				addToStack( jumpingAnimation );
 				score += 200;
 			}
 
 
-			animationStack.add( fallingAnimation );
+			addToStack( fallingAnimation );
 
 
-			String firing = getParameter( "firing" );
-			if( firing ) {
-				String parameters[] = firing.split( "-" );
-				RandomWaitingModel waitingForFire = RandomWaitingModel.create( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() );
+			if( parameterExists( "firing" ) ) {
+				String parameters[] = getParameter( "firing" ).split( "-" );
+				RandomWaitingModel waitingForFire = RandomWaitingModel.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) );
 				attachModel( waitingForFire );
 
-				IsModelActive onLandCondition = IsModelActive.create( onLand );
+				IsModelActive onLandCondition = new IsModelActive( onLand );
 				waitingForFire.nextModels.addLast( onLandCondition );
 
-				IsModelActive animationActive = IsModelActive.create( jumpingAnimation );
+				IsModelActive animationActive = new IsModelActive( jumpingAnimation );
 				onLandCondition.trueModels.addLast( animationActive );
 				onLandCondition.falseModels.addLast( waitingForFire );
 
 				animationActive.trueModels.addLast( waitingForFire );
-				animationActive.falseModels.addLast( ModelActivator.create( firingAnimation ) );
-				animationActive.falseModels.addLast( ModelDeactivator.create( horizontalMovement ) );
+				animationActive.falseModels.addLast( new ModelActivator( firingAnimation ) );
+				animationActive.falseModels.addLast( new ModelDeactivator( horizontalMovement ) );
 
-				firingAnimation.nextModels.addLast( ModelActivator.create( horizontalMovement ) );
+				firingAnimation.nextModels.addLast( new ModelActivator( horizontalMovement ) );
 
 				parameters = getParameter( "firing_speed" ).split( "-" );
 				FixedWaitingModel pauseBeforeBullet = FixedWaitingModel.create( bulletPause );
@@ -201,33 +200,29 @@ public class BehaviorModelExample extends Project {
 				pauseBeforeBullet.nextModels.addLast( waitingForFire );
 				animationActive.falseModels.addLast( pauseBeforeBullet );
 
-				animationStack.add( firingAnimation, false );
+				addToStack( firingAnimation );
 				score += 300;
 			}
 
-			AnimationModel movementAnimation = AnimationModel.create( true, walkingAnimationSpeed, 3, 3, true );
-			String moving = getParameter( "moving" );
-			if( moving ) {
+			AnimationModel movementAnimation = new AnimationModel( true, walkingAnimationSpeed, 3, 3, true );
+			if( parameterExists( "moving" ) ) {
 				String parameters[] = getParameter( "moving" ).split( "-" );
 				dX *= Service.random( parameters[ 0 ].toDouble(), parameters[ 1 ].toDouble() );
 				attachModel( horizontalMovement );
-				animationStack.add( movementAnimation );
+				addToStack( movementAnimation );
 				score += 100;
 			}
 
 
-			attachModel( ModelDeactivator.create( onLand, true ) );
+			attachModel( new ModelDeactivator( onLand, true ) );
 			attachModel( VerticalMovement.create( false ) );
 
 
 			AnimationModel standingAnimation = AnimationModel.create( true, idleAnimationSpeed, 3, 0, true );
-			animationStack.add( standingAnimation );
+			addToStack( standingAnimation );
 
-			String scoreParameter = getParameter( "score" );
-			if( scoreParameter ) score = scoreParameter.toInt();
-
-			String healthParameter = getParameter( "health" );
-			if( healthParameter ) health = healthParameter.toDouble();
+			if( parameterExists( "score" ) ) score = getIntegerParameter( "score" );
+			if( parameterExists( "health" ) ) health = getDoubleParameter( "health" );
 		}
 	}
 

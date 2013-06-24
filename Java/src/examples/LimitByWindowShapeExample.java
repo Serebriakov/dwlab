@@ -57,7 +57,7 @@ public class LimitByWindowShapeExample extends Project {
 		ball3.draw();
 		ball2.draw();
 
-		printText( "Move cursor to see how balls are limited .y rectangles" );
+		printText( "Move cursor to see how balls are limited by rectangles" );
 		printText( "limitByWindowShape, limitByWindowShapes example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

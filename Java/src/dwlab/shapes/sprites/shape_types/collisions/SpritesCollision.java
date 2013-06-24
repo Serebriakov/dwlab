@@ -1,3 +1,12 @@
+/* Digital Wizard's Lab - game development framework
+ * Copyright (C) 2013, Matt Merkulov 
+
+ * All rights reserved. Use of this code is allowed under the
+ * Artistic License 2.0 terms, as specified in the license.txt
+ * file distributed with this code, or available from
+ * http://www.opensource.org/licenses/artistic-license-2.0.php
+ */
+
 package dwlab.shapes.sprites.shape_types.collisions;
 
 import dwlab.shapes.sprites.Sprite;
@@ -5,15 +14,6 @@ import dwlab.shapes.sprites.shape_types.ServiceObjects;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import java.util.HashMap;
 import java.util.Map.Entry;
-
-/* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
-
- * All rights reserved. Use of this code is allowed under the
- * Artistic License 2.0 terms, as specified in the license.txt
- * file distributed with this code, or available from
- * http://www.opensource.org/licenses/artistic-license-2.0.php */
-
 
 public class SpritesCollision extends ServiceObjects {
 	public static SpritesCollision defaultHandler = new SpritesCollision();

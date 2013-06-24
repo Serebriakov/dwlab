@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
+ * Copyright (C) 2013, Matt Merkulov 
 
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -22,6 +22,12 @@ public class ModelDeactivator extends BehaviorModel {
 	public boolean permanent;
 
 
+	public ModelDeactivator( BehaviorModel model ) {
+		this.model = model;
+		this.permanent = false;
+	}
+
+
 	public ModelDeactivator( BehaviorModel model, boolean permanent ) {
 		this.model = model;
 		this.permanent = permanent;
@@ -31,7 +37,7 @@ public class ModelDeactivator extends BehaviorModel {
 	@Override
 	public void applyTo( Shape shape ) {
 		model.deactivateModel( shape );
-		if( !permanent ) shape.removeModel( this );;
+		if( !permanent ) shape.removeModel( this );
 	}
 
 

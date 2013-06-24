@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
+ * Copyright (C) 2013, Matt Merkulov 
 
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -19,8 +19,6 @@ import dwlab.visualizers.Color;
  * image will be stretched in both direction to fully cover remaining center rectangle.
  */
 public class RasterFrame extends Image {
-	public Image images[][];
-
 	/**
 	 * Width of the left column of 3x3 grid part which will be used for left frame side.
 	 */
@@ -130,7 +128,7 @@ public class RasterFrame extends Image {
 							break;
 					}
 
-					draw( frame, currentX, currentY, currentWidth, 0, currentTX, 0, currentTX+ currentTWidth, frameHeight, color );
+					draw( frame, currentX, currentY, currentWidth, 0, currentTX, 0, currentTX + currentTWidth, frameHeight, color );
 
 					currentX += currentWidth;
 					currentTX += currentTWidth;
@@ -173,7 +171,7 @@ public class RasterFrame extends Image {
 							break;
 					}
 
-					draw( frame, currentX, currentY, currentWidth, currentHeight, currentTX, currentTY, currentTX+ currentTWidth, currentTY + currentTHeight, color );
+					draw( frame, currentX, currentY, currentWidth, currentHeight, currentTX, currentTY, currentTX + currentTWidth, currentTY + currentTHeight, color );
 
 					currentX += currentWidth;
 					currentTX += currentTWidth;

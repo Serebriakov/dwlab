@@ -1,6 +1,5 @@
-/**
- * Digital Wizard's Lab - game development framework
- * Copyright (C) 2010, Matt Merkulov
+/* Digital Wizard's Lab - game development framework
+ * Copyright (C) 2013, Matt Merkulov
  *
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt

@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov 
+ * Copyright (C) 2013, Matt Merkulov 
 
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -7,10 +7,20 @@
  * http://www.opensource.org/licenses/artistic-license-2.0.php */
 
 package dwlab.shapes.sprites;
-import dwlab.shapes.sprites.shape_types.ShapeType;
+
 import dwlab.base.Project;
 import dwlab.base.service.Service;
+import dwlab.behavior_models.BehaviorModel;
+import dwlab.behavior_models.ModelStack;
+import dwlab.behavior_models.VectorSpriteCollisionsModel;
+import dwlab.behavior_models.VectorSpriteCollisionsModel.Group;
+import dwlab.behavior_models.VectorSpriteCollisionsModel.SpriteMapCollisions;
+import dwlab.behavior_models.VectorSpriteCollisionsModel.TileMapCollisions;
 import dwlab.shapes.Shape;
+import dwlab.shapes.maps.SpriteMap;
+import dwlab.shapes.maps.tilemaps.TileMap;
+import dwlab.shapes.sprites.shape_types.ShapeType;
+import java.util.LinkedList;
 
 /**
  * Vector sprite has horizontal and vertical velocities forming velocity vector.
@@ -150,5 +160,58 @@ public class VectorSprite extends Sprite {
 		VectorSprite newSprite = new VectorSprite();
 		copySpriteTo( newSprite );
 		return newSprite;
+	}
+	
+	
+	public void addSpriteMapCollisions( Group group, SpriteMap map, SpriteCollisionHandler handler ) {
+		addToGroup( new SpriteMapCollisions( map, handler ), group );
+	}
+	
+	
+	public void addTileMapCollisions( Group group, TileMap map, SpriteAndTileCollisionHandler handler, int[] tileNum ) {
+		addToGroup( new TileMapCollisions( map, handler, tileNum ), group );
+	}
+
+	
+	private void addToGroup( BehaviorModel model, Group group ) {
+		VectorSpriteCollisionsModel collisions = null;
+		for( BehaviorModel existingModel : behaviorModels ) {
+			if( existingModel instanceof VectorSpriteCollisionsModel ) {
+				collisions = (VectorSpriteCollisionsModel) existingModel;
+				break;
+			}
+		}
+		if( collisions == null ) {
+			collisions = new VectorSpriteCollisionsModel();
+			behaviorModels.add( collisions );
+		}
+		
+		switch( group ) {
+			case HORIZONTAL:
+				if( collisions.horizontal == null ) collisions.horizontal = new LinkedList<BehaviorModel<VectorSprite>>();
+				collisions.horizontal.add( model );
+				break;
+			case ALL:
+			case VERTICAL:
+				if( collisions.vertical == null ) collisions.vertical = new LinkedList<BehaviorModel<VectorSprite>>();
+				collisions.vertical.add( model );
+				break;
+			case LEFT:
+				if( collisions.left == null ) collisions.left = new LinkedList<BehaviorModel<VectorSprite>>();
+				collisions.left.add( model );
+				break;
+			case RIGHT:
+				if( collisions.right == null ) collisions.right = new LinkedList<BehaviorModel<VectorSprite>>();
+				collisions.right.add( model );
+				break;
+			case UP:
+				if( collisions.up == null ) collisions.up = new LinkedList<BehaviorModel<VectorSprite>>();
+				collisions.up.add( model );
+				break;
+			case DOWN:
+				if( collisions.down == null ) collisions.down = new LinkedList<BehaviorModel<VectorSprite>>();
+				collisions.down.add( model );
+				break;
+		}
 	}
 }

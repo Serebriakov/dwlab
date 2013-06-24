@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov
+ * Copyright (C) 2013, Matt Merkulov
  *
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -14,7 +14,6 @@ import dwlab.visualizers.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -145,23 +144,21 @@ public class Image extends ImageTemplate {
 	
 	
 	public void draw( int frame, double x, double y, double width, double height, int tx1, int ty1, int tx2, int ty2, Color color ){
-		double width2 = 0.5d * width ;
-		double height2 = 0.5d * height;
-		double tx = frameWidth * ( frame % xCells );
-		double ty = frameHeight * Math.floor( frame / xCells );
+		double tx = frame % xCells;
+		double ty = Math.floor( frame / xCells );
 		
 		glBindTexture( GL_TEXTURE_2D, textureID );
 		glColor4d( color.red, color.green, color.blue, color.alpha );
 		glBegin( GL_QUADS );
 			glColor4d( color.red, color.green, color.blue, color.alpha );
-			glTexCoord2d( ( tx + tx1 * frameWidth ) * kx, ( ty + ty1 * frameHeight ) * kx );
-			glVertex2d( x - width2, y - height2 );
-			glTexCoord2d( ( tx + tx2 * frameWidth ) * kx, ( ty + ty1 * frameHeight ) * ky );
-			glVertex2d( x + width2, y - height2 );
-			glTexCoord2d( ( tx + tx2 * frameWidth ) * kx, ( ty + ty2 * frameHeight ) * ky );
-			glVertex2d( x + width2, y + height2 );
-			glTexCoord2d( ( tx + tx1 * frameWidth ) * kx, ( ty + ty2 * frameHeight ) * ky );
-			glVertex2d( x - width2, y + height2 );
+			glTexCoord2d( ( tx + tx1 * 1d / frameWidth ) * kx, ( ty + ty1 * 1d / frameHeight ) * kx );
+			glVertex2d( x, y );
+			glTexCoord2d( ( tx + tx2 * 1d / frameWidth ) * kx, ( ty + ty1 * 1d / frameHeight ) * ky );
+			glVertex2d( x + width, y );
+			glTexCoord2d( ( tx + tx2 * 1d / frameWidth ) * kx, ( ty + ty2 * 1d / frameHeight ) * ky );
+			glVertex2d( x + width, y + height );
+			glTexCoord2d( ( tx + tx1 * 1d / frameWidth ) * kx, ( ty + ty2 * 1d / frameHeight ) * ky );
+			glVertex2d( x, y + height );
 		glEnd();
 	}
 		
@@ -182,6 +179,7 @@ public class Image extends ImageTemplate {
 			Image image2, int frame2, double x2, double y2, double width2, double height2, double angle2 ) {
 		throw new UnsupportedOperationException( "Not yet implemented" );
 	}
+	
 
 	private int getTextureWidth() {
 		return xCells * frameWidth;

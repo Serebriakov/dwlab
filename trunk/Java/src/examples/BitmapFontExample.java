@@ -1,8 +1,10 @@
 package examples;
+
+import dwlab.base.Graphics;
+import dwlab.base.Project;
+import dwlab.base.images.BitmapFont;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
-import dwlab.base.images.BitmapFont;
-import dwlab.base.*;
 
 public class BitmapFontExample extends Project {
 	static {
@@ -16,7 +18,7 @@ public class BitmapFontExample extends Project {
 	}
 	
 	
-	private BitmapFont font = new BitmapFont( "res/font.png", 32, 127, 16, false );
+	private BitmapFont font = new BitmapFont( "res/font.png", 32, 127, 16, true );
 	
 	
 	@Override

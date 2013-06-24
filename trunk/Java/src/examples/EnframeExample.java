@@ -1,10 +1,10 @@
 package examples;
+
 import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.Sys;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
-import dwlab.shapes.layers.EditorData;
 import dwlab.shapes.layers.World;
 import dwlab.shapes.maps.DoubleMap;
 import dwlab.shapes.maps.tilemaps.TileMap;

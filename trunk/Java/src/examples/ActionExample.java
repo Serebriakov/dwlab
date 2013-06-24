@@ -1,11 +1,13 @@
 package examples;
 
-import dwlab.base.service.Align;
-import dwlab.base.service.Service;
-import dwlab.base.service.Drag;
-import dwlab.base.service.Action;
+import dwlab.base.Graphics;
+import dwlab.base.Obj;
+import dwlab.base.Project;
 import dwlab.base.images.Image;
-import dwlab.base.*;
+import dwlab.base.service.Action;
+import dwlab.base.service.Align;
+import dwlab.base.service.Drag;
+import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;

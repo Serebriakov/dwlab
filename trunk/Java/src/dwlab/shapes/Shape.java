@@ -1,5 +1,5 @@
 /* Digital Wizard's Lab - game development framework
- * Copyright (C) 2012, Matt Merkulov
+ * Copyright (C) 2013, Matt Merkulov
  *
  * All rights reserved. Use of this code is allowed under the
  * Artistic License 2.0 terms, as specified in the license.txt
@@ -15,11 +15,11 @@ import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.service.Vector;
 import dwlab.behavior_models.BehaviorModel;
+import dwlab.behavior_models.ModelStack;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.shapes.layers.Layer;
-import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
@@ -176,7 +176,7 @@ public class Shape extends Obj {
 	 * Sets shape's rectangle as viewport.
 	 */
 	public void setAsViewport() {
-		Camera.current.fieldToScreen( leftX(), topY(), servicePivot );
+		Camera.current.fieldToScreen( x, y, servicePivot );
 		Camera.current.sizeFieldToScreen( width, height, serviceSizes );
 		if( servicePivot.x < 0 ) {
 			serviceSizes.x += servicePivot.x;
@@ -985,6 +985,23 @@ public class Shape extends Obj {
 		return this;
 	}
 
+	
+	public void addToStack( BehaviorModel animationModel ) {
+		ModelStack stack = null;
+		for( BehaviorModel model : behaviorModels ) {
+			if( model.getClass() == ModelStack.class ) {
+				stack = (ModelStack) model;
+				break;
+			}
+		}
+		if( stack == null ) {
+			stack = new ModelStack();
+			behaviorModels.add( stack );
+		}
+		animationModel.init( null );
+		stack.models.add( animationModel );
+	}
+	
 
 	/**
 	 * Shows all behavior models attached to shape with their status.
@@ -1015,14 +1032,16 @@ public class Shape extends Obj {
 	 * 
 	 * @see #limitByWindowShape, #removeWindowLimit
 	 */
-	public Shape limitByWindow( double x, double y, double width, double height ) {
+	public Shape limitByWindow( double wX, double wY, double wWidth, double wHeight ) {
 		WindowedVisualizer newVisualizer = new WindowedVisualizer();
-		newVisualizer.viewport = new Shape();
-		newVisualizer.viewport.x = x;
-		newVisualizer.viewport.y = y;
-		newVisualizer.viewport.width = width;
-		newVisualizer.viewport.height = height;
 		newVisualizer.visualizer = visualizer;
+		newVisualizer.viewports = new Shape[ 1 ];
+		Shape viewport = new Shape();
+		viewport.x = wX;
+		viewport.y = wY;
+		viewport.width = wWidth;
+		viewport.height = wHeight;
+		newVisualizer.viewports[ 1 ] = viewport;
 		visualizer = newVisualizer;
 		return this;
 	}
@@ -1035,7 +1054,25 @@ public class Shape extends Obj {
 	 * @see #limitByWindow, #removeWindowLimit
 	 */
 	public Shape limitByWindowShape( Shape shape ) {
-		limitByWindow( shape.x, shape.y, shape.width, shape.height );
+		WindowedVisualizer newVisualizer = new WindowedVisualizer();
+		newVisualizer.visualizer = visualizer;
+		newVisualizer.viewports = new Shape[ 1 ];
+		newVisualizer.viewports[ 0 ] = new Shape();
+		shape.copyShapeTo( newVisualizer.viewports[ 0 ] );
+		visualizer = newVisualizer;
+		return this;
+	}
+
+
+	public Shape limitByWindowShapes( Shape[] shapes ) {
+		WindowedVisualizer newVisualizer = new WindowedVisualizer();
+		newVisualizer.visualizer = visualizer;
+		newVisualizer.viewports = new Shape[ shapes.length ];
+		for( int n = 0; n < shapes.length; n++ ) {
+			newVisualizer.viewports[ n ] = new Shape();
+			shapes[ n ].copyShapeTo( newVisualizer.viewports[ n ] );
+		}
+		visualizer = newVisualizer;
 		return this;
 	}
 

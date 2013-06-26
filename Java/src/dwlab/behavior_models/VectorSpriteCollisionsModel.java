@@ -28,7 +28,8 @@ public class VectorSpriteCollisionsModel extends BehaviorModel<VectorSprite> {
 	}
 	
 	public LinkedList<BehaviorModel<VectorSprite>> horizontal = null, vertical = null, left = null, right = null, up = null, down = null;
-	
+	public HorizontalMovementModel horizontalMovementModel = new HorizontalMovementModel();
+	public VerticalMovementModel verticalMovementModel = new VerticalMovementModel();
 	
 	
 	public static class SpriteMapCollisions extends BehaviorModel<VectorSprite> {
@@ -71,19 +72,23 @@ public class VectorSpriteCollisionsModel extends BehaviorModel<VectorSprite> {
 	
 	@Override
 	public void applyTo( VectorSprite sprite ) {
-		sprite.move( sprite.dX, 0d );
-		if( horizontal != null ) for( BehaviorModel<VectorSprite> model : horizontal ) model.applyTo( sprite );
-		if( sprite.dX > 0 ) {
-			if( right != null ) for( BehaviorModel<VectorSprite> model : right ) model.applyTo( sprite );
-		} else if( sprite.dX < 0 ) {
-			if( left != null ) for( BehaviorModel<VectorSprite> model : left ) model.applyTo( sprite );
+		if( horizontalMovementModel.active ) {
+			horizontalMovementModel.applyTo( sprite );
+			if( horizontal != null ) for( BehaviorModel<VectorSprite> model : horizontal ) model.applyTo( sprite );
+			if( sprite.dX > 0 ) {
+				if( right != null ) for( BehaviorModel<VectorSprite> model : right ) model.applyTo( sprite );
+			} else if( sprite.dX < 0 ) {
+				if( left != null ) for( BehaviorModel<VectorSprite> model : left ) model.applyTo( sprite );
+			}
 		}
-		sprite.move( 0d, sprite.dY );
-		if( vertical != null ) for( BehaviorModel<VectorSprite> model : vertical ) model.applyTo( sprite );
-		if( sprite.dY > 0 ) {
-			if( down != null ) for( BehaviorModel<VectorSprite> model : down ) model.applyTo( sprite );
-		} else if( sprite.dY < 0 ) {
-			if( up != null ) for( BehaviorModel<VectorSprite> model : up ) model.applyTo( sprite );
+		if( verticalMovementModel.active ) {
+			verticalMovementModel.applyTo( sprite );
+			if( vertical != null ) for( BehaviorModel<VectorSprite> model : vertical ) model.applyTo( sprite );
+			if( sprite.dY > 0 ) {
+				if( down != null ) for( BehaviorModel<VectorSprite> model : down ) model.applyTo( sprite );
+			} else if( sprite.dY < 0 ) {
+				if( up != null ) for( BehaviorModel<VectorSprite> model : up ) model.applyTo( sprite );
+			}
 		}
 	}
 }

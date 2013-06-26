@@ -816,35 +816,32 @@ public class Shape extends Obj {
 	 * 
 	 * @see #lTBehaviorModel, #activate
 	 */
-	public Shape attachModel( BehaviorModel model ) {
-		attachModelWithoutActivation( model );
-		model.activate( this );
-		model.active = true;
+	public Shape attachModel( BehaviorModel model, boolean activate ) {
+		behaviorModels.addLast( model );
+		if( activate ) {
+			model.activate( this );
+			model.active = true;
+		}
 		return this;
 	}
 	
-	public Shape attachModelWithoutActivation( BehaviorModel model ) {
-		model.init( this );
-		behaviorModels.addLast( model );
-		return this;
+	public Shape attachModel( BehaviorModel model ) {
+		return attachModel( model, true );
 	}
 
 
 	/**
 	 * Attaches list of behavior model to the shape.
 	 */
-	public Shape attachModels( LinkedList<BehaviorModel> models ) {
+	public Shape attachModels( LinkedList<BehaviorModel> models, boolean activate ) {
 		for( BehaviorModel model: models ) {
-			attachModel( model );
+			attachModel( model, activate );
 		}
 		return this;
 	}
 	
-	public Shape attachModelsWithoutActivation( LinkedList<BehaviorModel> models ) {
-		for( BehaviorModel model: models ) {
-			attachModelWithoutActivation( model );
-		}
-		return this;
+	public Shape attachModels( LinkedList<BehaviorModel> models ) {
+		return attachModels( models, true );
 	}
 
 
@@ -986,7 +983,7 @@ public class Shape extends Obj {
 	}
 
 	
-	public void addToStack( BehaviorModel animationModel ) {
+	public void addToStack( BehaviorModel animationModel, boolean activate ) {
 		ModelStack stack = null;
 		for( BehaviorModel model : behaviorModels ) {
 			if( model.getClass() == ModelStack.class ) {
@@ -998,8 +995,11 @@ public class Shape extends Obj {
 			stack = new ModelStack();
 			behaviorModels.add( stack );
 		}
-		animationModel.init( null );
-		stack.models.add( animationModel );
+		attachModel( animationModel, activate );
+	}
+	
+	public void addToStack( BehaviorModel animationModel ) {
+		addToStack( animationModel, true );
 	}
 	
 

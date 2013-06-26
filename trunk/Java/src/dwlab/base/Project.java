@@ -221,12 +221,6 @@ public class Project extends Obj {
 	}
 
 
-	//Deprecated
-	public double perSecond( double value ) {
-		return value * deltaTime;
-	}
-
-
 	/**
 	* Draws various debugging information on screen.
 	* See also #wedgeOffWithSprite example

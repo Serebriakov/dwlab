@@ -9,6 +9,7 @@
 
 package dwlab.base;
 
+import static dwlab.base.Project.deltaTime;
 import dwlab.base.Sys.XMLMode;
 import dwlab.base.XMLObject.XMLAttribute;
 import dwlab.base.XMLObject.XMLObjectField;
@@ -341,5 +342,10 @@ public class Obj {
 	public static void error( String Text ) {
 		System.out.println( Text );
 		System.exit( 0 );
+	}
+
+
+	public static double perSecond( double value ) {
+		return value * deltaTime;
 	}
 }

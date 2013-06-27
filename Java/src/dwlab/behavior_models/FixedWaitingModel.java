@@ -9,13 +9,15 @@
 
 package dwlab.behavior_models;
 
+import dwlab.shapes.Shape;
+
 /**
  * This model is for waiting given period of time.
  * You can add behavior models which will be executed after this period of tme. Waiting model itself will be removed from the shape.
 
  * @see #randomWaitingModel, #lTBehaviorModel example.
  */
-public class FixedWaitingModel extends TemporaryModel {
+public class FixedWaitingModel<E extends Shape> extends TemporaryModel<E> {
 	public static FixedWaitingModel create( double time ) {
 		FixedWaitingModel model = new FixedWaitingModel();
 		model.period = time;

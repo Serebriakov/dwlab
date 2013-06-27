@@ -41,7 +41,6 @@ public class Obj {
 	static Obj iDArray[];
 	static HashSet<Obj> undefinedObjects;
 
-	public static boolean remove = true;
 	public static double inaccuracy = 0.000001;	
 	
 

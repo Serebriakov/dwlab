@@ -61,7 +61,7 @@ public class SetAsTileExample extends Project {
 						moveForward();
 						angle = Math.PI * 0.25 * ( time - startingTime ) * angularDirection;
 						dY += perSecond( gravity );
-						if( topY() > tileMap.bottomY() ) remove = true;
+						if( topY() > tileMap.bottomY() ) removeFrom( pieces );
 					}
 				};
 				pieces.addFirst( piece );

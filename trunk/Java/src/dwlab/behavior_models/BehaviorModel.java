@@ -10,6 +10,7 @@
 package dwlab.behavior_models;
 
 import dwlab.base.Obj;
+import dwlab.base.Project;
 import dwlab.shapes.Shape;
 
 /**
@@ -97,6 +98,26 @@ public class BehaviorModel<E extends Shape> extends Obj {
 		}
 	}
 
+	
+	private class BehaviorModelRemover extends Obj {
+		BehaviorModel model;
+		Shape shape;
+		
+		@Override
+		public void act() {
+			if( model.active ) model.deactivate( shape );
+			shape.behaviorModels.remove( model );
+		}
+	}
+	
+	
+	public void remove( E shape ) {
+		BehaviorModelRemover remover = new BehaviorModelRemover();
+		remover.model = this;
+		remover.shape = shape;
+		Project.managers.add( remover );
+	}
+	
 
 	public String info( E shape ) {
 		return "";

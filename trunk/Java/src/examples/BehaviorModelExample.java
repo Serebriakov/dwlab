@@ -46,7 +46,6 @@ public class BehaviorModelExample extends Project {
 	static AwPossumHurtingCollision awPossumHurtingCollision = new AwPossumHurtingCollision();
 	static AwPossumHitCollision awPossumHitCollision = new AwPossumHitCollision();
 
-	//Field LTSprite HitArea
 	static int score;
 
 	ButtonAction KeyExit = ButtonAction.create( KeyboardKey.create( Key.ESCAPE) );
@@ -100,7 +99,6 @@ public class BehaviorModelExample extends Project {
 			selectedSprite.showModels( 100, "" );
 			selectedSprite.drawUsingVisualizer( marchingAnts );
 		}
-		//If HitArea Then HitArea.Draw()
 		showDebugInfo();
 		printText( "Guide AwesomePossum to exit from maze using arrow and space keys", Align.TO_RIGHT, Align.TO_TOP );
 		printText( "you can view sprite behavior models by clicking left mouse button on it", Align.TO_RIGHT, Align.TO_TOP, 1 );
@@ -122,16 +120,16 @@ public class BehaviorModelExample extends Project {
 
 
 	public static class Jelly extends GameObject {
-		static double jumpingAnimationSpeed = 0.2;
-		static double firingAnimationSpeed = 0.1;
-		static double walkingAnimationSpeed = 0.2;
-		static double idleAnimationSpeed = 0.4;
-		static double minAttack = 10.0;
-		static double maxAttack = 20.0;
-		static double hurtingTime = 0.2;
+		static final double jumpingAnimationSpeed = 0.2;
+		static final double firingAnimationSpeed = 0.1;
+		static final double walkingAnimationSpeed = 0.2;
+		static final double idleAnimationSpeed = 0.4;
+		static final double minAttack = 10.0;
+		static final double maxAttack = 20.0;
+		static final double hurtingTime = 0.2;
 
-		static double jumpingPause = jumpingAnimationSpeed * 2.0;
-		static double bulletPause = firingAnimationSpeed * 5.0;
+		static final double jumpingPause = jumpingAnimationSpeed * 2.0;
+		static final double bulletPause = firingAnimationSpeed * 5.0;
 
 		int score = 100;
 
@@ -232,23 +230,23 @@ public class BehaviorModelExample extends Project {
 
 	public static class AwPossum extends GameObject {
 		static final double jumpingAnimationSpeed = 0.2;
-		static double walkingAnimationSpeed = 0.2;
-		static double idleAnimationSpeed = 0.4;
+		static final double walkingAnimationSpeed = 0.2;
+		static final double idleAnimationSpeed = 0.4;
 
-		static double jumpingPause = jumpingAnimationSpeed;
-		static double jumpingStrength = 6.0;
-		static double walkingSpeed = 5.0;
+		static final double jumpingPause = jumpingAnimationSpeed;
+		static final double jumpingStrength = 6.0;
+		static final double walkingSpeed = 5.0;
 
-		static double minAttack = 20.0;
-		static double maxAttack = 35.0;
-		static double minHealthGain = 3.0;
-		static double maxHealthGain = 6.0;
+		static final double minAttack = 20.0;
+		static final double maxAttack = 35.0;
+		static final double minHealthGain = 3.0;
+		static final double maxHealthGain = 6.0;
 
-		static double knockOutPeriod = 0.3;
-		static double immortalPeriod = 1.5;
-		static double hitPeriod = 0.2;
-		static double knockOutStrength = 2.0;
-		static double hitPauseTime = 0.5;
+		static final double knockOutPeriod = 0.3;
+		static final double immortalPeriod = 1.5;
+		static final double hitPeriod = 0.2;
+		static final double knockOutStrength = 2.0;
+		static final double hitPauseTime = 0.5;
 
 		public AnimationModel movementAnimation = new AnimationModel( true, walkingAnimationSpeed, 4, 4 );
 		public AnimationModel hurtingAnimation = new AnimationModel( false, knockOutPeriod, 1, 14 );
@@ -343,7 +341,7 @@ public class BehaviorModelExample extends Project {
 		public void act() {
 			super.act();
 			collisionsWithLayer( layer, awPossumHurtingCollision );
-			if( x > tileMap.rightX() ) switchTo( new Restart() );
+			if( x > tileMap.rightX() ) instance.switchTo( new Restart() );
 		}
 
 
@@ -558,7 +556,7 @@ public class BehaviorModelExample extends Project {
 
 		@Override
 		public void applyTo( Shape shape ) {
-			shape.visible = ( Math.floor( time / blinkingSpeed ) % 2 ) != 0;
+			shape.visible = ( Math.floor( instance.time / blinkingSpeed ) % 2 ) != 0;
 			super.applyTo( shape );
 		}
 
@@ -655,81 +653,90 @@ public class BehaviorModelExample extends Project {
 	}
 
 
-	public static class JellyHurt extends FixedWaitingModel {
-		public void init( Shape shape ) {
+	public static class JellyHurt extends FixedWaitingModel<VectorSprite> {
+		@Override
+		public void init( VectorSprite sprite ) {
 			period = Jelly.hurtingTime;
-			shape.deactivateModel( "THorizontalMovement" );
+			sprite.horizontalMovementModel().deactivate( sprite );
 		}
 
-		public void applyTo( Shape shape ) {
-			super.applyTo( shape );
-			double intensi.getY() = ( currentProject.time - startingTime ) / period;
-			if( intensi.getY() <= 1.0 ) shape.visualizer.Graphics.setColorFromRGB( 1.0, intensi.getY(), intensi.getY() );
+		@Override
+		public void applyTo( VectorSprite sprite ) {
+			super.applyTo( sprite );
+			double intensity = ( instance.time - startingTime ) / period;
+			if( intensity <= 1.0 ) sprite.visualizer.set( 1.0, intensity, intensity, 1.0 );
 		}
 
-		public void deactivate( Shape shape ) {
-			shape.activateModel( "THorizontalMovement" );
-			shape.visualizer.set( "FFFFFF" );
+		@Override
+		public void deactivate( VectorSprite sprite ) {
+			sprite.horizontalMovementModel().activate( sprite );
+			sprite.visualizer.set( "FFFFFF" );
 		}
 	}
 
 
 	public static class Death extends FixedWaitingModel {
+		@Override
 		public void init( Shape shape ) {
 			period = deathPeriod;
 		}
 
+		@Override
 		public void applyTo( Shape shape ) {
 			super.applyTo( shape );
-			double alpha = 1.0 - ( currentProject.time - startingTime ) / period;
+			double alpha = 1.0 - ( instance.time - startingTime ) / period;
 			if( alpha >= 0.0 ) shape.visualizer.alpha = alpha;
 		}
 
+		@Override
 		public void deactivate( Shape shape ) {
-			Layer.remove( shape );
+			remove( shape );
 		}
 	}
 
 
 	public static class Score extends Sprite {
-		double speed = 2.0;
-		double period = 3.0;
+		static double speed = 2.0;
+		static double period = 3.0;
 
-		public int amount;
-		public double startingTime;
+		int amount;
+		double startingTime;
 
 		public static void create( Sprite sprite, int amount ) {
-			Score score = new Score();
-			score.setCoords( sprite.getX(), sprite.topY() );
-			score.amount = amount;
-			score.setDiameter( 0 );
-			score.startingTime = currentProject.time;
+			Score scoreObject = new Score();
+			scoreObject.setCoords( sprite.getX(), sprite.topY() );
+			scoreObject.amount = amount;
+			scoreObject.setDiameter( 0 );
+			scoreObject.startingTime = BehaviorModelExample.instance.time;
+			scoreObject.insertTo( layer );
 			score += amount;
-			Layer.addLast( score );
 		}
 
+		@Override
 		public void act() {
 			move( 0, -speed );
-			if( currentProject.time > startingTime + period ) Layer.remove( this );
+			if( BehaviorModelExample.instance.time > startingTime + period ) removeFrom( layer );
 		}
 
-		public void draw() {
-			printText( "+" + amount, , Align.TO_BOTTOM, , , true );
+		@Override
+		public void draw( Color drawingColor ) {
+			printText( "+" + amount, Align.TO_CENTER, Align.TO_BOTTOM );
 		}
 	}
 
 
 	public static class Restart extends Project {
-		public int startingTime = System.currentTimeMillis();
-		public int initialized;
+		public long startingTime = System.currentTimeMillis();
+		public boolean initialized;
 
+		@Override
 		public void render() {
 			if( System.currentTimeMillis() < startingTime + 2000 ) {
 				render();
 				Camera.current.darken( 0.0005 * ( System.currentTimeMillis() - startingTime ) );
 			} else if( System.currentTimeMillis() < startingTime + 4000 ) {
-				if( ! initialized ) {
-					initLevel();
+				if( ! this.initialized ) {
+					instance.initLevel();
 					initialized = true;
 				}
 				render();

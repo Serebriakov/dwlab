@@ -48,7 +48,7 @@
 				<LTParameter name="moving" value="0.5-1"/>
 				<LTParameter name="jumping" value="5-10"/>
 				<LTParameter name="firing" value="2-3"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="jumping_strength" value="3-5"/>
 				<LTParameter name="firing_speed" value="2-4"/>
 				<LTParameter name="health" value="300"/>
@@ -61,7 +61,7 @@
 		<LTSprite x="6.87" y="12.25" width="0.75" height="1.5" shape="2">
 			<TList field="parameters">
 				<LTParameter name="firing" value="2-5"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="firing_speed" value="4-6"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="6">
@@ -73,7 +73,7 @@
 				<LTParameter name="moving" value="2.5-3.5"/>
 				<LTParameter name="jumping" value="2-3"/>
 				<LTParameter name="firing" value="5-7"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="jumping_strength" value="2-4"/>
 				<LTParameter name="firing_speed" value="6-9"/>
 			</TList>
@@ -86,7 +86,7 @@
 				<LTParameter name="moving" value="2.5-3.0"/>
 				<LTParameter name="jumping" value="1-4"/>
 				<LTParameter name="firing" value="3-4"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="jumping_strength" value="4-9"/>
 				<LTParameter name="firing_speed" value="2-3"/>
 			</TList>
@@ -99,7 +99,7 @@
 				<LTParameter name="moving" value="1.5-4"/>
 				<LTParameter name="jumping" value="1-2"/>
 				<LTParameter name="firing" value="7-10"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="jumping_strength" value="4-7"/>
 				<LTParameter name="firing_speed" value="3-4"/>
 			</TList>
@@ -110,7 +110,7 @@
 		<LTSprite x="4.87" y="11.25" width="0.75" height="1.5" shape="2">
 			<TList field="parameters">
 				<LTParameter name="firing" value="1.5-4"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="firing_speed" value="5-8"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="6">
@@ -120,7 +120,7 @@
 		<LTSprite x="8.83" y="13.25" width="0.75" height="1.5" shape="2">
 			<TList field="parameters">
 				<LTParameter name="firing" value="1-7"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="firing_speed" value="2-5"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="6">
@@ -131,7 +131,7 @@
 			<TList field="parameters">
 				<LTParameter name="moving" value="2-2.5"/>
 				<LTParameter name="jumping" value="1-5"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="jumping_strength" value="3-8"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="6">
@@ -142,7 +142,7 @@
 			<TList field="parameters">
 				<LTParameter name="moving" value="1.5-3"/>
 				<LTParameter name="jumping" value="0.5-1.5"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="jumping_strength" value="3-6"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="-6" rotating="0">
@@ -153,7 +153,7 @@
 			<TList field="parameters">
 				<LTParameter name="moving" value="2-4"/>
 				<LTParameter name="jumping" value="1-2"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 				<LTParameter name="jumping_strength" value="6-10"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="-6" rotating="0">
@@ -163,7 +163,7 @@
 		<LTSprite x="15.6" y="21.25" width="0.75" height="1.5" shape="2" moving-angle="-180">
 			<TList field="parameters">
 				<LTParameter name="moving" value="1-2"/>
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="-6" rotating="0">
 				<Object field="image" id="24"/>
@@ -171,7 +171,7 @@
 		</LTSprite>
 		<LTSprite x="9.83" y="22.25" width="0.75" height="1.5" shape="2" moving-angle="-180">
 			<TList field="parameters">
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="-6" rotating="0">
 				<Object field="image" id="24"/>
@@ -179,7 +179,7 @@
 		</LTSprite>
 		<LTSprite x="6.12" y="22.25" width="0.75" height="1.5" shape="2" moving-angle="-180">
 			<TList field="parameters">
-				<LTParameter name="class" value="TJelly"/>
+				<LTParameter name="class" value="Jelly"/>
 			</TList>
 			<LTVisualizer field="visualizer" xscale="-6" rotating="0">
 				<Object field="image" id="24"/>
@@ -187,7 +187,7 @@
 		</LTSprite>
 		<LTSprite x="2.62" y="22.12" width="0.75" height="1.74" shape="1">
 			<TList field="parameters">
-				<LTParameter name="class" value="TAwPossum"/>
+				<LTParameter name="class" value="AwPossum"/>
 			</TList>
 			<LTVisualizer field="visualizer" dy="-0.14" xscale="3.6" yscale="1.6">
 				<LTImage field="image" id="95" filename="awpossum.png" xcells="8" ycells="2" loading-time="22"/>

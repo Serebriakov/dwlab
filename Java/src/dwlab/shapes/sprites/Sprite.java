@@ -159,7 +159,7 @@ public class Sprite extends Shape {
 		this.x = shape.getX();
 		this.y = shape.getY();
 		this.width = shape.getWidth();
-		this.height = shape.getWidth();
+		this.height = shape.getHeight();
 	}
 	
 	// ==================== Drawing ===================	

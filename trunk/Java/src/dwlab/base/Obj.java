@@ -273,7 +273,7 @@ public class Obj {
 		classes = new HashMap<String, Class>();
 		Enumeration<URL> resources = null;
 		try {
-			resources = classLoader.getResources( "dwlab" );
+			resources = classLoader.getResources( "" );
 		} catch ( IOException ex ) {
 			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
 		}
@@ -283,7 +283,7 @@ public class Obj {
 				dirs.add( new File( resource.getFile() ) );
 		}
 		for ( File directory : dirs ) try {
-			addClasses( directory, "dwlab" );
+			addClasses( directory, "" );
 		} catch ( ClassNotFoundException ex ) {
 			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
 		}
@@ -295,9 +295,11 @@ public class Obj {
 		for (File file : files) {
 			if (file.isDirectory()) {
 				assert !file.getName().contains( "." );
-				addClasses( file, packageName + "." + file.getName() );
+				addClasses( file, packageName + ( packageName.isEmpty() ? "" : "." ) + file.getName() );
 			} else if( file.getName().endsWith( ".class" ) ) {
-				Class cl = Class.forName( packageName + '.' + file.getName().substring( 0, file.getName().length() - 6 ) );
+				String name = file.getName();
+				if( name.contains( "$" ) ) continue;
+				Class cl = Class.forName( packageName + "." + name.substring( 0, name.length() - 6 ) );
 				classes.put( cl.getSimpleName(), cl );
 			}
 		}

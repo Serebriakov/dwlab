@@ -10,6 +10,7 @@
 package dwlab.shapes;
 
 import dwlab.base.*;
+import static dwlab.base.Obj.classes;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -1204,12 +1205,11 @@ public class Shape extends Obj {
 		Shape newShape = null;
 		try {
 			if( parameterExists( "class" ) ) {
-				newShape = (Shape) Class.forName( getParameter( "class" ) ).newInstance();
+				Class newShapeClass = classes.get( getParameter( "class" ) );
+				newShape = (Shape) newShapeClass.newInstance();
 			} else {
 				newShape = (Shape) getClass().newInstance();
 			}
-		} catch ( ClassNotFoundException ex ) {
-			Logger.getLogger( Shape.class.getName() ).log( Level.SEVERE, null, ex );
 		} catch ( InstantiationException ex ) {
 			Logger.getLogger( Shape.class.getName() ).log( Level.SEVERE, null, ex );
 		} catch ( IllegalAccessException ex ) {

@@ -1,23 +1,22 @@
 package examples;
+
 import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
 import dwlab.base.*;
-import java.lang.Math;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
-import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 
-public class DistanceToPointExample extends Project {
+public class DistanceToExample extends Project {
 	static {
 		Graphics.init();
 	}
 	
 	public static void main(String[] argv) {
-		( new DistanceToPointExample() ).act();
+		( new DistanceToExample() ).act();
 	}
 	
 	
@@ -66,9 +65,9 @@ public class DistanceToPointExample extends Project {
 		Vector center = Vector.fieldToScreen( cursor );
 		Graphics.drawLine( center.x, center.y, 400, 300 );
 		cursor.print( String.valueOf( time ) );
-		cursor.print( Service.trim( cursor.distanceToPoint( 0, 0 ) ) );
+		cursor.print( Service.trim( cursor.distanceTo( 0, 0 ) ) );
 
-		printText( "Direction to field center is " + Service.trim( cursor.directionToPoint( 0, 0 ) ) );
+		printText( "Direction to field center is " + Service.trim( cursor.directionTo( 0, 0 ) ) );
 		printText( "Direction to nearest sprite is " + Service.trim( cursor.directionTo( minSprite ) ), 1 );
 		printText( "DirectionTo, DirectionToPoint, DistanceTo, DistanceToPoint example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}

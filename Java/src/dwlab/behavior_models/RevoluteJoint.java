@@ -42,8 +42,8 @@ public class RevoluteJoint extends BehaviorModel<Sprite> {
 		double distance2 = Service.distance( dX * sprite.getWidth(), dY * sprite.getHeight() );
 		double x = sprite.getX() + Math.cos( angle2 + sprite.angle ) * distance2;
 		double y = sprite.getY() + Math.sin( angle2 + sprite.angle ) * distance2;
-		angle = parentPivot.directionToPoint( x, y ) - parentPivot.angle;
-		distance = parentPivot.distanceToPoint( x, y );
+		angle = parentPivot.directionTo( x, y ) - parentPivot.angle;
+		distance = parentPivot.distanceTo( x, y );
 	}
 
 

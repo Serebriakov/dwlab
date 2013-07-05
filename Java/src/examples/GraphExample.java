@@ -48,7 +48,7 @@ public class GraphExample extends Project {
 				double y = Service.random( -11, 11 );
 				boolean passed = true;
 				for( Sprite pivot : graph.contents.keySet() ) {
-					if( pivot.distanceToPoint( x, y ) < minDistance ) {
+					if( pivot.distanceTo( x, y ) < minDistance ) {
 						passed = false ;
 						break;
 					}

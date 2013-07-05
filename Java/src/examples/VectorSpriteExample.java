@@ -51,14 +51,14 @@ public class VectorSpriteExample extends Project {
 		SpriteAndTileCollisionHandler horizontalCollisionHandler = new SpriteAndTileCollisionHandler(){
 			@Override
 			public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
-				if( bricks( tileMap, tileX, tileY ) ) sprite.pushFromTile( tileMap, tileX, tileY );
+				if( bricks( tileMap, tileX, tileY ) ) sprite.pushFrom( tileMap, tileX, tileY );
 			}
 		};
 		SpriteAndTileCollisionHandler verticalCollisionHandler = new SpriteAndTileCollisionHandler<VectorSprite>(){
 			@Override
 			public void handleCollision( VectorSprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 				if( bricks( tileMap, tileX, tileY ) ) {
-					sprite.pushFromTile( tileMap, tileX, tileY );
+					sprite.pushFrom( tileMap, tileX, tileY );
 					if( sprite.dY > 0 ) onLand = true;
 					sprite.dY = 0;
 				}
@@ -68,12 +68,12 @@ public class VectorSpriteExample extends Project {
 		@Override
 		public void act() {
 			move( dX, 0 );
-			collisionsWithTileMap( tileMap, horizontalCollisionHandler );
+			collisionsWith( tileMap, horizontalCollisionHandler );
 
 			onLand = false;
 			move( 0, dY );
 			dY += perSecond( gravity );
-			collisionsWithTileMap( tileMap, verticalCollisionHandler );
+			collisionsWith( tileMap, verticalCollisionHandler );
 
 			dX = 0.0;
 			if( moveLeft.isDown() ) {

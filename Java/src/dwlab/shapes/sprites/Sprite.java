@@ -187,7 +187,7 @@ public class Sprite extends Shape {
 	 * Checks if this sprite collides with given sprite.
 	 * @return True if the sprite collides with given sprite, False otherwise.
 	 */
-	public boolean collidesWithSprite( Sprite sprite ) {
+	public boolean collidesWith( Sprite sprite ) {
 		if( Sys.debug ) Project.collisionChecks += 1;
 		int num1 = shapeType.getNum();
 		int num2 = sprite.shapeType.getNum();
@@ -204,7 +204,7 @@ public class Sprite extends Shape {
 	 * @return True if the sprite collides with given line, otherwise false.
 	 * Only collision of line and Oval is yet implemented.
 	 */
-	public boolean collidesWithLineSegment( LineSegment lineSegment ) {
+	public boolean collidesWith( LineSegment lineSegment ) {
 		if( Sys.debug ) Project.collisionChecks += 1;
 		return CollisionWithLineSegment.handlers[ shapeType.getNum() ].check( this, lineSegment );
 	}
@@ -228,7 +228,7 @@ public class Sprite extends Shape {
 	 * 
 	 * @see #clone example
 	 */	
-	public Sprite lastCollidedSpriteOfLayer( Layer layer ) {
+	public Sprite lastCollidedSpriteOf( Layer layer ) {
 		for ( Iterator<Shape> it = layer.children.descendingIterator(); it.hasNext(); ) {
 			Shape shape = it.next();
 			if( shape != this ) {
@@ -242,7 +242,7 @@ public class Sprite extends Shape {
 
 	@Override
 	public Sprite layerLastSpriteCollision( Sprite sprite ) {
-		if( collidesWithSprite( sprite ) ) return this; else return null;
+		if( collidesWith( sprite ) ) return this; else return null;
 	}
 
 
@@ -253,8 +253,8 @@ public class Sprite extends Shape {
 	 * 
 	 * @see #collisionsWithLayer, #collisionsWithTileMap, #collisionsWithLine, #collisionsWithSpriteMap, #horizontal, #vertical
 	 */
-	public void collisionsWithSprite( Sprite sprite, SpriteCollisionHandler handler ) {
-		if( collidesWithSprite( sprite ) ) handler.handleCollision( this, sprite );
+	public void collisionsWith( Sprite sprite, SpriteCollisionHandler handler ) {
+		if( collidesWith( sprite ) ) handler.handleCollision( this, sprite );
 	}
 
 
@@ -265,7 +265,7 @@ public class Sprite extends Shape {
 	 * 
 	 * @see #collisionsWithSprite, #collisionsWithTileMap, #collisionsWithLine, #collisionsWithSpriteMap, #horizontal, #vertical
 	 */
-	public void collisionsWithLayer( Layer layer, SpriteCollisionHandler handler ) {
+	public void collisionsWith( Layer layer, SpriteCollisionHandler handler ) {
 		for( Shape shape: layer.children ) {
 			if( shape != this ) shape.spriteLayerCollisions( this, handler );
 		}
@@ -274,7 +274,7 @@ public class Sprite extends Shape {
 
 	@Override
 	public void spriteLayerCollisions( Sprite sprite, SpriteCollisionHandler handler ) {
-		if( sprite.collidesWithSprite( this ) ) handler.handleCollision( sprite, this );
+		if( sprite.collidesWith( this ) ) handler.handleCollision( sprite, this );
 	}
 
 
@@ -285,8 +285,8 @@ public class Sprite extends Shape {
 	 * 
 	 * @see #collisionsWithLayer, #collisionsWithSprite, #collisionsWithTileMap, #collisionsWithSpriteMap, #horizontal, #vertical
 	 */
-	public void collisionsWithLineSegment( LineSegment lineSegment, SpriteAndLineSegmentCollisionHandler handler ) {
-		if( collidesWithLineSegment( lineSegment ) ) handler.handleCollision( this, lineSegment );
+	public void collisionsWith( LineSegment lineSegment, SpriteAndLineSegmentCollisionHandler handler ) {
+		if( collidesWith( lineSegment ) ) handler.handleCollision( this, lineSegment );
 	}
 
 
@@ -299,7 +299,7 @@ public class Sprite extends Shape {
 	 * 
 	 * @see #collisionsWithLayer, #collisionsWithSprite, #collisionsWithLine, #collisionsWithSpriteMap, #horizontal, #vertical, #lTVectorSprite example
 	 */
-	public void collisionsWithTileMap( TileMap tileMap, SpriteAndTileCollisionHandler handler ) {
+	public void collisionsWith( TileMap tileMap, SpriteAndTileCollisionHandler handler, int[] tileNums ) {
 		double x0 = tileMap.leftX();
 		double y0 = tileMap.topY();
 		double cellWidth = tileMap.getTileWidth();
@@ -313,12 +313,14 @@ public class Sprite extends Shape {
 			int tileY = Service.floor( ( y - y0 ) / cellHeight );
 
 			if( tileX >= 0 && tileY >= 0 && tileX < xQuantity && tileY < yQuantity ) {
-				Sprite[] spriteArray = collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
+				int tileNum = tileMap.value[ tileY ][ tileX ];
+				Sprite[] spriteArray = collisionSprites[ tileNum ];
 				if( spriteArray != null ) {
+					if( !Service.inArray( tileNums, tileNum ) ) return;
 					for( int n = 0; n < spriteArray.length; n++ ) {
 						Sprite sprite = spriteArray[ n ];
 						sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
-						if( collidesWithSprite( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
+						if( collidesWith( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
 					}
 				}
 			}
@@ -336,18 +338,24 @@ public class Sprite extends Shape {
 
 				for( int tileY = y1; tileY <= y2; tileY++ ) {
 					for( int tileX = x1; tileX <= x2; tileX++ ) {
-						Sprite[] spriteArray = collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
+						int tileNum = tileMap.value[ tileY ][ tileX ];
+						Sprite[] spriteArray = collisionSprites[ tileNum ];
 						if( spriteArray != null ) {
+							if( !Service.inArray( tileNums, tileNum ) ) continue;
 							for( int n = 0; n < spriteArray.length; n++ ) {
 								Sprite sprite = spriteArray[ n ];
 								sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
-								if( collidesWithSprite( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
+								if( collidesWith( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
 							}
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	public void collisionsWith( TileMap tileMap, SpriteAndTileCollisionHandler handler ) {
+		collisionsWith( tileMap, handler, null );
 	}
 
 
@@ -359,7 +367,7 @@ public class Sprite extends Shape {
 	 * 
 	 * @see #collisionsWithGroup, #collisionsWithSprite, #collisionsWithTileMap, #collisionsWithLine, #horizontal, #vertical, #lTSpriteMap example
 	 */
-	public void collisionsWithSpriteMap( SpriteMap spriteMap, SpriteCollisionHandler handler ) {
+	public void collisionsWith( SpriteMap spriteMap, SpriteCollisionHandler handler ) {
 		checkNum++;
 		if( shapeType == ShapeType.pivot ) {
 			int wrappedCellX = ( (int) Service.floor( x / spriteMap.cellWidth ) ) & spriteMap.xMask;
@@ -369,7 +377,7 @@ public class Sprite extends Shape {
 			for( int n = 0; n < quantity; n++ ) {
 				Sprite mapSprite = sprites[ n ];
 				if( this == mapSprite ) continue;
-				if( collidesWithSprite( mapSprite ) ) {
+				if( collidesWith( mapSprite ) ) {
 					if( mapSprite.checkValue != checkNum ) {
 						mapSprite.checkValue = checkNum;
 						handler.handleCollision( this, mapSprite );
@@ -391,7 +399,7 @@ public class Sprite extends Shape {
 					for( int n = 0; n < quantity; n++ ) {
 						Sprite mapSprite = sprites[ n ];
 						if( this == mapSprite ) continue;
-						if( collidesWithSprite( mapSprite ) ) {
+						if( collidesWith( mapSprite ) ) {
 							if( mapSprite.checkValue != checkNum ) {
 								mapSprite.checkValue = checkNum;
 								handler.handleCollision( this, mapSprite );
@@ -414,7 +422,7 @@ public class Sprite extends Shape {
 	 * <li> If one of the sprite has moving resistance less than 0 and other has moving resistance more or equal to 0, then only zero-or-more-moving-resistance sprite will be moved.
 	 * </ul>
 	 */
-	public void wedgeOffWithSprite( Sprite sprite, double selfMovingResistance, double spriteMovingResistance ) {
+	public void wedgeOffWith( Sprite sprite, double selfMovingResistance, double spriteMovingResistance ) {
 		int num1 = shapeType.getNum();
 		int num2 = sprite.shapeType.getNum();
 		if( num1 <= num2 ) {
@@ -426,8 +434,8 @@ public class Sprite extends Shape {
 		}
 	}
 	
-	public void wedgeOffWithSprite( Sprite sprite ) {
-		wedgeOffWithSprite( sprite, 0.5d, 0.5d );
+	public void wedgeOffWith( Sprite sprite ) {
+		wedgeOffWith( sprite, 0.5d, 0.5d );
 	}
 
 
@@ -435,8 +443,8 @@ public class Sprite extends Shape {
 	 * Pushes sprite from given sprite.
 	 * See also : #wedgeOffWithSprite, #pushFromTile
 	 */
-	public void pushFromSprite( Sprite sprite ) {
-		wedgeOffWithSprite( sprite, 0.0, 1.0 );
+	public void pushFrom( Sprite sprite ) {
+		wedgeOffWith( sprite, 0.0, 1.0 );
 	}
 
 
@@ -444,7 +452,7 @@ public class Sprite extends Shape {
 	 * Pushes sprite from given tile.
 	 * See also : #pushFromSprite
 	 */
-	public void pushFromTile( TileMap tileMap, int tileX, int tileY ) {
+	public void pushFrom( TileMap tileMap, int tileX, int tileY ) {
 		double x0 = tileMap.leftX();
 		double y0 = tileMap.topY();
 		double cellWidth = tileMap.getTileWidth();
@@ -454,7 +462,7 @@ public class Sprite extends Shape {
 			for( int n = 0; n < spriteArray.length; n++ ) {
 				Sprite sprite = spriteArray[ n ];
 				sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
-				pushFromSprite( serviceSprite );
+				pushFrom( serviceSprite );
 			}
 		}
 	}

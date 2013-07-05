@@ -20,18 +20,20 @@ import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 public class TileMapCollisionModel extends BehaviorModel<Sprite> {
 	public TileMap tileMap;
 	public SpriteAndTileCollisionHandler collisionHandler;
+	public int[] tileNum;
 
 	
-	public static TileMapCollisionModel create( TileMap tileMap, SpriteAndTileCollisionHandler collisionHandler ) {
+	public static TileMapCollisionModel create( TileMap tileMap, SpriteAndTileCollisionHandler collisionHandler, int[] tileNum ) {
 		TileMapCollisionModel model = new TileMapCollisionModel();
 		model.collisionHandler = collisionHandler;
 		model.tileMap = tileMap;
+		model.tileNum = tileNum;
 		return model;
 	}
 	
 
 	@Override
 	public void applyTo( Sprite sprite ) {
-		sprite.collisionsWithTileMap( tileMap, collisionHandler );
+		sprite.collisionsWith( tileMap, collisionHandler, tileNum );
 	}
 }

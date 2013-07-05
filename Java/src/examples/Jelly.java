@@ -2,11 +2,20 @@ package examples;
 
 import dwlab.base.service.Service;
 import dwlab.behavior_models.AnimationModel;
+import dwlab.behavior_models.BehaviorModel;
 import dwlab.behavior_models.FixedWaitingModel;
 import dwlab.behavior_models.IsModelActive;
 import dwlab.behavior_models.ModelActivator;
 import dwlab.behavior_models.ModelDeactivator;
 import dwlab.behavior_models.RandomWaitingModel;
+import dwlab.behavior_models.VectorSpriteCollisionsModel;
+import dwlab.shapes.maps.tilemaps.TileMap;
+import dwlab.shapes.sprites.Sprite;
+import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
+import dwlab.shapes.sprites.SpriteCollisionHandler;
+import dwlab.shapes.sprites.VectorSprite;
+import dwlab.shapes.sprites.shape_types.ShapeType;
+import static examples.BehaviorModelExample.*;
 
 public class Jelly extends GameObject {
 	static final double jumpingAnimationSpeed = 0.2;
@@ -22,6 +31,10 @@ public class Jelly extends GameObject {
 
 	int score = 100;
 
+	static BumpingWalls bumpingWalls = new BumpingWalls();
+	static BumpingSprites bumpingSprites = new BumpingSprites();
+	public static DestroyBullet destroyBullet = new DestroyBullet();
+	
 
 	@Override
 	public void init() {
@@ -53,7 +66,7 @@ public class Jelly extends GameObject {
 
 			parameters = getParameter( "jumping_strength" ).split( "-" );
 			FixedWaitingModel pauseBeforeJump = FixedWaitingModel.create( jumpingPause );
-			pauseBeforeJump.nextModels.addLast( BehaviorModelExample.Jump.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) ) );
+			pauseBeforeJump.nextModels.addLast( Jump.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) ) );
 			pauseBeforeJump.nextModels.addLast( new ModelActivator( horizontalMovementModel() ) );
 			pauseBeforeJump.nextModels.addLast( new ModelActivator( gravity ) );
 			pauseBeforeJump.nextModels.addLast( waitingForJump );
@@ -87,7 +100,7 @@ public class Jelly extends GameObject {
 
 			parameters = getParameter( "firing_speed" ).split( "-" );
 			FixedWaitingModel pauseBeforeBullet = FixedWaitingModel.create( bulletPause );
-			pauseBeforeBullet.nextModels.addLast( BehaviorModelExample.CreateBullet.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) ) );
+			pauseBeforeBullet.nextModels.addLast( CreateBullet.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) ) );
 			pauseBeforeBullet.nextModels.addLast( waitingForFire );
 			animationActive.falseModels.addLast( pauseBeforeBullet );
 
@@ -106,11 +119,124 @@ public class Jelly extends GameObject {
 
 		attachModel( new ModelDeactivator( onLand, true ) );
 
+		
+		addTileMapCollisions( VectorSpriteCollisionsModel.Group.HORIZONTAL, tileMap, bumpingWalls, null );
+		addTileMapCollisions( VectorSpriteCollisionsModel.Group.VERTICAL, tileMap, verticalCollisionHandler, null );
+		addLayerCollisions( VectorSpriteCollisionsModel.Group.ALL, layer, bumpingSprites );
+		
 
 		AnimationModel standingAnimation = new AnimationModel( true, idleAnimationSpeed, 3, 0, true );
 		addToStack( standingAnimation );
 
 		if( parameterExists( "score" ) ) score = getIntegerParameter( "score" );
 		if( parameterExists( "health" ) ) health = getDoubleParameter( "health" );
+	}
+	
+
+	static class BumpingWalls extends SpriteAndTileCollisionHandler {
+		@Override
+		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
+			sprite.pushFrom( tileMap, tileX, tileY );
+			( (VectorSprite) sprite ).dX *= -1;
+			sprite.visualizer.xScale *= -1;
+		}
+	}
+
+
+	static class BumpingSprites extends SpriteCollisionHandler {
+		@Override
+		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
+			sprite1.pushFrom( sprite2 );
+			( (VectorSprite) sprite1 ).dX *= -1;
+			sprite1.visualizer.xScale *= -1;
+		}
+	}
+
+
+	public static class CreateBullet extends BehaviorModel<VectorSprite> {
+		public double fromSpeed, toSpeed;
+
+		public static CreateBullet create( double fromSpeed, double toSpeed ) {
+			CreateBullet createBullet = new CreateBullet();
+			createBullet.fromSpeed = fromSpeed;
+			createBullet.toSpeed = toSpeed;
+			return createBullet;
+		}
+
+		@Override
+		public void applyTo( VectorSprite sprite ) {
+			Bullet.create( sprite, Service.random( fromSpeed, toSpeed ) );
+			remove( sprite );
+		}
+	}
+
+
+	public static class Bullet extends VectorSprite {
+		static double minAttack = 5.0;
+		static double maxAttack = 10.0;
+
+		public boolean collisions = true;
+
+		public static void create( VectorSprite Jelly, double speed ) {
+			Bullet bullet = new Bullet();
+			bullet.setCoords( Jelly.getX() + Math.signum( Jelly.dX ) * Jelly.getWidth() * 2.2, Jelly.getY() - 0.15 * Jelly.getHeight() );
+			bullet.setSize( 0.45 * Jelly.getWidth(), 0.45 * Jelly.getWidth() );
+			bullet.shapeType = ShapeType.oval;
+			bullet.dX = Math.signum( Jelly.dX ) * speed;
+			bullet.visualizer.setVisualizerScale( 12, 4 );
+			bullet.visualizer.image = Jelly.visualizer.image;
+			bullet.frame = 6;
+			layer.addLast( bullet );
+		}
+			
+
+		@Override
+		public void act() {
+			moveForward();
+			if( collisions ) collisionsWith( tileMap, destroyBullet );
+			super.act();
+		}
+		
+
+		public static void disable( Sprite sprite ) {
+			Bullet bullet = (Bullet) sprite;
+			if( bullet.collisions ) {
+				bullet.attachModel( new Death() );
+				bullet.attachModel( new Gravity() );
+				bullet.reverseDirection();
+				bullet.collisions = false;
+				bullet.dX *= 0.25;
+			}
+		}
+	}
+
+
+	public static class DestroyBullet extends SpriteAndTileCollisionHandler {
+		@Override
+		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
+			if( tileMap.getTile( tileX, tileY ) == bricks ) Bullet.disable( sprite );
+		}
+	}
+
+
+	public static class JellyHurt extends FixedWaitingModel<VectorSprite> {
+		@Override
+		public void init( VectorSprite sprite ) {
+			period = Jelly.hurtingTime;
+			sprite.horizontalMovementModel().deactivate( sprite );
+		}
+
+		@Override
+		public void applyTo( VectorSprite sprite ) {
+			super.applyTo( sprite );
+			double intensity = ( instance.time - startingTime ) / period;
+			if( intensity <= 1.0 ) sprite.visualizer.set( 1.0, intensity, intensity, 1.0 );
+		}
+
+		@Override
+		public void deactivate( VectorSprite sprite ) {
+			sprite.horizontalMovementModel().activate( sprite );
+			sprite.visualizer.set( "FFFFFF" );
+		}
 	}
 }

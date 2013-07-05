@@ -413,7 +413,7 @@ public class SpriteMap extends Map {
 
 
 	@Override
-	public boolean insertShape( Shape shape, Shape pivotShape, Relativity relativity ) {
+	public boolean insert( Shape shape, Shape pivotShape, Relativity relativity ) {
 		Sprite sprite = pivotShape.toSprite();
 		if( sprite == null ) return false;
 		if( sprites.contains( sprite ) ) {
@@ -427,7 +427,7 @@ public class SpriteMap extends Map {
 	
 	
 	@Override
-	public boolean insertShape( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
+	public boolean insert( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
 		Sprite sprite = pivotShape.toSprite();
 		if( sprite == null ) return false;
 		if( sprites.contains( sprite ) ) {

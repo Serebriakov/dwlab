@@ -12,13 +12,14 @@ import dwlab.base.Project;
 import dwlab.base.service.Service;
 import dwlab.behavior_models.BehaviorModel;
 import dwlab.behavior_models.HorizontalMovementModel;
-import dwlab.behavior_models.ModelStack;
 import dwlab.behavior_models.VectorSpriteCollisionsModel;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.Group;
+import dwlab.behavior_models.VectorSpriteCollisionsModel.LayerCollisions;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.SpriteMapCollisions;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.TileMapCollisions;
 import dwlab.behavior_models.VerticalMovementModel;
 import dwlab.shapes.Shape;
+import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.shape_types.ShapeType;
@@ -165,13 +166,18 @@ public class VectorSprite extends Sprite {
 	}
 	
 	
-	public void addSpriteMapCollisions( Group group, SpriteMap map, SpriteCollisionHandler handler ) {
-		addToGroup( new SpriteMapCollisions( map, handler ), group );
+	public void addLayerCollisions( Group group, Layer layer, SpriteCollisionHandler handler ) {
+		addToGroup( new LayerCollisions( layer, handler ), group );
 	}
 	
 	
 	public void addTileMapCollisions( Group group, TileMap map, SpriteAndTileCollisionHandler handler, int[] tileNum ) {
 		addToGroup( new TileMapCollisions( map, handler, tileNum ), group );
+	}
+	
+	
+	public void addSpriteMapCollisions( Group group, SpriteMap map, SpriteCollisionHandler handler ) {
+		addToGroup( new SpriteMapCollisions( map, handler ), group );
 	}
 
 	
@@ -185,8 +191,12 @@ public class VectorSprite extends Sprite {
 		}
 		if( collisions == null ) {
 			collisions = new VectorSpriteCollisionsModel();
-			behaviorModels.add( collisions );
+			attachModel( collisions );
 		}
+		
+		model.init( this );
+		model.activate( this );
+		model.active = true;
 		
 		switch( group ) {
 			case HORIZONTAL:
@@ -222,10 +232,14 @@ public class VectorSprite extends Sprite {
 	}
 	
 	public HorizontalMovementModel horizontalMovementModel() {
-		return сollisionsModel().horizontalMovementModel;
+		VectorSpriteCollisionsModel model = сollisionsModel();
+		if( model == null ) return null;
+		return model.horizontalMovementModel;
 	}
 	
 	public VerticalMovementModel verticalMovementModel() {
-		return сollisionsModel().verticalMovementModel;
+		VectorSpriteCollisionsModel model = сollisionsModel();
+		if( model == null ) return null;
+		return model.verticalMovementModel;
 	}
 }

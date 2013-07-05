@@ -94,7 +94,7 @@ public class ActiveExample extends Project {
 		public void act() {
 			moveForward();
 			bounceInside( rectangle );
-			collisionsWithSprite( cursor, handler );
+			collisionsWith( cursor, handler );
 		}
 	}
 }

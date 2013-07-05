@@ -46,7 +46,7 @@ public class CloneExample extends Project {
 	@Override
 	public void logic() {
 		if( clone.wasPressed() ) {
-			Sprite sprite = cursor.lastCollidedSpriteOfLayer( sprites );
+			Sprite sprite = cursor.lastCollidedSpriteOf( sprites );
 			if( sprite != null ) {
 				Sprite newSprite = sprite.clone();
 				newSprite.alterCoords( Service.random( -2, 2 ), Service.random( -2, 2 ) );

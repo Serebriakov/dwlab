@@ -90,7 +90,7 @@ public class ActionExample extends Project {
 
 		@Override
 		public void startDragging() {
-			shape = cursor.lastCollidedSpriteOfLayer( sprites );
+			shape = cursor.lastCollidedSpriteOf( sprites );
 			if( shape != null ) {
 				action = new MoveAction( shape );
 				dX = shape.getX() - cursor.getX();

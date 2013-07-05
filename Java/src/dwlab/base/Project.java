@@ -131,6 +131,9 @@ public class Project extends Obj {
 		
 		int logicStepsWithoutRender = 0;
 
+		for( Obj manager : managers ) manager.act();
+		managers.clear();
+			
 		while( true ) {
 			deltaTime = 1.0 / logicFPS;
 			time += deltaTime;
@@ -142,7 +145,9 @@ public class Project extends Obj {
 
 			cursor.setMouseCoords();
 			logic();
-			for( Obj manager : managers ) manager.act();
+			for( Obj manager : managers ) {
+				manager.act();
+			}
 			managers.clear();
 			
 			if( exiting ) break;

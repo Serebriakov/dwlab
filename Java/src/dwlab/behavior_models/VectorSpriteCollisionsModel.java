@@ -9,6 +9,7 @@
 
 package dwlab.behavior_models;
 
+import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
@@ -32,20 +33,20 @@ public class VectorSpriteCollisionsModel extends BehaviorModel<VectorSprite> {
 	public VerticalMovementModel verticalMovementModel = new VerticalMovementModel();
 	
 	
-	public static class SpriteMapCollisions extends BehaviorModel<VectorSprite> {
-		private SpriteMap map;
+	public static class LayerCollisions extends BehaviorModel<VectorSprite> {
+		private Layer layer;
 		private SpriteCollisionHandler handler;
 		
 		
-		public SpriteMapCollisions( SpriteMap map, SpriteCollisionHandler handler ) {
-			this.map = map;
+		public LayerCollisions( Layer layer, SpriteCollisionHandler handler ) {
+			this.layer = layer;
 			this.handler = handler;
 		}
 		
 		
 		@Override
 		public void applyTo( VectorSprite sprite ) {
-			sprite.collisionsWithSpriteMap( map, handler );
+			sprite.collisionsWith( layer, handler );
 		}
 	}
 	
@@ -65,7 +66,25 @@ public class VectorSpriteCollisionsModel extends BehaviorModel<VectorSprite> {
 		
 		@Override
 		public void applyTo( VectorSprite sprite ) {
-			sprite.collisionsWithTileMap( map, handler );
+			sprite.collisionsWith( map, handler, tileNum );
+		}
+	}
+	
+	
+	public static class SpriteMapCollisions extends BehaviorModel<VectorSprite> {
+		private SpriteMap map;
+		private SpriteCollisionHandler handler;
+		
+		
+		public SpriteMapCollisions( SpriteMap map, SpriteCollisionHandler handler ) {
+			this.map = map;
+			this.handler = handler;
+		}
+		
+		
+		@Override
+		public void applyTo( VectorSprite sprite ) {
+			sprite.collisionsWith( map, handler );
 		}
 	}
 	

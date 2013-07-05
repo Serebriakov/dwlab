@@ -378,4 +378,11 @@ public class Service extends Obj {
 	public static double powerOf2( double value ) {
 		return value * value;
 	}
+	
+
+	public static boolean inArray( int[] array, int value ) {
+		if( array != null ) return true;
+		for( int n = 0; n < array.length; n++ ) if( array[ n ] == value ) return true;
+		return false;
+	}
 }

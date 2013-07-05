@@ -230,7 +230,7 @@ public class Shape extends Obj {
 	 * @return Distance from the shape center to the point with given coordinates.
 	 * @see #distanceTo
 	 */
-	public double distanceToPoint( double pointX, double pointY ) {
+	public double distanceTo( double pointX, double pointY ) {
 		double dX = x - pointX;
 		double dY = y - pointY;
 		return Math.sqrt( dX * dX + dY * dY );
@@ -266,7 +266,7 @@ public class Shape extends Obj {
 	}
 
 
-	public boolean isAtPositionOfPoint( double pointX, double pointY ) {
+	public boolean isAtPositionOf( double pointX, double pointY ) {
 		if( pointX == x && pointY == y ) return true; else return false;
 	}
 
@@ -317,7 +317,7 @@ public class Shape extends Obj {
 
 
 	public Shape setCoordsRelativeTo( Sprite sprite, double newX, double newY ) {
-		double spriteAngle = directionToPoint( newX, newY ) + sprite.angle;
+		double spriteAngle = directionTo( newX, newY ) + sprite.angle;
 		double radius = Math.sqrt( newX * newX + newY * newY );
 		setCoords( sprite.x + radius * Math.cos( spriteAngle ), sprite.y + radius * Math.sin( spriteAngle ) );
 		return this;
@@ -328,7 +328,7 @@ public class Shape extends Obj {
 	 * Position vector using coordinates in tilemap's coordinate system
 	 * Integer TileX and TileY sets shape position to the center of given tilemap's cooresponding tile
 	 */
-	public Shape positionOnTileMap( TileMap tileMap, double tileX, double tileY ) {
+	public Shape positionOn( TileMap tileMap, double tileX, double tileY ) {
 		x = tileMap.leftX() + ( tileX + 0.5d ) * tileMap.getTileWidth();
 		y = tileMap.topY() + ( tileY + 0.5d ) * tileMap.getTileHeight();
 		return this;
@@ -426,7 +426,7 @@ public class Shape extends Obj {
 	 * @see #moveForward, #moveBackward
 	 */
 	public Shape moveTowards( Shape shape, double velocity ) {
-		moveTowardsPoint( shape.x, shape.y, velocity );
+		moveTowards( shape.x, shape.y, velocity );
 		return this;
 	}
 
@@ -435,8 +435,8 @@ public class Shape extends Obj {
 	 * Moves the shape with given velocity towards shape.
 	 * @see #moveForward
 	 */
-	public Shape moveTowardsPoint( double destinationX, double destinationY, double velocity ) {
-		double angle = directionToPoint( destinationX, destinationY );
+	public Shape moveTowards( double destinationX, double destinationY, double velocity ) {
+		double angle = directionTo( destinationX, destinationY );
 		double dX = Math.cos( angle ) * velocity * Project.deltaTime;
 		double dY = Math.sin( angle ) * velocity * Project.deltaTime;
 		if( Math.abs( dX ) >= Math.abs( x - destinationX ) && Math.abs( dY ) >= Math.abs( y - destinationY ) ) {
@@ -795,7 +795,7 @@ public class Shape extends Obj {
 	 * @return Angle between vector from the center of the shape to the point with given coordinates and X axis.
 	 * @see #directionTo, #distanceToPoint example
 	 */
-	public double directionToPoint( double pointX, double pointY ) {
+	public double directionTo( double pointX, double pointY ) {
 		return Math.atan2( pointY - y, pointX - x );
 	}
 
@@ -811,6 +811,23 @@ public class Shape extends Obj {
 
 	// ==================== Behavior models ===================
 
+	
+	private class BehaviorModelAttacher extends Obj {
+		BehaviorModel model;
+		Shape shape;
+		
+		public BehaviorModelAttacher( Shape shape, BehaviorModel model ) {
+			this.shape = shape;
+			this.model = model;
+		}
+		
+		@Override
+		public void act() {
+			shape.behaviorModels.add( model );
+		}
+	}
+	
+	
 	/**
 	 * Attaches behavior model to the shape.
 	 * Model will be initialized and activated if necessary.
@@ -818,7 +835,8 @@ public class Shape extends Obj {
 	 * @see #lTBehaviorModel, #activate
 	 */
 	public Shape attachModel( BehaviorModel model, boolean activate ) {
-		behaviorModels.addLast( model );
+		Project.managers.add( new BehaviorModelAttacher( this, model ) );
+		model.init( this );
 		if( activate ) {
 			model.activate( this );
 			model.active = true;
@@ -950,9 +968,7 @@ public class Shape extends Obj {
 
 
 	public Shape removeModel( BehaviorModel model ) {
-		for ( Iterator<BehaviorModel> iterator = behaviorModels.iterator(); iterator.hasNext(); ) {
-			if( iterator.next() == model ) iterator.remove();
-		}
+		model.remove( this );
 		return this;
 	}
 	
@@ -964,8 +980,8 @@ public class Shape extends Obj {
 	 * @see #lTBehaviorModel, #deactivate
 	 */
 	public Shape removeModel( Class modelClass ) {
-		for ( Iterator<BehaviorModel> iterator = behaviorModels.iterator(); iterator.hasNext(); ) {
-			if( iterator.next().getClass() == modelClass ) iterator.remove();
+		for( BehaviorModel shapeModel: behaviorModels ) {
+			if( shapeModel.getClass() == modelClass ) shapeModel.remove( this );
 		}
 		return this;
 	}
@@ -977,8 +993,8 @@ public class Shape extends Obj {
 	 */
 	public final Shape removeSame( BehaviorModel model ) {
 		Class modelClass = model.getClass();
-		for ( Iterator<BehaviorModel> iterator = behaviorModels.iterator(); iterator.hasNext(); ) {
-			if( modelClass.isInstance( iterator.next() ) ) iterator.remove();
+		for( BehaviorModel shapeModel: behaviorModels ) {
+			if( shapeModel.getClass() == modelClass ) shapeModel.remove( this );
 		}
 		return this;
 	}
@@ -994,9 +1010,9 @@ public class Shape extends Obj {
 		}
 		if( stack == null ) {
 			stack = new ModelStack();
-			behaviorModels.add( stack );
+			attachModel( stack );
 		}
-		attachModel( animationModel, activate );
+		stack.add( animationModel, activate );
 	}
 	
 	public void addToStack( BehaviorModel animationModel ) {
@@ -1116,11 +1132,11 @@ public class Shape extends Obj {
 	}
 	
 	public int getIntegerParameter( String name ) {
-		return Integer.parseInt( name );
+		return Integer.parseInt( getParameter( name ) );
 	}
 	
 	public double getDoubleParameter( String name ) {
-		return Double.parseDouble( name );
+		return Double.parseDouble( getParameter( name ) );
 	}
 
 
@@ -1271,7 +1287,7 @@ public class Shape extends Obj {
 	 * Inserts the shape before given.
 	 * Included layers and sprite maps will be also checked for given shape.
 	 */
-	public boolean insertShape( Shape shape, Shape pivotShape, Relativity relativity ) {
+	public boolean insert( Shape shape, Shape pivotShape, Relativity relativity ) {
 		return false;
 	}
 
@@ -1279,7 +1295,7 @@ public class Shape extends Obj {
 	 * Inserts collection of shapes before given.
 	 * Included layers and sprite maps will be also checked for given shape.
 	 */
-	public boolean insertShape( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
+	public boolean insert( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
 		return false;
 	}
 

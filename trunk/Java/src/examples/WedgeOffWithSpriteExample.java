@@ -37,7 +37,7 @@ public class WedgeOffWithSpriteExample extends Project {
 	public static SpriteCollisionHandler collisionHandler = new SpriteCollisionHandler(){
 		@Override
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
-			sprite1.wedgeOffWithSprite( sprite2, Service.powerOf2( sprite1.getWidth() ), Service.powerOf2( sprite2.getWidth() ) );
+			sprite1.wedgeOffWith( sprite2, Service.powerOf2( sprite1.getWidth() ), Service.powerOf2( sprite2.getWidth() ) );
 		}
 	};
 
@@ -113,7 +113,7 @@ public class WedgeOffWithSpriteExample extends Project {
 
 		@Override
 		public void act() {
-			collisionsWithLayer( koloboks, collisionHandler );
+			collisionsWith( koloboks, collisionHandler );
 		}
 	}
 }

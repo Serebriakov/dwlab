@@ -23,23 +23,23 @@ public class SpritesCollision extends ServiceObjects {
 	public static SpritesCollision handlers[][];
 
 	static {
-		register( ShapeType.pivot, ShapeType.oval, PivotWithOvalCollision.instance );
-		register( ShapeType.pivot, ShapeType.rectangle, PivotWithRectangleCollision.instance );
-		register( ShapeType.oval, ShapeType.oval, OvalWithOvalCollision.instance );
-		register( ShapeType.oval, ShapeType.rectangle, OvalWithRectangleCollision.instance );
-		register( ShapeType.oval, ShapeType.ray, OvalWithRayCollision.instance );
-		register( ShapeType.rectangle, ShapeType.rectangle, RectangleWithRectangleCollision.instance );
-		register( ShapeType.rectangle, ShapeType.ray, RectangleWithRayCollision.instance );
+		register( ShapeType.pivot, ShapeType.oval, new PivotWithOvalCollision() );
+		register( ShapeType.pivot, ShapeType.rectangle, new PivotWithRectangleCollision() );
+		register( ShapeType.oval, ShapeType.oval, new OvalWithOvalCollision() );
+		register( ShapeType.oval, ShapeType.rectangle, new OvalWithRectangleCollision() );
+		register( ShapeType.oval, ShapeType.ray, new OvalWithRayCollision() );
+		register( ShapeType.rectangle, ShapeType.rectangle, new RectangleWithRectangleCollision() );
+		register( ShapeType.rectangle, ShapeType.ray, new RectangleWithRayCollision() );
 		for( ShapeType triangle : ShapeType.triangles ) {
-			register( ShapeType.pivot, triangle, PivotWithTriangleCollision.instance );
-			register( ShapeType.oval, triangle, OvalWithTriangleCollision.instance );
-			register( ShapeType.rectangle, triangle, RectangleWithTriangleCollision.instance );
-			register( ShapeType.ray, triangle, RayWithTriangleCollision.instance );
+			register( ShapeType.pivot, triangle, new PivotWithTriangleCollision() );
+			register( ShapeType.oval, triangle, new OvalWithTriangleCollision() );
+			register( ShapeType.rectangle, triangle, new RectangleWithTriangleCollision() );
+			register( ShapeType.ray, triangle, new RayWithTriangleCollision() );
 			for( ShapeType triangle2 : ShapeType.triangles ) {
 				register( triangle, triangle2, TriangleWithTriangleCollision.instance );
 			}
 		}
-		initSystem();
+		initSystem();		
 	}
 
 
@@ -48,9 +48,9 @@ public class SpritesCollision extends ServiceObjects {
 	}
 
 	public static void register( ShapeType shapeType1, ShapeType shapeType2, SpritesCollision collsion ) {
-		HashMap map = spritesCollisionsMap.get( shapeType1 );
+		HashMap<ShapeType, SpritesCollision> map = spritesCollisionsMap.get( shapeType1 );
 		if( map == null ) {
-			map = new HashMap();
+			map = new HashMap<ShapeType, SpritesCollision>();
 			spritesCollisionsMap.put( shapeType1, map );
 		}
 		map.put( shapeType2, collsion );

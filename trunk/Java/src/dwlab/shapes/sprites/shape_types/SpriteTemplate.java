@@ -98,7 +98,7 @@ public class SpriteTemplate extends ShapeType {
 			newSprite.setCoords( 0.5d * ( leftX + rightX ), 0.5d * ( topY + bottomY ) );
 			newSprite.setHeight( bottomY - topY );
 			newSprite.shapeType = template;
-			if( layer != null ) layer.insertShape( newSprite, pivotShape, relativity );
+			if( layer != null ) layer.insert( newSprite, pivotShape, relativity );
 
 			for( Sprite sprite : sprites ) {
 				if( sprite.shapeType.getNum() == ShapeType.spriteTemplate.getNum() ) continue;
@@ -126,7 +126,7 @@ public class SpriteTemplate extends ShapeType {
 			setShape( sprite, templateSprite, newSprite );
 			newSprites.addLast( newSprite );
 		}
-		layer.insertShape( newSprites, pivotShape, relativity );
+		layer.insert( newSprites, pivotShape, relativity );
 	}
 	
 	public void toSprites( Sprite sprite, Layer layer ) {

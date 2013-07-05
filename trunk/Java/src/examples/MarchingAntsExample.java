@@ -46,7 +46,7 @@ public class MarchingAntsExample extends Project {
 				setMouseCoords();
 				if( select.wasPressed() ) {
 					selected = null;
-					collisionsWithLayer( Layer, handler );
+					collisionsWith( Layer, handler );
 				}
 			}
 		};

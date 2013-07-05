@@ -87,8 +87,8 @@ public class DirectAsExample extends Project {
 		@Override
 		public void act() {
 			setMouseCoords();
-			if( setDirection.wasPressed() ) collisionsWithLayer( Layer, directionHandler );
-			if( setSize.wasPressed() ) collisionsWithLayer( Layer, sizeHandler );
+			if( setDirection.wasPressed() ) collisionsWith( Layer, directionHandler );
+			if( setSize.wasPressed() ) collisionsWith( Layer, sizeHandler );
 		}
 	}
 }

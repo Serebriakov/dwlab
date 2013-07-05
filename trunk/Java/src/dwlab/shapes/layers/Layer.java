@@ -130,7 +130,6 @@ public class Layer extends Shape {
 			super.act();
 			for ( Iterator<Shape> it = children.iterator(); it.hasNext(); ) {
 				Shape obj = it.next();
-				remove = false;
 				if( obj.active ) {
 					if( Sys.debug ) {
 						Project.spriteActed = false;
@@ -140,7 +139,6 @@ public class Layer extends Shape {
 						obj.act();
 					}
 				}
-				if( remove ) it.remove();
 			}
 		}
 	}
@@ -157,13 +155,13 @@ public class Layer extends Shape {
 
 	@Override
 	public Sprite layerLastSpriteCollision( Sprite sprite ) {
-		return sprite.lastCollidedSpriteOfLayer( this );
+		return sprite.lastCollidedSpriteOf( this );
 	}
 
 
 	@Override
 	public void spriteLayerCollisions( Sprite sprite, SpriteCollisionHandler handler ) {
-		sprite.collisionsWithLayer( this, handler );
+		sprite.collisionsWith( this, handler );
 	}
 
 	// ==================== Other ===================	
@@ -295,7 +293,7 @@ public class Layer extends Shape {
 	
 	
 	@Override
-	public boolean insertShape( Shape shape, Shape pivotShape, Relativity relativity ) {
+	public boolean insert( Shape shape, Shape pivotShape, Relativity relativity ) {
 		for ( ListIterator<Shape> it = children.listIterator(); it.hasNext(); ) {
 			int index = it.nextIndex();
 			Shape childShape = it.next();
@@ -305,7 +303,7 @@ public class Layer extends Shape {
 				children.set( index, shape );
 				return true;
 			} else {
-				if( childShape.insertShape( shape, pivotShape, relativity ) ) return true;
+				if( childShape.insert( shape, pivotShape, relativity ) ) return true;
 			}
 		}
 		return false;
@@ -313,7 +311,7 @@ public class Layer extends Shape {
 	
 	
 	@Override
-	public boolean insertShape( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
+	public boolean insert( Collection<Shape> shapes, Shape pivotShape, Relativity relativity ) {
 		for ( ListIterator<Shape> it = children.listIterator(); it.hasNext(); ) {
 			int index = it.nextIndex();
 			Shape childShape = it.next();
@@ -323,7 +321,7 @@ public class Layer extends Shape {
 				children.addAll( index, shapes );
 				return true;
 			} else {
-				if( childShape.insertShape( shapes, pivotShape, relativity ) ) return true;
+				if( childShape.insert( shapes, pivotShape, relativity ) ) return true;
 			}
 		}
 		return false;

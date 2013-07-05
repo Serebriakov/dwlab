@@ -103,19 +103,21 @@ public class BehaviorModel<E extends Shape> extends Obj {
 		BehaviorModel model;
 		Shape shape;
 		
+		public BehaviorModelRemover( Shape shape, BehaviorModel model ) {
+			this.shape = shape;
+			this.model = model;
+		}
+		
 		@Override
 		public void act() {
-			if( model.active ) model.deactivate( shape );
 			shape.behaviorModels.remove( model );
 		}
 	}
 	
 	
-	public void remove( E shape ) {
-		BehaviorModelRemover remover = new BehaviorModelRemover();
-		remover.model = this;
-		remover.shape = shape;
-		Project.managers.add( remover );
+	public final void remove( E shape ) {
+		if( active ) deactivate( shape );
+		Project.managers.add( new BehaviorModelRemover( shape, this ) );
 	}
 	
 

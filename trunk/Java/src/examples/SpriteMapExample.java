@@ -37,7 +37,7 @@ public class SpriteMapExample extends Project {
 		@Override
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
 			if( ParticleArea.class.isInstance( sprite2 ) ) return;
-			sprite1.pushFromSprite( sprite2 );
+			sprite1.pushFrom( sprite2 );
 			sprite1.angle = sprite2.directionTo( sprite1 );
 			sprite2.angle = sprite1.directionTo( sprite2 );
 			ParticleArea.create( sprite1, sprite2 );
@@ -92,7 +92,7 @@ public class SpriteMapExample extends Project {
 			Camera.current.bounceInside( rectangle );
 			moveForward();
 			bounceInside( rectangle );
-			collisionsWithSpriteMap( fieldSpriteMap, collisionHandler );
+			collisionsWith( fieldSpriteMap, collisionHandler );
 		}
 	}
 
@@ -149,7 +149,7 @@ public class SpriteMapExample extends Project {
 		public void act() {
 			if( instance.time > startingTime + fadingTime ) removeFrom( fieldSpriteMap );
 
-			if( collidesWithSprite( Camera.current ) ) {
+			if( collidesWith( Camera.current ) ) {
 				for( Sprite sprite : particles ) sprite.moveForward();
 			}
 		}

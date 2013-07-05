@@ -15,7 +15,7 @@ public class All {
 		DirectToExample.main( argv );
 		DistanceExample.main( argv );
 		DistanceJointExample.main( argv );
-		DistanceToPointExample.main( argv );
+		DistanceToExample.main( argv );
 		DrawCircleExample.main( argv );
 		DrawEmptyRectangleExample.main( argv );
 		DrawTileExample.main( argv );

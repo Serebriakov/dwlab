@@ -180,7 +180,7 @@ public class Graph extends Shape {
 	 */
 	public Sprite findPivotCollidingWithSprite( Sprite sprite ) {
 		for( Sprite pivot: contents.keySet() ) {
-			if( sprite.collidesWithSprite( pivot ) ) return pivot;
+			if( sprite.collidesWith( pivot ) ) return pivot;
 		}
 		return null;
 	}
@@ -192,7 +192,7 @@ public class Graph extends Shape {
 	 */
 	public LineSegment findLineCollidingWithSprite( Sprite sprite ) {
 		for( LinkedList<LineSegment> list: contents.values() ) {
-			for( LineSegment lineSegment: list ) if( sprite.collidesWithLineSegment( lineSegment ) ) return lineSegment;
+			for( LineSegment lineSegment: list ) if( sprite.collidesWith( lineSegment ) ) return lineSegment;
 		}
 		return null;
 	}

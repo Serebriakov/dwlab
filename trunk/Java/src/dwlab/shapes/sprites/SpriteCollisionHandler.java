@@ -17,7 +17,6 @@ import dwlab.base.Obj;
 
  * @see #active example
  */
-public class SpriteCollisionHandler<E extends Sprite> extends Obj {
-	public void handleCollision( E sprite1, Sprite sprite2 ) {
-	}
+public abstract class SpriteCollisionHandler<E extends Sprite> extends Obj {
+	public abstract void handleCollision( E sprite1, Sprite sprite2 );
 }

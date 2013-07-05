@@ -82,7 +82,7 @@ public class Line extends Shape {
 
 
 	@Override
-	public double distanceToPoint( double pointX, double pointY ) {
+	public double distanceTo( double pointX, double pointY ) {
 		return Math.abs( a * pointX + b * pointY ) / s;
 	}
 

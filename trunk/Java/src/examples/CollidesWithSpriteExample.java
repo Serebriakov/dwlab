@@ -60,10 +60,10 @@ public class CollidesWithSpriteExample extends Project {
 		sprites.draw();
 		for( Shape shape : sprites.children ) {
 			Sprite sprite = shape.toSprite();
-			if( cursor.collidesWithSprite( sprite ) ) {
+			if( cursor.collidesWith( sprite ) ) {
 				sprite.visualizer.set( "FF7F7F" );
 				Sprite wedgedCursor = cursor.clone();
-				wedgedCursor.wedgeOffWithSprite( sprite, 0, 1 );
+				wedgedCursor.wedgeOffWith( sprite, 0, 1 );
 				wedgedCursor.visualizer.set( "7F7FFF7F" );
 				wedgedCursor.draw();
 			} else {

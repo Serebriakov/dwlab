@@ -10,6 +10,7 @@
 package dwlab.base.images;
 
 import dwlab.base.Obj;
+import static dwlab.base.Obj.objectFileName;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.visualizers.Color;
@@ -67,7 +68,10 @@ public abstract class ImageTemplate extends Obj {
 		xCells = xMLObject.manageIntAttribute( "xcells", xCells, 1 );
 		yCells = xMLObject.manageIntAttribute( "ycells", yCells, 1 );
 
-		if( Sys.xMLGetMode() ) fileName = objectFileName.substring( 0, objectFileName.lastIndexOf( "/" ) ) + "/" + fileName;
+		if( Sys.xMLGetMode() ) {
+			int lastSlash = objectFileName.lastIndexOf( "/" );
+			if( lastSlash >= 0 ) fileName = objectFileName.substring( 0, lastSlash ) + "/" + fileName;
+		}
 		if( Sys.xMLGetMode() && loadImages ) init();
 	}
 	

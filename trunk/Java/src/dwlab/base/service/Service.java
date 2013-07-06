@@ -10,9 +10,20 @@
 package dwlab.base.service;
 
 import dwlab.base.Obj;
+import static dwlab.base.Obj.classes;
+import dwlab.base.files.TextFile;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Camera;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Service extends Obj {
 	public static String version = "1.5.2";
@@ -381,8 +392,57 @@ public class Service extends Obj {
 	
 
 	public static boolean inArray( int[] array, int value ) {
-		if( array != null ) return true;
+		if( array == null ) return true;
 		for( int n = 0; n < array.length; n++ ) if( array[ n ] == value ) return true;
 		return false;
 	}
+	
+	
+	private static TextFile classListFile;
+	
+	public static void generateClassesList( String packageName, String fileName ) {
+		classListFile = TextFile.write( fileName );
+		classListFile.writeLine( "package " + packageName + ";" );
+		classListFile.writeLine( "import dwlab.base.Obj;" );
+		classListFile.writeLine( "public class Classes {" );
+		classListFile.writeLine( "\tpublic static void register() {" );
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		assert classLoader != null;
+		Enumeration<URL> resources = null;
+		try {
+			resources = classLoader.getResources( "" );
+		} catch ( IOException ex ) {
+			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
+		}
+		List<File> dirs = new ArrayList<File>();
+		while ( resources.hasMoreElements() ) {
+			URL resource = resources.nextElement();
+			dirs.add( new File( resource.getFile() ) );
+		}
+		for ( File directory : dirs ) try {
+			addClasses( directory, "" );
+		} catch ( ClassNotFoundException ex ) {
+			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
+		}
+		classListFile.writeLine( "\t}" );
+		classListFile.writeLine( "}" );
+		classListFile.close();
+	}
+		
+
+	private static void addClasses( File directory, String packageName ) throws ClassNotFoundException {
+		if ( !directory.exists() ) return;
+		File[] files = directory.listFiles();
+		for (File file : files) {
+			if ( file.isDirectory() ) {
+				assert !file.getName().contains( "." );
+				addClasses( file, packageName + ( packageName.isEmpty() ? "" : "." ) + file.getName() );
+			} else if( file.getName().endsWith( ".class" ) ) {
+				String name = file.getName();
+				if( name.contains( "$" ) ) continue;
+				Class cl = Class.forName( packageName + "." + name.substring( 0, name.length() - 6 ) );
+				classListFile.writeLine( "\t\tObj.classes.put( \"" + cl.getSimpleName() + "\", " + cl.getCanonicalName() + ".class );" );
+			}
+		}
+    }
 }

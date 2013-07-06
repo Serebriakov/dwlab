@@ -1,6 +1,5 @@
 package examples;
 
-import static dwlab.base.Obj.perSecond;
 import dwlab.base.service.Service;
 import dwlab.behavior_models.AnimationModel;
 import dwlab.behavior_models.BehaviorModel;
@@ -10,8 +9,7 @@ import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
 import dwlab.shapes.sprites.VectorSprite;
-import static examples.BehaviorModelExample.deathPeriod;
-import static examples.BehaviorModelExample.instance;
+import static examples.BehaviorModelExample.*;
 
 public class GameObject extends VectorSprite {
 	static VerticalCollisionHandler verticalCollisionHandler = new VerticalCollisionHandler();

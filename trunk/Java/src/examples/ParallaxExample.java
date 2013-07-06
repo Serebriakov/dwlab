@@ -14,6 +14,7 @@ public class ParallaxExample extends Project {
 	}
 	
 	public static void main(String[] argv) {
+		Classes.register();
 		( new ParallaxExample() ).act();
 		Graphics.initCamera();
 	}

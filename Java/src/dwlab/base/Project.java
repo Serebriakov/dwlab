@@ -239,4 +239,9 @@ public class Project extends Obj {
 		printText( "Sprites  displayed: " + spritesDisplayed, 4 );
 		printText( "Sprites  acted: " + spritesActed, 5 );
 	}
+
+
+	public static double perSecond( double value ) {
+		return value * deltaTime;
+	}
 }

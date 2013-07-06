@@ -1,7 +1,11 @@
 package examples;
 
+import dwlab.base.service.Service;
+
 public class All {
 	public static void main(String[] argv) {
+		//Service.generateClassesList( "examples", "src/examples/Classes.java" );
+		Classes.register();
 		ActionExample.main( argv );
 		ActiveExample.main( argv );
 		//BehaviorModelExample.main( argv );
@@ -27,11 +31,11 @@ public class All {
 		GraphExample.main( argv );
 		IntInLimitsExample.main( argv );
 		LeftXExample.main( argv );
-		//LimitByWindowShapeExample.main( argv );
+		LimitByWindowShapeExample.main( argv );
 		LimitIntExample.main( argv );
 		LimitWithExample.main( argv );
 		LogicFPSExample.main( argv );
-		//MarchingAntsExample.main( argv );
+		MarchingAntsExample.main( argv );
 		MoveTowardsExample.main( argv );
 		MoveUsingKeysExample.main( argv );
 		OverlapsExample.main( argv );

@@ -270,7 +270,13 @@ public class TileMap extends IntMap {
 		if( Sys.xMLGetMode() ) {
 			long time = System.currentTimeMillis();
 			if( file == null ) {
-				if( offset == 0 ) loadingErrorHandler.handleError( Obj.objectFileName + "bin" );
+				if( offset == 0 ) {
+					file = BinaryFile.read( Obj.objectFileName + "bin" );
+					
+				}
+			}
+			if( file == null ) {
+				loadingErrorHandler.handleError( Obj.objectFileName + "bin" );
 			} else {
 				file.seek( offset );
 				if( tilesQuantity <= 256 ) {
@@ -292,14 +298,19 @@ public class TileMap extends IntMap {
 						}
 					}
 				}
+
+				Service.objectLoadingTime += loadingTime;
+				loadingTime = System.currentTimeMillis() - time;
+				Service.newTotalLoadingTime += loadingTime;
+				Service.loadingProgress = 1d * loadingTime / Service.totalLoadingTime;
+				if( Service.loadingUpdater != null ) Service.loadingUpdater.update();
+			}
+		} else {
+			if( file == null ) {
+				offset = 0;
+				file = BinaryFile.write( Obj.objectFileName + "bin" );
 			}
 
-			Service.objectLoadingTime += loadingTime;
-			loadingTime = System.currentTimeMillis() - time;
-			Service.newTotalLoadingTime += loadingTime;
-			Service.loadingProgress = 1d * loadingTime / Service.totalLoadingTime;
-			if( Service.loadingUpdater != null ) Service.loadingUpdater.update();
-		} else {
 			if( tilesQuantity <= 256 ) {
 				for( int yy = 0; yy < yQuantity; yy++ ) {
 					for( int xx = 0; xx < xQuantity; xx++ ) {

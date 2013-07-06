@@ -9,11 +9,9 @@
 
 package dwlab.base;
 
-import static dwlab.base.Project.deltaTime;
 import dwlab.base.Sys.XMLMode;
 import dwlab.base.XMLObject.XMLAttribute;
 import dwlab.base.XMLObject.XMLObjectField;
-import dwlab.base.files.BinaryFile;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.shapes.layers.Layer;
@@ -23,18 +21,13 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.VectorSprite;
 import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Global object class
  */
 public class Obj {
-	public static HashMap<String, Class> classes = null;
+	public static HashMap<String, Class> classes = new HashMap<String, Class>();
 	static HashMap<Obj, Integer> iDMap;
 	static HashMap<Obj, XMLObject> removeIDMap;
 	static int maxID;
@@ -197,11 +190,10 @@ public class Obj {
 	 * @see #saveToFile, #xMLIO
 	 */
 	public static Obj loadFromFile( String fileName, XMLObject xMLObject ) {
-		if( classes == null ) getClasses();
-		
 		if( xMLObject == null ) {
 			maxID = 0;
 			xMLObject = XMLObject.readFromFile( fileName );
+			TileMap.file = null;
 		}		
 		
 		objectFileName = fileName;
@@ -225,7 +217,6 @@ public class Obj {
 
 		Sys.xMLMode = XMLMode.GET;
 		
-		TileMap.file = BinaryFile.read( fileName + "bin" );
 		object.xMLIO( xMLObject );
 
 		return object;
@@ -265,45 +256,6 @@ public class Obj {
 			fillIDArray( objectField.value );
 		}
 	}
-	
-
-    private static void getClasses() {
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		assert classLoader != null;
-		classes = new HashMap<String, Class>();
-		Enumeration<URL> resources = null;
-		try {
-			resources = classLoader.getResources( "" );
-		} catch ( IOException ex ) {
-			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
-		}
-		List<File> dirs = new ArrayList<File>();
-		while ( resources.hasMoreElements() ) {
-				URL resource = resources.nextElement();
-				dirs.add( new File( resource.getFile() ) );
-		}
-		for ( File directory : dirs ) try {
-			addClasses( directory, "" );
-		} catch ( ClassNotFoundException ex ) {
-			Logger.getLogger( Obj.class.getName() ).log( Level.SEVERE, null, ex );
-		}
-	}
-
-	private static void addClasses( File directory, String packageName ) throws ClassNotFoundException {
-		if ( !directory.exists() ) return;
-		File[] files = directory.listFiles();
-		for (File file : files) {
-			if (file.isDirectory()) {
-				assert !file.getName().contains( "." );
-				addClasses( file, packageName + ( packageName.isEmpty() ? "" : "." ) + file.getName() );
-			} else if( file.getName().endsWith( ".class" ) ) {
-				String name = file.getName();
-				if( name.contains( "$" ) ) continue;
-				Class cl = Class.forName( packageName + "." + name.substring( 0, name.length() - 6 ) );
-				classes.put( cl.getSimpleName(), cl );
-			}
-		}
-    }
 
 	/**
 	 * Saves object with all contents to file.
@@ -319,10 +271,11 @@ public class Obj {
 		XMLObject xMLObject = new XMLObject();
 		undefinedObjects = new HashSet<Obj>();
 
-		TileMap.offset = 0;
-		TileMap.file = BinaryFile.write( fileName + "bin" );
 		xMLIO( xMLObject );
-		TileMap.file.close();
+		if( TileMap.file != null ) {
+			TileMap.file.close();
+			TileMap.file = null;
+		}
 
 		xMLObject.setAttribute( "dwlab_version", Service.version );
 		xMLObject.setAttribute( "total-loading-time", Service.newTotalLoadingTime );
@@ -343,10 +296,5 @@ public class Obj {
 	public static void error( String Text ) {
 		System.out.println( Text );
 		System.exit( 0 );
-	}
-
-
-	public static double perSecond( double value ) {
-		return value * deltaTime;
 	}
 }

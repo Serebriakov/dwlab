@@ -13,6 +13,8 @@ import dwlab.base.Obj;
 import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.base.images.Image;
+import dwlab.shapes.Shape;
+import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;
 
@@ -185,15 +187,33 @@ public class TileSet extends Obj {
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
 
-		xMLObject.manageStringAttribute( "name", name );
+		name = xMLObject.manageStringAttribute( "name", name );
 		image = xMLObject.manageObjectField( "image", image );
 		tilesQuantity = xMLObject.manageIntAttribute( "tiles-quantity", tilesQuantity );
 		tileBlocks = xMLObject.manageListField( "tile-blocks", tileBlocks );
 		emptyTile = xMLObject.manageIntAttribute( "empty-tile", emptyTile, -1 );
 		categories = xMLObject.manageChildList( categories );
-		collisionSprites = xMLObject.manageObjectDoubleArrayField( "collision-sprites", collisionSprites );
-		if( Sys.xMLGetMode() ) update();
-
-		//If Not L_EditorData.Tilesets.Contains( Self ) L_EditorData.Tilesets.AddLast( Self )
+		//collisionSprites = xMLObject.manageObjectDoubleArrayField( "collision-sprites", collisionSprites );
+		if( Sys.xMLGetMode() ) {
+			Shape[] shapes = null;
+			shapes = xMLObject.manageObjectArrayField( "collision-sprites", shapes );
+			collisionSprites = new Sprite[ shapes.length ][];
+			for( int n = 0; n < shapes.length; n++ ) {
+				if( shapes[ n ] == null ) continue;
+				Layer layer = shapes[ n ].toLayer();
+				if( layer == null ) {
+					collisionSprites[ n ] = new Sprite[ 0 ];
+					collisionSprites[ n ][ 0 ] = shapes[ n ].toSprite();
+				} else {
+					collisionSprites[ n ] = new Sprite[ layer.children.size() ];
+					int m = 0;
+					for( Shape shape : layer.children ) {
+						collisionSprites[ n ][ m ] = shape.toSprite();
+						m++;
+					}
+				}
+			}
+			update();
+		}
 	}
 }

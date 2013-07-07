@@ -26,6 +26,7 @@ public class BehaviorModelExample extends Project {
 	static BehaviorModelExample instance = new BehaviorModelExample();
 	
 	public static void main(String[] argv) {
+		Classes.register();
 		instance.act();
 	}
 	

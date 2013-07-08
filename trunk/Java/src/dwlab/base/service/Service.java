@@ -10,7 +10,6 @@
 package dwlab.base.service;
 
 import dwlab.base.Obj;
-import static dwlab.base.Obj.classes;
 import dwlab.base.files.TextFile;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Camera;
@@ -20,7 +19,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -431,6 +429,8 @@ public class Service extends Obj {
 		
 
 	private static void addClasses( File directory, String packageName ) throws ClassNotFoundException {
+		if( packageName.equals( "dwlab.shapes.sprites.shape_types" ) ) return;
+		if( packageName.equals( "dwlab.shapes.line_segments.collision" ) ) return;
 		if ( !directory.exists() ) return;
 		File[] files = directory.listFiles();
 		for (File file : files) {

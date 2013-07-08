@@ -99,7 +99,7 @@ public class BehaviorModelExample extends Project {
 		showDebugInfo();
 		printText( "Guide AwesomePossum to exit from maze using arrow and space keys", Align.TO_RIGHT, Align.TO_TOP );
 		printText( "you can view sprite behavior models by clicking left mouse button on it", Align.TO_RIGHT, Align.TO_TOP, 1 );
-		printText( "Score" + Service.firstZeroes( score, 6 ), Align.TO_RIGHT, Align.TO_BOTTOM );
+		printText( "Score: " + Service.firstZeroes( score, 6 ), Align.TO_RIGHT, Align.TO_BOTTOM );
 		printText( "LTBehaviorModel example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 
@@ -113,9 +113,8 @@ public class BehaviorModelExample extends Project {
 
 		public static void create( Sprite sprite, int amount ) {
 			Score scoreObject = new Score();
-			scoreObject.setCoords( sprite.getX(), sprite.topY() );
+			scoreObject.setCoords( sprite.getX(), sprite.topY() ).setDiameter( 0 );
 			scoreObject.amount = amount;
-			scoreObject.setDiameter( 0 );
 			scoreObject.startingTime = BehaviorModelExample.instance.time;
 			scoreObject.insertTo( layer );
 			score += amount;

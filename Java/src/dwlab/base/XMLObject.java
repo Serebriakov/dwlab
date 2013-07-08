@@ -373,14 +373,14 @@ public class XMLObject extends Obj {
 	 * Transfers data between XMLObject contents and framework object's object array field.
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectMapField
 	 */
-	public <E extends Obj> E[] manageObjectArrayField( String fieldName, E[] array ) {
+	public <E extends Obj> E[] manageObjectArrayField( String fieldName, E[] array, Class cl ) {
 		if( Sys.xMLGetMode() ) {
 			XMLObject xMLArray = getField( fieldName );
-			if( xMLArray != null ) return xMLArray.manageChildObjectArray( array );
+			if( xMLArray != null ) return xMLArray.manageChildObjectArray( array, cl );
 		} else if( array != null ) {
 			XMLObject xMLArray = new XMLObject();
 			xMLArray.name = "Array";
-			xMLArray.manageChildObjectArray( array );
+			xMLArray.manageChildObjectArray( array, cl );
 			setField( fieldName, xMLArray );
 		}
 		return array;
@@ -457,10 +457,10 @@ public class XMLObject extends Obj {
 	 * Transfers data between XMLObject contents and framework object's object array parameter.
 	 * @see #manageChildList, #manageListField
 	 */
-	public <E extends Obj> E[] manageChildObjectArray( E[] childArray ) {
+	public <E extends Obj> E[] manageChildObjectArray( E[] childArray, Class cl ) {
 		if( Sys.xMLGetMode() ) {
 			if( childArray == null && children.isEmpty() ) return null;
-			childArray = (E[]) Array.newInstance( childArray.getClass(), getIntegerAttribute( "size" ) );
+			childArray = (E[]) Array.newInstance( cl, getIntegerAttribute( "size" ) );
 			for( XMLObject xMLObject: children ) {
 				childArray[ xMLObject.getIntegerAttribute( "index" ) ] = (E) xMLObject.manageObject( null );
 			}
@@ -483,24 +483,7 @@ public class XMLObject extends Obj {
 	 * Transfers data between XMLObject contents and framework object's double object array parameter.
 	 * @see #manageChildList, #manageListField
 	 */
-	public <E extends Obj> E[] manageChildObjectDoubleArray( E[] childArray ) {
-		if( Sys.xMLGetMode() ) {
-			if( childArray == null && children.isEmpty() ) return null;
-			childArray = (E[]) Array.newInstance( childArray.getClass(), getIntegerAttribute( "size" ) );
-			for( XMLObject xMLObject: children ) {
-				childArray[ xMLObject.getIntegerAttribute( "index" ) ] = (E) xMLObject.manageObject( null );
-			}
-		} else if( childArray != null ) {
-			setAttribute( "size", childArray.length );
-			for( int n = 0; n < childArray.length; n++ ) {
-				if( childArray[ n ] != null ) {
-					XMLObject xMLObject = new XMLObject();
-					xMLObject.manageObject( childArray[ n ] );
-					xMLObject.setAttribute( "index", n );
-					children.addLast( xMLObject );
-				}
-			}
-		}
+	public <E extends Obj> E[][] manageChildObjectDoubleArray( E[][] childArray ) {
 		return childArray;
 	}
 

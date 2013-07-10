@@ -116,7 +116,7 @@ public class BehaviorModel<E extends Shape> extends Obj {
 	
 	
 	public final void remove( E shape ) {
-		if( active ) deactivate( shape );
+		if( active ) deactivateModel( shape );
 		Project.managers.add( new BehaviorModelRemover( shape, this ) );
 	}
 	

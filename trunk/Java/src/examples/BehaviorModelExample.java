@@ -50,6 +50,7 @@ public class BehaviorModelExample extends Project {
 
 		Graphics.init();
 
+		/*
 		Sprite sprite = new Sprite( Camera.current );
 		sprite.visualizer.image = new Image( "res/scheme2.png" );
 		while ( !KeyExit.wasPressed() ) {
@@ -65,6 +66,7 @@ public class BehaviorModelExample extends Project {
 			processEvents();
 			Graphics.swapBuffers();
 		}
+		*/
 
 		processEvents();
 		initLevel();
@@ -105,15 +107,15 @@ public class BehaviorModelExample extends Project {
 
 
 	public static class Score extends Sprite {
-		static double speed = 2.0;
-		static double period = 3.0;
+		static double speed = 2d;
+		static double period = 3d;
 
 		int amount;
 		double startingTime;
 
 		public static void create( Sprite sprite, int amount ) {
 			Score scoreObject = new Score();
-			scoreObject.setCoords( sprite.getX(), sprite.topY() ).setDiameter( 0 );
+			scoreObject.setCoords( sprite.getX(), sprite.topY() ).setDiameter( 0d );
 			scoreObject.amount = amount;
 			scoreObject.startingTime = BehaviorModelExample.instance.time;
 			scoreObject.insertTo( layer );
@@ -139,16 +141,16 @@ public class BehaviorModelExample extends Project {
 
 		@Override
 		public void render() {
-			if( System.currentTimeMillis() < startingTime2 + 2000 ) {
-				render();
-				Camera.current.darken( 0.0005 * ( System.currentTimeMillis() - startingTime2 ) );
-			} else if( System.currentTimeMillis() < startingTime2 + 4000 ) {
-				if( ! this.initialized ) {
+			if( System.currentTimeMillis() < startingTime2 + 2000d ) {
+				super.render();
+				Camera.current.darken( 0.0005d * ( System.currentTimeMillis() - startingTime2 ) );
+			} else if( System.currentTimeMillis() < startingTime2 + 4000d ) {
+				if( !this.initialized ) {
 					instance.initLevel();
 					initialized = true;
 				}
-				render();
-				Camera.current.darken( 0.0005 * ( 4000 - System.currentTimeMillis() + startingTime2 ) );
+				super.render();
+				Camera.current.darken( 0.0005d * ( 4000d - System.currentTimeMillis() + startingTime2 ) );
 			} else {
 				exiting = true;
 			}

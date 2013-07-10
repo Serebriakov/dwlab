@@ -318,8 +318,7 @@ public class Sprite extends Shape {
 				if( spriteArray != null ) {
 					if( !Service.inArray( tileNums, tileNum ) ) return;
 					for( int n = 0; n < spriteArray.length; n++ ) {
-						Sprite sprite = spriteArray[ n ];
-						sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
+						spriteArray[ n ].transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
 						if( collidesWith( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
 					}
 				}
@@ -343,8 +342,7 @@ public class Sprite extends Shape {
 						if( spriteArray != null ) {
 							if( !Service.inArray( tileNums, tileNum ) ) continue;
 							for( int n = 0; n < spriteArray.length; n++ ) {
-								Sprite sprite = spriteArray[ n ];
-								sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
+								spriteArray[ n ].transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
 								if( collidesWith( serviceSprite ) ) handler.handleCollision( this, tileMap, tileX, tileY, serviceSprite );
 							}
 						}
@@ -460,8 +458,7 @@ public class Sprite extends Shape {
 		Sprite[] spriteArray = tileMap.tileSet.collisionSprites[ tileMap.value[ tileY ][ tileX ] ];
 		if( spriteArray != null ) {
 			for( int n = 0; n < spriteArray.length; n++ ) {
-				Sprite sprite = spriteArray[ n ];
-				sprite.transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
+				spriteArray[ n ].transformFrom( x0, y0, cellWidth, cellHeight, tileX, tileY );
 				pushFrom( serviceSprite );
 			}
 		}

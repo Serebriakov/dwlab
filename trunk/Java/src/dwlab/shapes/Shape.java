@@ -847,6 +847,20 @@ public class Shape extends Obj {
 	public Shape attachModel( BehaviorModel model ) {
 		return attachModel( model, true );
 	}
+	
+	public Shape attachModelImmediately ( BehaviorModel model, boolean activate ) {
+		behaviorModels.add( model );
+		model.init( this );
+		if( activate ) {
+			model.activate( this );
+			model.active = true;
+		}
+		return this;
+	}
+	
+	public Shape attachModelImmediately( BehaviorModel model ) {
+		return attachModelImmediately( model, true );
+	}
 
 
 	/**
@@ -1001,16 +1015,10 @@ public class Shape extends Obj {
 
 	
 	public void addToStack( BehaviorModel animationModel, boolean activate ) {
-		ModelStack stack = null;
-		for( BehaviorModel model : behaviorModels ) {
-			if( model.getClass() == ModelStack.class ) {
-				stack = (ModelStack) model;
-				break;
-			}
-		}
+		ModelStack stack = (ModelStack) findModel( ModelStack.class );
 		if( stack == null ) {
 			stack = new ModelStack();
-			attachModel( stack );
+			attachModelImmediately( stack );
 		}
 		stack.add( animationModel, activate );
 	}
@@ -1137,6 +1145,28 @@ public class Shape extends Obj {
 	
 	public double getDoubleParameter( String name ) {
 		return Double.parseDouble( getParameter( name ) );
+	}
+	
+	public int[] getIntegerParameters( String name, String separator ) {
+		String chunks[] = getParameter( name ).split( separator );
+		int[] params = new int[ chunks.length ];
+		for( int n = 0; n < chunks.length; n++ ) params[ n ] = Integer.parseInt( chunks[ n ] );
+		return params;
+	}
+	
+	public int[] getIntegerParameters( String name ) {
+		return getIntegerParameters( name, "," );
+	}
+	
+	public double[] getDoubleParameters( String name, String separator ) {
+		String chunks[] = getParameter( name ).split( separator );
+		double[] params = new double[ chunks.length ];
+		for( int n = 0; n < chunks.length; n++ ) params[ n ] = Double.parseDouble( chunks[ n ] );
+		return params;
+	}
+	
+	public double[] getDoubleParameters( String name ) {
+		return getDoubleParameters( name, "," );
 	}
 
 

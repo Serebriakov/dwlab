@@ -21,11 +21,9 @@ import dwlab.shapes.Shape;
 public class RandomWaitingModel extends TemporaryModel {
 	public double timeFrom, timeTo;
 
-	public static RandomWaitingModel create( double timeFrom, double timeTo ) {
-		RandomWaitingModel model = new RandomWaitingModel();
-		model.timeFrom = timeFrom;
-		model.timeTo = timeTo;
-		return model;
+	public RandomWaitingModel( double timeFrom, double timeTo ) {
+		this.timeFrom = timeFrom;
+		this.timeTo = timeTo;
 	}
 
 	@Override

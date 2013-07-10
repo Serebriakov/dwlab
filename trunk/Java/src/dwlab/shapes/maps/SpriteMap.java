@@ -32,13 +32,13 @@ public class SpriteMap extends Map {
 	 * Width of sprite map cell in units.
 	 * @see #setCellSize
 	 */
-	public double cellWidth = 1.0;
+	public double cellWidth = 1d;
 
 	/**
 	 * Height of sprite map cell in units.
 	 * @see #setCellSize
 	 */
-	public double cellHeight = 1.0;
+	public double cellHeight = 1d;
 
 	/**
 	 * Margins for drawing sprite map in units.

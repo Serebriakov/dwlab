@@ -8,7 +8,7 @@ import dwlab.behavior_models.IsModelActive;
 import dwlab.behavior_models.ModelActivator;
 import dwlab.behavior_models.ModelDeactivator;
 import dwlab.behavior_models.RandomWaitingModel;
-import dwlab.behavior_models.VectorSpriteCollisionsModel;
+import dwlab.behavior_models.VectorSpriteCollisionsModel.Group;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
@@ -16,6 +16,7 @@ import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.shapes.sprites.VectorSprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import static examples.BehaviorModelExample.*;
+import static examples.GameObject.verticalCollisionHandler;
 
 public class Jelly extends GameObject {
 	static final double jumpingAnimationSpeed = 0.2;
@@ -33,12 +34,18 @@ public class Jelly extends GameObject {
 
 	static BumpingWalls bumpingWalls = new BumpingWalls();
 	static BumpingSprites bumpingSprites = new BumpingSprites();
-	public static DestroyBullet destroyBullet = new DestroyBullet();
+	static DestroyBullet destroyBullet = new DestroyBullet();
 	
 
 	@Override
 	public void init() {
-		attachModel( gravity );
+		attachModelImmediately( gravity );
+		
+		attachModelImmediately( new ModelDeactivator( onLand, true ) );
+		
+		addTileMapCollisions( Group.HORIZONTAL, tileMap, bumpingWalls, null );
+		addTileMapCollisions( Group.VERTICAL, tileMap, verticalCollisionHandler, null );
+		addLayerCollisions( Group.ALL, layer, bumpingSprites );
 
 		jumpingAnimation = new AnimationModel( false, jumpingAnimationSpeed, 8, 8 );
 		fallingAnimation = new AnimationModel( true, jumpingAnimationSpeed, 3, 13, true );
@@ -46,8 +53,8 @@ public class Jelly extends GameObject {
 
 
 		if( parameterExists( "jumping" ) ) {
-			String parameters[] = getParameter( "jumping" ).split( "-" );
-			RandomWaitingModel waitingForJump = RandomWaitingModel.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) );
+			double[] parameters= getDoubleParameters( "jumping", "-" );
+			RandomWaitingModel waitingForJump = new RandomWaitingModel( parameters[ 0 ], parameters[ 1 ] );
 			attachModel( waitingForJump );
 
 			IsModelActive onLandCondition = new IsModelActive( onLand );
@@ -64,9 +71,9 @@ public class Jelly extends GameObject {
 
 			jumpingAnimation.nextModels.addLast( new ModelActivator( fallingAnimation ) );
 
-			parameters = getParameter( "jumping_strength" ).split( "-" );
+			parameters= getDoubleParameters( "jumping_strength", "-" );
 			FixedWaitingModel pauseBeforeJump = FixedWaitingModel.create( jumpingPause );
-			pauseBeforeJump.nextModels.addLast( Jump.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) ) );
+			pauseBeforeJump.nextModels.addLast( new Jump(  parameters[ 0 ], parameters[ 1 ] ) );
 			pauseBeforeJump.nextModels.addLast( new ModelActivator( horizontalMovementModel() ) );
 			pauseBeforeJump.nextModels.addLast( new ModelActivator( gravity ) );
 			pauseBeforeJump.nextModels.addLast( waitingForJump );
@@ -81,8 +88,8 @@ public class Jelly extends GameObject {
 
 
 		if( parameterExists( "firing" ) ) {
-			String parameters[] = getParameter( "firing" ).split( "-" );
-			RandomWaitingModel waitingForFire = RandomWaitingModel.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) );
+			double[] parameters = getDoubleParameters( "firing", "-" );
+			RandomWaitingModel waitingForFire = new RandomWaitingModel( parameters[ 0 ], parameters[ 1 ] );
 			attachModel( waitingForFire );
 
 			IsModelActive onLandCondition = new IsModelActive( onLand );
@@ -98,31 +105,25 @@ public class Jelly extends GameObject {
 
 			firingAnimation.nextModels.addLast( new ModelActivator( horizontalMovementModel() ) );
 
-			parameters = getParameter( "firing_speed" ).split( "-" );
+			parameters = getDoubleParameters( "firing_speed", "-" );
 			FixedWaitingModel pauseBeforeBullet = FixedWaitingModel.create( bulletPause );
-			pauseBeforeBullet.nextModels.addLast( CreateBullet.create( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) ) );
+			pauseBeforeBullet.nextModels.addLast( new CreateBullet( parameters[ 0 ], parameters[ 1 ] ) );
 			pauseBeforeBullet.nextModels.addLast( waitingForFire );
 			animationActive.falseModels.addLast( pauseBeforeBullet );
 
-			addToStack( firingAnimation );
+			addToStack( firingAnimation, false );
 			score += 300;
 		}
 
 		AnimationModel movementAnimation = new AnimationModel( true, walkingAnimationSpeed, 3, 3, true );
 		if( parameterExists( "moving" ) ) {
-			String parameters[] = getParameter( "moving" ).split( "-" );
-			dX *= Service.random( Double.parseDouble( parameters[ 0 ] ), Double.parseDouble( parameters[ 1 ] ) );
+			double[] parameters = getDoubleParameters( "moving", "-" );
+			dX = Math.signum( visualizer.xScale ) * Service.random( parameters[ 0 ], parameters[ 1 ] );
 			addToStack( movementAnimation );
 			score += 100;
+		} else {
+			dX = 0;
 		}
-
-
-		attachModel( new ModelDeactivator( onLand, true ) );
-
-		
-		addTileMapCollisions( VectorSpriteCollisionsModel.Group.HORIZONTAL, tileMap, bumpingWalls, null );
-		addTileMapCollisions( VectorSpriteCollisionsModel.Group.VERTICAL, tileMap, verticalCollisionHandler, null );
-		addLayerCollisions( VectorSpriteCollisionsModel.Group.ALL, layer, bumpingSprites );
 		
 
 		AnimationModel standingAnimation = new AnimationModel( true, idleAnimationSpeed, 3, 0, true );
@@ -146,6 +147,7 @@ public class Jelly extends GameObject {
 	static class BumpingSprites extends SpriteCollisionHandler {
 		@Override
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
+			if( sprite2 instanceof Bullet ) return;
 			sprite1.pushFrom( sprite2 );
 			( (VectorSprite) sprite1 ).dX *= -1;
 			sprite1.visualizer.xScale *= -1;
@@ -156,11 +158,9 @@ public class Jelly extends GameObject {
 	public static class CreateBullet extends BehaviorModel<VectorSprite> {
 		public double fromSpeed, toSpeed;
 
-		public static CreateBullet create( double fromSpeed, double toSpeed ) {
-			CreateBullet createBullet = new CreateBullet();
-			createBullet.fromSpeed = fromSpeed;
-			createBullet.toSpeed = toSpeed;
-			return createBullet;
+		public CreateBullet( double fromSpeed, double toSpeed ) {
+			this.fromSpeed = fromSpeed;
+			this.toSpeed = toSpeed;
 		}
 
 		@Override
@@ -172,21 +172,21 @@ public class Jelly extends GameObject {
 
 
 	public static class Bullet extends VectorSprite {
-		static double minAttack = 5.0;
-		static double maxAttack = 10.0;
+		static double minAttack = 5d;
+		static double maxAttack = 10d;
 
 		public boolean collisions = true;
 
 		public static void create( VectorSprite Jelly, double speed ) {
 			Bullet bullet = new Bullet();
-			bullet.setCoords( Jelly.getX() + Math.signum( Jelly.dX ) * Jelly.getWidth() * 2.2, Jelly.getY() - 0.15 * Jelly.getHeight() );
-			bullet.setSize( 0.45 * Jelly.getWidth(), 0.45 * Jelly.getWidth() );
+			bullet.setCoords( Jelly.getX() + Math.signum( Jelly.dX ) * Jelly.getWidth() * 2.2d, Jelly.getY() - 0.15d * Jelly.getHeight() );
+			bullet.setSize( 0.45d * Jelly.getWidth(), 0.45d * Jelly.getWidth() );
 			bullet.shapeType = ShapeType.oval;
-			bullet.dX = Math.signum( Jelly.dX ) * speed;
-			bullet.visualizer.setVisualizerScale( 12, 4 );
+			bullet.dX = Math.signum( Jelly.visualizer.xScale ) * speed;
+			bullet.visualizer.setVisualizerScale( 12d, 4d );
 			bullet.visualizer.image = Jelly.visualizer.image;
 			bullet.frame = 6;
-			layer.addLast( bullet );
+			bullet.insertTo( layer );
 		}
 			
 

@@ -9,7 +9,6 @@ import dwlab.behavior_models.IsButtonActionDown;
 import dwlab.behavior_models.IsModelActive;
 import dwlab.behavior_models.ModelActivator;
 import dwlab.behavior_models.ModelDeactivator;
-import dwlab.behavior_models.ModelStack;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.Group;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
@@ -20,6 +19,7 @@ import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.Color;
 import static examples.BehaviorModelExample.*;
+import static examples.GameObject.verticalCollisionHandler;
 
 public class AwPossum extends GameObject {
 	static final double jumpingAnimationSpeed = 0.2;
@@ -61,11 +61,16 @@ public class AwPossum extends GameObject {
 
 	@Override
 	public void init() {
-		attachModel( gravity );
+		attachModelImmediately( gravity );
 
 
-		ModelStack animationStack = new ModelStack();
-		attachModel( animationStack );
+		attachModelImmediately( new ModelDeactivator( onLand, true ) );
+
+
+		addTileMapCollisions( Group.HORIZONTAL, BehaviorModelExample.tileMap, pushFromWalls, bricks );
+		addTileMapCollisions( Group.VERTICAL, BehaviorModelExample.tileMap, verticalCollisionHandler, bricks );
+		addLayerCollisions( Group.ALL, BehaviorModelExample.layer, awPossumHurtingCollision );
+
 
 		addToStack( hurtingAnimation );
 		addToStack( punchingAnimation, false );
@@ -96,7 +101,7 @@ public class AwPossum extends GameObject {
 		onLandCondition.falseModels.addLast( jumpKeyDown );
 
 		FixedWaitingModel pauseBeforeJump = FixedWaitingModel.create( jumpingPause );
-		pauseBeforeJump.nextModels.addLast( Jump.create( jumpingStrength, jumpingStrength ) );
+		pauseBeforeJump.nextModels.addLast( new Jump( jumpingStrength, jumpingStrength ) );
 		pauseBeforeJump.nextModels.addLast( new ModelActivator( gravity ) );
 		pauseBeforeJump.nextModels.addLast( jumpKeyDown );
 		onLandCondition.trueModels.addLast( pauseBeforeJump );
@@ -115,31 +120,21 @@ public class AwPossum extends GameObject {
 
 		IsModelActive onLandCondition2 = new IsModelActive( onLand );
 		onLandCondition2.trueModels.addLast( new ModelActivator( punchingAnimation ) );
-		onLandCondition2.trueModels.addLast( HittingArea.create2( true ) );
+		onLandCondition2.trueModels.addLast( new HittingArea( true ) );
 		onLandCondition2.trueModels.addLast( hitKeyDown );
 		onLandCondition2.falseModels.addLast( new ModelActivator( kickingAnimation ) );
-		onLandCondition2.falseModels.addLast( HittingArea.create2( false ) );
+		onLandCondition2.falseModels.addLast( new HittingArea( false ) );
 		onLandCondition2.falseModels.addLast( hitKeyDown );
 		hitPauseCondition.falseModels.addLast( onLandCondition2 );
 
 
-		addTileMapCollisions( Group.HORIZONTAL, BehaviorModelExample.tileMap, pushFromWalls, bricks );
-		addTileMapCollisions( Group.VERTICAL, BehaviorModelExample.tileMap, verticalCollisionHandler, bricks );
-		addLayerCollisions( Group.ALL, BehaviorModelExample.layer, awPossumHurtingCollision );
-
-
-		attachModel( new ModelDeactivator( onLand, true ) );
-
-
-		AnimationModel standingAnimation = new AnimationModel( true, idleAnimationSpeed, 4, 0, true );
-		addToStack( standingAnimation );
+		addToStack( new AnimationModel( true, idleAnimationSpeed, 4, 0, true ) );
 	}
 
 
 	@Override
 	public void act() {
 		super.act();
-		collisionsWith( BehaviorModelExample.layer, awPossumHurtingCollision );
 		if( x > BehaviorModelExample.tileMap.rightX() ) BehaviorModelExample.instance.switchTo( new BehaviorModelExample.Restart() );
 	}
 
@@ -147,7 +142,7 @@ public class AwPossum extends GameObject {
 	@Override
 	public void draw( Color drawingColor ) {
 		super.draw( drawingColor );
-		if( health >= 50.0 ) {
+		if( health >= 50d ) {
 			Graphics.setCurrentColor( ( 100d - health ) / 50d , 1d, 0d );
 		} else {
 			Graphics.setCurrentColor( 1d, health / 50d, 0d );
@@ -187,18 +182,23 @@ public class AwPossum extends GameObject {
 	public static class AwPossumHurtingCollision extends SpriteCollisionHandler {
 		@Override
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
+			double damage = 0;
+			if( sprite2 instanceof Jelly ) {
+				damage = Service.random( Jelly.minAttack, Jelly.maxAttack );
+				sprite1.pushFrom( sprite2 );
+			}
+			
 			if( sprite1.findModel( Immortality.class ) != null ) return;
 			if( sprite2.findModel( Death.class ) != null  ) return;
-
-			double damage = 0;
-			if( sprite2 instanceof Jelly ) damage = Service.random( Jelly.minAttack, Jelly.maxAttack );
-			Jelly.Bullet bullet = (Jelly.Bullet) sprite2;
-			if( bullet != null ) {
+			
+			if( sprite2 instanceof Jelly.Bullet ) {
+				Jelly.Bullet bullet = (Jelly.Bullet) sprite2;
 				if( bullet.collisions ) {
 					damage = Service.random( Jelly.Bullet.minAttack, Jelly.Bullet.maxAttack ) * sprite2.getDiameter() / 0.45;
 					sprite2.removeFrom( layer );
 				}
 			}
+			
 			if( damage != 0 ) {
 				AwPossum awPossum = (AwPossum) sprite1;
 				awPossum.health -= damage;
@@ -215,7 +215,7 @@ public class AwPossum extends GameObject {
 
 
 	public static class Immortality extends FixedWaitingModel {
-		static double blinkingSpeed = 0.05;
+		static double blinkingSpeed = 0.05d;
 
 		@Override
 		public void init( Shape shape ) {
@@ -263,10 +263,8 @@ public class AwPossum extends GameObject {
 		public boolean punch;
 
 		
-		public static HittingArea create2( boolean punch ) {
-			HittingArea area = new HittingArea();
-			area.punch = punch;
-			return area;
+		public HittingArea( boolean punch ) {
+			this.punch = punch;
 		}
 		
 
@@ -299,8 +297,8 @@ public class AwPossum extends GameObject {
 
 		@Override
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
-			Jelly jelly = (Jelly) sprite2;
-			if( jelly != null ) {
+			if( sprite2 instanceof Jelly ) {
+				Jelly jelly = (Jelly) sprite2;
 				jelly.health -= Service.random( AwPossum.minAttack, AwPossum.maxAttack );
 				if( jelly.health > 0 ) {
 					jelly.attachModel( new Jelly.JellyHurt() );

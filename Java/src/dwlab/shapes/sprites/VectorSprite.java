@@ -182,16 +182,11 @@ public class VectorSprite extends Sprite {
 
 	
 	private void addToGroup( BehaviorModel model, Group group ) {
-		VectorSpriteCollisionsModel collisions = null;
-		for( BehaviorModel existingModel : behaviorModels ) {
-			if( existingModel instanceof VectorSpriteCollisionsModel ) {
-				collisions = (VectorSpriteCollisionsModel) existingModel;
-				break;
-			}
-		}
+		VectorSpriteCollisionsModel collisions = (VectorSpriteCollisionsModel) findModel( VectorSpriteCollisionsModel.class );
 		if( collisions == null ) {
 			collisions = new VectorSpriteCollisionsModel();
-			attachModel( collisions );
+			collisions.active = true;
+			behaviorModels.add( collisions );
 		}
 		
 		model.init( this );

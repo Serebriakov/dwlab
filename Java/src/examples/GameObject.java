@@ -14,24 +14,20 @@ import static examples.BehaviorModelExample.*;
 public class GameObject extends VectorSprite {
 	static VerticalCollisionHandler verticalCollisionHandler = new VerticalCollisionHandler();
 	
-	OnLand onLand = new OnLand();
+	BehaviorModel onLand = new BehaviorModel();
 	Gravity gravity = new Gravity();
 	AnimationModel jumpingAnimation;
 	AnimationModel fallingAnimation;
 
-	double health = 100.0;
-
-
-	public static class OnLand extends BehaviorModel {
-	}
+	double health = 100d;
 
 
 	public static class Gravity extends BehaviorModel<VectorSprite> {
-		double gravity = 8.0d;
+		double gravity = 8d;
 
 		@Override
 		public void applyTo( VectorSprite sprite ) {
-			sprite.alterCoords( 0d, perSecond( gravity ) );
+			sprite.dY += perSecond( gravity );
 		}
 	}
 
@@ -49,12 +45,12 @@ public class GameObject extends VectorSprite {
 		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
 			GameObject gameObject = (GameObject) sprite;
 			gameObject.pushFrom( tileMap, tileX, tileY );
-			if( gameObject.dY > 0 ) {
+			if( gameObject.dY > 0d ) {
 				gameObject.onLand.activateModel( sprite );
 				gameObject.fallingAnimation.deactivateModel( sprite );
 				gameObject.jumpingAnimation.deactivateModel( sprite );
 			}
-			gameObject.dY = 0;
+			gameObject.dY = 0d;
 		}
 	}
 
@@ -62,11 +58,9 @@ public class GameObject extends VectorSprite {
 	public static class Jump extends BehaviorModel<VectorSprite> {
 		public double fromStrength, toStrength;
 
-		public static Jump create( double fromStrength, double toStrength ) {
-			Jump jump = new Jump();
-			jump.fromStrength = fromStrength;
-			jump.toStrength = toStrength;
-			return jump;
+		public Jump( double fromStrength, double toStrength ) {
+			this.fromStrength = fromStrength;
+			this.toStrength = toStrength;
 		}
 
 		@Override
@@ -86,13 +80,13 @@ public class GameObject extends VectorSprite {
 		@Override
 		public void applyTo( Shape shape ) {
 			super.applyTo( shape );
-			double alpha = 1.0 - ( instance.time - startingTime ) / period;
-			if( alpha >= 0.0 ) shape.visualizer.alpha = alpha;
+			double alpha = 1d - ( instance.time - startingTime ) / period;
+			if( alpha >= 0d ) shape.visualizer.alpha = alpha;
 		}
 
 		@Override
 		public void deactivate( Shape shape ) {
-			remove( shape );
+			shape.removeFrom( layer );
 		}
 	}
 }

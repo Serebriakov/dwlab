@@ -50,6 +50,7 @@ public class SpriteMapExample extends Project {
 		for( int n = 1; n <= spritesQuantity; n++ ) Ball.create();
 		rectangle.visualizer = new ContourVisualizer( 0.1d, "FF0000" );
 		fieldSpriteMap.initialArraysSize = 2;
+		cursor.shapeType = ShapeType.pivot;
 	}
 
 	

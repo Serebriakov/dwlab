@@ -31,7 +31,6 @@ public class Classes {
 		Obj.classes.put( "FixedJoint", dwlab.behavior_models.FixedJoint.class );
 		Obj.classes.put( "FixedWaitingModel", dwlab.behavior_models.FixedWaitingModel.class );
 		Obj.classes.put( "FollowingModel", dwlab.behavior_models.FollowingModel.class );
-		Obj.classes.put( "HorizontalMovementModel", dwlab.behavior_models.HorizontalMovementModel.class );
 		Obj.classes.put( "IsButtonActionDown", dwlab.behavior_models.IsButtonActionDown.class );
 		Obj.classes.put( "IsModelActive", dwlab.behavior_models.IsModelActive.class );
 		Obj.classes.put( "ModelActivator", dwlab.behavior_models.ModelActivator.class );
@@ -45,7 +44,6 @@ public class Classes {
 		Obj.classes.put( "TimedMovementModel", dwlab.behavior_models.TimedMovementModel.class );
 		Obj.classes.put( "ValueChangingModel", dwlab.behavior_models.ValueChangingModel.class );
 		Obj.classes.put( "VectorSpriteCollisionsModel", dwlab.behavior_models.VectorSpriteCollisionsModel.class );
-		Obj.classes.put( "VerticalMovementModel", dwlab.behavior_models.VerticalMovementModel.class );
 		Obj.classes.put( "ButtonAction", dwlab.controllers.ButtonAction.class );
 		Obj.classes.put( "Key", dwlab.controllers.Key.class );
 		Obj.classes.put( "KeyboardKey", dwlab.controllers.KeyboardKey.class );

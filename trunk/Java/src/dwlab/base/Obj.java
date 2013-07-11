@@ -277,7 +277,7 @@ public class Obj {
 			TileMap.file = null;
 		}
 
-		xMLObject.setAttribute( "dwlab_version", Service.version );
+		xMLObject.setAttribute( "dwlab_version", Sys.version );
 		xMLObject.setAttribute( "total-loading-time", Service.newTotalLoadingTime );
 
 		for( XMLObject xMLObject2 : removeIDMap.values() ) {
@@ -295,6 +295,6 @@ public class Obj {
 	
 	public static void error( String Text ) {
 		System.out.println( Text );
-		System.exit( 0 );
+ 		System.exit( 0 );
 	}
 }

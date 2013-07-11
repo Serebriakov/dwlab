@@ -4,8 +4,8 @@ import dwlab.base.service.Service;
 
 public class All {
 	public static void main(String[] argv) {
-		Service.generateClassesList( "examples", "src/examples/Classes.java" ); System.exit( 0 );
-		//Classes.register();
+		//Service.generateClassesList( "examples", "src/examples/Classes.java" ); System.exit( 0 );
+		Classes.register();
 		ActionExample.main( argv );
 		ActiveExample.main( argv );
 		BehaviorModelExample.main( argv );

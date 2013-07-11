@@ -16,6 +16,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 public class Sys {
+	public static String version = "2.0";
 	public static LinkedList<ButtonAction> controllers = new LinkedList<ButtonAction>();
 	public static LinkedList<Integer> keys = new LinkedList<Integer>();
 	

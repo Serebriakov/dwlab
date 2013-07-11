@@ -11,13 +11,11 @@ package dwlab.shapes.sprites;
 import dwlab.base.Project;
 import dwlab.base.service.Service;
 import dwlab.behavior_models.BehaviorModel;
-import dwlab.behavior_models.HorizontalMovementModel;
 import dwlab.behavior_models.VectorSpriteCollisionsModel;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.Group;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.LayerCollisions;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.SpriteMapCollisions;
 import dwlab.behavior_models.VectorSpriteCollisionsModel.TileMapCollisions;
-import dwlab.behavior_models.VerticalMovementModel;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
@@ -226,15 +224,21 @@ public class VectorSprite extends Sprite {
 		return (VectorSpriteCollisionsModel) findModel( VectorSpriteCollisionsModel.class );
 	}
 	
-	public HorizontalMovementModel horizontalMovementModel() {
+	public BehaviorModel horizontalMovementModel() {
 		VectorSpriteCollisionsModel model = сollisionsModel();
 		if( model == null ) return null;
-		return model.horizontalMovementModel;
+		return model.horizontalMovement;
 	}
 	
-	public VerticalMovementModel verticalMovementModel() {
+	public BehaviorModel verticalMovementModel() {
 		VectorSpriteCollisionsModel model = сollisionsModel();
 		if( model == null ) return null;
-		return model.verticalMovementModel;
+		return model.verticalMovement;
+	}
+	
+	public BehaviorModel collisionModel() {
+		VectorSpriteCollisionsModel model = сollisionsModel();
+		if( model == null ) return null;
+		return model.collision;
 	}
 }

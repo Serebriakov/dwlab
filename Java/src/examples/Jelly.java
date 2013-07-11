@@ -12,7 +12,6 @@ import dwlab.behavior_models.VectorSpriteCollisionsModel.Group;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
-import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.shapes.sprites.VectorSprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import static examples.BehaviorModelExample.*;
@@ -33,7 +32,6 @@ public class Jelly extends GameObject {
 	int score = 100;
 
 	static BumpingWalls bumpingWalls = new BumpingWalls();
-	static BumpingSprites bumpingSprites = new BumpingSprites();
 	static DestroyBullet destroyBullet = new DestroyBullet();
 	
 
@@ -45,7 +43,6 @@ public class Jelly extends GameObject {
 		
 		addTileMapCollisions( Group.HORIZONTAL, tileMap, bumpingWalls, null );
 		addTileMapCollisions( Group.VERTICAL, tileMap, verticalCollisionHandler, null );
-		addLayerCollisions( Group.ALL, layer, bumpingSprites );
 
 		jumpingAnimation = new AnimationModel( false, jumpingAnimationSpeed, 8, 8 );
 		fallingAnimation = new AnimationModel( true, jumpingAnimationSpeed, 3, 13, true );
@@ -140,17 +137,6 @@ public class Jelly extends GameObject {
 			sprite.pushFrom( tileMap, tileX, tileY );
 			( (VectorSprite) sprite ).dX *= -1;
 			sprite.visualizer.xScale *= -1;
-		}
-	}
-
-
-	static class BumpingSprites extends SpriteCollisionHandler {
-		@Override
-		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
-			if( sprite2 instanceof Bullet ) return;
-			sprite1.pushFrom( sprite2 );
-			( (VectorSprite) sprite1 ).dX *= -1;
-			sprite1.visualizer.xScale *= -1;
 		}
 	}
 

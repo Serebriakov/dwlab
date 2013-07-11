@@ -19,6 +19,13 @@ import dwlab.shapes.Shape;
 public class BehaviorModel<E extends Shape> extends Obj {
 	public boolean active;
 
+	
+	public static BehaviorModel createActive() {
+		BehaviorModel model = new BehaviorModel();
+		model.active = true;
+		return model;
+	}
+
 
 	/**
 	 * Initialization method.

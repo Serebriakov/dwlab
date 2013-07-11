@@ -55,7 +55,7 @@ public class AnimationModel extends ChainedModel<Sprite> {
 	@Override
 	public void applyTo( Sprite sprite ) {
 		if( ! looped ) {
-			if( Project.current.time > startingTime + speed * ( framesQuantity + ( pingPong ? 0 : framesQuantity - 2 ) ) ) {
+			if( Project.current.time > startingTime + speed * ( framesQuantity + ( pingPong ? framesQuantity - 2 : 0 ) ) ) {
 				deactivateModel( sprite );
 				return;
 			}

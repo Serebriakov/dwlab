@@ -2,6 +2,8 @@ package examples;
 
 import dwlab.base.Graphics;
 import dwlab.base.Project;
+import static dwlab.base.Project.exitButton;
+import dwlab.base.Sys;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -40,8 +42,6 @@ public class BehaviorModelExample extends Project {
 	public static MarchingAnts marchingAnts = new MarchingAnts();
 
 	public static int score;
-
-	public ButtonAction KeyExit = ButtonAction.create( KeyboardKey.create( Key.SPACE ) );
 	
 	
 	@Override
@@ -50,25 +50,23 @@ public class BehaviorModelExample extends Project {
 
 		Graphics.init();
 
-		/*
 		Sprite sprite = new Sprite( Camera.current );
 		sprite.visualizer.image = new Image( "res/scheme2.png" );
-		while ( !KeyExit.wasPressed() ) {
+		while ( !exitButton.wasPressed() ) {
 			sprite.draw();
-			processEvents();
+			Sys.processEvents( this );
 			Graphics.swapBuffers();
 		}
 
 		sprite.visualizer.image = new Image( "res/scheme1.png" );
 		processEvents();
-		while ( !KeyExit.wasPressed() ) {
+		while ( !exitButton.wasPressed() ) {
 			sprite.draw();
-			processEvents();
+			Sys.processEvents( this );
 			Graphics.swapBuffers();
 		}
-		*/
 
-		processEvents();
+		Sys.processEvents( this );
 		initLevel();
 	}
 

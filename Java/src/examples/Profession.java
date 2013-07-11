@@ -16,6 +16,6 @@ public class Profession extends Obj {
 	@Override
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
-		xMLObject.manageStringAttribute( "name", name );
+		name = xMLObject.manageStringAttribute( "name", name );
 	}
 }

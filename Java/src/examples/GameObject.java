@@ -4,7 +4,7 @@ import dwlab.base.service.Service;
 import dwlab.behavior_models.AnimationModel;
 import dwlab.behavior_models.BehaviorModel;
 import dwlab.behavior_models.FixedWaitingModel;
-import dwlab.shapes.Shape;
+import dwlab.behavior_models.ModelStack;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteAndTileCollisionHandler;
@@ -71,21 +71,26 @@ public class GameObject extends VectorSprite {
 	}
 
 
-	public static class Death extends FixedWaitingModel {
+	public static class Death extends FixedWaitingModel<VectorSprite> {
 		@Override
-		public void init( Shape shape ) {
+		public void init( VectorSprite shape ) {
 			period = deathPeriod;
+			if( shape.collisionModel() != null ) {
+				shape.horizontalMovementModel().deactivateModel( shape );
+				shape.verticalMovementModel().deactivateModel( shape );
+				shape.deactivateModel( ModelStack.class );
+			}
 		}
 
 		@Override
-		public void applyTo( Shape shape ) {
+		public void applyTo( VectorSprite shape ) {
 			super.applyTo( shape );
 			double alpha = 1d - ( instance.time - startingTime ) / period;
 			if( alpha >= 0d ) shape.visualizer.alpha = alpha;
 		}
 
 		@Override
-		public void deactivate( Shape shape ) {
+		public void deactivate( VectorSprite shape ) {
 			shape.removeFrom( layer );
 		}
 	}

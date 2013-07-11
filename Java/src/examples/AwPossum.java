@@ -22,24 +22,24 @@ import static examples.BehaviorModelExample.*;
 import static examples.GameObject.verticalCollisionHandler;
 
 public class AwPossum extends GameObject {
-	static final double jumpingAnimationSpeed = 0.2;
-	static final double walkingAnimationSpeed = 0.2;
-	static final double idleAnimationSpeed = 0.4;
+	static final double jumpingAnimationSpeed = 0.2d;
+	static final double walkingAnimationSpeed = 0.2d;
+	static final double idleAnimationSpeed = 0.4d;
 
 	static final double jumpingPause = jumpingAnimationSpeed;
-	static final double jumpingStrength = 6.0;
-	static final double walkingSpeed = 5.0;
+	static final double jumpingStrength = 6d;
+	static final double walkingSpeed = 5d;
 
-	static final double minAttack = 20.0;
-	static final double maxAttack = 35.0;
-	static final double minHealthGain = 3.0;
-	static final double maxHealthGain = 6.0;
+	static final double minAttack = 20d;
+	static final double maxAttack = 35d;
+	static final double minHealthGain = 3d;
+	static final double maxHealthGain = 6d;
 
-	static final double knockOutPeriod = 0.3;
-	static final double immortalPeriod = 1.5;
-	static final double hitPeriod = 0.2;
-	static final double knockOutStrength = 2.0;
-	static final double hitPauseTime = 0.5;
+	static final double knockOutPeriod = 0.3d;
+	static final double immortalPeriod = 1.5d;
+	static final double hitPeriod = 0.2d;
+	static final double knockOutStrength = 2d;
+	static final double hitPauseTime = 0.5d;
 
 	AnimationModel movementAnimation = new AnimationModel( true, walkingAnimationSpeed, 4, 4 );
 	AnimationModel hurtingAnimation = new AnimationModel( false, knockOutPeriod, 1, 14 );
@@ -73,10 +73,10 @@ public class AwPossum extends GameObject {
 
 
 		addToStack( hurtingAnimation );
-		addToStack( punchingAnimation, false );
-		addToStack( kickingAnimation, false );
+		addToStack( punchingAnimation );
+		addToStack( kickingAnimation );
 
-		jumpingAnimation = new AnimationModel( false, jumpingAnimationSpeed, 3, 8 );
+		jumpingAnimation = new AnimationModel( false, jumpingAnimationSpeed, 2, 8 );
 		addToStack( jumpingAnimation );
 
 		fallingAnimation = new AnimationModel( true, jumpingAnimationSpeed, 1, 10 );
@@ -147,9 +147,9 @@ public class AwPossum extends GameObject {
 		} else {
 			Graphics.setCurrentColor( 1d, health / 50d, 0d );
 		}
-		Graphics.drawRectangle( 5, 580, health, 15 );
+		Graphics.drawRectangle( 5d + 0.5d * health, 587.5d, health, 15d );
 		Graphics.resetCurrentColor();
-		Graphics.drawEmptyRectangle( 5, 580, 100, 15 );
+		Graphics.drawEmptyRectangle( 55d, 587.5d, 100d, 15d );
 	}
 
 
@@ -182,14 +182,13 @@ public class AwPossum extends GameObject {
 	public static class AwPossumHurtingCollision extends SpriteCollisionHandler {
 		@Override
 		public void handleCollision( Sprite sprite1, Sprite sprite2 ) {
+			if( sprite1.findModel( Immortality.class ) != null ) return;
+			if( sprite2.findModel( Death.class ) != null  ) return;
+			
 			double damage = 0;
 			if( sprite2 instanceof Jelly ) {
 				damage = Service.random( Jelly.minAttack, Jelly.maxAttack );
-				sprite1.pushFrom( sprite2 );
 			}
-			
-			if( sprite1.findModel( Immortality.class ) != null ) return;
-			if( sprite2.findModel( Death.class ) != null  ) return;
 			
 			if( sprite2 instanceof Jelly.Bullet ) {
 				Jelly.Bullet bullet = (Jelly.Bullet) sprite2;
@@ -202,12 +201,12 @@ public class AwPossum extends GameObject {
 			if( damage != 0 ) {
 				AwPossum awPossum = (AwPossum) sprite1;
 				awPossum.health -= damage;
-				if( awPossum.health > 0.0 ) {
-					sprite1.attachModel( new Immortality() );
-					sprite1.attachModel( new KnockOut() );
+				if( awPossum.health > 0d ) {
+					awPossum.attachModel( new Immortality() );
+					awPossum.attachModel( new KnockOut() );
 				} else if( sprite1.findModel( Death.class ) == null ) {
-					sprite1.behaviorModels.clear();
-					sprite1.attachModel( new Death() );
+					awPossum.health = 0d;
+					awPossum.attachModel( new Death() );
 				}
 			}
 		}
@@ -308,7 +307,8 @@ public class AwPossum extends GameObject {
 					AwPossum awPossum = (AwPossum) layer.findShape( AwPossum.class );
 					awPossum.health = Math.min( awPossum.health + Service.random( AwPossum.minHealthGain, AwPossum.maxHealthGain ), 100.0 );
 
-					jelly.behaviorModels.clear();
+					jelly.horizontalMovementModel().deactivateModel( jelly );
+					jelly.verticalMovementModel().deactivateModel( jelly );
 					jelly.attachModel( new Death() );
 				}
 				collided = true;

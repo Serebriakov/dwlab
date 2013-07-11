@@ -196,21 +196,23 @@ public class TileSet extends Obj {
 		//collisionSprites = xMLObject.manageObjectDoubleArrayField( "collision-sprites", collisionSprites );
 		if( Sys.xMLGetMode() ) {
 			Shape[] shapes = xMLObject.manageObjectArrayField( "collision-shapes", null, Shape.class );
-			collisionSprites = new Sprite[ shapes.length ][];
-			for( int n = 0; n < shapes.length; n++ ) {
-				if( shapes[ n ] == null ) continue;
-				Layer layer = shapes[ n ].toLayer();
-				if( layer == null ) {
-					if( shapes[ n ] != null ) {
-						collisionSprites[ n ] = new Sprite[ 1 ];
-						collisionSprites[ n ][ 0 ] = shapes[ n ].toSprite();
-					}
-				} else {
-					collisionSprites[ n ] = new Sprite[ layer.children.size() ];
-					int m = 0;
-					for( Shape shape : layer.children ) {
-						collisionSprites[ n ][ m ] = shape.toSprite();
-						m++;
+			if( shapes != null ) {
+				collisionSprites = new Sprite[ shapes.length ][];
+				for( int n = 0; n < shapes.length; n++ ) {
+					if( shapes[ n ] == null ) continue;
+					Layer layer = shapes[ n ].toLayer();
+					if( layer == null ) {
+						if( shapes[ n ] != null ) {
+							collisionSprites[ n ] = new Sprite[ 1 ];
+							collisionSprites[ n ][ 0 ] = shapes[ n ].toSprite();
+						}
+					} else {
+						collisionSprites[ n ] = new Sprite[ layer.children.size() ];
+						int m = 0;
+						for( Shape shape : layer.children ) {
+							collisionSprites[ n ][ m ] = shape.toSprite();
+							m++;
+						}
 					}
 				}
 			}

@@ -24,8 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Service extends Obj {
-	public static String version = "1.5.2";
-	
 	public static long newTotalLoadingTime;
 	public static long objectLoadingTime;
 	public static long totalLoadingTime;

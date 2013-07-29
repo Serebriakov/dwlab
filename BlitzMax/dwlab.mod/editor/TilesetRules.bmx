@@ -243,7 +243,7 @@ Type TTilesetRules
 					Case TileRuleCanvas
 						PosDX = Floor( MouseX() / 32 ) - 3
 						PosDY = Floor( MouseY() / 32 ) - 3
-						If RMB Then
+						If RMB And CurrentTileRule Then
 							Local TilePos:LTTilePos = FindTilePos( CurrentTileRule, PosDX, PosDY )
 							If TilePos Then CurrentTileRule.TilePositions.Remove( TilePos )
 							Editor.SetChanged()

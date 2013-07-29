@@ -65,7 +65,6 @@ Incbin "font.ttf"
 Incbin "toolbar.png"
 Incbin "treeview.png"
 
-L_LoadingUpdater = New TLoadingUpdater
 LTImage.LoadingErrorHandler = New LTCustomImageLoadingErrorHandler
 LTTileMap.LoadingErrorHandler = New LTCustomTileMapLoadingErrorHandler
 
@@ -73,7 +72,7 @@ Global Editor:LTEditor = New LTEditor
 Editor.Execute()
 
 Type LTEditor Extends LTProject
-	Const Version:String = "1.11.1"
+	Const Version:String = "1.11.1.1"
 	Const INIVersion:Int = 6
 	Const ModifierSize:Int = 3
 	Const RecentFilesQuantity:Int = 8
@@ -625,6 +624,8 @@ Type LTEditor Extends LTProject
 			InsertToRecentFiles( Filename )
 			ChangeDir( ExtractDir( Filename ) )
 			
+			L_LoadingUpdater = New TLoadingUpdater
+			
 			LoadingWindow = CreateWindow( "", 0, 0, 0, 0, Editor.Window, Window_Titlebar | Window_ClientCoords )
 			Local Form:LTForm = LTForm.Create( LoadingWindow )
 			Form.NewLine()
@@ -642,6 +643,8 @@ Type LTEditor Extends LTProject
 			MainCamera.Update()
 			L_CurrentCamera = MainCamera
 			MainCanvasZ = L_Round( Log( 32.0 / MainCamera.Width ) / Log( 1.1 ) )
+			
+			L_LoadingUpdater = Null
 			
 			CurrentShape = Null
 			CurrentTilemap = Null

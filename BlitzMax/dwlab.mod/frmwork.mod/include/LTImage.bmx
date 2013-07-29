@@ -78,7 +78,7 @@ Type LTImage Extends LTObject
 		L_LoadingTime :+ LoadingTime
 		LoadingTime = MilliSecs() - Time
 		L_NewTotalLoadingTime :+ LoadingTime
-		L_LoadingProgress = 1.0 * L_LoadingTime / L_TotalLoadingTime
+		If L_TotalLoadingTime > 0 Then L_LoadingProgress = 1.0 * L_LoadingTime / L_TotalLoadingTime
 		If L_LoadingUpdater Then L_LoadingUpdater.Update()
 	End Method
 	

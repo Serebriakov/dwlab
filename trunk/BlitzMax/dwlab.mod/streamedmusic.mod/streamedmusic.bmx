@@ -10,6 +10,11 @@
 
 Module dwlab.streamedmusic
 
+ModuleInfo "Version: 1.0"
+ModuleInfo "Author: Matt Merkulov"
+ModuleInfo "License: Artistic License 2.0"
+ModuleInfo "Modserver: DWLAB"
+
 Import dwlab.music
 Import maxmod2.maxmod2
 Import maxmod2.ogg
@@ -30,7 +35,7 @@ Type LTStreamedMusicHandler Extends LTMusicHandler
 	End Method
 	
 	Method Add( Name:String, Looped:Int = False, Rate:Double = 1.0 )
-		For Local Entry:LTStreamedMusicEntry = Eachin AllEntries
+		For Local Entry:LTStreamedMusicEntry = EachIn AllEntries
 			If Entry.Name = Name Then
 				Local NewEntry:LTStreamedMusicEntry = New LTStreamedMusicEntry
 				NewEntry.FileName = Entry.FileName

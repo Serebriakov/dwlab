@@ -65,6 +65,7 @@ Incbin "font.ttf"
 Incbin "toolbar.png"
 Incbin "treeview.png"
 
+L_LoadingUpdater = New TLoadingUpdater
 LTImage.LoadingErrorHandler = New LTCustomImageLoadingErrorHandler
 LTTileMap.LoadingErrorHandler = New LTCustomTileMapLoadingErrorHandler
 
@@ -72,7 +73,7 @@ Global Editor:LTEditor = New LTEditor
 Editor.Execute()
 
 Type LTEditor Extends LTProject
-	Const Version:String = "1.11.1.1"
+	Const Version:String = "1.11.2"
 	Const INIVersion:Int = 6
 	Const ModifierSize:Int = 3
 	Const RecentFilesQuantity:Int = 8
@@ -128,6 +129,7 @@ Type LTEditor Extends LTProject
 	Field VisDYField:TGadget
 	Field FrameSlider:TGadget, FrameField:TGadget
 	Field SelectImageButton:TGadget
+	Field SelectColorButton:TGadget
 	Field RotatingCheckbox:TGadget
 	Field ScalingCheckbox:TGadget
 	Field PhysicsCheckbox:TGadget
@@ -264,8 +266,8 @@ Type LTEditor Extends LTProject
 	
 	
 	Const PanelHeight:Int = 368
-	Const BarWidth:Int = 256
-	Const LabelWidth:Int = 63
+	Const BarWidth:Int = 260
+	Const LabelWidth:Int = 65
 	Const ListBoxHeight:Int = 62
 	
 	
@@ -317,7 +319,8 @@ Type LTEditor Extends LTProject
 		HeightField = PanelForm.AddTextField( "{{L_Height}}", LabelWidth )
 		PanelForm.NewLine()
 		VelocityField = PanelForm.AddTextField( "{{L_Velocity}}", LabelWidth )
-		SelectImageButton = PanelForm.AddButton( "{{B_SelectImage}}", LabelWidth + 56 )
+		SelectImageButton = PanelForm.AddButton( "{{B_SelectImage}}", LabelWidth / 2 + 32 )
+		SelectColorButton = PanelForm.AddButton( "{{B_SelCol}}", LabelWidth / 2 + 20 )
 		PanelForm.NewLine( LTAlign.Stretch )
 		PanelForm.AddSliderWithTextField( FrameSlider, FrameField, "{{L_Frame}}", LabelWidth, 50 )
 		PanelForm.NewLine( LTAlign.Stretch )
@@ -624,8 +627,6 @@ Type LTEditor Extends LTProject
 			InsertToRecentFiles( Filename )
 			ChangeDir( ExtractDir( Filename ) )
 			
-			L_LoadingUpdater = New TLoadingUpdater
-			
 			LoadingWindow = CreateWindow( "", 0, 0, 0, 0, Editor.Window, Window_Titlebar | Window_ClientCoords )
 			Local Form:LTForm = LTForm.Create( LoadingWindow )
 			Form.NewLine()
@@ -643,8 +644,6 @@ Type LTEditor Extends LTProject
 			MainCamera.Update()
 			L_CurrentCamera = MainCamera
 			MainCanvasZ = L_Round( Log( 32.0 / MainCamera.Width ) / Log( 1.1 ) )
-			
-			L_LoadingUpdater = Null
 			
 			CurrentShape = Null
 			CurrentTilemap = Null
@@ -1275,6 +1274,16 @@ Type LTEditor Extends LTProject
 				End Select
 			Case Event_GadgetAction
 				Select EventSource()
+					Case SelectColorButton
+						If Not SelectedShapes.IsEmpty() Then
+							Local Vis:LTVisualizer = LTShape( SelectedShapes.First() ).Visualizer
+							If RequestColor( 255.0 * Vis.Red, 255.0 * Vis.Green, 255.0 * Vis.Blue ) Then
+								For Local Shape:LTShape = Eachin SelectedShapes
+									Shape.Visualizer.SetColorFromRGB( RequestedRed() / 255.0, RequestedGreen() / 255.0, RequestedBlue() / 255.0 )
+								Next
+								Editor.FillShapeFields()
+							End If
+						End If
 					Case SelectImageButton
 						If Not SelectedShapes.IsEmpty() Then
 							Local FirstSprite:LTSprite = LTSprite( SelectedShapes.First() )

@@ -10,6 +10,11 @@
 
 Module dwlab.music
 
+ModuleInfo "Version: 1.0"
+ModuleInfo "Author: Matt Merkulov"
+ModuleInfo "License: Artistic License 2.0"
+ModuleInfo "Modserver: DWLAB"
+
 Import brl.linkedlist
 
 Rem

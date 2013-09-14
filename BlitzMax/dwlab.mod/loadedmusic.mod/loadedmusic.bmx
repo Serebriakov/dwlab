@@ -9,6 +9,11 @@
 '
 Module dwlab.loadedmusic
 
+ModuleInfo "Version: 1.0"
+ModuleInfo "Author: Matt Merkulov"
+ModuleInfo "License: Artistic License 2.0"
+ModuleInfo "Modserver: DWLAB"
+
 Import dwlab.music
 Import brl.audio
 
@@ -26,7 +31,7 @@ Type LTLoadedMusicHandler Extends LTMusicHandler
 	End Method
 	
 	Method Add( Name:String, Looped:Int = False, Rate:Double = 1.0 )
-		For Local Entry:LTLoadedMusicEntry = Eachin AllEntries
+		For Local Entry:LTLoadedMusicEntry = EachIn AllEntries
 			If Entry.Name = Name Then
 				Local NewEntry:LTLoadedMusicEntry = New LTLoadedMusicEntry
 				NewEntry.Sound = Entry.Sound

@@ -1,3 +1,6 @@
+1.11.2
+Added color selection button
+
 1.11.1
 Tilemap storing method is updated
 

@@ -113,8 +113,8 @@ public class Obj {
 				y *= shift;
 		}
 
-		org.newdawn.slick.Color oldContourColor = Platform.current.getContourColor();
-		Platform.current.setContourColor( 0f, 0f, 0f );
+		Color oldContourColor = Platform.current.getContourColor();
+		Platform.current.setContourColor( 0, 0, 0, 1 );
 		Platform.current.drawText( text, (float) x, (float) y );
 		Platform.current.setContourColor( oldContourColor );
 	}

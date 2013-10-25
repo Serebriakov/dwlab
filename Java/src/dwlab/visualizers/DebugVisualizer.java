@@ -77,8 +77,8 @@ public class DebugVisualizer extends Visualizer {
 			String titles[] = sprite.getTitle().split( ";" );
 			serviceVector.y -= titles.length * 8;
 			for( String title: titles ) {
-				org.newdawn.slick.Color oldContourColor = Platform.current.getContourColor();
-				Platform.current.setContourColor( 0f, 0f, 0f );
+				Color oldContourColor = Platform.current.getContourColor();
+				Platform.current.setContourColor( 0, 0, 0, 1 );
 				Platform.current.drawText( title, serviceVector.x - 0.5 * Platform.current.getTextWidth( title ), serviceVector.y );
 				Platform.current.setContourColor( oldContourColor );
 				serviceVector.y += 14;

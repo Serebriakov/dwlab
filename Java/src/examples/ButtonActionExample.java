@@ -1,5 +1,6 @@
 package examples;
-import dwlab.base.Graphics;
+
+import dwlab.platform.Platform;
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.controllers.ButtonAction;
@@ -13,7 +14,7 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class ButtonActionExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	private static ButtonActionExample instance = new ButtonActionExample();

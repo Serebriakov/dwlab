@@ -12,6 +12,7 @@ package dwlab.shapes.sprites;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
 import dwlab.base.*;
+import dwlab.platform.Platform;
 import dwlab.shapes.Shape;
 import dwlab.visualizers.Color;
 
@@ -28,7 +29,7 @@ public class Camera extends VectorSprite {
 	public static Camera current = new Camera();
 
 	/**
-	* Global flag for discrete graphics.
+	* Global flag for discrete Platform.current.
 	*/
 	public static boolean discreteGraphics = false;
 	
@@ -186,10 +187,10 @@ public class Camera extends VectorSprite {
 	 */
 	public void setCameraViewport() {
 		if( viewportClipping ) {
-			Graphics.setViewport( Service.round( viewport.getX() ), Service.round( viewport.getY() ), 
+			Platform.current.setViewport( Service.round( viewport.getX() ), Service.round( viewport.getY() ), 
 					Service.round( viewport.getWidth() ), Service.round( viewport.getHeight() ) );
 		} else {
-			Graphics.resetViewport();
+			Platform.current.resetViewport();
 		}
 	}
 
@@ -274,7 +275,7 @@ public class Camera extends VectorSprite {
 	 */
 	public void applyColor( double red, double green, double blue, double intensity ) {
 		serviceColor.set( red, green, blue, intensity );
-		Graphics.drawRectangle( viewport.getX() - 0.5 * viewport.getWidth(), viewport.getY() - 0.5 * viewport.getHeight(), viewport.getWidth(), viewport.getHeight(), 0,
+		Platform.current.drawRectangle( viewport.getX() - 0.5 * viewport.getWidth(), viewport.getY() - 0.5 * viewport.getHeight(), viewport.getWidth(), viewport.getHeight(), 0,
 				serviceColor, false );
 	}
 
@@ -347,7 +348,7 @@ public class Camera extends VectorSprite {
 		vX2 = xMLObject.manageDoubleAttribute( "x2", vX2 );
 		vY2 = xMLObject.manageDoubleAttribute( "y2", vY2 );
 
-		if( Sys.xMLGetMode() ) update();
+		if( XMLObject.xMLGetMode() ) update();
 	}
 }
 

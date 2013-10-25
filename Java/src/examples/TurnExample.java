@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.controllers.ButtonAction;
@@ -12,7 +13,7 @@ import dwlab.visualizers.Visualizer;
 
 public class TurnExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

@@ -10,8 +10,8 @@
 package dwlab.controllers;
 
 import dwlab.base.Obj;
-import dwlab.base.Sys;
 import dwlab.base.XMLObject;
+import dwlab.platform.Platform;
 import java.util.LinkedList;
 
 /**
@@ -45,7 +45,7 @@ public class ButtonAction extends Obj {
 		if( modifiers.contains( "ctrl" ) ) action.ctrl = true;
 		if( modifiers.contains( "alt" ) ) action.alt = true;
 		if( modifiers.contains( "shift" ) ) action.shift = true;
-		Sys.controllers.add( action );
+		Platform.current.controllers.add( action );
 		return action;
 	}
 	
@@ -103,7 +103,7 @@ public class ButtonAction extends Obj {
 
 
 	public boolean define() {
-		return Sys.getPushable( this );
+		return Platform.current.getPushable( this );
 	}
 
 
@@ -159,6 +159,6 @@ public class ButtonAction extends Obj {
 		super.xMLIO( xMLObject );
 		name = xMLObject.manageStringAttribute( "name", name );
 		buttonList = xMLObject.manageChildList( buttonList );
-		if( Sys.xMLGetMode() ) Sys.controllers.add( this );
+		if( XMLObject.xMLGetMode() ) Platform.current.controllers.add( this );
 	}
 }

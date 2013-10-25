@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.service.Service;
 import dwlab.behavior_models.AnimationModel;
 import dwlab.behavior_models.BehaviorModel;
@@ -143,13 +144,13 @@ public class AwPossum extends GameObject {
 	public void draw( Color drawingColor ) {
 		super.draw( drawingColor );
 		if( health >= 50d ) {
-			Graphics.setCurrentColor( ( 100d - health ) / 50d , 1d, 0d );
+			Platform.current.setCurrentColor( ( 100d - health ) / 50d , 1d, 0d );
 		} else {
-			Graphics.setCurrentColor( 1d, health / 50d, 0d );
+			Platform.current.setCurrentColor( 1d, health / 50d, 0d );
 		}
-		Graphics.drawRectangle( 5d + 0.5d * health, 587.5d, health, 15d );
-		Graphics.resetCurrentColor();
-		Graphics.drawEmptyRectangle( 55d, 587.5d, 100d, 15d );
+		Platform.current.drawRectangle( 5d + 0.5d * health, 587.5d, health, 15d );
+		Platform.current.resetCurrentColor();
+		Platform.current.drawEmptyRectangle( 55d, 587.5d, 100d, 15d );
 	}
 
 

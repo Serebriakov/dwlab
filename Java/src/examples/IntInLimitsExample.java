@@ -1,11 +1,13 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.*;
 
 public class IntInLimitsExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
@@ -18,18 +20,18 @@ public class IntInLimitsExample extends Project {
 	
 	@Override
 	public void logic() {
-		if( Service.inLimits( Sys.mouseX(), 200, 600 ) ) word = ""; else word = "not ";
+		if( Service.inLimits( Platform.current.mouseX(), 200, 600 ) ) word = ""; else word = "not ";
 	}
 	
 
 	@Override
 	public void render() {
-		Graphics.setCurrentColor( 1d, 0d, 0d );
-		Graphics.drawLine( 200, 0, 200, 599 );
-		Graphics.drawLine( 600, 0, 600, 599 );
-		Graphics.setCurrentColor( 1d, 1d, 1d );
-		printText( Sys.mouseX() + " is " + word + "in limits of [ 200, 600 ]" );
-		Graphics.drawOval( Sys.mouseX(), Sys.mouseY(), 5, 5 );
+		Platform.current.setCurrentColor( 1d, 0d, 0d );
+		Platform.current.drawLine( 200, 0, 200, 599 );
+		Platform.current.drawLine( 600, 0, 600, 599 );
+		Platform.current.setCurrentColor( 1d, 1d, 1d );
+		printText( Platform.current.mouseX() + " is " + word + "in limits of [ 200, 600 ]" );
+		Platform.current.drawOval( Platform.current.mouseX(), Platform.current.mouseY(), 5, 5 );
 		printText( "L_IntInLimits example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

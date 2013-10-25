@@ -9,8 +9,8 @@
 
 package dwlab.shapes.sprites.shape_types.drawing_sprites;
 
-import dwlab.base.Sys;
 import dwlab.base.images.Image;
+import dwlab.platform.Platform;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
@@ -50,7 +50,7 @@ public class DrawingSprite extends ServiceObjects {
 				angle = spriteShape.displayingAngle;
 			}
 
-			if( Sys.debug ) if( sprite.frame < 0 || sprite.frame >= visualizer.image.framesQuantity() ) {
+			if( Platform.current.debug ) if( sprite.frame < 0 || sprite.frame >= visualizer.image.framesQuantity() ) {
 				error( "Incorrect frame number ( " + sprite.frame + " ) for sprite \"" + sprite.getTitle() + "\", should be less than " + visualizer.image.framesQuantity() );
 			}
 

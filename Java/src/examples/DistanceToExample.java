@@ -1,5 +1,7 @@
 package examples;
 
+import dwlab.platform.Platform;
+
 import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
@@ -12,7 +14,7 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class DistanceToExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
@@ -60,10 +62,10 @@ public class DistanceToExample extends Project {
 		Layer.draw();
 
 		lineSegment.draw();
-		Graphics.drawText( Service.trim( cursor.distanceTo( minSprite ) ), 0.5d * ( cursor.getX() + minSprite.getX() ), 0.5 * ( cursor.getY() + minSprite.getY() ) );
+		Platform.current.drawText( Service.trim( cursor.distanceTo( minSprite ) ), 0.5d * ( cursor.getX() + minSprite.getX() ), 0.5 * ( cursor.getY() + minSprite.getY() ) );
 
 		Vector center = Vector.fieldToScreen( cursor );
-		Graphics.drawLine( center.x, center.y, 400, 300 );
+		Platform.current.drawLine( center.x, center.y, 400, 300 );
 		cursor.print( String.valueOf( time ) );
 		cursor.print( Service.trim( cursor.distanceTo( 0, 0 ) ) );
 

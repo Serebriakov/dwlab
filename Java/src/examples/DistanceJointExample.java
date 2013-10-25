@@ -1,7 +1,8 @@
 package examples;
 
+import dwlab.platform.Platform;
+
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.behavior_models.DistanceJoint;
 import dwlab.shapes.line_segments.LineSegment;
@@ -13,7 +14,7 @@ import dwlab.visualizers.Visualizer;
 
 public class DistanceJointExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

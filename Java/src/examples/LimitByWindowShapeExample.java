@@ -1,13 +1,14 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.ContourVisualizer;
 
 public class LimitByWindowShapeExample extends Project {
 	public static void main(String[] argv) {
-		Graphics.init();
+		Platform.current.init();
 		( new LimitByWindowShapeExample() ).act();
 	}
 	

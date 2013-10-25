@@ -10,8 +10,8 @@ package dwlab.shapes.maps;
 
 import dwlab.base.images.Image;
 import dwlab.base.service.Service;
-import dwlab.base.Sys;
 import dwlab.base.images.ImageBuffer;
+import dwlab.platform.Platform;
 
 /**
  * DoubleMap is basicaly a heightmap.
@@ -244,7 +244,9 @@ public class DoubleMap extends Map {
 	 * @see #enframe example
 	 */
 	public void extractTo( IntMap tileMap, double vFrom, double vTo, int tileNum ) {
-		if( Sys.debug ) if( tileMap.xQuantity != xQuantity || tileMap.yQuantity != yQuantity ) error( "Sizes of source heightmap and resulting tilemap are different." );
+		if( Platform.current.debug ) if( tileMap.xQuantity != xQuantity || tileMap.yQuantity != yQuantity ) {
+			error( "Sizes of source heightmap and resulting tilemap are different." );
+		}
 
 		for( int yy=0; yy < yQuantity; yy++ ) {
 			for( int xx=0; xx < xQuantity; xx++ ) {

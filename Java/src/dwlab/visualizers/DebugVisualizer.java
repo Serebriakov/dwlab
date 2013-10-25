@@ -9,9 +9,9 @@
 
 package dwlab.visualizers;
 
-import dwlab.base.Graphics;
 import dwlab.base.service.Service;
 import dwlab.base.service.Vector;
+import dwlab.platform.Platform;
 import dwlab.shapes.Shape;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
@@ -66,9 +66,9 @@ public class DebugVisualizer extends Visualizer {
 			if( size != 0d ) {
 				double sX2 = serviceVector.x + Math.cos( sprite.angle ) * size;
 				double sY2 = serviceVector.y + Math.sin( sprite.angle ) * size;
-				Graphics.drawLine( serviceVector.x, serviceVector.y, sX2, sY2 );
+				Platform.current.drawLine( serviceVector.x, serviceVector.y, sX2, sY2 );
 				for( double d=-135; d <= 135; d += 270 ) {
-					Graphics.drawLine( sX2, sY2, sX2 + 5.0 * Math.cos( sprite.angle + d ), sY2 + 5.0 * Math.sin( sprite.angle + d ) );
+					Platform.current.drawLine( sX2, sY2, sX2 + 5.0 * Math.cos( sprite.angle + d ), sY2 + 5.0 * Math.sin( sprite.angle + d ) );
 				}
 			}
 		}
@@ -77,10 +77,10 @@ public class DebugVisualizer extends Visualizer {
 			String titles[] = sprite.getTitle().split( ";" );
 			serviceVector.y -= titles.length * 8;
 			for( String title: titles ) {
-				org.newdawn.slick.Color oldContourColor = Graphics.getContourColor();
-				Graphics.setContourColor( 0f, 0f, 0f );
-				Graphics.drawText( title, serviceVector.x - 0.5 * Graphics.getTextWidth( title ), serviceVector.y );
-				Graphics.setContourColor( oldContourColor );
+				org.newdawn.slick.Color oldContourColor = Platform.current.getContourColor();
+				Platform.current.setContourColor( 0f, 0f, 0f );
+				Platform.current.drawText( title, serviceVector.x - 0.5 * Platform.current.getTextWidth( title ), serviceVector.y );
+				Platform.current.setContourColor( oldContourColor );
 				serviceVector.y += 14;
 			}
 		}

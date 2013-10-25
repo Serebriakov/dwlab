@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -11,7 +12,7 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class SetAsViewportExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
@@ -53,7 +54,7 @@ public class SetAsViewportExample extends Project {
 		cursor.setAsViewport();
 		layer.draw();
 		rectangle.drawContour( 2d );
-		Graphics.resetViewport();
+		Platform.current.resetViewport();
 		cursor.drawContour( 2d );
 		printText( "SetAsViewport, ResetViewport example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}

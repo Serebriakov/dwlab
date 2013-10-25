@@ -1,5 +1,7 @@
 package examples;
 
+import dwlab.platform.Platform;
+
 import dwlab.base.service.Service;
 import dwlab.behavior_models.AnimationModel;
 import dwlab.behavior_models.BehaviorModel;

@@ -1,8 +1,8 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
-import dwlab.base.Sys;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.service.Vector;
@@ -19,12 +19,12 @@ public class SpriteMapExample extends Project {
 	static SpriteMapExample instance = new SpriteMapExample();
 	
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
 		instance.act();
-		Graphics.initCamera();
+		Platform.current.initCamera();
 	}
 	
 	
@@ -56,7 +56,7 @@ public class SpriteMapExample extends Project {
 	
 	@Override
 	public void logic() {
-		Camera.current.move( 0.1d * ( Sys.mouseX() - 400 ), 0.1d * ( Sys.mouseY() - 300 ) );
+		Camera.current.move( 0.1d * ( Platform.current.mouseX() - 400 ), 0.1d * ( Platform.current.mouseY() - 300 ) );
 		fieldSpriteMap.act();
 	}
 
@@ -65,7 +65,7 @@ public class SpriteMapExample extends Project {
 	public void render() {
 		fieldSpriteMap.draw();
 		rectangle.draw();
-		Graphics.drawOval( 400, 300, 5, 5 );
+		Platform.current.drawOval( 400, 300, 5, 5 );
 		cursor.draw();
 		printText( "LTSpriteMap, CollisionsWithSpriteMap example", Align.TO_CENTER, Align.TO_BOTTOM );
 		showDebugInfo();
@@ -131,17 +131,17 @@ public class SpriteMapExample extends Project {
 		public void draw( Color drawingColor ) {
 			double a = 1d - 1d * ( instance.time - startingTime ) / fadingTime;
 			if( a >= 0 ) {
-				Graphics.setCurrentColor( 1d, 0.75d, 0d, a );
+				Platform.current.setCurrentColor( 1d, 0.75d, 0d, a );
 				for( Sprite sprite : particles ) {
 					double dX = Math.cos( sprite.angle ) * sprite.getDiameter() * 0.5d;
 					double dY = Math.sin( sprite.angle ) * sprite.getDiameter() * 0.5d;
 					
 					Camera.current.fieldToScreen( sprite.getX() - dX, sprite.getY() - dY, vector1 );
 					Camera.current.fieldToScreen( sprite.getX() + dX, sprite.getY() + dY, vector2 );
-					Graphics.drawLine( vector1.x, vector1.y , vector2.x, vector2.y );
+					Platform.current.drawLine( vector1.x, vector1.y , vector2.x, vector2.y );
 					sprite.moveForward();
 				}
-				Graphics.resetCurrentColor();
+				Platform.current.resetCurrentColor();
 			}
 		}
 		

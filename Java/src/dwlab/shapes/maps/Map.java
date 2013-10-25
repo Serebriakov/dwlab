@@ -9,9 +9,9 @@
 package dwlab.shapes.maps;
 
 import dwlab.base.service.Service;
-import dwlab.base.Sys;
 import dwlab.shapes.Shape;
 import dwlab.base.XMLObject;
+import dwlab.platform.Platform;
 
 /**
  * Common object for maps
@@ -33,7 +33,7 @@ public class Map extends Shape {
 	 * For some objects resolutions which are powers of 2 are necessary or will work faster.
 	 */
 	public void setResolution( int newXQuantity, int newYQuantity ) {
-		if( Sys.debug ) if( newXQuantity <= 0 || newYQuantity <= 0 ) error( "Map resoluton must be more than 0" );
+		if( Platform.current.debug ) if( newXQuantity <= 0 || newYQuantity <= 0 ) error( "Map resoluton must be more than 0" );
 
 		xQuantity = newXQuantity;
 		yQuantity = newYQuantity;
@@ -98,6 +98,6 @@ public class Map extends Shape {
 		xQuantity = xMLObject.manageIntAttribute( "xquantity", xQuantity );
 		yQuantity = xMLObject.manageIntAttribute( "yquantity", yQuantity );
 
-		if( Sys.xMLGetMode() ) setResolution( xQuantity, yQuantity );
+		if( XMLObject.xMLGetMode() ) setResolution( xQuantity, yQuantity );
 	}
 }

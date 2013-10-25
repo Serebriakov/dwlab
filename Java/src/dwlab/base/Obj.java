@@ -9,11 +9,11 @@
 
 package dwlab.base;
 
-import dwlab.base.Sys.XMLMode;
 import dwlab.base.XMLObject.XMLAttribute;
 import dwlab.base.XMLObject.XMLObjectField;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
+import dwlab.platform.Platform;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
@@ -89,14 +89,14 @@ public class Obj {
 	// ==================== Printing text ===================
 	
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift, Color color ) {
-		double x, y = Graphics.getTextHeight();
+		double x, y = Platform.current.getTextHeight();
 
 		switch( horizontalAlign ) {
 			case TO_CENTER:
-				x = 0.5d * ( Graphics.getScreenWidth() - Graphics.getTextWidth( text ) );
+				x = 0.5d * ( Platform.current.getScreenWidth() - Platform.current.getTextWidth( text ) );
 				break;
 			case TO_RIGHT:
-				x = Graphics.getScreenWidth() - Graphics.getTextWidth( text );
+				x = Platform.current.getScreenWidth() - Platform.current.getTextWidth( text );
 				break;
 			default:
 				x = 0;
@@ -104,19 +104,19 @@ public class Obj {
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
-				y = 0.5d * ( Graphics.getScreenHeight() - y * ( shift + 1 ) );
+				y = 0.5d * ( Platform.current.getScreenHeight() - y * ( shift + 1 ) );
 				break;
 			case TO_BOTTOM:
-				y = Graphics.getScreenHeight() - y * ( shift + 1 );
+				y = Platform.current.getScreenHeight() - y * ( shift + 1 );
 				break;
 			default:
 				y *= shift;
 		}
 
-		org.newdawn.slick.Color oldContourColor = Graphics.getContourColor();
-		Graphics.setContourColor( 0f, 0f, 0f );
-		Graphics.drawText( text, (float) x, (float) y );
-		Graphics.setContourColor( oldContourColor );
+		org.newdawn.slick.Color oldContourColor = Platform.current.getContourColor();
+		Platform.current.setContourColor( 0f, 0f, 0f );
+		Platform.current.drawText( text, (float) x, (float) y );
+		Platform.current.setContourColor( oldContourColor );
 	}
 
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift ) {
@@ -179,7 +179,7 @@ public class Obj {
 	 * #manageObjectMapField, #manageStringAttribute 
 	 */
 	public void xMLIO( XMLObject xMLObject ) {
-		if( Sys.xMLSetMode() ) xMLObject.name = getClass().getSimpleName();
+		if( XMLObject.xMLSetMode() ) xMLObject.name = getClass().getSimpleName();
 	}
 
 
@@ -215,7 +215,7 @@ public class Obj {
 			error( "Class \"" + xMLObject.name + "\" is unaccessible" );
 		}
 
-		Sys.xMLMode = XMLMode.GET;
+		XMLObject.xMLMode = XMLObject.XMLMode.GET;
 		
 		object.xMLIO( xMLObject );
 
@@ -267,7 +267,7 @@ public class Obj {
 		removeIDMap = new HashMap();
 		maxID = 1;
 
-		Sys.xMLMode = Sys.XMLMode.SET;
+		XMLObject.xMLMode = XMLObject.xMLMode.SET;
 		XMLObject xMLObject = new XMLObject();
 		undefinedObjects = new HashSet<Obj>();
 
@@ -277,7 +277,7 @@ public class Obj {
 			TileMap.file = null;
 		}
 
-		xMLObject.setAttribute( "dwlab_version", Sys.version );
+		xMLObject.setAttribute( "dwlab_version", Platform.current.version );
 		xMLObject.setAttribute( "total-loading-time", Service.newTotalLoadingTime );
 
 		for( XMLObject xMLObject2 : removeIDMap.values() ) {

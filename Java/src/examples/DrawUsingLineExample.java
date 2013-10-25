@@ -1,4 +1,7 @@
 package examples;
+
+import dwlab.platform.Platform;
+
 import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
@@ -12,12 +15,12 @@ import dwlab.visualizers.Visualizer;
 
 public class DrawUsingLineExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
 		( new DrawUsingLineExample() ).act();
-		Graphics.initCamera();
+		Platform.current.initCamera();
 	}
 	
 	
@@ -47,19 +50,19 @@ public class DrawUsingLineExample extends Project {
 					double x = vector1.x + ( vector2.x - vector1.x ) * n / chunkQuantity + Math.cos( angle ) * radius;
 					double y = vector1.y + ( vector2.y - vector1.y ) * n / chunkQuantity + Math.sin( angle ) * radius;
 
-					Graphics.setLineWidth( 9 );
-					Graphics.setCurrentColor( 0, 1d, 1d );
-					Graphics.drawOval( x, y, 9, 9 );
+					Platform.lineWidth = 9;
+					Platform.current.setCurrentColor( 0, 1d, 1d );
+					Platform.current.drawOval( x, y, 9, 9 );
 					if( n > 0 ) {
-						Graphics.drawOval( oldX, oldY, 9, 9 );
-						Graphics.drawLine( x, y, oldX, oldY );
+						Platform.current.drawOval( oldX, oldY, 9, 9 );
+						Platform.current.drawLine( x, y, oldX, oldY );
 					}
-					Graphics.setLineWidth( 4 );
-					Graphics.setCurrentColor( 1d, 1d, 1d );
-					Graphics.drawOval( x, y, 5, 5 );
+					Platform.lineWidth = 4;
+					Platform.current.setCurrentColor( 1d, 1d, 1d );
+					Platform.current.drawOval( x, y, 5, 5 );
 					if( n > 0 ) {
-						Graphics.drawOval( oldX, oldY, 5, 5 );
-						Graphics.drawLine( x, y, oldX, oldY );
+						Platform.current.drawOval( oldX, oldY, 5, 5 );
+						Platform.current.drawLine( x, y, oldX, oldY );
 					}
 
 					oldX = x;

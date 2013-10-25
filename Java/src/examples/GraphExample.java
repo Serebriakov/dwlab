@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -16,7 +17,7 @@ import java.util.LinkedList;
 
 public class GraphExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

@@ -29,6 +29,22 @@ import java.util.logging.Logger;
 public class XMLObject extends Obj {
 	public static int version;
 	
+	
+	public enum XMLMode {
+		GET,
+		SET
+	}
+	
+	public static XMLMode xMLMode;
+
+	public static boolean xMLGetMode() {
+		return xMLMode == XMLMode.GET;
+	}	
+
+	public static boolean xMLSetMode() {
+		return xMLMode == XMLMode.SET;
+	}
+	
 	public enum Type {
 		NORMAL,
 		CLOSED,
@@ -185,7 +201,7 @@ public class XMLObject extends Obj {
 	 * @see #manageDoubleAttribute, #manageStringAttribute, #manageObjectAttribute, #manageIntArrayAttribute, #xMLIO example
 	 */
 	public boolean manageBooleanAttribute( String attrName, boolean attrValue, boolean defaultValue ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			for( XMLAttribute attr: attributes ) {
 				if( attr.name.equals( attrName ) ) return attr.value.equals( "0" ) ? false : true;
 			}
@@ -206,7 +222,7 @@ public class XMLObject extends Obj {
 	 * @see #manageDoubleAttribute, #manageStringAttribute, #manageObjectAttribute, #manageIntArrayAttribute, #xMLIO example
 	 */
 	public int manageIntAttribute( String attrName, int attrValue, int defaultValue ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			for( XMLAttribute attr: attributes ) {
 				if( attr.name.equals( attrName ) ) return Integer.parseInt( attr.value );
 			}
@@ -227,7 +243,7 @@ public class XMLObject extends Obj {
 	 * @see #manageIntAttribute, #manageStringAttribute, #manageObjectAttribute, #xMLIO example
 	 */
 	public double manageDoubleAttribute( String attrName, double attrValue, double defaultValue ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			for( XMLAttribute attr: attributes ) {
 				if( attr.name.equals( attrName ) ) return Double.parseDouble( attr.value );
 			}
@@ -248,7 +264,7 @@ public class XMLObject extends Obj {
 	 * @see #manageIntAttribute, #manageDoubleAttribute, #manageObjectAttribute, #xMLIO example
 	 */
 	public String manageStringAttribute( String attrName, String attrValue ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			for( XMLAttribute attr: attributes ) {
 				if( attr.name.equals( attrName ) ) return attr.value;
 			}
@@ -264,7 +280,7 @@ public class XMLObject extends Obj {
 	 * @see #manageIntAttribute, #manageDoubleAttribute, #manageObjectAttribute, #xMLIO example
 	 */
 	public <E extends Enum> E manageEnumAttribute( String attrName, E attrValue ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			for( XMLAttribute attr: attributes ) {
 				if( attr.name.equals( attrName ) ) return (E) Enum.valueOf( attrValue.getClass(), attr.value );
 			}
@@ -283,7 +299,7 @@ public class XMLObject extends Obj {
 	 * @see #manageIntAttribute, #manageDoubleAttribute, #manageStringAttribute, #manageObjectField, #manageChildArray
 	 */
 	public <E extends Obj> E manageObjectAttribute( String attrName, E obj ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			int iD = getIntegerAttribute( attrName );
 			if( iD > 0 ) return obj;
 
@@ -312,7 +328,7 @@ public class XMLObject extends Obj {
 	 * @see #manageIntAttribute
 	 */
 	public int[] manageIntArrayAttribute( String attrName, int[] intArray ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			String data = getAttribute( attrName );
 			if( data.isEmpty() ) return intArray;
 			String values[] = data.split( "," );
@@ -338,7 +354,7 @@ public class XMLObject extends Obj {
 	 * @see #xMLIO example
 	 */
 	public <E extends Obj> E manageObjectField( String fieldName, E fieldObject ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			XMLObject xMLObject = getField( fieldName );
 			if( xMLObject != null ) return xMLObject.manageObject( fieldObject );
 		} else if( fieldObject != null ) {
@@ -355,7 +371,7 @@ public class XMLObject extends Obj {
 	 * @see #manageChildList, #xMLIO example
 	 */
 	public <E extends Obj> LinkedList<E> manageListField( String fieldName, LinkedList<E> list ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			XMLObject xMLObject = getField( fieldName );
 			if( xMLObject != null ) return xMLObject.manageChildList( list );
 		} else if( list != null ) {
@@ -374,7 +390,7 @@ public class XMLObject extends Obj {
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectMapField
 	 */
 	public <E extends Obj> E[] manageObjectArrayField( String fieldName, E[] array, Class cl ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			XMLObject xMLArray = getField( fieldName );
 			if( xMLArray != null ) return xMLArray.manageChildObjectArray( array, cl );
 		} else if( array != null ) {
@@ -397,7 +413,7 @@ public class XMLObject extends Obj {
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
 	public <E extends Obj, F extends Obj> HashMap<E, F> manageObjectMapField( String fieldName, HashMap<E, F> map ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			XMLObject xMLMap = getField( fieldName );
 			if( xMLMap != null ) return xMLMap.manageChildMap( map );
 		} else if( map != null ) {
@@ -416,7 +432,7 @@ public class XMLObject extends Obj {
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
 	public <E extends Obj> HashSet<E> manageObjectSetField( String fieldName, HashSet<E> set ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			XMLObject xMLSet = getField( fieldName );
 			if( xMLSet != null ) return xMLSet.manageChildSet( set );
 		} else if( set != null ) {
@@ -435,7 +451,7 @@ public class XMLObject extends Obj {
 	 * @see #manageListField, #manageChildArray, #xMLIO example
 	 */
 	public <E extends Obj> LinkedList<E> manageChildList( LinkedList<E> list ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			if( list == null && children.isEmpty() ) return null;
 			list = new LinkedList();
 			for( XMLObject xMLObject: children ) {
@@ -458,7 +474,7 @@ public class XMLObject extends Obj {
 	 * @see #manageChildList, #manageListField
 	 */
 	public <E extends Obj> E[] manageChildObjectArray( E[] childArray, Class cl ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			if( childArray == null && children.isEmpty() ) return null;
 			childArray = (E[]) Array.newInstance( cl, getIntegerAttribute( "size" ) );
 			for( XMLObject xMLObject: children ) {
@@ -493,7 +509,7 @@ public class XMLObject extends Obj {
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
 	public <E extends Obj, F extends Obj> HashMap<E, F> manageChildMap( HashMap<E, F> map ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			if( map == null && children.isEmpty() ) return null;
 			map = new HashMap();
 			for( XMLObject xMLObject: children ) {
@@ -518,7 +534,7 @@ public class XMLObject extends Obj {
 	 * @see #manageObjectAttribute, #manageObjectField, #manageObjectArrayField
 	 */
 	public <E extends Obj> HashSet<E> manageChildSet( HashSet<E> set ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			if( set == null && children.isEmpty() ) return null;
 			set = new HashSet<E>();
 			for( XMLObject xMLObject: children ) {
@@ -536,7 +552,7 @@ public class XMLObject extends Obj {
 
 
 	public <E extends Obj> E manageObject( E obj ) {
-		if( Sys.xMLGetMode() ) {
+		if( xMLGetMode() ) {
 			int iD = getIntegerAttribute( "id" );
 
 			if( name.equals( "Object" ) ) {

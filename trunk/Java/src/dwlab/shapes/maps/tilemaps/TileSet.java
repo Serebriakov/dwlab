@@ -10,7 +10,6 @@
 package dwlab.shapes.maps.tilemaps;
 
 import dwlab.base.Obj;
-import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.base.images.Image;
 import dwlab.shapes.Shape;
@@ -194,7 +193,7 @@ public class TileSet extends Obj {
 		emptyTile = xMLObject.manageIntAttribute( "empty-tile", emptyTile, -1 );
 		categories = xMLObject.manageChildList( categories );
 		//collisionSprites = xMLObject.manageObjectDoubleArrayField( "collision-sprites", collisionSprites );
-		if( Sys.xMLGetMode() ) {
+		if( XMLObject.xMLGetMode() ) {
 			Shape[] shapes = xMLObject.manageObjectArrayField( "collision-shapes", null, Shape.class );
 			if( shapes != null ) {
 				collisionSprites = new Sprite[ shapes.length ][];

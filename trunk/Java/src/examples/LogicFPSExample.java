@@ -1,6 +1,7 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
@@ -14,7 +15,7 @@ import dwlab.visualizers.Visualizer;
 
 public class LogicFPSExample extends Project {
 	public static void main(String[] argv) {
-		Graphics.init();
+		Platform.current.init();
 		( new LogicFPSExample() ).act();
 	}
 	

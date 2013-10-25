@@ -1,6 +1,7 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.images.Image;
 import dwlab.base.Project;
 import dwlab.controllers.ButtonAction;
@@ -12,7 +13,7 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class CollidesWithSpriteExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

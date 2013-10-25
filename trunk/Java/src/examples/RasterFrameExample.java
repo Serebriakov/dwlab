@@ -1,4 +1,6 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.service.Drag;
 import dwlab.base.images.RasterFrame;
@@ -13,7 +15,7 @@ import dwlab.shapes.sprites.Sprite;
 
 public class RasterFrameExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

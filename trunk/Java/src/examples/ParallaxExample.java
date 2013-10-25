@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.shapes.layers.Layer;
@@ -10,13 +11,13 @@ import dwlab.shapes.sprites.Camera;
 
 public class ParallaxExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
 		Classes.register();
 		( new ParallaxExample() ).act();
-		Graphics.initCamera();
+		Platform.current.initCamera();
 	}
 	
 	

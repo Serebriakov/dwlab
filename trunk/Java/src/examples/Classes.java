@@ -1,11 +1,12 @@
 package examples;
+
 import dwlab.base.Obj;
+
 public class Classes {
 	public static void register() {
 		Obj.classes.put( "BinaryFile", dwlab.base.files.BinaryFile.class );
 		Obj.classes.put( "TextFile", dwlab.base.files.TextFile.class );
-		Obj.classes.put( "Font", dwlab.base.Font.class );
-		Obj.classes.put( "Graphics", dwlab.base.Graphics.class );
+		Obj.classes.put( "Font", dwlab.platform.Font.class );
 		Obj.classes.put( "BitmapFont", dwlab.base.images.BitmapFont.class );
 		Obj.classes.put( "Image", dwlab.base.images.Image.class );
 		Obj.classes.put( "ImageBuffer", dwlab.base.images.ImageBuffer.class );
@@ -19,8 +20,7 @@ public class Classes {
 		Obj.classes.put( "IntVector", dwlab.base.service.IntVector.class );
 		Obj.classes.put( "Service", dwlab.base.service.Service.class );
 		Obj.classes.put( "Vector", dwlab.base.service.Vector.class );
-		Obj.classes.put( "Sound", dwlab.base.Sound.class );
-		Obj.classes.put( "Sys", dwlab.base.Sys.class );
+		Obj.classes.put( "Sound", dwlab.platform.Sound.class );
 		Obj.classes.put( "XMLObject", dwlab.base.XMLObject.class );
 		Obj.classes.put( "AnimationModel", dwlab.behavior_models.AnimationModel.class );
 		Obj.classes.put( "BehaviorModel", dwlab.behavior_models.BehaviorModel.class );

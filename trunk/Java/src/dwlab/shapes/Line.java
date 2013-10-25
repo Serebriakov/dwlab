@@ -9,10 +9,9 @@
 
 package dwlab.shapes;
 
-import dwlab.base.Graphics;
 import dwlab.base.service.Service;
-import dwlab.base.Sys;
 import dwlab.base.service.Vector;
+import dwlab.platform.Platform;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Color;
@@ -42,7 +41,7 @@ public class Line extends Shape {
 
 
 	public final void usePoints( double x1, double y1, double x2, double y2 ) {
-		if( Sys.debug ) if( x1 == x2 && y1 == y2 ) error( "Line cannot be formed from two equal points" );
+		if( Platform.current.debug ) if( x1 == x2 && y1 == y2 ) error( "Line cannot be formed from two equal points" );
 		a = y2 - y1;
 		b = x1 - x2;
 		c = -a * x1 - b * y1;
@@ -51,7 +50,7 @@ public class Line extends Shape {
 
 
 	public final void usePivots( Shape pivot1, Shape pivot2 ) {
-		if( Sys.debug ) if( pivot1.x == pivot2.x && pivot1.y == pivot2.y ) error( "Line cannot be formed from two equal pivots" );
+		if( Platform.current.debug ) if( pivot1.x == pivot2.x && pivot1.y == pivot2.y ) error( "Line cannot be formed from two equal pivots" );
 		a = pivot2.y - pivot1.y;
 		b = pivot1.x - pivot2.x;
 		c = -a * pivot1.x - b * pivot1.y;
@@ -163,6 +162,6 @@ public class Line extends Shape {
 			Camera.current.fieldToScreen( ( -b * serviceVector1.y - c ) / a, serviceVector1.y, serviceVector3 );
 			Camera.current.fieldToScreen( ( -b * serviceVector2.y - c ) / a, serviceVector2.y, serviceVector4 );
 		}
-		Graphics.drawLine( serviceVector3.x, serviceVector3.y, serviceVector4.x, serviceVector4.y, Graphics.getLineWidth(), drawingColor );
+		Platform.current.drawLine( serviceVector3.x, serviceVector3.y, serviceVector4.x, serviceVector4.y, Platform.lineWidth, drawingColor );
 	}
 }

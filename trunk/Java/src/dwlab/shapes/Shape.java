@@ -20,6 +20,7 @@ import dwlab.behavior_models.ModelStack;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.platform.Platform;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
@@ -128,23 +129,23 @@ public class Shape extends Obj {
 
 		switch( horizontalAlign ) {
 			case TO_CENTER:
-				servicePivot.x -= 0.5d * Graphics.getTextWidth( text );
+				servicePivot.x -= 0.5d * Platform.current.getTextWidth( text );
 				break;
 			case TO_RIGHT:
-				servicePivot.x -= Graphics.getTextWidth( text );
+				servicePivot.x -= Platform.current.getTextWidth( text );
 				break;
 		}
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
-				servicePivot.y -= 0.5d * Graphics.getTextHeight();
+				servicePivot.y -= 0.5d * Platform.current.getTextHeight();
 				break;
 			case TO_BOTTOM:
-				servicePivot.y -= Graphics.getTextHeight();
+				servicePivot.y -= Platform.current.getTextHeight();
 				break;
 		}
 
-		Graphics.drawText( text, servicePivot.x, servicePivot.y );
+		Platform.current.drawText( text, servicePivot.x, servicePivot.y );
 	}
 	
 	public void print( String text ) {
@@ -160,12 +161,12 @@ public class Shape extends Obj {
 	private static Vector serviceVector2 = new Vector();
 	
 	public void drawContour( double lineWidth, double xScale, double yScale ) {
-		double oldLineWidth = Graphics.getLineWidth();
-		Graphics.setLineWidth( lineWidth );
+		double oldLineWidth = lineWidth;
+		Platform.lineWidth = lineWidth;
 		Camera.current.fieldToScreen( x, y, serviceVector1 );
 		Camera.current.sizeFieldToScreen( width * xScale, height * yScale, serviceVector2 );
-		Graphics.drawEmptyRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y );
-		Graphics.setLineWidth( oldLineWidth );
+		Platform.current.drawEmptyRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y );
+		Platform.lineWidth = oldLineWidth;
 	}
 
 	public void drawContour( double lineWidth ) {
@@ -187,7 +188,7 @@ public class Shape extends Obj {
 			serviceSizes.y += servicePivot.y;
 			servicePivot.y = 0;
 		}
-		Graphics.setViewport( Service.round( servicePivot.x ), Service.round( servicePivot.y ), Service.round( serviceSizes.x ), Service.round( serviceSizes.y ) );
+		Platform.current.setViewport( Service.round( servicePivot.x ), Service.round( servicePivot.y ), Service.round( serviceSizes.x ), Service.round( serviceSizes.y ) );
 	}
 
 	// ==================== Collisions ===================
@@ -304,7 +305,7 @@ public class Shape extends Obj {
 	 * @see #setCoords, #placeBetween example
 	 */
 	public Shape setMouseCoords( Camera camera ) {
-		camera.screenToField( Sys.mouseX(), Sys.mouseY(), Camera.servicePivot );
+		camera.screenToField( Platform.current.mouseX(), Platform.current.mouseY(), Camera.servicePivot );
 		setCoords( Camera.servicePivot.x, Camera.servicePivot.y );
 		return this;
 	}
@@ -1033,12 +1034,12 @@ public class Shape extends Obj {
 	 */
 	public int showModels( int y, String shift ) {
 		if( behaviorModels.isEmpty() ) return y;
-		Graphics.drawText( shift + getTitle() + " ", 0, y );
+		Platform.current.drawText( shift + getTitle() + " ", 0, y );
 		y += 16;
 		for( BehaviorModel model: behaviorModels ) {
 			String activeString;
 			if( model.active ) activeString = "active"; else activeString =  "inactive";
-			Graphics.drawText( shift + model.getClass().getName() + " " + activeString + ", " + model.info( this ), 8, y );
+			Platform.current.drawText( shift + model.getClass().getName() + " " + activeString + ", " + model.info( this ), 8, y );
 			y += 16;
 	    }
 		return y;
@@ -1401,7 +1402,7 @@ public class Shape extends Obj {
 				}
 			}
 
-			if ( Sys.debug ) {
+			if ( Platform.current.debug ) {
 				Project.spriteActed = true;
 				Project.spritesActed += 1;
 			}

@@ -1,9 +1,9 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import static dwlab.base.Project.exitButton;
-import dwlab.base.Sys;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -22,7 +22,7 @@ import examples.Jelly.*;
 
 public class BehaviorModelExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	static BehaviorModelExample instance = new BehaviorModelExample();
@@ -48,25 +48,25 @@ public class BehaviorModelExample extends Project {
 	public void init() {
 	 	world = World.fromFile( "res/jellys.lw" );
 
-		Graphics.init();
+		Platform.current.init();
 
 		Sprite sprite = new Sprite( Camera.current );
 		sprite.visualizer.image = new Image( "res/scheme2.png" );
 		while ( !exitButton.wasPressed() ) {
 			sprite.draw();
-			Sys.processEvents( this );
-			Graphics.swapBuffers();
+			Platform.current.processEvents( this );
+			Platform.current.swapBuffers();
 		}
 
 		sprite.visualizer.image = new Image( "res/scheme1.png" );
 		processEvents();
 		while ( !exitButton.wasPressed() ) {
 			sprite.draw();
-			Sys.processEvents( this );
-			Graphics.swapBuffers();
+			Platform.current.processEvents( this );
+			Platform.current.swapBuffers();
 		}
 
-		Sys.processEvents( this );
+		Platform.current.processEvents( this );
 		initLevel();
 	}
 

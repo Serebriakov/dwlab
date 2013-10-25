@@ -1,5 +1,7 @@
 package examples;
 
+import dwlab.platform.Platform;
+
 import dwlab.base.Obj;
 import dwlab.base.XMLObject;
 

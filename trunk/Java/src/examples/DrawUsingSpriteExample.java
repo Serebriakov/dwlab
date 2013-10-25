@@ -1,7 +1,8 @@
 package examples;
+
+import dwlab.platform.Platform;
 import java.lang.Math;
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.base.service.Vector;
 import dwlab.shapes.sprites.Camera;
@@ -11,7 +12,7 @@ import dwlab.visualizers.Visualizer;
 
 public class DrawUsingSpriteExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
@@ -40,7 +41,7 @@ public class DrawUsingSpriteExample extends Project {
 				double distance = spriteDiameter * ( 1.0 + amplitude * Math.sin( Math.PI * 2d * ( time + 1d * n / circlesQuantity * circlesPer360 ) ) );
 				Vector vector = new Vector();
 				Camera.current.fieldToScreen( sprite.getX() + distance * Math.cos( angles ), sprite.getY() + distance * Math.sin( angles ), vector );
-				Graphics.drawOval( vector.x - 0.5 * circleDiameter, vector.y - 0.5 * circleDiameter, circleDiameter, circleDiameter );
+				Platform.current.drawOval( vector.x - 0.5 * circleDiameter, vector.y - 0.5 * circleDiameter, circleDiameter, circleDiameter );
 			}
 		}
 	};

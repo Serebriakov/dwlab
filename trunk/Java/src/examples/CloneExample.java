@@ -1,4 +1,6 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.images.Image;
@@ -11,7 +13,7 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class CloneExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	private static CloneExample instance = new CloneExample();

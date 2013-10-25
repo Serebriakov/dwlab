@@ -1,6 +1,7 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
@@ -8,7 +9,7 @@ import dwlab.visualizers.Visualizer;
 
 public class MoveTowardsExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
@@ -11,13 +12,13 @@ import dwlab.shapes.maps.DoubleMap;
 
 public class DrawCircleExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
-		Graphics.setClearingColor( 0d, 0d, 1d );
+		Platform.current.setClearingColor( 0d, 0d, 1d );
 		( new DrawCircleExample() ).act();
-		Graphics.setClearingColor( 0d, 0d, 0d );
+		Platform.current.setClearingColor( 0d, 0d, 0d );
 	}
 	
 	
@@ -63,6 +64,6 @@ public class DrawCircleExample extends Project {
 
 	@Override
 	public void deInit() {
-		Graphics.setClearingColor( 0, 0, 0 );
+		Platform.current.setClearingColor( 0, 0, 0 );
 	}
 }

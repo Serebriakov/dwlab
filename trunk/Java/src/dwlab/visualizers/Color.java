@@ -10,9 +10,9 @@
 package dwlab.visualizers;
 
 import dwlab.base.Obj;
-import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.base.service.Service;
+import dwlab.platform.Platform;
 
 public class Color extends Obj {
 	public static Color black = new Color( "000000" );
@@ -97,7 +97,7 @@ public class Color extends Obj {
 	 * @see #setColorFromHex, #alterColor, #applyColor, #applyClsColor, #resetColor
 	 */
 	public final void set( double newRed, double newGreen, double newBlue, double newAlpha ) {
-		if( Sys.debug ) {
+		if( Platform.current.debug ) {
 			if( newRed < 0.0 || newRed > 1.0 ) error( "Red component must be between 0.0 and 1.0 inclusive" );
 			if( newGreen < 0.0 || newGreen > 1.0 ) error( "Green component must be between 0.0 and 1.0 inclusive" );
 			if( newBlue < 0.0 || newBlue > 1.0 ) error( "Blue component must be between 0.0 and 1.0 inclusive" );

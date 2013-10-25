@@ -12,6 +12,7 @@ package dwlab.base;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.platform.Platform;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;
@@ -114,7 +115,7 @@ public class Project extends Obj {
 		Project oldProject = current;
 		current = this;
 
-		Sys.flushControllers();
+		Platform.current.flushControllers();
 
 		exiting = false;
 		pass = 1;
@@ -158,7 +159,7 @@ public class Project extends Obj {
 				realTime = 0.001 * ( System.currentTimeMillis() - startingTime );
 				if( realTime >= time && logicStepsWithoutRender <= maxLogicStepsWithoutRender ) break;
 
-				if( flipping && Graphics.initialized() ) Graphics.clearScreen();
+				if( flipping && Platform.current.initialized() ) Platform.current.clearScreen();
 
 				spritesDisplayed = 0;
 				tilesDisplayed = 0;
@@ -167,7 +168,7 @@ public class Project extends Obj {
 				cursor.setMouseCoords();
 				render();
 
-				if( flipping && Graphics.initialized() ) Graphics.swapBuffers();
+				if( flipping && Platform.current.initialized() ) Platform.current.swapBuffers();
 
 				logicStepsWithoutRender = 0;
 				fPSCount ++;
@@ -189,7 +190,7 @@ public class Project extends Obj {
 	// ==================== Events ===================		
 
 	public void processEvents() {
-		Sys.processEvents( this );
+		Platform.current.processEvents( this );
 		if( exitButton != null ) if( exitButton.wasPressed() ) exiting = true;
 	}
 	

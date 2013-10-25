@@ -1,4 +1,6 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.service.IntVector;
@@ -14,7 +16,7 @@ import dwlab.shapes.maps.tilemaps.TileSet;
 
 public class GetTileForPointExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

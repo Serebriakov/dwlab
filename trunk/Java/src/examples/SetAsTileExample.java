@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
@@ -15,7 +16,7 @@ import dwlab.shapes.sprites.VectorSprite;
 
 public class SetAsTileExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

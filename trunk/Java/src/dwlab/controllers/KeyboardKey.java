@@ -8,8 +8,8 @@
 
 package dwlab.controllers;
 
-import dwlab.base.Sys;
 import dwlab.base.XMLObject;
+import dwlab.platform.Platform;
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -183,7 +183,7 @@ public class KeyboardKey extends Pushable {
 		KeyboardKey key = new KeyboardKey();
 		key.code = code;
 		
-		for( ButtonAction action: Sys.controllers ) {
+		for( ButtonAction action: Platform.current.controllers ) {
 			for( Pushable pushable: action.buttonList ) {
 				if( pushable.isEqualTo( key ) ) return pushable.getKeyboardKey();
 			}

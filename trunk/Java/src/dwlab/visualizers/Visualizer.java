@@ -8,14 +8,13 @@
 
 package dwlab.visualizers;
 
-import dwlab.base.Graphics;
 import dwlab.base.Project;
-import dwlab.base.Sys;
 import dwlab.base.XMLObject;
 import dwlab.base.images.Image;
 import dwlab.base.service.Service;
 import dwlab.base.service.Service.Margins;
 import dwlab.base.service.Vector;
+import dwlab.platform.Platform;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.line_segments.LineSegment;
@@ -195,7 +194,7 @@ public class Visualizer extends Color {
 	public void drawUsingSprite( Sprite sprite, Sprite spriteShape, Color drawingColor ) {
 		if( !sprite.visible ) return;
 
-		if( Sys.debug ) Project.spritesDisplayed += 1;
+		if( Platform.current.debug ) Project.spritesDisplayed += 1;
 		
 		DrawingSprite.handlers[ sprite.shapeType.getNum() ].perform( this, sprite, spriteShape, drawingColor );
 	}
@@ -210,16 +209,16 @@ public class Visualizer extends Color {
 	 * Draws rectangle for isometric camera using given field coordinates and size.
 	 */
 	public void drawIsoRectangle( double x, double y, double width, double height, Color color ) {
-		Graphics.startPolygon( 4, color, false );
+		Platform.current.startPolygon( 4, color, false );
 		Camera.current.fieldToScreen( x - 0.5 * width, y - 0.5 * height, servicePivot );
-		Graphics.addPolygonVertex( servicePivot.x, servicePivot.y );
+		Platform.current.addPolygonVertex( servicePivot.x, servicePivot.y );
 		Camera.current.fieldToScreen( x - 0.5 * width, y + 0.5 * height, servicePivot );
-		Graphics.addPolygonVertex( servicePivot.x, servicePivot.y );
+		Platform.current.addPolygonVertex( servicePivot.x, servicePivot.y );
 		Camera.current.fieldToScreen( x + 0.5 * width, y + 0.5 * height, servicePivot );
-		Graphics.addPolygonVertex( servicePivot.x, servicePivot.y );
+		Platform.current.addPolygonVertex( servicePivot.x, servicePivot.y );
 		Camera.current.fieldToScreen( x + 0.5 * width, y - 0.5 * height, servicePivot );
-		Graphics.addPolygonVertex( servicePivot.x, servicePivot.y );
-		Graphics.drawPolygon();
+		Platform.current.addPolygonVertex( servicePivot.x, servicePivot.y );
+		Platform.current.drawPolygon();
 	}
 
 
@@ -228,15 +227,15 @@ public class Visualizer extends Color {
 	 * Draws oval for isometric camera using given field coordinates and size.
 	 */
 	public void drawIsoOval( double x, double y, double width, double height, Color color ) {
-		Graphics.startPolygon( 8, color, false );
+		Platform.current.startPolygon( 8, color, false );
 		double xRadius = 0.5 * width;
 		double yRadius = 0.5 * height;
 		for( int n=0; n < 16; n += 2 ) {
 			double angle = 22.5 * n;
 			Camera.current.fieldToScreen( x + xRadius * Math.cos( angle ), y + yRadius * Math.sin( angle ), servicePivot );
-			Graphics.addPolygonVertex( servicePivot.x, servicePivot.y );
+			Platform.current.addPolygonVertex( servicePivot.x, servicePivot.y );
 		}
-		Graphics.drawPolygon();
+		Platform.current.drawPolygon();
 	}
 
 
@@ -251,7 +250,7 @@ public class Visualizer extends Color {
 		if( ! lineSegment.visible ) return;
 		Camera.current.fieldToScreen( lineSegment.pivot[ 0 ].getX(), lineSegment.pivot[ 0 ].getY(), servicePivot1 );
 		Camera.current.fieldToScreen( lineSegment.pivot[ 1 ].getX(), lineSegment.pivot[ 1 ].getY(), servicePivot2 );
-		Graphics.drawLine( servicePivot1.x, servicePivot1.y, servicePivot2.x, servicePivot2.y, 1d, multiplyBy( drawingColor ) );
+		Platform.current.drawLine( servicePivot1.x, servicePivot1.y, servicePivot2.x, servicePivot2.y, 1d, multiplyBy( drawingColor ) );
 	}
 
 
@@ -370,7 +369,7 @@ public class Visualizer extends Color {
 
 		tileSetImage.draw( tileValue, servicePivot.x + visualizer.dX * width, servicePivot.y + visualizer.dY * height, width, height, 0d, drawingColor );
 
-		if( Sys.debug ) Project.tilesDisplayed += 1;
+		if( Platform.current.debug ) Project.tilesDisplayed += 1;
 	}
 
 

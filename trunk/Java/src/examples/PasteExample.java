@@ -1,7 +1,7 @@
 package examples;
-import dwlab.base.Graphics;
+
+import dwlab.platform.Platform;
 import dwlab.base.Project;
-import dwlab.base.Sys;
 import dwlab.base.images.Image;
 import dwlab.base.images.ImageBuffer;
 import dwlab.base.service.Align;
@@ -11,7 +11,7 @@ public class PasteExample extends Project {
 	static int mapSize = 128;
 	
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	
@@ -52,8 +52,8 @@ public class PasteExample extends Project {
 		image.draw( fPS, 400, 300, mapSize * 4d, mapSize * 4d );
 		printText( text );
 		printText( "Paste example", Align.TO_CENTER, Align.TO_BOTTOM );
-		Graphics.swapBuffers();
-		Sys.waitForKey();
-		Graphics.clearScreen();
+		Platform.current.swapBuffers();
+		Platform.current.waitForKey();
+		Platform.current.clearScreen();
 	}
 }

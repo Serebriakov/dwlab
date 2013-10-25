@@ -1,6 +1,7 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
 import dwlab.base.images.BitmapFont;
 import dwlab.base.service.Align;
@@ -8,13 +9,13 @@ import dwlab.base.service.Service;
 
 public class BitmapFontExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
-		Graphics.setClearingColor( 0d, 0.5d, 0d, 1d );
+		Platform.current.setClearingColor( 0d, 0.5d, 0d, 1d );
 		( new BitmapFontExample() ).act();
-		Graphics.setClearingColor( 0d, 0d, 0d, 1d );
+		Platform.current.setClearingColor( 0d, 0d, 0d, 1d );
 	}
 	
 	

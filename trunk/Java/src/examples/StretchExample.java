@@ -1,8 +1,8 @@
 package examples;
 
-import dwlab.base.Graphics;
+import dwlab.platform.Platform;
+
 import dwlab.base.Project;
-import dwlab.base.Sys;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -15,7 +15,7 @@ public class StretchExample extends Project {
 	static int tileMapHeight = 3;
 	
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
@@ -30,12 +30,12 @@ public class StretchExample extends Project {
 		}
 
 		for( int n = 1; n <= 3; n++ ) {
-			Graphics.clearScreen();
+			Platform.current.clearScreen();
 			tileMap.draw();
 			printText( "Press any Key to stretch tilemap by 2 times" );
 			printText( "Stretch example", Align.TO_CENTER, Align.TO_BOTTOM );
-			Graphics.swapBuffers();
-			Sys.waitForKey();
+			Platform.current.swapBuffers();
+			Platform.current.waitForKey();
 			tileMap.stretch( 2, 2 );
 			tileMap.alterSize( 2, 2 );
 		}

@@ -1,9 +1,10 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.behavior_models.FixedJoint;
 import java.lang.Math;
 import dwlab.behavior_models.RevoluteJoint;
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.layers.World;
@@ -12,12 +13,12 @@ import dwlab.shapes.sprites.Sprite;
 
 public class RevoluteJointExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {
 		( new RevoluteJointExample() ).act();
-		Graphics.initCamera();
+		Platform.current.initCamera();
 	}
 	
 	

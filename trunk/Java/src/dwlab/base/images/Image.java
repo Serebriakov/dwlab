@@ -9,7 +9,7 @@
 
 package dwlab.base.images;
 
-import dwlab.base.Sys;
+import dwlab.platform.Platform;
 import dwlab.visualizers.Color;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -34,7 +34,7 @@ public class Image extends ImageTemplate {
 	 * @return New image (LTImage).
 	 */
 	public Image( String fileName, int xCells, int yCells ) {
-		if( Sys.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
+		if( Platform.current.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
 
 		this.fileName = fileName;
 		this.xCells = xCells;

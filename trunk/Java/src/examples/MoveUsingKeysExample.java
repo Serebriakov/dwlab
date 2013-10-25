@@ -1,6 +1,7 @@
 package examples;
+
+import dwlab.platform.Platform;
 import dwlab.base.service.Align;
-import dwlab.base.Graphics;
 import dwlab.base.Project;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
@@ -11,7 +12,7 @@ import dwlab.visualizers.Visualizer;
 
 public class MoveUsingKeysExample extends Project {
 	static {
-		Graphics.init();
+		Platform.current.init();
 	}
 	
 	public static void main(String[] argv) {

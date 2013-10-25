@@ -7,7 +7,7 @@
  * http://www.opensource.org/licenses/artistic-license-2.0.php
  */
 
-package dwlab.base;
+package dwlab.platform;
 
 import java.io.IOException;
 import java.util.logging.Level;

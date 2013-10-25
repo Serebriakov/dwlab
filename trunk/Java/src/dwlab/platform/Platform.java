@@ -62,7 +62,17 @@ public abstract class Platform {
 	
 	public abstract double getTextHeight();
 	
-	public abstract void setContourColor( float red, float green, float blue );
+	public abstract Color getContourColor();
+	
+	public abstract void setContourColor( double red, double green, double blue, double alpha );
+	
+	public abstract void setContourColor( Color color );
+	
+	public abstract Color getTextColor();
+	
+	public abstract void setTextColor( double red, double green, double blue, double alpha );
+	
+	public abstract void setTextColor( Color color );
 	
 
 	public static Color getCurrentColor() {
@@ -94,8 +104,6 @@ public abstract class Platform {
 	}
 	
 	public abstract void setCurrentFont( Font font );
-	
-	public abstract void setTextColor( float red, float green, float blue );
 
 	public abstract void drawLine( double x1, double y1, double x2, double y2, double width, Color color );
 	
@@ -161,15 +169,9 @@ public abstract class Platform {
 
 	public abstract void drawPolygon();
 
-	public abstract void drawText( String string, float x, float y, org.newdawn.slick.Color color );
+	public abstract void drawText( String string, double x, double y, Color color );
 	
-	public void drawText( String string, float x, float y ) {
-		drawText( string, x, y, currentTextColor );
-	}
-	
-	public void drawText( String string, double x, double y ) {
-		drawText( string, (float) x, (float) y );
-	}
+	public abstract void drawText( String string, double x, double y );
 	
 	public abstract void clearScreen( Color color );
 		

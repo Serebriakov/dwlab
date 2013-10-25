@@ -85,8 +85,18 @@ public class LWJGL extends Platform {
 	}
 	
 	@Override
-	public void setContourColor( float red, float green, float blue ) {
-		currentContourColor = new org.newdawn.slick.Color( red, green, blue, 1f );
+	public Color getContourColor() {
+		return new Color( currentContourColor.r, currentContourColor.g, currentContourColor.b, currentContourColor.a );
+	}
+	
+	@Override
+	public void setContourColor( double red, double green, double blue, double alpha ) {
+		currentContourColor = new org.newdawn.slick.Color( (float) red, (float) green, (float) blue, (float) alpha );
+	}
+	
+	@Override
+	public void setContourColor( Color color ) {
+		currentContourColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
 	}
 	
 	
@@ -96,8 +106,18 @@ public class LWJGL extends Platform {
 	}
 	
 	@Override
-	public void setTextColor( float red, float green, float blue ) {
-		currentTextColor = new org.newdawn.slick.Color( red, green, blue, 1f  );
+	public Color getTextColor() {
+		return new Color( currentTextColor.r, currentTextColor.g, currentTextColor.b, currentTextColor.a );
+	}
+	
+	@Override
+	public void setTextColor( double red, double green, double blue, double alpha ) {
+		currentTextColor = new org.newdawn.slick.Color( (float) red, (float) green, (float) blue, (float) alpha );
+	}
+	
+	@Override
+	public void setTextColor( Color color ) {
+		currentTextColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
 	}
 
 	
@@ -201,7 +221,6 @@ public class LWJGL extends Platform {
 	}
 	
 
-	@Override
 	public void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
 		glBindTexture( GL_TEXTURE_2D, currentFont.textureID );
 		if( currentContourColor != null ) {
@@ -212,6 +231,16 @@ public class LWJGL extends Platform {
 			}
 		}
 		currentFont.font.drawString( x, y, string, color );
+	}
+	
+	@Override
+	public void drawText( String string, double x, double y, Color color ) {
+		drawText( string, (float) x, (float) y, new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha ) );
+	}
+	
+	@Override
+	public void drawText( String string, double x, double y ) {
+		drawText( string, (float) x, (float) y, currentTextColor );
 	}
 	
 	

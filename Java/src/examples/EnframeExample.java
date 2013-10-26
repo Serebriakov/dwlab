@@ -5,6 +5,7 @@ import dwlab.platform.Platform;
 import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.layers.World;
 import dwlab.shapes.maps.DoubleMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
@@ -14,12 +15,13 @@ public class EnframeExample extends Project {
 	static int mapSize = 64;
 	static int filledTileNum = 20;
 	
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main( String[] argv ) {
-		Platform.current.setClearingColor( 0.25d, 0.5d, 0d );
+	public static void main() {
+		Platform.setClearingColor( 0.25d, 0.5d, 0d );
 
 		Platform.current.clearScreen();
 		DoubleMap doubleMap = new DoubleMap( mapSize, mapSize );
@@ -85,7 +87,7 @@ public class EnframeExample extends Project {
 		Platform.current.waitForKey();
 
 
-		Platform.current.setClearingColor( 0, 0, 0 );
+		Platform.setClearingColor( 0, 0, 0 );
 	}
 
 	

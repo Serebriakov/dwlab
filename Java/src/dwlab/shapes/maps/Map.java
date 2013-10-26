@@ -33,7 +33,7 @@ public class Map extends Shape {
 	 * For some objects resolutions which are powers of 2 are necessary or will work faster.
 	 */
 	public void setResolution( int newXQuantity, int newYQuantity ) {
-		if( Platform.current.debug ) if( newXQuantity <= 0 || newYQuantity <= 0 ) error( "Map resoluton must be more than 0" );
+		if( Platform.debug ) if( newXQuantity <= 0 || newYQuantity <= 0 ) error( "Map resoluton must be more than 0" );
 
 		xQuantity = newXQuantity;
 		yQuantity = newYQuantity;

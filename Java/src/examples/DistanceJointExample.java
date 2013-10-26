@@ -1,10 +1,9 @@
 package examples;
 
-import dwlab.platform.Platform;
-
 import dwlab.base.service.Align;
 import dwlab.base.Project;
 import dwlab.behavior_models.DistanceJoint;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
@@ -13,11 +12,12 @@ import dwlab.visualizers.ContourVisualizer;
 import dwlab.visualizers.Visualizer;
 
 public class DistanceJointExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new DistanceJointExample() ).act();
 	}
 	

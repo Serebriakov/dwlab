@@ -50,7 +50,7 @@ public class DrawingSprite extends ServiceObjects {
 				angle = spriteShape.displayingAngle;
 			}
 
-			if( Platform.current.debug ) if( sprite.frame < 0 || sprite.frame >= visualizer.image.framesQuantity() ) {
+			if( Platform.debug ) if( sprite.frame < 0 || sprite.frame >= visualizer.image.framesQuantity() ) {
 				error( "Incorrect frame number ( " + sprite.frame + " ) for sprite \"" + sprite.getTitle() + "\", should be less than " + visualizer.image.framesQuantity() );
 			}
 

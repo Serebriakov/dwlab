@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import dwlab.platform.LWJGL;
 
 import dwlab.base.Obj;
 import dwlab.base.Project;
@@ -20,24 +20,28 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 
 
 public class ActionExample extends Project {
-	static {
-		Platform.current.init();
-	}
-	
 	public static void main(String[] argv) {
-		( new ActionExample() ).act();
+		LWJGL.init();
+		main();
 	}
 	
-	static ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Key.Z ), "undo", "ctrl" );
-	static ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Key.Y ), "redo", "ctrl" );
-	static ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Key.F2 ), "save" );
-	static ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Key.F3 ), "load" );
+	public static ActionExample instance;
+	
+	public static void main() {
+		instance = new ActionExample();
+		instance.act();
+	}
+	
+	ButtonAction undoKey = ButtonAction.create( KeyboardKey.create( Key.Z ), "undo", "ctrl" );
+	ButtonAction redoKey = ButtonAction.create( KeyboardKey.create( Key.Y ), "redo", "ctrl" );
+	ButtonAction saveKey = ButtonAction.create( KeyboardKey.create( Key.F2 ), "save" );
+	ButtonAction loadKey = ButtonAction.create( KeyboardKey.create( Key.F3 ), "load" );
 	
 	final int spritesQuantity = 50;
 
-	static Layer sprites = new Layer();
-	static Image spriteImage = new Image( "res/kolobok.png" );
-	static MoveDrag drag = new MoveDrag();
+	Layer sprites = new Layer();
+	Image spriteImage = new Image( "res/kolobok.png" );
+	MoveDrag drag = new MoveDrag();
 	
 	
 	@Override
@@ -91,7 +95,7 @@ public class ActionExample extends Project {
 
 		@Override
 		public void startDragging() {
-			shape = cursor.lastCollidedSpriteOf( sprites );
+			shape = cursor.lastCollidedSpriteOf( instance.sprites );
 			if( shape != null ) {
 				action = new MoveAction( shape );
 				dX = shape.getX() - cursor.getX();

@@ -1,7 +1,5 @@
 package examples;
 
-import dwlab.platform.Platform;
-
 import dwlab.base.service.Service;
 import dwlab.behavior_models.AnimationModel;
 import dwlab.behavior_models.BehaviorModel;
@@ -76,7 +74,7 @@ public class GameObject extends VectorSprite {
 	public static class Death extends FixedWaitingModel<VectorSprite> {
 		@Override
 		public void init( VectorSprite shape ) {
-			period = deathPeriod;
+			period = instance.deathPeriod;
 			if( shape.collisionModel() != null ) {
 				shape.horizontalMovementModel().deactivateModel( shape );
 				shape.verticalMovementModel().deactivateModel( shape );
@@ -93,7 +91,7 @@ public class GameObject extends VectorSprite {
 
 		@Override
 		public void deactivate( VectorSprite shape ) {
-			shape.removeFrom( layer );
+			shape.removeFrom( instance.layer );
 		}
 	}
 }

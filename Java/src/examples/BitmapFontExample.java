@@ -6,20 +6,22 @@ import dwlab.base.Project;
 import dwlab.base.images.BitmapFont;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
+import dwlab.platform.LWJGL;
 
 public class BitmapFontExample extends Project {
-	static {
-		Platform.current.init();
-	}
-	
 	public static void main(String[] argv) {
-		Platform.current.setClearingColor( 0d, 0.5d, 0d, 1d );
+		LWJGL.init();
+		main();
+	}
+	
+	public static void main() {
+		Platform.setClearingColor( 0d, 0.5d, 0d, 1d );
 		( new BitmapFontExample() ).act();
-		Platform.current.setClearingColor( 0d, 0d, 0d, 1d );
+		Platform.setClearingColor( 0d, 0d, 0d, 1d );
 	}
 	
 	
-	private BitmapFont font = new BitmapFont( "res/font.png", 32, 127, 16, true );
+	private final BitmapFont font = new BitmapFont( "res/font.png", 32, 127, 16, true );
 	
 	
 	@Override

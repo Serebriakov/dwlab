@@ -6,6 +6,7 @@ import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 
@@ -14,11 +15,12 @@ public class StretchExample extends Project {
 	static int tileMapWidth = 4;
 	static int tileMapHeight = 3;
 	
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		TileSet tileSet = new TileSet( new Image( "res/tiles.png", 8, 4 ) );
 		TileMap tileMap = TileMap.create( tileSet, tileMapWidth, tileMapHeight );
 

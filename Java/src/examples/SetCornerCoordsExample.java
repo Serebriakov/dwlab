@@ -1,17 +1,17 @@
 package examples;
 
-import dwlab.platform.Platform;
-
 import dwlab.base.Project;
 import dwlab.base.service.Align;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.sprites.Sprite;
 
 public class SetCornerCoordsExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new SetCornerCoordsExample() ).act();
 	}
 	

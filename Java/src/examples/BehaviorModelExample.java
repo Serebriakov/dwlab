@@ -8,9 +8,8 @@ import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
-import dwlab.controllers.Key;
-import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.layers.World;
 import dwlab.shapes.maps.tilemaps.TileMap;
@@ -21,34 +20,36 @@ import examples.AwPossum.*;
 import examples.Jelly.*;
 
 public class BehaviorModelExample extends Project {
-	static {
-		Platform.current.init();
-	}
-	
-	static BehaviorModelExample instance = new BehaviorModelExample();
+	static BehaviorModelExample instance;
 	
 	public static void main(String[] argv) {
 		Classes.register();
+		LWJGL.init();
+		main();
+	}
+	
+	public static void main() {
+		instance = new BehaviorModelExample();
 		instance.act();
 	}
 	
-	public static int bricks = 1;
-	public static double deathPeriod = 1.0;
+	public int bricks = 1;
+	public double deathPeriod = 1.0;
 
-	public static World world;
-	public static Layer layer;
-	public static TileMap tileMap;
-	public static Sprite selectedSprite;
-	public static MarchingAnts marchingAnts = new MarchingAnts();
+	public World world;
+	public Layer layer;
+	public TileMap tileMap;
+	public Sprite selectedSprite;
+	public MarchingAnts marchingAnts = new MarchingAnts();
 
-	public static int score;
+	public int score;
 	
 	
 	@Override
 	public void init() {
 	 	world = World.fromFile( "res/jellys.lw" );
 
-		Platform.current.init();
+		//LWJGL.init();
 
 		Sprite sprite = new Sprite( Camera.current );
 		sprite.visualizer.image = new Image( "res/scheme2.png" );
@@ -116,14 +117,14 @@ public class BehaviorModelExample extends Project {
 			scoreObject.setCoords( sprite.getX(), sprite.topY() ).setDiameter( 0d );
 			scoreObject.amount = amount;
 			scoreObject.startingTime = BehaviorModelExample.instance.time;
-			scoreObject.insertTo( layer );
-			score += amount;
+			scoreObject.insertTo( instance.layer );
+			instance.score += amount;
 		}
 
 		@Override
 		public void act() {
 			move( 0, -speed );
-			if( BehaviorModelExample.instance.time > startingTime + period ) removeFrom( layer );
+			if( BehaviorModelExample.instance.time > startingTime + period ) removeFrom( instance.layer );
 		}
 
 		@Override

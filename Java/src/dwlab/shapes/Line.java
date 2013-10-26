@@ -41,7 +41,7 @@ public class Line extends Shape {
 
 
 	public final void usePoints( double x1, double y1, double x2, double y2 ) {
-		if( Platform.current.debug ) if( x1 == x2 && y1 == y2 ) error( "Line cannot be formed from two equal points" );
+		if( Platform.debug ) if( x1 == x2 && y1 == y2 ) error( "Line cannot be formed from two equal points" );
 		a = y2 - y1;
 		b = x1 - x2;
 		c = -a * x1 - b * y1;
@@ -50,7 +50,7 @@ public class Line extends Shape {
 
 
 	public final void usePivots( Shape pivot1, Shape pivot2 ) {
-		if( Platform.current.debug ) if( pivot1.x == pivot2.x && pivot1.y == pivot2.y ) error( "Line cannot be formed from two equal pivots" );
+		if( Platform.debug ) if( pivot1.x == pivot2.x && pivot1.y == pivot2.y ) error( "Line cannot be formed from two equal pivots" );
 		a = pivot2.y - pivot1.y;
 		b = pivot1.x - pivot2.x;
 		c = -a * pivot1.x - b * pivot1.y;

@@ -1402,7 +1402,7 @@ public class Shape extends Obj {
 				}
 			}
 
-			if ( Platform.current.debug ) {
+			if ( Platform.debug ) {
 				Project.spriteActed = true;
 				Project.spritesActed += 1;
 			}

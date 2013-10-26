@@ -5,17 +5,18 @@ import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.images.ImageBuffer;
 import dwlab.base.service.Align;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.maps.DoubleMap;
 
 public class PasteExample extends Project {
 	static int mapSize = 128;
 	
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	
-	public static void main(String[] argv) {
+	public static void main() {
 		DoubleMap sourceMap = new DoubleMap( mapSize, mapSize );
 		sourceMap.drawCircle( mapSize * 0.375d, mapSize * 0.375d, mapSize * 0.35d, 0.6d );
 		draw( sourceMap.toNewImage(), "Source map" );

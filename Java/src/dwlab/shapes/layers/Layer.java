@@ -130,7 +130,7 @@ public class Layer extends Shape {
 			for ( Iterator<Shape> it = children.iterator(); it.hasNext(); ) {
 				Shape obj = it.next();
 				if( obj.active ) {
-					if( Platform.current.debug ) {
+					if( Platform.debug ) {
 						Project.spriteActed = false;
 						obj.act();
 						if( obj.toSprite() != null && ! Project.spriteActed ) Project.spritesActed += 1;
@@ -374,7 +374,7 @@ public class Layer extends Shape {
 	@Override
 	public void copyTo( Shape shape ) {
 		Layer layer = shape.toLayer();
-		if( Platform.current.debug ) if( layer == null ) error( "Trying to copy layer \"" + shape.getName() + "\" data to non-layer" );
+		if( Platform.debug ) if( layer == null ) error( "Trying to copy layer \"" + shape.getName() + "\" data to non-layer" );
 		copyLayerTo( layer );
 	}
 

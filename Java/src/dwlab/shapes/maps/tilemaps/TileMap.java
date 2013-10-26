@@ -156,7 +156,7 @@ public class TileMap extends IntMap {
 	 * @see #setTile, #setAsTile example
 	 */
 	public int getTile( int tileX, int tileY ) {
-		if( Platform.current.debug ) {
+		if( Platform.debug ) {
 			if( tileX < 0 || tileX >= xQuantity ) error( "Incorrect tile X position" );
 			if( tileY < 0 || tileY >= yQuantity ) error( "Incorrect tile Y position" );
 		}
@@ -169,7 +169,7 @@ public class TileMap extends IntMap {
 	 * @see #getTile, #getTileForPoint example, #stretch example
 	 */
 	public void setTile( int tileX, int tileY, int tileNum ) {
-		if( Platform.current.debug ) {
+		if( Platform.debug ) {
 			if( tileNum < 0 || tileNum >= tilesQuantity ) error( "Incorrect tile number" );
 			if( tileX < 0 || tileX >= xQuantity ) error( "Incorrect tile X position" );
 			if( tileY < 0 || tileY >= yQuantity ) error( "Incorrect tile Y position" );
@@ -240,7 +240,7 @@ public class TileMap extends IntMap {
 	@Override
 	public void copyTo( Shape shape ) {
 		TileMap tileMap = shape.toTileMap();
-		if( Platform.current.debug ) if( tileMap == null ) error( "Trying to copy tilemap \"" + shape.getTitle() + "\" data to non-tilemap" );
+		if( Platform.debug ) if( tileMap == null ) error( "Trying to copy tilemap \"" + shape.getTitle() + "\" data to non-tilemap" );
 		copyTileMapTo( tileMap );
 	}
 

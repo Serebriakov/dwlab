@@ -8,17 +8,19 @@ import dwlab.base.service.Align;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.maps.DoubleMap;
 
 public class DrawCircleExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
-		Platform.current.setClearingColor( 0d, 0d, 1d );
+	public static void main() {
+		Platform.setClearingColor( 0d, 0d, 1d );
 		( new DrawCircleExample() ).act();
-		Platform.current.setClearingColor( 0d, 0d, 0d );
+		Platform.setClearingColor( 0d, 0d, 0d );
 	}
 	
 	
@@ -64,6 +66,6 @@ public class DrawCircleExample extends Project {
 
 	@Override
 	public void deInit() {
-		Platform.current.setClearingColor( 0, 0, 0 );
+		Platform.setClearingColor( 0, 0, 0 );
 	}
 }

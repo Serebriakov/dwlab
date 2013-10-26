@@ -1,24 +1,26 @@
 package examples;
 
-import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.images.Image;
 import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class CloneExample extends Project {
-	static {
-		Platform.current.init();
-	}
-	
-	private static CloneExample instance = new CloneExample();
+	private static CloneExample instance;
 	
 	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
+	}
+	
+	public static void main() {
+		 instance = new CloneExample();
 		instance.act();
 	}
 	

@@ -6,6 +6,7 @@ import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
 import dwlab.base.*;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
@@ -13,11 +14,12 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class DistanceToExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new DistanceToExample() ).act();
 	}
 	

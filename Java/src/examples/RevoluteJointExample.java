@@ -2,21 +2,22 @@ package examples;
 
 import dwlab.platform.Platform;
 import dwlab.behavior_models.FixedJoint;
-import java.lang.Math;
 import dwlab.behavior_models.RevoluteJoint;
 import dwlab.base.service.Align;
 import dwlab.base.Project;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.layers.World;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 
 public class RevoluteJointExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new RevoluteJointExample() ).act();
 		Platform.current.initCamera();
 	}

@@ -1,21 +1,22 @@
 package examples;
 
 import dwlab.platform.Platform;
-import java.lang.Math;
 import dwlab.base.service.Align;
 import dwlab.base.Project;
 import dwlab.base.service.Vector;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawUsingSpriteExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new DrawUsingSpriteExample() ).act();
 	}
 	

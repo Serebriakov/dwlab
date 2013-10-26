@@ -123,7 +123,7 @@ public class Graph extends Shape {
 	 * @see #removeLine, #findLineCollidingWith, #containsLine, #findLine
 	 */
 	public void addLineSegment( LineSegment line ) {
-		if( Platform.current.debug ) {
+		if( Platform.debug ) {
 			LinkedList<LineSegment> list = contents.get( line.pivot[ 0 ] );
 			if( list != null ) if( list.contains( line ) ) error( "This line already exists in the graph" );
 			for( LineSegment otherLine: list ) {
@@ -149,7 +149,7 @@ public class Graph extends Shape {
 	 */
 	public void removePivot( Sprite pivot ) {
 		LinkedList<LineSegment> list = contents.get( pivot );
-		if( Platform.current.debug ) if( list == null ) error( "The deleting pivot doesn't belongs to the graph" );
+		if( Platform.debug ) if( list == null ) error( "The deleting pivot doesn't belongs to the graph" );
 
 		for( LineSegment lineSegment: list ) {
 			removeLineSegment( lineSegment );
@@ -166,7 +166,7 @@ public class Graph extends Shape {
 	public void removeLineSegment( LineSegment line ) {
 		LinkedList<LineSegment> list1 = contents.get( line.pivot[ 0 ] );
 		LinkedList<LineSegment> list2 = contents.get( line.pivot[ 1 ] );
-		if( Platform.current.debug ) if( list1 == null || list2 == null || !list1.contains( line ) ) error( "The deleting line doesn't belongs to the graph" );
+		if( Platform.debug ) if( list1 == null || list2 == null || !list1.contains( line ) ) error( "The deleting line doesn't belongs to the graph" );
 		list1.remove( line );
 		list2.remove( line );
 	}

@@ -1,12 +1,12 @@
 package examples;
 
-import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.Project;
 import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Visualizer;
 
@@ -15,7 +15,11 @@ import dwlab.visualizers.Visualizer;
 
 public class LogicFPSExample extends Project {
 	public static void main(String[] argv) {
-		Platform.current.init();
+		LWJGL.init();
+		main();
+	}
+	
+	public static void main() {
 		( new LogicFPSExample() ).act();
 	}
 	

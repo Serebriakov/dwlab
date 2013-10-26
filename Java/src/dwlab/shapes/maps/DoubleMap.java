@@ -244,7 +244,7 @@ public class DoubleMap extends Map {
 	 * @see #enframe example
 	 */
 	public void extractTo( IntMap tileMap, double vFrom, double vTo, int tileNum ) {
-		if( Platform.current.debug ) if( tileMap.xQuantity != xQuantity || tileMap.yQuantity != yQuantity ) {
+		if( Platform.debug ) if( tileMap.xQuantity != xQuantity || tileMap.yQuantity != yQuantity ) {
 			error( "Sizes of source heightmap and resulting tilemap are different." );
 		}
 

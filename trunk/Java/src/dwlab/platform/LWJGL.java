@@ -22,6 +22,11 @@ public class LWJGL extends Platform {
 	private org.newdawn.slick.Color currentTextColor = org.newdawn.slick.Color.white;
 	private org.newdawn.slick.Color currentContourColor = null;
 	
+	public static void init() {
+		current = new LWJGL();
+		current.init( 800, 600, 25d, true );
+	}
+	
 	/**
 	* Sets graphics mode.
 	* Provide width and height of screen in pixels and unit size in pixels for camera.
@@ -86,6 +91,7 @@ public class LWJGL extends Platform {
 	
 	@Override
 	public Color getContourColor() {
+		if( currentContourColor == null ) return null;
 		return new Color( currentContourColor.r, currentContourColor.g, currentContourColor.b, currentContourColor.a );
 	}
 	
@@ -96,7 +102,11 @@ public class LWJGL extends Platform {
 	
 	@Override
 	public void setContourColor( Color color ) {
-		currentContourColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
+		if( color == null ) {
+			currentContourColor = null;
+		} else {
+			currentContourColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
+		}
 	}
 	
 	

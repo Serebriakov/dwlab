@@ -58,7 +58,7 @@ public class AwPossum extends GameObject {
 	ButtonAction jumpKey = ButtonAction.create( KeyboardKey.create( Key.UP ), "Jump" );
 	ButtonAction hitKey = ButtonAction.create( KeyboardKey.create( Key.SPACE ), "Hit" );
 
-	final int[] bricks = { BehaviorModelExample.bricks };
+	final int[] bricks = { BehaviorModelExample.instance.bricks };
 
 	@Override
 	public void init() {
@@ -68,9 +68,9 @@ public class AwPossum extends GameObject {
 		attachModelImmediately( new ModelDeactivator( onLand, true ) );
 
 
-		addTileMapCollisions( Group.HORIZONTAL, BehaviorModelExample.tileMap, pushFromWalls, bricks );
-		addTileMapCollisions( Group.VERTICAL, BehaviorModelExample.tileMap, verticalCollisionHandler, bricks );
-		addLayerCollisions( Group.ALL, BehaviorModelExample.layer, awPossumHurtingCollision );
+		addTileMapCollisions( Group.HORIZONTAL, BehaviorModelExample.instance.tileMap, pushFromWalls, bricks );
+		addTileMapCollisions( Group.VERTICAL, BehaviorModelExample.instance.tileMap, verticalCollisionHandler, bricks );
+		addLayerCollisions( Group.ALL, BehaviorModelExample.instance.layer, awPossumHurtingCollision );
 
 
 		addToStack( hurtingAnimation );
@@ -136,7 +136,7 @@ public class AwPossum extends GameObject {
 	@Override
 	public void act() {
 		super.act();
-		if( x > BehaviorModelExample.tileMap.rightX() ) BehaviorModelExample.instance.switchTo( new BehaviorModelExample.Restart() );
+		if( x > BehaviorModelExample.instance.tileMap.rightX() ) BehaviorModelExample.instance.switchTo( new BehaviorModelExample.Restart() );
 	}
 
 
@@ -144,12 +144,12 @@ public class AwPossum extends GameObject {
 	public void draw( Color drawingColor ) {
 		super.draw( drawingColor );
 		if( health >= 50d ) {
-			Platform.current.setCurrentColor( ( 100d - health ) / 50d , 1d, 0d );
+			Platform.setCurrentColor( ( 100d - health ) / 50d , 1d, 0d );
 		} else {
-			Platform.current.setCurrentColor( 1d, health / 50d, 0d );
+			Platform.setCurrentColor( 1d, health / 50d, 0d );
 		}
 		Platform.current.drawRectangle( 5d + 0.5d * health, 587.5d, health, 15d );
-		Platform.current.resetCurrentColor();
+		Platform.resetCurrentColor();
 		Platform.current.drawEmptyRectangle( 55d, 587.5d, 100d, 15d );
 	}
 
@@ -195,7 +195,7 @@ public class AwPossum extends GameObject {
 				Jelly.Bullet bullet = (Jelly.Bullet) sprite2;
 				if( bullet.collisions ) {
 					damage = Service.random( Jelly.Bullet.minAttack, Jelly.Bullet.maxAttack ) * sprite2.getDiameter() / 0.45;
-					sprite2.removeFrom( layer );
+					sprite2.removeFrom( instance.layer );
 				}
 			}
 			
@@ -285,7 +285,7 @@ public class AwPossum extends GameObject {
 			} else {
 				area.setCoords( shape.getX() + Math.signum( shape.visualizer.xScale ) * 0.95d, shape.getY() - 0.1d );
 			}
-			area.collisionsWith( layer, awPossumHitCollision );
+			area.collisionsWith( instance.layer, awPossumHitCollision );
 			if( awPossumHitCollision.collided ) remove( shape );
 			super.applyTo( shape );
 		}
@@ -305,7 +305,7 @@ public class AwPossum extends GameObject {
 				} else if( jelly.findModel( Death.class ) == null ) {
 					Score.create( jelly, jelly.score );
 
-					AwPossum awPossum = (AwPossum) layer.findShape( AwPossum.class );
+					AwPossum awPossum = (AwPossum) instance.layer.findShape( AwPossum.class );
 					awPossum.health = Math.min( awPossum.health + Service.random( AwPossum.minHealthGain, AwPossum.maxHealthGain ), 100.0 );
 
 					jelly.horizontalMovementModel().deactivateModel( jelly );

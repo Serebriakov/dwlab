@@ -1,6 +1,5 @@
 package examples;
 
-import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.images.Image;
@@ -8,6 +7,7 @@ import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.maps.DoubleMap;
 
 public class PerlinNoiseExample extends Project {
@@ -30,11 +30,12 @@ public class PerlinNoiseExample extends Project {
 	Image image;
 					
 
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new PerlinNoiseExample() ).act();
 	}
 	

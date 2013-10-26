@@ -127,7 +127,7 @@ public class SpriteMap extends Map {
 	public final void setResolution( int newXQuantity, int newYQuantity ) {
 		super.setResolution( newXQuantity, newYQuantity );
 
-		if( Platform.current.debug ) if( ! masked ) error( "Map resoluton must be power of 2" );
+		if( Platform.debug ) if( ! masked ) error( "Map resoluton must be power of 2" );
 
 		lists = new Sprite[ newYQuantity ][][];
 		listSize = new int[ newYQuantity ][];
@@ -492,7 +492,7 @@ public class SpriteMap extends Map {
 		copyShapeTo( shape );
 		SpriteMap spriteMap =  shape.toSpriteMap();
 		
-		if( Platform.current.debug ) if( spriteMap == null ) error( "Trying to copy sprite map \"" + shape.getTitle() + "\" data to non-sprite-map" );
+		if( Platform.debug ) if( spriteMap == null ) error( "Trying to copy sprite map \"" + shape.getTitle() + "\" data to non-sprite-map" );
 
 		spriteMap.setResolution( xQuantity, yQuantity );
 		spriteMap.cellWidth = cellWidth;

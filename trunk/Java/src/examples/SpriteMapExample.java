@@ -1,11 +1,11 @@
 package examples;
 
 import dwlab.platform.Platform;
-
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.service.Vector;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
@@ -18,11 +18,12 @@ import java.util.LinkedList;
 public class SpriteMapExample extends Project {
 	static SpriteMapExample instance = new SpriteMapExample();
 	
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		instance.act();
 		Platform.current.initCamera();
 	}
@@ -125,13 +126,13 @@ public class SpriteMapExample extends Project {
 		
 
 		
-		private Vector vector1 = new Vector(), vector2 = new Vector();
+		private final Vector vector1 = new Vector(), vector2 = new Vector();
 		
 		@Override
 		public void draw( Color drawingColor ) {
 			double a = 1d - 1d * ( instance.time - startingTime ) / fadingTime;
 			if( a >= 0 ) {
-				Platform.current.setCurrentColor( 1d, 0.75d, 0d, a );
+				Platform.setCurrentColor( 1d, 0.75d, 0d, a );
 				for( Sprite sprite : particles ) {
 					double dX = Math.cos( sprite.angle ) * sprite.getDiameter() * 0.5d;
 					double dY = Math.sin( sprite.angle ) * sprite.getDiameter() * 0.5d;
@@ -141,7 +142,7 @@ public class SpriteMapExample extends Project {
 					Platform.current.drawLine( vector1.x, vector1.y , vector2.x, vector2.y );
 					sprite.moveForward();
 				}
-				Platform.current.resetCurrentColor();
+				Platform.resetCurrentColor();
 			}
 		}
 		

@@ -16,11 +16,11 @@ import java.util.LinkedList;
 public abstract class Platform {
 	public static Platform current;
 	
-	public String version = "2.0";
-	public LinkedList<ButtonAction> controllers = new LinkedList<ButtonAction>();
-	public LinkedList<Integer> keys = new LinkedList<Integer>();
+	public static String version = "2.0";
+	public static LinkedList<ButtonAction> controllers = new LinkedList<ButtonAction>();
+	public static LinkedList<Integer> keys = new LinkedList<Integer>();
 	
-	public final boolean debug = true;
+	public static final boolean debug = true;
 	
 	public static Color currentColor = Color.white;
 	public static Color currentClearingColor = Color.black;
@@ -29,9 +29,6 @@ public abstract class Platform {
 	static int viewportX, viewportY;
 	static int viewportWidth, viewportHeight;
 	
-	public void init() {
-		init( 800, 600, 25d, true );
-	}
 	public abstract void init( int newWidth, int newHeight, double unitSize, boolean loadFont );
 	
 	public void initCamera( double unitSize ) {

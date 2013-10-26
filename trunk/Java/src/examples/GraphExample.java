@@ -1,12 +1,11 @@
 package examples;
 
-import dwlab.platform.Platform;
-
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.graphs.Graph;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Sprite;
@@ -16,11 +15,12 @@ import dwlab.visualizers.Visualizer;
 import java.util.LinkedList;
 
 public class GraphExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new GraphExample() ).act();
 	}
 	

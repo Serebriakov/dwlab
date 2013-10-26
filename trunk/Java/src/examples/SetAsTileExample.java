@@ -1,7 +1,5 @@
 package examples;
 
-import dwlab.platform.Platform;
-
 import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
@@ -9,17 +7,19 @@ import dwlab.base.service.IntVector;
 import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.VectorSprite;
 
 public class SetAsTileExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new SetAsTileExample() ).act();
 	}
 	

@@ -43,8 +43,8 @@ public class Jelly extends GameObject {
 		
 		attachModelImmediately( new ModelDeactivator( onLand, true ) );
 		
-		addTileMapCollisions( Group.HORIZONTAL, tileMap, bumpingWalls, null );
-		addTileMapCollisions( Group.VERTICAL, tileMap, verticalCollisionHandler, null );
+		addTileMapCollisions( Group.HORIZONTAL, instance.tileMap, bumpingWalls, null );
+		addTileMapCollisions( Group.VERTICAL, instance.tileMap, verticalCollisionHandler, null );
 
 		jumpingAnimation = new AnimationModel( false, jumpingAnimationSpeed, 8, 8 );
 		fallingAnimation = new AnimationModel( true, jumpingAnimationSpeed, 3, 13, true );
@@ -174,14 +174,14 @@ public class Jelly extends GameObject {
 			bullet.visualizer.setVisualizerScale( 12d, 4d );
 			bullet.visualizer.image = Jelly.visualizer.image;
 			bullet.frame = 6;
-			bullet.insertTo( layer );
+			bullet.insertTo( instance.layer );
 		}
 			
 
 		@Override
 		public void act() {
 			moveForward();
-			if( collisions ) collisionsWith( tileMap, destroyBullet );
+			if( collisions ) collisionsWith( instance.tileMap, destroyBullet );
 			super.act();
 		}
 		
@@ -202,7 +202,7 @@ public class Jelly extends GameObject {
 	public static class DestroyBullet extends SpriteAndTileCollisionHandler {
 		@Override
 		public void handleCollision( Sprite sprite, TileMap tileMap, int tileX, int tileY, Sprite collisionSprite ) {
-			if( tileMap.getTile( tileX, tileY ) == bricks ) Bullet.disable( sprite );
+			if( tileMap.getTile( tileX, tileY ) == instance.bricks ) Bullet.disable( sprite );
 		}
 	}
 

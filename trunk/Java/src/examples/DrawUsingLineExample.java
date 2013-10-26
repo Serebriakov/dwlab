@@ -1,11 +1,11 @@
 package examples;
 
 import dwlab.platform.Platform;
-
 import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
 import dwlab.base.*;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Camera;
@@ -14,11 +14,12 @@ import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 
 public class DrawUsingLineExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new DrawUsingLineExample() ).act();
 		Platform.current.initCamera();
 	}
@@ -51,14 +52,14 @@ public class DrawUsingLineExample extends Project {
 					double y = vector1.y + ( vector2.y - vector1.y ) * n / chunkQuantity + Math.sin( angle ) * radius;
 
 					Platform.lineWidth = 9;
-					Platform.current.setCurrentColor( 0, 1d, 1d );
+					Platform.setCurrentColor( 0, 1d, 1d );
 					Platform.current.drawOval( x, y, 9, 9 );
 					if( n > 0 ) {
 						Platform.current.drawOval( oldX, oldY, 9, 9 );
 						Platform.current.drawLine( x, y, oldX, oldY );
 					}
 					Platform.lineWidth = 4;
-					Platform.current.setCurrentColor( 1d, 1d, 1d );
+					Platform.setCurrentColor( 1d, 1d, 1d );
 					Platform.current.drawOval( x, y, 5, 5 );
 					if( n > 0 ) {
 						Platform.current.drawOval( oldX, oldY, 5, 5 );

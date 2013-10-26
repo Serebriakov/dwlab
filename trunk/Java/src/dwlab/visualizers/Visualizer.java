@@ -194,7 +194,7 @@ public class Visualizer extends Color {
 	public void drawUsingSprite( Sprite sprite, Sprite spriteShape, Color drawingColor ) {
 		if( !sprite.visible ) return;
 
-		if( Platform.current.debug ) Project.spritesDisplayed += 1;
+		if( Platform.debug ) Project.spritesDisplayed += 1;
 		
 		DrawingSprite.handlers[ sprite.shapeType.getNum() ].perform( this, sprite, spriteShape, drawingColor );
 	}
@@ -369,7 +369,7 @@ public class Visualizer extends Color {
 
 		tileSetImage.draw( tileValue, servicePivot.x + visualizer.dX * width, servicePivot.y + visualizer.dY * height, width, height, 0d, drawingColor );
 
-		if( Platform.current.debug ) Project.tilesDisplayed += 1;
+		if( Platform.debug ) Project.tilesDisplayed += 1;
 	}
 
 

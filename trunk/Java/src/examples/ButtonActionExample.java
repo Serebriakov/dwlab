@@ -1,25 +1,27 @@
 package examples;
 
-import dwlab.platform.Platform;
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class ButtonActionExample extends Project {
-	static {
-		Platform.current.init();
-	}
-	
-	private static ButtonActionExample instance = new ButtonActionExample();
+	private static ButtonActionExample instance;
 	
 	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
+	}
+	
+	public static void main() {
+		instance = new ButtonActionExample();
 		instance.act();
 	}
 	

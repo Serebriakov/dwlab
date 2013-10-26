@@ -9,6 +9,7 @@ import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
 import dwlab.controllers.MouseButton;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.sprites.Sprite;
@@ -17,13 +18,15 @@ import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.ContourVisualizer;
 
 public class ActiveExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	private static ActiveExample instance = new ActiveExample();
+	public static ActiveExample instance;
 	
-	public static void main(String[] argv) {
+	public static void main() {
+		instance = new ActiveExample();
 		instance.act();
 	}
 	

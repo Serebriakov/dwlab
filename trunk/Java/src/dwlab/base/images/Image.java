@@ -34,7 +34,7 @@ public class Image extends ImageTemplate {
 	 * @return New image (LTImage).
 	 */
 	public Image( String fileName, int xCells, int yCells ) {
-		if( Platform.current.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
+		if( Platform.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
 
 		this.fileName = fileName;
 		this.xCells = xCells;

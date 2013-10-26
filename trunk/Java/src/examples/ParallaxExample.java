@@ -4,17 +4,19 @@ import dwlab.platform.Platform;
 
 import dwlab.base.Project;
 import dwlab.base.service.Align;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.layers.World;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
 
 public class ParallaxExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		Classes.register();
 		( new ParallaxExample() ).act();
 		Platform.current.initCamera();

@@ -1,16 +1,17 @@
 package examples;
 
-import dwlab.platform.Platform;
 import dwlab.base.service.Align;
 import dwlab.base.Project;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.sprites.Sprite;
 
 public class LeftXExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new LeftXExample() ).act();
 	}
 	

@@ -9,6 +9,7 @@ import dwlab.base.service.Service;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
+import dwlab.platform.LWJGL;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.Camera;
@@ -16,12 +17,12 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 
 public class CameraExample extends Project {
-	static {
-		Platform.current.init();
+	public static void main(String[] argv) {
+		LWJGL.init();
+		main();
 	}
 	
-	
-	public static void main(String[] argv) {
+	public static void main() {
 		( new CameraExample() ).act();
 		Platform.current.initCamera();
 	}

@@ -1,12 +1,13 @@
 package examples;
 
 import dwlab.base.Project;
-import dwlab.platform.Sound;
+import dwlab.base.Sound;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.base.service.Vector;
 import dwlab.platform.LWJGL;
+import dwlab.platform.Platform;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.maps.tilemaps.TileSet;
 import dwlab.shapes.sprites.Camera;
@@ -30,7 +31,7 @@ public class DrawTileExample extends Project {
 	double periodBetweenShakes = 3d;
 
 	TileMap tileMap = TileMap.create( new TileSet( new Image( "res/tiles.png", 8, 4 ) ), tileMapWidth, tileMapHeight );
-	Sound hitSound = new Sound( "res/hit.ogg" );
+	Sound hitSound = Platform.current.createSound( "res/hit.ogg" );
 	double shakingK;
 	double lastShakingTime = -100;
 

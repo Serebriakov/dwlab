@@ -27,7 +27,6 @@ import org.newdawn.slick.util.ResourceLoader;
 import static org.lwjgl.opengl.GL11.*;
 
 public class LWJGL extends Platform {
-	private Font currentFont;
 	private org.newdawn.slick.Color currentTextColor = org.newdawn.slick.Color.white;
 	private org.newdawn.slick.Color currentContourColor = null;
 	
@@ -76,7 +75,7 @@ public class LWJGL extends Platform {
 			Logger.getLogger( Platform.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		
-		if( loadFont ) setCurrentFont( Font.load( "res/font.ttf", 16 ) );
+		if( loadFont ) setCurrentFont( createFont( "res/font.ttf", 16 ) );
 	}
 	
 	@Override
@@ -90,12 +89,12 @@ public class LWJGL extends Platform {
 	
 	@Override
 	public double getTextWidth( String text ) {
-		return currentFont.font.getWidth( text );
+		return currentFont.getWidth( text );
 	}
 
 	@Override
 	public double getTextHeight() {
-		return currentFont.font.getHeight();
+		return currentFont.getHeight();
 	}
 	
 	@Override
@@ -120,7 +119,7 @@ public class LWJGL extends Platform {
 	
 	
 	@Override
-	public void setCurrentFont( Font font ) {
+	public void setCurrentFont( dwlab.base.Font font ) {
 		currentFont = font;
 	}
 	
@@ -241,15 +240,7 @@ public class LWJGL extends Platform {
 	
 
 	public void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
-		glBindTexture( GL_TEXTURE_2D, currentFont.textureID );
-		if( currentContourColor != null ) {
-			for( int dY = -1; dY <= 1; dY++ ) {
-				for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
-					currentFont.font.drawString( x +dX, y + dY, string, currentContourColor );
-				}
-			}
-		}
-		currentFont.font.drawString( x, y, string, color );
+		currentFont.drawString( x, y, string, color );
 	}
 	
 	@Override
@@ -556,9 +547,6 @@ public class LWJGL extends Platform {
 	public class Texture extends dwlab.base.images.Texture {
 		private int textureID;
 
-		public Texture() {
-		}
-
 		public Texture( String fileName ) {
 			this.fileName = fileName;
 			this.textureID = glGenTextures();
@@ -653,31 +641,53 @@ public class LWJGL extends Platform {
 	
 	
 	public class Font extends dwlab.base.Font {
+		String fileName;
 		TrueTypeFont font;
 		int textureID;
+		float size;
 
 
-		private Font( java.awt.Font font ) {
-			this.font = new TrueTypeFont( font, false );
-			this.textureID = glGetInteger( GL_TEXTURE_BINDING_2D );
+		private Font( String fileName, float size ) {
+			this.fileName = fileName;
+			this.size = size;
 		}
 
 
-		public static Font load( String fileName, float size ) {
+		public void init() {
 			try {
 				InputStream inputStream	= ResourceLoader.getResourceAsStream( fileName );
-				java.awt.Font font = java.awt.Font.createFont( java.awt.Font.TRUETYPE_FONT, inputStream );
-				font = font.deriveFont( size ); // set font size
-				return new Font( font );
+				java.awt.Font awtFont = java.awt.Font.createFont( java.awt.Font.TRUETYPE_FONT, inputStream );
+				awtFont = awtFont.deriveFont( size ); // set font size
+				font = new TrueTypeFont( awtFont, false );
+				this.textureID = glGetInteger( GL_TEXTURE_BINDING_2D );
 			} catch (Exception e) {
 			}
-			return null;
+		}
+
+		
+		private void drawString( String string, float x, float y, org.newdawn.slick.Color color ) {
+			font.drawString( x, y, string, color );
+		}
+
+
+		public void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
+			glBindTexture( GL_TEXTURE_2D, textureID );
+			if( currentContourColor != null ) {
+				for( int dY = -1; dY <= 1; dY++ ) {
+					for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
+						drawString( string, x +dX, y + dY, currentContourColor );
+					}
+				}
+			}
+			drawString( string, x, y, color );
 		}
 	}
 	
 	@Override
 	public dwlab.base.Font createFont( String fileName, float size ) {
-		return new Font( fileName, size );
+		Font font = new Font( fileName, size );
+		font.init();
+		return font;
 	}
 	
 	

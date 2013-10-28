@@ -31,6 +31,7 @@ public abstract class Platform {
 	
 	public static Color currentColor = Color.white;
 	public static Color currentClearingColor = Color.black;
+	public Font currentFont;
 	public static double lineWidth = 1.0d;
 	static int width, height;
 	static int viewportX, viewportY;

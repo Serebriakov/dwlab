@@ -97,11 +97,11 @@ public class Visualizer extends Color {
 	 * @see #fromImage, #fromColor, #fromHexColor
 	 */
 	public Visualizer( String filename, int xCells, int yCells ) {
-		this.image = Image.create( filename, xCells, yCells );
+		this.image = new Image( filename, xCells, yCells );
 	}
 	
 	public Visualizer( String filename ) {
-		this.image = Image.create( filename, 1, 1 );
+		this.image = new Image( filename, 1, 1 );
 	}
 
 

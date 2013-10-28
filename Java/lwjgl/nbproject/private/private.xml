@@ -3,32 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/projects/dwlab/src/dwlab/visualizers/MarchingAnts.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/visualizers/WindowedVisualizer.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/base/Font.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/base/images/Texture.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/layers/World.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/maps/tilemaps/TileSet.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/sprites/shape_types/drawing_sprites/DrawingSprite.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/visualizers/Visualizer.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/controllers/MouseButton.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/controllers/MouseWheel.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/sprites/shape_types/collisions/RasterWithRasterCollision.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/layers/EditorData.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/maps/tilemaps/TileMap.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/platform/LWJGL.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/controllers/Pushable.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/base/images/RasterFrame.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/Shape.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/base/Sound.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/base/images/BitmapFont.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/base/images/ImageBuffer.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/controllers/Key.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/controllers/KeyboardKey.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/base/images/Image.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/maps/DoubleMap.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/platform/Platform.java</file>
-            <file>file:/D:/projects/dwlab/src/dwlab/shapes/layers/Layer.java</file>
+            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/platform/LWJGL.java</file>
+            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/images/Image.java</file>
+            <file>file:/D:/projects/dwlab/lwjgl/src/examples/ActionExample.java</file>
+            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/platform/Platform.java</file>
+            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/images/Texture.java</file>
+            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/Font.java</file>
+            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/visualizers/Visualizer.java</file>
         </group>
     </open-files>
 </project-private>

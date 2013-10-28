@@ -34,14 +34,13 @@ public class Image extends Obj {
 		this.texture = texture;
 	}
 	
-	public static Image create( String filename, int xCells, int yCells ) {
+	public Image( String fileName, int xCells, int yCells ) {
 		if( Platform.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
 		
-		Image image = new Image( filename );
-		image.xCells = xCells;
-		image.yCells = yCells;
-		image.init();
-		return image;
+		this.texture = Platform.current.createTexture( fileName );
+		this.xCells = xCells;
+		this.yCells = yCells;
+		this.init();
 	}
 	
 	@Override

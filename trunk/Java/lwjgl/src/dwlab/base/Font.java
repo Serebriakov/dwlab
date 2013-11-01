@@ -12,16 +12,9 @@ package dwlab.base;
 import org.newdawn.slick.Color;
 
 public abstract class Font {
+	public abstract double getTextWidth( String text );
 
-	public double getWidth(String text) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+	public abstract double getTextHeight();
 
-	public double getHeight() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-
-	public void drawString(float f, float f0, String string, Color currentContourColor) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+	public abstract void drawString( String string, float x, float y, Color color );
 }

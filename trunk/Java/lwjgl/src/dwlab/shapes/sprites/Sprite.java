@@ -36,8 +36,8 @@ import java.util.Iterator;
  * @see #lTVectorSprite
  */
 public class Sprite extends Shape {
-	private static Vector serviceVector = new Vector();
-	private static Sprite serviceSprite = new Sprite();
+	private static final Vector serviceVector = new Vector();
+	private static final Sprite serviceSprite = new Sprite();
 
 	
 	/**

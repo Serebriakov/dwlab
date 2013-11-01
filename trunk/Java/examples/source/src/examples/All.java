@@ -1,5 +1,6 @@
 package examples;
 
+import dwlab.base.service.Service;
 import dwlab.platform.LWJGL;
 
 public class All {

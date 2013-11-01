@@ -15,6 +15,7 @@ import dwlab.platform.Platform;
  * Class for keyboard keys.
  */
 public class KeyboardKey extends Pushable {
+	public Key keyID;
 	public int code;
 
 	
@@ -27,7 +28,7 @@ public class KeyboardKey extends Pushable {
 	@Override
 	public boolean isEqualTo( Pushable pushable ) {
 		KeyboardKey key = pushable.getKeyboardKey();
-		if( key != null ) return code == key.code;
+		if( key != null ) return keyID == key.keyID;
 		return false;
 	}
 	
@@ -38,17 +39,19 @@ public class KeyboardKey extends Pushable {
 	}
 	
 
+	
+	@Override
+	public void init() {
+		code = Platform.current.getKeyboardCode( keyID );
+	}
+	
 	/**
 	 * Creates keyboard key object.
 	 * @return New object of keyboard key with given key id.
 	 */	
 	public static KeyboardKey create( Key keyID ) {
-		return create( Platform.current.getKeyboardCode( keyID ) );
-	}
-	
-	public static KeyboardKey create( int code ) {
 		KeyboardKey key = new KeyboardKey();
-		key.code = code;
+		key.keyID = keyID;
 		
 		for( ButtonAction action: Platform.controllers ) {
 			for( Pushable pushable: action.buttonList ) {

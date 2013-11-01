@@ -86,14 +86,14 @@ public class Shape extends Obj {
 	 * 
 	 * @see #lTBehaviorModel
 	 */
-	public LinkedList<BehaviorModel> behaviorModels = new LinkedList<BehaviorModel>();
+	public final LinkedList<BehaviorModel> behaviorModels = new LinkedList<BehaviorModel>();
 
 	public int collisionLayer;
 
 	// ==================== Drawing ===================
 
-	private static Vector servicePivot = new Vector();
-	private static Vector serviceSizes = new Vector();
+	private static final Vector servicePivot = new Vector();
+	private static final Vector serviceSizes = new Vector();
 	
 	/**
 	 * Prints text inside the shape.
@@ -157,8 +157,8 @@ public class Shape extends Obj {
 	}	
 	
 	
-	private static Vector serviceVector1 = new Vector();
-	private static Vector serviceVector2 = new Vector();
+	private static final Vector serviceVector1 = new Vector();
+	private static final Vector serviceVector2 = new Vector();
 	
 	public void drawContour( double lineWidth, double xScale, double yScale ) {
 		double oldLineWidth = lineWidth;
@@ -263,12 +263,12 @@ public class Shape extends Obj {
 	 * @see #x, #y, #moveTowards example
 	 */
 	public boolean isAtPositionOf( Shape shape ) {
-		if( shape.x == x && shape.y == y ) return true; else return false;
+		return shape.x == x && shape.y == y;
 	}
 
 
 	public boolean isAtPositionOf( double pointX, double pointY ) {
-		if( pointX == x && pointY == y ) return true; else return false;
+		return pointX == x && pointY == y;
 	}
 
 
@@ -1257,9 +1257,7 @@ public class Shape extends Obj {
 			} else {
 				newShape = (Shape) getClass().newInstance();
 			}
-		} catch ( InstantiationException ex ) {
-			Logger.getLogger( Shape.class.getName() ).log( Level.SEVERE, null, ex );
-		} catch ( IllegalAccessException ex ) {
+		} catch ( InstantiationException | IllegalAccessException ex ) {
 			Logger.getLogger( Shape.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		copyTo( newShape );

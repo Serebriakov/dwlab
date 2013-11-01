@@ -12,6 +12,8 @@ import dwlab.shapes.sprites.Camera;
 import dwlab.visualizers.Color;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.LWJGLException;
@@ -68,6 +70,14 @@ public class LWJGL extends Platform {
 		glMatrixMode( GL_MODELVIEW ) ;
 		
 		resetViewport();
+		
+		initKeys();
+		
+		for( dwlab.base.images.Texture texture : Texture.textures ) texture.init();
+		
+		for( ButtonAction action : Platform.controllers ) {
+			for( Pushable pushable : action.buttonList ) pushable.init();
+		}
 
 		try {
 			Mouse.create();
@@ -89,12 +99,12 @@ public class LWJGL extends Platform {
 	
 	@Override
 	public double getTextWidth( String text ) {
-		return currentFont.getWidth( text );
+		return currentFont.getTextWidth( text );
 	}
 
 	@Override
 	public double getTextHeight() {
-		return currentFont.getHeight();
+		return currentFont.getTextHeight();
 	}
 	
 	@Override
@@ -240,7 +250,7 @@ public class LWJGL extends Platform {
 	
 
 	public void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
-		currentFont.drawString( x, y, string, color );
+		currentFont.drawString( string, x, y, color );
 	}
 	
 	@Override
@@ -356,7 +366,14 @@ public class LWJGL extends Platform {
 		
 		while ( Keyboard.next() ) {
 			if( Keyboard.getEventKeyState() ) {
-				action.addButton( KeyboardKey.create( Keyboard.getEventKey() ) );
+				int key = Keyboard.getEventKey();
+				for( Entry<Key,Integer> entry : keymap.entrySet() ) {
+					if( entry.getValue() == key ) {
+						action.addButton( KeyboardKey.create( entry.getKey() ) );
+						break;
+					}
+				}
+				
 				return true;
 			}
 		}
@@ -386,131 +403,136 @@ public class LWJGL extends Platform {
 	}
 	
 
+	private final HashMap<Key, Integer> keymap = new HashMap<Key, Integer>();
+	
+	public void initKeys() {
+		keymap.put( Key.ESCAPE, Keyboard.KEY_ESCAPE );
+		keymap.put( Key._1, Keyboard.KEY_1 );
+		keymap.put( Key._2, Keyboard.KEY_2 );
+		keymap.put( Key._3, Keyboard.KEY_3 );
+		keymap.put( Key._4, Keyboard.KEY_4 );
+		keymap.put( Key._5, Keyboard.KEY_5 );
+		keymap.put( Key._6, Keyboard.KEY_6 );
+		keymap.put( Key._7, Keyboard.KEY_7 );
+		keymap.put( Key._8, Keyboard.KEY_8 );
+		keymap.put( Key._9, Keyboard.KEY_9 );
+		keymap.put( Key._0, Keyboard.KEY_0 );
+		keymap.put( Key.MINUS, Keyboard.KEY_MINUS );
+		keymap.put( Key.EQUALS, Keyboard.KEY_EQUALS );
+		keymap.put( Key.BACK, Keyboard.KEY_BACK );
+		keymap.put( Key.TAB, Keyboard.KEY_TAB );
+		keymap.put( Key.Q, Keyboard.KEY_Q );
+		keymap.put( Key.W, Keyboard.KEY_W );
+		keymap.put( Key.E, Keyboard.KEY_E );
+		keymap.put( Key.R, Keyboard.KEY_R );
+		keymap.put( Key.T, Keyboard.KEY_T );
+		keymap.put( Key.Y, Keyboard.KEY_Y );
+		keymap.put( Key.U, Keyboard.KEY_U );
+		keymap.put( Key.I, Keyboard.KEY_I );
+		keymap.put( Key.O, Keyboard.KEY_O );
+		keymap.put( Key.P, Keyboard.KEY_P );
+		keymap.put( Key.LBRACKET, Keyboard.KEY_LBRACKET );
+		keymap.put( Key.RBRACKET, Keyboard.KEY_RBRACKET );
+		keymap.put( Key.RETURN, Keyboard.KEY_RETURN );
+		keymap.put( Key.LCONTROL, Keyboard.KEY_LCONTROL );
+		keymap.put( Key.A, Keyboard.KEY_A );
+		keymap.put( Key.S, Keyboard.KEY_S );
+		keymap.put( Key.D, Keyboard.KEY_D );
+		keymap.put( Key.F, Keyboard.KEY_F );
+		keymap.put( Key.G, Keyboard.KEY_G );
+		keymap.put( Key.H, Keyboard.KEY_H );
+		keymap.put( Key.J, Keyboard.KEY_J );
+		keymap.put( Key.K, Keyboard.KEY_K );
+		keymap.put( Key.L, Keyboard.KEY_L );
+		keymap.put( Key.SEMICOLON, Keyboard.KEY_SEMICOLON );
+		keymap.put( Key.APOSTROPHE, Keyboard.KEY_APOSTROPHE );
+		keymap.put( Key.GRAVE, Keyboard.KEY_GRAVE );
+		keymap.put( Key.LSHIFT, Keyboard.KEY_LSHIFT );
+		keymap.put( Key.BACKSLASH, Keyboard.KEY_BACKSLASH );
+		keymap.put( Key.Z, Keyboard.KEY_Z );
+		keymap.put( Key.X, Keyboard.KEY_X );
+		keymap.put( Key.C, Keyboard.KEY_C );
+		keymap.put( Key.V, Keyboard.KEY_V );
+		keymap.put( Key.B, Keyboard.KEY_B );
+		keymap.put( Key.N, Keyboard.KEY_N );
+		keymap.put( Key.M, Keyboard.KEY_M );
+		keymap.put( Key.COMMA, Keyboard.KEY_COMMA );
+		keymap.put( Key.PERIOD, Keyboard.KEY_PERIOD );
+		keymap.put( Key.SLASH, Keyboard.KEY_SLASH );
+		keymap.put( Key.RSHIFT, Keyboard.KEY_RSHIFT );
+		keymap.put( Key.MULTIPLY, Keyboard.KEY_MULTIPLY );
+		keymap.put( Key.LALT, Keyboard.KEY_LMENU );
+		keymap.put( Key.SPACE, Keyboard.KEY_SPACE );
+		keymap.put( Key.CAPITAL, Keyboard.KEY_CAPITAL );
+		keymap.put( Key.F1, Keyboard.KEY_F1 );
+		keymap.put( Key.F2, Keyboard.KEY_F2 );
+		keymap.put( Key.F3, Keyboard.KEY_F3 );
+		keymap.put( Key.F4, Keyboard.KEY_F4 );
+		keymap.put( Key.F5, Keyboard.KEY_F5 );
+		keymap.put( Key.F6, Keyboard.KEY_F6 );
+		keymap.put( Key.F7, Keyboard.KEY_F7 );
+		keymap.put( Key.F8, Keyboard.KEY_F8 );
+		keymap.put( Key.F9, Keyboard.KEY_F9 );
+		keymap.put( Key.F10, Keyboard.KEY_F10 );
+		keymap.put( Key.NUMLOCK, Keyboard.KEY_NUMLOCK );
+		keymap.put( Key.SCROLL, Keyboard.KEY_SCROLL );
+		keymap.put( Key.NUMPAD7, Keyboard.KEY_NUMPAD7 );
+		keymap.put( Key.NUMPAD8, Keyboard.KEY_NUMPAD8 );
+		keymap.put( Key.NUMPAD9, Keyboard.KEY_NUMPAD9 );
+		keymap.put( Key.SUBTRACT, Keyboard.KEY_SUBTRACT );
+		keymap.put( Key.NUMPAD4, Keyboard.KEY_NUMPAD4 );
+		keymap.put( Key.NUMPAD5, Keyboard.KEY_NUMPAD5 );
+		keymap.put( Key.NUMPAD6, Keyboard.KEY_NUMPAD6 );
+		keymap.put( Key.ADD, Keyboard.KEY_ADD );
+		keymap.put( Key.NUMPAD1, Keyboard.KEY_NUMPAD1 );
+		keymap.put( Key.NUMPAD2, Keyboard.KEY_NUMPAD2 );
+		keymap.put( Key.NUMPAD3, Keyboard.KEY_NUMPAD3 );
+		keymap.put( Key.NUMPAD0, Keyboard.KEY_NUMPAD0 );
+		keymap.put( Key.DECIMAL, Keyboard.KEY_DECIMAL );
+		keymap.put( Key.F11, Keyboard.KEY_F11 );
+		keymap.put( Key.F12, Keyboard.KEY_F12 );
+		keymap.put( Key.F13, Keyboard.KEY_F13 );
+		keymap.put( Key.F14, Keyboard.KEY_F14 );
+		keymap.put( Key.F15, Keyboard.KEY_F15 );
+		keymap.put( Key.KANA, Keyboard.KEY_KANA );
+		keymap.put( Key.CONVERT, Keyboard.KEY_CONVERT );
+		keymap.put( Key.NOCONVERT, Keyboard.KEY_NOCONVERT );
+		keymap.put( Key.YEN, Keyboard.KEY_YEN );
+		keymap.put( Key.NUMPADEQUALS, Keyboard.KEY_NUMPADEQUALS );
+		keymap.put( Key.CIRCUMFLEX, Keyboard.KEY_CIRCUMFLEX );
+		keymap.put( Key.AT, Keyboard.KEY_AT );
+		keymap.put( Key.COLON, Keyboard.KEY_COLON );
+		keymap.put( Key.UNDERLINE, Keyboard.KEY_UNDERLINE );
+		keymap.put( Key.KANJI, Keyboard.KEY_KANJI );
+		keymap.put( Key.STOP, Keyboard.KEY_STOP );
+		keymap.put( Key.AX, Keyboard.KEY_AX );
+		keymap.put( Key.UNLABELED, Keyboard.KEY_UNLABELED );
+		keymap.put( Key.NUMPADENTER, Keyboard.KEY_NUMPADENTER );
+		keymap.put( Key.RCONTROL, Keyboard.KEY_RCONTROL );
+		keymap.put( Key.NUMPADCOMMA, Keyboard.KEY_NUMPADCOMMA );
+		keymap.put( Key.DIVIDE, Keyboard.KEY_DIVIDE );
+		keymap.put( Key.SYSRQ, Keyboard.KEY_SYSRQ );
+		keymap.put( Key.RALT, Keyboard.KEY_RMENU );
+		keymap.put( Key.PAUSE, Keyboard.KEY_PAUSE );
+		keymap.put( Key.HOME, Keyboard.KEY_HOME );
+		keymap.put( Key.UP, Keyboard.KEY_UP );
+		keymap.put( Key.PAGE_UP, Keyboard.KEY_PRIOR );
+		keymap.put( Key.LEFT, Keyboard.KEY_LEFT );
+		keymap.put( Key.RIGHT, Keyboard.KEY_RIGHT );
+		keymap.put( Key.END, Keyboard.KEY_END );
+		keymap.put( Key.DOWN, Keyboard.KEY_DOWN );
+		keymap.put( Key.PAGE_DOWN, Keyboard.KEY_NEXT );
+		keymap.put( Key.INSERT, Keyboard.KEY_INSERT );
+		keymap.put( Key.DELETE, Keyboard.KEY_DELETE );
+		keymap.put( Key.LMETA, Keyboard.KEY_LMETA );
+	}
+
+	
 	@Override
 	public int getKeyboardCode( Key keyID ) {
-		switch( keyID ){
-			case ESCAPE: return Keyboard.KEY_ESCAPE;
-			case _1: return Keyboard.KEY_1;
-			case _2: return Keyboard.KEY_2;
-			case _3: return Keyboard.KEY_3;
-			case _4: return Keyboard.KEY_4;
-			case _5: return Keyboard.KEY_5;
-			case _6: return Keyboard.KEY_6;
-			case _7: return Keyboard.KEY_7;
-			case _8: return Keyboard.KEY_8;
-			case _9: return Keyboard.KEY_9;
-			case _0: return Keyboard.KEY_0;
-			case MINUS: return Keyboard.KEY_MINUS;
-			case EQUALS: return Keyboard.KEY_EQUALS;
-			case BACK: return Keyboard.KEY_BACK;
-			case TAB: return Keyboard.KEY_TAB;
-			case Q: return Keyboard.KEY_Q;
-			case W: return Keyboard.KEY_W;
-			case E: return Keyboard.KEY_E;
-			case R: return Keyboard.KEY_R;
-			case T: return Keyboard.KEY_T;
-			case Y: return Keyboard.KEY_Y;
-			case U: return Keyboard.KEY_U;
-			case I: return Keyboard.KEY_I;
-			case O: return Keyboard.KEY_O;
-			case P: return Keyboard.KEY_P;
-			case LBRACKET: return Keyboard.KEY_LBRACKET;
-			case RBRACKET: return Keyboard.KEY_RBRACKET;
-			case RETURN: return Keyboard.KEY_RETURN;
-			case LCONTROL: return Keyboard.KEY_LCONTROL;
-			case A: return Keyboard.KEY_A;
-			case S: return Keyboard.KEY_S;
-			case D: return Keyboard.KEY_D;
-			case F: return Keyboard.KEY_F;
-			case G: return Keyboard.KEY_G;
-			case H: return Keyboard.KEY_H;
-			case J: return Keyboard.KEY_J;
-			case K: return Keyboard.KEY_K;
-			case L: return Keyboard.KEY_L;
-			case SEMICOLON: return Keyboard.KEY_SEMICOLON;
-			case APOSTROPHE: return Keyboard.KEY_APOSTROPHE;
-			case GRAVE: return Keyboard.KEY_GRAVE;
-			case LSHIFT: return Keyboard.KEY_LSHIFT;
-			case BACKSLASH: return Keyboard.KEY_BACKSLASH;
-			case Z: return Keyboard.KEY_Z;
-			case X: return Keyboard.KEY_X;
-			case C: return Keyboard.KEY_C;
-			case V: return Keyboard.KEY_V;
-			case B: return Keyboard.KEY_B;
-			case N: return Keyboard.KEY_N;
-			case M: return Keyboard.KEY_M;
-			case COMMA: return Keyboard.KEY_COMMA;
-			case PERIOD: return Keyboard.KEY_PERIOD;
-			case SLASH: return Keyboard.KEY_SLASH;
-			case RSHIFT: return Keyboard.KEY_RSHIFT;
-			case MULTIPLY: return Keyboard.KEY_MULTIPLY;
-			case LALT: return Keyboard.KEY_LMENU;
-			case SPACE: return Keyboard.KEY_SPACE;
-			case CAPITAL: return Keyboard.KEY_CAPITAL;
-			case F1: return Keyboard.KEY_F1;
-			case F2: return Keyboard.KEY_F2;
-			case F3: return Keyboard.KEY_F3;
-			case F4: return Keyboard.KEY_F4;
-			case F5: return Keyboard.KEY_F5;
-			case F6: return Keyboard.KEY_F6;
-			case F7: return Keyboard.KEY_F7;
-			case F8: return Keyboard.KEY_F8;
-			case F9: return Keyboard.KEY_F9;
-			case F10: return Keyboard.KEY_F10;
-			case NUMLOCK: return Keyboard.KEY_NUMLOCK;
-			case SCROLL: return Keyboard.KEY_SCROLL;
-			case NUMPAD7: return Keyboard.KEY_NUMPAD7;
-			case NUMPAD8: return Keyboard.KEY_NUMPAD8;
-			case NUMPAD9: return Keyboard.KEY_NUMPAD9;
-			case SUBTRACT: return Keyboard.KEY_SUBTRACT;
-			case NUMPAD4: return Keyboard.KEY_NUMPAD4;
-			case NUMPAD5: return Keyboard.KEY_NUMPAD5;
-			case NUMPAD6: return Keyboard.KEY_NUMPAD6;
-			case ADD: return Keyboard.KEY_ADD;
-			case NUMPAD1: return Keyboard.KEY_NUMPAD1;
-			case NUMPAD2: return Keyboard.KEY_NUMPAD2;
-			case NUMPAD3: return Keyboard.KEY_NUMPAD3;
-			case NUMPAD0: return Keyboard.KEY_NUMPAD0;
-			case DECIMAL: return Keyboard.KEY_DECIMAL;
-			case F11: return Keyboard.KEY_F11;
-			case F12: return Keyboard.KEY_F12;
-			case F13: return Keyboard.KEY_F13;
-			case F14: return Keyboard.KEY_F14;
-			case F15: return Keyboard.KEY_F15;
-			case KANA: return Keyboard.KEY_KANA;
-			case CONVERT: return Keyboard.KEY_CONVERT;
-			case NOCONVERT: return Keyboard.KEY_NOCONVERT;
-			case YEN: return Keyboard.KEY_YEN;
-			case NUMPADEQUALS: return Keyboard.KEY_NUMPADEQUALS;
-			case CIRCUMFLEX: return Keyboard.KEY_CIRCUMFLEX;
-			case AT: return Keyboard.KEY_AT;
-			case COLON: return Keyboard.KEY_COLON;
-			case UNDERLINE: return Keyboard.KEY_UNDERLINE;
-			case KANJI: return Keyboard.KEY_KANJI;
-			case STOP: return Keyboard.KEY_STOP;
-			case AX: return Keyboard.KEY_AX;
-			case UNLABELED: return Keyboard.KEY_UNLABELED;
-			case NUMPADENTER: return Keyboard.KEY_NUMPADENTER;
-			case RCONTROL: return Keyboard.KEY_RCONTROL;
-			case NUMPADCOMMA: return Keyboard.KEY_NUMPADCOMMA;
-			case DIVIDE: return Keyboard.KEY_DIVIDE;
-			case SYSRQ: return Keyboard.KEY_SYSRQ;
-			case RALT: return Keyboard.KEY_RMENU;
-			case PAUSE: return Keyboard.KEY_PAUSE;
-			case HOME: return Keyboard.KEY_HOME;
-			case UP: return Keyboard.KEY_UP;
-			case PAGE_UP: return Keyboard.KEY_PRIOR;
-			case LEFT: return Keyboard.KEY_LEFT;
-			case RIGHT: return Keyboard.KEY_RIGHT;
-			case END: return Keyboard.KEY_END;
-			case DOWN: return Keyboard.KEY_DOWN;
-			case PAGE_DOWN: return Keyboard.KEY_NEXT;
-			case INSERT: return Keyboard.KEY_INSERT;
-			case DELETE: return Keyboard.KEY_DELETE;
-			case LMETA: return Keyboard.KEY_LMETA;
-			default: return 0;
-		}
+		return keymap.get( keyID );
 	}
+		
 
 	@Override
 	public void processKeyboardKeyEvent( KeyboardKey key ) {
@@ -547,19 +569,15 @@ public class LWJGL extends Platform {
 	public class Texture extends dwlab.base.images.Texture {
 		private int textureID;
 
-		public Texture( String fileName ) {
-			this.fileName = fileName;
-			this.textureID = glGenTextures();
-			this.init();
-		}
-
 		/**
 		 * Initializes image.
 		 * Splits image by XCells x YCells grid. Will be executed after loading image object from XML file.
 		 */
 		@Override
 		public final void init() {
+			if( Platform.current == null ) return;
 			if( !fileName.isEmpty() ) {
+				textureID = glGenTextures();
 				try {
 					org.newdawn.slick.opengl.Texture texture = TextureLoader.getTexture( fileName.substring( fileName.length() - 3 ).toUpperCase(), 
 							ResourceLoader.getResourceAsStream( fileName ) );
@@ -634,8 +652,12 @@ public class LWJGL extends Platform {
 	}
 	
 	@Override
-	public dwlab.base.images.Texture createTexture( String filename ) {
-		return new Texture( filename );
+	public dwlab.base.images.Texture createTexture( String fileName ) {
+		Texture texture = new Texture();
+		texture.fileName = fileName;
+		Texture.textures.add( texture );
+		texture.init();
+		return texture;
 	}
 	
 	
@@ -661,11 +683,13 @@ public class LWJGL extends Platform {
 				font = new TrueTypeFont( awtFont, false );
 				this.textureID = glGetInteger( GL_TEXTURE_BINDING_2D );
 			} catch (Exception e) {
+				int a = 0;
 			}
 		}
 
 		
-		private void drawString( String string, float x, float y, org.newdawn.slick.Color color ) {
+		@Override
+		public void drawString( String string, float x, float y, org.newdawn.slick.Color color ) {
 			font.drawString( x, y, string, color );
 		}
 
@@ -680,6 +704,16 @@ public class LWJGL extends Platform {
 				}
 			}
 			drawString( string, x, y, color );
+		}
+
+		@Override
+		public double getTextWidth( String text ) {
+			return font.getWidth( text );
+		}
+
+		@Override
+		public double getTextHeight() {
+			return font.getHeight();
 		}
 	}
 	

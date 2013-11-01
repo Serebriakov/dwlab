@@ -1,0 +1,420 @@
+<LTWorld dwlab_version="1.4.34" total-loading-time="78">
+	<LTVisualizer field="visualizer" id="1"/>
+	<LTEditorData field="editor_data" x_div="2" y_div="2" coll_x_div="16" coll_y_div="16">
+		<TList field="images">
+			<Object id="7"/>
+			<Object id="47"/>
+			<Object id="84"/>
+		</TList>
+		<TList field="tilesets">
+			<Object id="6"/>
+			<Object id="46"/>
+			<Object id="83"/>
+		</TList>
+		<LTColor field="background"/>
+		<LTColor field="grid_color" green="0" alpha="0.29999998"/>
+	</LTEditorData>
+	<LTCamera field="camera" x="65.39" y="33.64999998" width="215.28009169" height="186.66150808" shape="2" viewport-clipping="1">
+		<LTVisualizer field="visualizer"/>
+		<LTShape field="viewport" x="504" y="437" width="1008" height="874">
+			<LTVisualizer field="visualizer"/>
+		</LTShape>
+	</LTCamera>
+	<LTLayer>
+		<Object field="visualizer" id="1"/>
+		<LTTileMap x="16" y="52" width="32" height="32" xquantity="64" yquantity="64" tiles-quantity="20" loading-time="1" offset="0">
+			<TList field="parameters">
+				<LTParameter name="name" value="Ground"/>
+			</TList>
+			<LTVisualizer field="visualizer"/>
+			<LTTileSet field="tileset" id="6" name="WaterAndSnow" tiles-quantity="20">
+				<LTImage field="image" id="7" filename="water_and_snow.png" xcells="4" ycells="5" loading-time="11"/>
+				<Array field="collision-shapes" size="20"/>
+				<LTTileCategory name="Category 1">
+					<LTTileRule tilenums="13"/>
+				</LTTileCategory>
+				<LTTileCategory name="Category 2">
+					<LTTileRule tilenums="3">
+						<LTTilePos dx="-1" tilenum="13"/>
+						<LTTilePos dy="1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="2">
+						<LTTilePos dx="1" tilenum="13"/>
+						<LTTilePos dy="1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="7">
+						<LTTilePos dy="-1" tilenum="13"/>
+						<LTTilePos dx="-1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="6">
+						<LTTilePos dy="-1" tilenum="13"/>
+						<LTTilePos dx="1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="12">
+						<LTTilePos dx="1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="9">
+						<LTTilePos dy="1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="17">
+						<LTTilePos dy="-1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="14">
+						<LTTilePos dx="-1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="10">
+						<LTTilePos dx="-1" dy="1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="8">
+						<LTTilePos dx="1" dy="1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="18">
+						<LTTilePos dx="-1" dy="-1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="16">
+						<LTTilePos dx="1" dy="-1" tilenum="13"/>
+					</LTTileRule>
+					<LTTileRule tilenums="0" xdiv="2" ydiv="2"/>
+					<LTTileRule tilenums="1" x="1" xdiv="2" ydiv="2"/>
+					<LTTileRule tilenums="4" y="1" xdiv="2" ydiv="2"/>
+					<LTTileRule tilenums="5" x="1" y="1" xdiv="2" ydiv="2"/>
+				</LTTileCategory>
+			</LTTileSet>
+		</LTTileMap>
+		<LTTileMap width="64" height="64" xquantity="32" yquantity="32" tiles-quantity="16" loading-time="1" offset="4096">
+			<TList field="parameters">
+				<LTParameter name="name" value="Grid"/>
+			</TList>
+			<LTVisualizer field="visualizer"/>
+			<LTTileSet field="tileset" id="46" name="Grid" tiles-quantity="16">
+				<LTImage field="image" id="47" filename="grid.png" xcells="8" ycells="2" loading-time="11"/>
+				<Array field="collision-shapes" size="16"/>
+				<LTTileCategory name="Category 1">
+					<LTTileRule tilenums="0"/>
+				</LTTileCategory>
+				<LTTileCategory name="Category 2">
+					<LTTileRule tilenums="14">
+						<LTTilePos dx="-1"/>
+						<LTTilePos dy="1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="13">
+						<LTTilePos dx="1"/>
+						<LTTilePos dy="1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="12">
+						<LTTilePos dy="-1"/>
+						<LTTilePos dx="-1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="11">
+						<LTTilePos dy="-1"/>
+						<LTTilePos dx="1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="9,10">
+						<LTTilePos dx="1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="3,4">
+						<LTTilePos dy="1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="5,6">
+						<LTTilePos dy="-1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="7,8">
+						<LTTilePos dx="-1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="1,2">
+						<LTTilePos dx="-1" dy="1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="1,2">
+						<LTTilePos dx="1" dy="1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="1,2">
+						<LTTilePos dx="-1" dy="-1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="1,2">
+						<LTTilePos dx="1" dy="-1"/>
+					</LTTileRule>
+					<LTTileRule tilenums="1,2"/>
+				</LTTileCategory>
+			</LTTileSet>
+		</LTTileMap>
+		<LTTileMap x="100" y="32" width="128" height="128" xquantity="32" yquantity="32" tiles-quantity="90" loading-time="1" offset="5120">
+			<TList field="parameters">
+				<LTParameter name="name" value="Clouds"/>
+			</TList>
+			<LTVisualizer field="visualizer" alpha="0.5"/>
+			<LTTileSet field="tileset" id="83" name="CurvedAreas" tiles-quantity="90" empty-tile="0">
+				<LTImage field="image" id="84" filename="clouds.png" xcells="9" ycells="10" loading-time="53"/>
+				<Array field="collision-shapes" size="90"/>
+				<LTTileCategory name="White">
+					<LTTileRule tilenums="69">
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="70">
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="79">
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="78">
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="46">
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="48">
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+						<LTTilePos dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="58">
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="76">
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="84">
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="82">
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="72">
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="54">
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+						<LTTilePos dx="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="47">
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="67">
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="83">
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="63">
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="30">
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="12,44">
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="10,14,6">
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="28,42,52">
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="77">
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="68">
+						<LTTilePos dx="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="60">
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="61">
+						<LTTilePos dy="1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="71">
+						<LTTilePos dx="-1" dy="1" tilenum="20"/>
+						<LTTilePos dx="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="80">
+						<LTTilePos dx="-1" tilenum="20"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="88">
+						<LTTilePos dx="-1" dy="-1" tilenum="20"/>
+						<LTTilePos dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="87">
+						<LTTilePos dy="-1" tilenum="20"/>
+						<LTTilePos dx="1" dy="-1" tilenum="20"/>
+					</LTTileRule>
+					<LTTileRule tilenums="2">
+						<LTTilePos dy="1" tilenum="11"/>
+					</LTTileRule>
+					<LTTileRule tilenums="18">
+						<LTTilePos dx="1" tilenum="19"/>
+					</LTTileRule>
+					<LTTileRule tilenums="22,26,8">
+						<LTTilePos dx="-1" tilenum="21"/>
+					</LTTileRule>
+					<LTTileRule tilenums="38,62">
+						<LTTilePos dy="-1" tilenum="29"/>
+					</LTTileRule>
+					<LTTileRule tilenums="51,9,1,27,36,37,39,40,4,3,17,35,50,59,86,89,0,31,13,5,41"/>
+					<LTTileRule tilenums="34,24,16,32"/>
+				</LTTileCategory>
+				<LTTileCategory name="Blue">
+					<LTTileRule tilenums="25">
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+						<LTTilePos dx="-1" tilenum="18"/>
+						<LTTilePos dy="-1" tilenum="2"/>
+						<LTTilePos dy="1" tilenum="38"/>
+						<LTTilePos dx="1" tilenum="22"/>
+					</LTTileRule>
+					<LTTileRule tilenums="7">
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+						<LTTilePos dx="-1" tilenum="10"/>
+						<LTTilePos dy="1" tilenum="30"/>
+						<LTTilePos dx="-1" dy="1" tilenum="15"/>
+						<LTTilePos dy="-1" tilenum="2"/>
+						<LTTilePos dx="1" tilenum="22"/>
+					</LTTileRule>
+					<LTTileRule tilenums="23">
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+						<LTTilePos dx="-1" tilenum="18"/>
+						<LTTilePos dx="1" tilenum="30"/>
+						<LTTilePos dy="-1" tilenum="10"/>
+						<LTTilePos dy="1" tilenum="38"/>
+						<LTTilePos dx="1" dy="-1" tilenum="15"/>
+					</LTTileRule>
+					<LTTileRule tilenums="33">
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+						<LTTilePos dx="-1" tilenum="18"/>
+						<LTTilePos dy="-1" tilenum="2"/>
+						<LTTilePos dx="1" tilenum="12"/>
+						<LTTilePos dy="1" tilenum="28"/>
+						<LTTilePos dx="1" dy="1" tilenum="43"/>
+					</LTTileRule>
+					<LTTileRule tilenums="53">
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+						<LTTilePos dx="1" tilenum="22"/>
+						<LTTilePos dy="1" tilenum="38"/>
+						<LTTilePos dx="-1" tilenum="28"/>
+						<LTTilePos dy="-1" tilenum="12"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="43"/>
+					</LTTileRule>
+					<LTTileRule tilenums="15">
+						<LTTilePos dx="1" dy="-1" tilenum="15"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+						<LTTilePos dy="-1" tilenum="10"/>
+						<LTTilePos dx="-1" tilenum="10"/>
+						<LTTilePos dx="1" tilenum="30"/>
+						<LTTilePos dy="1" tilenum="30"/>
+						<LTTilePos dx="-1" dy="1" tilenum="15"/>
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+					</LTTileRule>
+					<LTTileRule tilenums="43">
+						<LTTilePos dx="-1" dy="-1" tilenum="43"/>
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+						<LTTilePos dx="-1" tilenum="28"/>
+						<LTTilePos dy="1" tilenum="28"/>
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+						<LTTilePos dy="-1" tilenum="12"/>
+						<LTTilePos dx="1" tilenum="12"/>
+						<LTTilePos dx="1" dy="1" tilenum="43"/>
+					</LTTileRule>
+					<LTTileRule tilenums="11">
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+						<LTTilePos dy="-1" tilenum="2"/>
+						<LTTilePos dx="-1" tilenum="10"/>
+						<LTTilePos dx="1" tilenum="12"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+					</LTTileRule>
+					<LTTileRule tilenums="19">
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+						<LTTilePos dy="1" tilenum="28"/>
+						<LTTilePos dy="-1" tilenum="10"/>
+						<LTTilePos dx="-1" tilenum="18"/>
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+					</LTTileRule>
+					<LTTileRule tilenums="21">
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+						<LTTilePos dy="1" tilenum="30"/>
+						<LTTilePos dy="-1" tilenum="12"/>
+						<LTTilePos dx="1" tilenum="22"/>
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+					</LTTileRule>
+					<LTTileRule tilenums="29">
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+						<LTTilePos dx="1" tilenum="30"/>
+						<LTTilePos dx="-1" tilenum="28"/>
+						<LTTilePos dy="1" tilenum="38"/>
+					</LTTileRule>
+					<LTTileRule tilenums="81">
+						<LTTilePos dx="1" dy="-1" tilenum="28"/>
+						<LTTilePos dy="-1" tilenum="12"/>
+						<LTTilePos dx="1" tilenum="12"/>
+					</LTTileRule>
+					<LTTileRule tilenums="85">
+						<LTTilePos dx="-1" dy="-1" tilenum="30"/>
+						<LTTilePos dy="-1" tilenum="10"/>
+						<LTTilePos dx="-1" tilenum="10"/>
+					</LTTileRule>
+					<LTTileRule tilenums="45">
+						<LTTilePos dy="1" tilenum="30"/>
+						<LTTilePos dx="1" tilenum="30"/>
+						<LTTilePos dx="1" dy="1" tilenum="10"/>
+					</LTTileRule>
+					<LTTileRule tilenums="49">
+						<LTTilePos dx="-1" tilenum="28"/>
+						<LTTilePos dy="1" tilenum="28"/>
+						<LTTilePos dx="-1" dy="1" tilenum="12"/>
+					</LTTileRule>
+					<LTTileRule tilenums="20"/>
+				</LTTileCategory>
+			</LTTileSet>
+		</LTTileMap>
+	</LTLayer>
+</LTWorld>

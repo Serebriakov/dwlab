@@ -21,13 +21,18 @@ public class Image extends Obj {
 	private static final HashSet<Image> images = new HashSet<>(); 
 
 	public Texture texture;
+	public String fileName;
 	protected int frameWidth, frameHeight;
 	protected double kx, ky;
 	protected int xCells, yCells;
 	
 
-	public Image( String filename ) {
-		this.texture = Platform.current.createTexture( filename );
+	public Image() {
+		
+	}
+	
+	public Image( String fileName ) {
+		this( fileName, 1, 1 );
 	}
 	
 	public Image( Texture texture ) {
@@ -37,7 +42,7 @@ public class Image extends Obj {
 	public Image( String fileName, int xCells, int yCells ) {
 		if( Platform.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
 		
-		this.texture = Platform.current.createTexture( fileName );
+		this.fileName = fileName;
 		this.xCells = xCells;
 		this.yCells = yCells;
 		this.init();
@@ -45,6 +50,8 @@ public class Image extends Obj {
 	
 	@Override
 	public final void init() {
+		if( Platform.current == null ) return;
+		if( texture == null ) texture = Platform.current.createTexture( fileName );
 		frameWidth = texture.getWidth() / xCells;
 		frameHeight = texture.getHeight() / yCells;
 		kx = 1d * frameWidth / texture.getWidth();
@@ -92,18 +99,18 @@ public class Image extends Obj {
 	public void xMLIO( XMLObject xMLObject ) {
 		super.xMLIO( xMLObject );
 
-		
 		xCells = xMLObject.manageIntAttribute( "xcells", xCells, 1 );
 		yCells = xMLObject.manageIntAttribute( "ycells", yCells, 1 );
 
 		if( XMLObject.xMLGetMode() ) {
+			texture = Platform.current.createTexture( xMLObject.manageStringAttribute( "filename", "" ) );
 			int lastSlash = objectFileName.lastIndexOf( "/" );
 			if( lastSlash >= 0 ) texture.fileName = objectFileName.substring( 0, lastSlash ) + "/" + texture.fileName;
 			String filename = xMLObject.manageStringAttribute( "filename", texture.fileName );
 			texture = Platform.current.createTexture( filename );
 			if( loadImages ) texture.init();
 		} else {
-			xMLObject.manageStringAttribute( "filename", texture.fileName );
+			xMLObject.manageStringAttribute( "filename", fileName );
 		}
 		
 	}

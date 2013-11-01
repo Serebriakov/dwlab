@@ -11,8 +11,11 @@ package dwlab.base.images;
 
 import dwlab.base.Obj;
 import dwlab.visualizers.Color;
+import java.util.LinkedList;
 
 public abstract class Texture extends Obj {
+	public static LinkedList<Texture> textures = new LinkedList<Texture>();
+	
 	public String fileName;
 	protected int width, height;
 	

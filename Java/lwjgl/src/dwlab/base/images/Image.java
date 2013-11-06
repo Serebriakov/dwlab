@@ -17,7 +17,7 @@ import dwlab.visualizers.Color;
 import java.util.HashSet;
 
 public class Image extends Obj {
-	private static final HashSet<Image> images = new HashSet<>(); 
+	private static final HashSet<Image> images = new HashSet<Image>(); 
 
 	public Texture texture;
 	public String fileName;

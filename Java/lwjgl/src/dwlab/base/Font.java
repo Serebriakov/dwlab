@@ -9,12 +9,10 @@
 
 package dwlab.base;
 
-import org.newdawn.slick.Color;
-
 public abstract class Font {
 	public abstract double getTextWidth( String text );
 
 	public abstract double getTextHeight();
 
-	public abstract void drawString( String string, float x, float y, Color color );
+	public abstract void drawString( String string, float x, float y );
 }

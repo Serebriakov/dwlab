@@ -1257,7 +1257,7 @@ public class Shape extends Obj {
 			} else {
 				newShape = (Shape) getClass().newInstance();
 			}
-		} catch ( InstantiationException | IllegalAccessException ex ) {
+		} catch ( Exception ex ) {
 			Logger.getLogger( Shape.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		copyTo( newShape );

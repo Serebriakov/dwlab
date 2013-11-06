@@ -24,8 +24,8 @@ public abstract class Platform {
 	public static Platform current;
 	
 	public static String version = "2.0";
-	public static LinkedList<ButtonAction> controllers = new LinkedList<>();
-	public static LinkedList<Integer> keys = new LinkedList<>();
+	public static LinkedList<ButtonAction> controllers = new LinkedList<ButtonAction>();
+	public static LinkedList<Integer> keys = new LinkedList<Integer>();
 	
 	public static final boolean debug = true;
 	
@@ -174,8 +174,6 @@ public abstract class Platform {
 
 	public abstract void drawPolygon();
 
-	public abstract void drawText( String string, double x, double y, Color color );
-	
 	public abstract void drawText( String string, double x, double y );
 	
 	public abstract void clearScreen( Color color );

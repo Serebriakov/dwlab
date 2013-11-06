@@ -174,8 +174,6 @@ public abstract class Platform {
 
 	public abstract void drawPolygon();
 
-	public abstract void drawText( String string, double x, double y, Color color );
-	
 	public abstract void drawText( String string, double x, double y );
 	
 	public abstract void clearScreen( Color color );

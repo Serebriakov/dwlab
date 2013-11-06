@@ -17,6 +17,7 @@ import dwlab.visualizers.Color;
 import java.util.HashSet;
 
 public class Image extends Obj {
+	public static boolean loadImages = true;
 	private static final HashSet<Image> images = new HashSet<Image>(); 
 
 	public Texture texture;
@@ -35,10 +36,7 @@ public class Image extends Obj {
 	}
 	
 	public Image( Texture texture ) {
-		this.xCells = 1;
-		this.yCells = 1;
 		this.texture = texture;
-		this.init();
 	}
 	
 	public Image( String fileName, int xCells, int yCells ) {
@@ -54,10 +52,10 @@ public class Image extends Obj {
 	public final void init() {
 		if( Platform.current == null ) return;
 		if( texture == null ) texture = Platform.current.createTexture( fileName );
-		frameWidth = texture.getImageWidth() / xCells;
-		frameHeight = texture.getImageHeight() / yCells;
-		kx = 1d * frameWidth / texture.getTextureWidth();
-		ky = 1d * frameHeight / texture.getTextureHeight();
+		frameWidth = texture.getWidth() / xCells;
+		frameHeight = texture.getHeight() / yCells;
+		kx = 1d * frameWidth / texture.getWidth();
+		ky = 1d * frameHeight / texture.getHeight();
 		texture.init();
 	}
 
@@ -105,14 +103,16 @@ public class Image extends Obj {
 		yCells = xMLObject.manageIntAttribute( "ycells", yCells, 1 );
 
 		if( XMLObject.xMLGetMode() ) {
-			String textureFileName = xMLObject.manageStringAttribute( "filename", "" );
+			texture = Platform.current.createTexture( xMLObject.manageStringAttribute( "filename", "" ) );
 			int lastSlash = objectFileName.lastIndexOf( "/" );
-			if( lastSlash >= 0 ) textureFileName = objectFileName.substring( 0, lastSlash ) + "/" + textureFileName;
-			texture = Platform.current.createTexture( textureFileName );
-			init();
+			if( lastSlash >= 0 ) texture.fileName = objectFileName.substring( 0, lastSlash ) + "/" + texture.fileName;
+			String filename = xMLObject.manageStringAttribute( "filename", texture.fileName );
+			texture = Platform.current.createTexture( filename );
+			if( loadImages ) texture.init();
 		} else {
 			xMLObject.manageStringAttribute( "filename", fileName );
 		}
+		
 	}
 	
 	

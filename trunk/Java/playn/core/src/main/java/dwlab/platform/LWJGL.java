@@ -1,6 +1,6 @@
 package dwlab.platform;
 
-import dwlab.base.Project;
+/*import dwlab.base.Project;
 import dwlab.base.images.ImageBuffer;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
@@ -37,12 +37,6 @@ public class LWJGL extends Platform {
 		current.init( 800, 600, 25d, true );
 	}
 	
-	/**
-	* Sets graphics mode.
-	* Provide width and height of screen in pixels and unit size in pixels for camera.
-
-	* @see #parallax example
-	*/
 	@Override
 	public void init( int newWidth, int newHeight, double unitSize, boolean loadFont ) {
 		if( Display.isCreated() ) return;
@@ -248,19 +242,9 @@ public class LWJGL extends Platform {
 		glEnable( GL_TEXTURE_2D ); 
 	}
 	
-
-	public void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
-		currentFont.drawString( string, x, y, color );
-	}
-	
-	@Override
-	public void drawText( String string, double x, double y, Color color ) {
-		drawText( string, (float) x, (float) y, new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha ) );
-	}
-	
 	@Override
 	public void drawText( String string, double x, double y ) {
-		drawText( string, (float) x, (float) y, currentTextColor );
+		currentFont.drawString( string, (float) x, (float) y );
 	}
 	
 	
@@ -569,10 +553,6 @@ public class LWJGL extends Platform {
 	public class Texture extends dwlab.base.images.Texture {
 		private int textureID;
 
-		/**
-		 * Initializes image.
-		 * Splits image by XCells x YCells grid. Will be executed after loading image object from XML file.
-		 */
 		@Override
 		public final void init() {
 			if( Platform.current == null ) return;
@@ -582,10 +562,8 @@ public class LWJGL extends Platform {
 					org.newdawn.slick.opengl.Texture texture = TextureLoader.getTexture( fileName.substring( fileName.length() - 3 ).toUpperCase(), 
 							ResourceLoader.getResourceAsStream( fileName ) );
 					textureID = texture.getTextureID();
-					textureWidth = texture.getTextureWidth();
-					textureHeight = texture.getTextureHeight();
-					imageWidth = texture.getImageWidth();
-					imageHeight = texture.getImageHeight();
+					width = texture.getTextureWidth();
+					height = texture.getTextureHeight();
 				} catch ( IOException ex ) {
 					Logger.getLogger( Texture.class.getName() ).log( Level.SEVERE, null, ex );
 				}
@@ -607,10 +585,8 @@ public class LWJGL extends Platform {
 			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR ); 
 			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR ); 
 			glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, buffer.getWidth(), buffer.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer.buffer );
-			imageWidth = buffer.getWidth();
-			imageHeight = buffer.getHeight();
-			textureWidth = imageWidth;
-			textureHeight = imageHeight;
+			width = buffer.getWidth();
+			height = buffer.getHeight();
 		}
 
 		@Override
@@ -693,22 +669,16 @@ public class LWJGL extends Platform {
 
 		
 		@Override
-		public void drawString( String string, float x, float y, org.newdawn.slick.Color color ) {
-			glBindTexture( GL_TEXTURE_2D, textureID );
-			font.drawString( x, y, string, color );
-		}
-
-
-		public void drawText( String string, float x, float y, org.newdawn.slick.Color color ) {
+		public void drawString( String string, float x, float y ) {
 			glBindTexture( GL_TEXTURE_2D, textureID );
 			if( currentContourColor != null ) {
 				for( int dY = -1; dY <= 1; dY++ ) {
 					for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
-						drawString( string, x +dX, y + dY, currentContourColor );
+						font.drawString( x + dX, y + dY, string, currentContourColor );
 					}
 				}
 			}
-			drawString( string, x, y, color );
+			font.drawString( x, y, string, currentTextColor );
 		}
 
 		@Override
@@ -782,4 +752,4 @@ public class LWJGL extends Platform {
 	public dwlab.base.Sound createSound( String filename ) {
 		return new Sound( filename );
 	}
-}
+}*/

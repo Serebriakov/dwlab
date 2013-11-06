@@ -58,8 +58,6 @@ public class KeyboardKey extends Pushable {
 				if( pushable.isEqualTo( key ) ) return pushable.getKeyboardKey();
 			}
 		}
-		
-		if( Platform.current != null ) key.init();
 
 		return key;
 	}

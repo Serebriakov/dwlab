@@ -16,33 +16,16 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
-import static org.lwjgl.opengl.GL11.*;
 
-public class LWJGL extends Platform {
+public class PlayN extends Platform {
 	private org.newdawn.slick.Color currentTextColor = org.newdawn.slick.Color.white;
 	private org.newdawn.slick.Color currentContourColor = null;
 	
 	public static void init() {
-		current = new LWJGL();
+		current = new PlayN();
 		current.init( 800, 600, 25d, true );
 	}
 	
-	/**
-	* Sets graphics mode.
-	* Provide width and height of screen in pixels and unit size in pixels for camera.
-
-	* @see #parallax example
-	*/
 	@Override
 	public void init( int newWidth, int newHeight, double unitSize, boolean loadFont ) {
 		if( Display.isCreated() ) return;
@@ -559,10 +542,6 @@ public class LWJGL extends Platform {
 	public class Texture extends dwlab.base.images.Texture {
 		private int textureID;
 
-		/**
-		 * Initializes image.
-		 * Splits image by XCells x YCells grid. Will be executed after loading image object from XML file.
-		 */
 		@Override
 		public final void init() {
 			if( Platform.current == null ) return;
@@ -762,4 +741,4 @@ public class LWJGL extends Platform {
 	public dwlab.base.Sound createSound( String filename ) {
 		return new Sound( filename );
 	}
-}
+}*/

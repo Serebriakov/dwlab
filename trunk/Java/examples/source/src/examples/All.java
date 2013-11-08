@@ -5,8 +5,8 @@ import dwlab.platform.LWJGL;
 
 public class All {
 	public static void main(String[] argv) {
+		Service.generateClassesList( "examples", "src/examples/Classes.java" ); System.exit( 0 );
 		LWJGL.init();
-		//Service.generateClassesList( "examples", "src/examples/Classes.java" ); System.exit( 0 );
 		Classes.register();
 		ActionExample.main();
 		ActiveExample.main();

@@ -9,7 +9,7 @@
 
 package dwlab.base.images;
 
-import dwlab.base.files.TextFile;
+import dwlab.base.XMLObject;
 import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.shapes.Shape;
@@ -18,7 +18,7 @@ import dwlab.shapes.sprites.Camera;
 /**
  * Bitmap font class.
  */
-public class BitmapFont extends Image {
+public class Font extends Image {
 	private static final Vector servicePivot = new Vector();
 	
 	public int letterWidth[];
@@ -131,35 +131,14 @@ public class BitmapFont extends Image {
 		}
 		return x;
 	}
-	
-	/**
-	 * Creates bitmap font from file.
-	 * @return New bitmap font.
-	 * You should specify image with letters file name, interval of symbols which are in the image, letter images per row.
-	 * VariableLength flag should be set to true if you want to use letters with variable lengths and have file with letter lengths with ".lfn"
-	 * extension and same name as image file.
-	 */
-	public BitmapFont( String fileName, int fromNum, int toNum, int symbolsPerRow, boolean variableLength ) {
-		super( fileName );
-		int symbolsQuantity = toNum - fromNum + 1;
-		
-		this.xCells = symbolsPerRow;
-		this.yCells = symbolsQuantity / symbolsPerRow;
-		this.init();
-		
-		this.fromNum = fromNum;
-		this.toNum = toNum;
-		
-		if( variableLength ) {
-			this.variableLength = variableLength;
-			TextFile file = TextFile.read( fileName + "len" );
-			this.letterWidth = new int[ symbolsQuantity ];
-			while( true ) {
-				String line = file.readLine();
-				if( line == null ) break;
-				letterWidth[ line.charAt( 0 ) - fromNum ] = Integer.parseInt( line.substring( 2 ) );
-			}
-		}
-	
+
+
+	@Override
+	public void xMLIO( XMLObject xMLObject ) {
+		super.xMLIO( xMLObject );
+
+		fromNum = xMLObject.manageIntAttribute( "from-num", fromNum, 32 );
+		toNum = xMLObject.manageIntAttribute( "to-num", toNum, 127 );
+		letterWidth = xMLObject.manageIntArrayAttribute( "letter-width", letterWidth );
 	}
 }

@@ -40,8 +40,8 @@ public class DebugVisualizer extends Visualizer {
 	public Color collisionShapesColor = new Color( 1d, 0d, 1d, 0.5d );
 
 
-	private static Vector serviceVector = new Vector();
-	private static Vector serviceSizes = new Vector();
+	private static final Vector serviceVector = new Vector();
+	private static final Vector serviceSizes = new Vector();
 
 	
 	private DebugVisualizer() {
@@ -77,10 +77,7 @@ public class DebugVisualizer extends Visualizer {
 			String titles[] = sprite.getTitle().split( ";" );
 			serviceVector.y -= titles.length * 8;
 			for( String title: titles ) {
-				Color oldContourColor = Platform.current.getContourColor();
-				Platform.current.setContourColor( 0, 0, 0, 1 );
 				Platform.current.drawText( title, serviceVector.x - 0.5 * Platform.current.getTextWidth( title ), serviceVector.y );
-				Platform.current.setContourColor( oldContourColor );
 				serviceVector.y += 14;
 			}
 		}

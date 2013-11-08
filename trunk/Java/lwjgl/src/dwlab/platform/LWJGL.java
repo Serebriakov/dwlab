@@ -1,6 +1,8 @@
 package dwlab.platform;
 
+import dwlab.base.Obj;
 import dwlab.base.Project;
+import dwlab.base.images.Font;
 import dwlab.base.images.ImageBuffer;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
@@ -11,7 +13,6 @@ import dwlab.controllers.Pushable;
 import dwlab.shapes.sprites.Camera;
 import dwlab.visualizers.Color;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -21,7 +22,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -29,9 +29,6 @@ import org.newdawn.slick.util.ResourceLoader;
 import static org.lwjgl.opengl.GL11.*;
 
 public class LWJGL extends Platform {
-	private org.newdawn.slick.Color currentTextColor = org.newdawn.slick.Color.white;
-	private org.newdawn.slick.Color currentContourColor = null;
-	
 	public static void init() {
 		current = new LWJGL();
 		current.init( 800, 600, 25d, true );
@@ -85,7 +82,7 @@ public class LWJGL extends Platform {
 			Logger.getLogger( Platform.class.getName() ).log( Level.SEVERE, null, ex );
 		}
 		
-		if( loadFont ) setCurrentFont( createFont( "res/font.ttf", 16 ) );
+		if( loadFont ) currentFont = (Font) Obj.loadFromFile( "res/font.lw" );
 	}
 	
 	@Override
@@ -94,60 +91,7 @@ public class LWJGL extends Platform {
 		Camera.current.viewport.setSize( width, height );
 		Camera.current.setSize( width / unitSize, height / unitSize );
 		Camera.current.setCoords( 0d, 0d );
-	}
-	
-	
-	@Override
-	public double getTextWidth( String text ) {
-		return currentFont.getTextWidth( text );
-	}
-
-	@Override
-	public double getTextHeight() {
-		return currentFont.getTextHeight();
-	}
-	
-	@Override
-	public Color getContourColor() {
-		if( currentContourColor == null ) return null;
-		return new Color( currentContourColor.r, currentContourColor.g, currentContourColor.b, currentContourColor.a );
-	}
-	
-	@Override
-	public void setContourColor( double red, double green, double blue, double alpha ) {
-		currentContourColor = new org.newdawn.slick.Color( (float) red, (float) green, (float) blue, (float) alpha );
-	}
-	
-	@Override
-	public void setContourColor( Color color ) {
-		if( color == null ) {
-			currentContourColor = null;
-		} else {
-			currentContourColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
-		}
-	}
-	
-	
-	@Override
-	public void setCurrentFont( dwlab.base.Font font ) {
-		currentFont = font;
-	}
-	
-	@Override
-	public Color getTextColor() {
-		return new Color( currentTextColor.r, currentTextColor.g, currentTextColor.b, currentTextColor.a );
-	}
-	
-	@Override
-	public void setTextColor( double red, double green, double blue, double alpha ) {
-		currentTextColor = new org.newdawn.slick.Color( (float) red, (float) green, (float) blue, (float) alpha );
-	}
-	
-	@Override
-	public void setTextColor( Color color ) {
-		currentTextColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
-	}
-
+	}	
 	
 
 	@Override
@@ -246,11 +190,6 @@ public class LWJGL extends Platform {
 		glEnd();
 		
 		glEnable( GL_TEXTURE_2D ); 
-	}
-	
-	@Override
-	public void drawText( String string, double x, double y ) {
-		currentFont.drawString( string, (float) x, (float) y );
 	}
 	
 	
@@ -648,65 +587,6 @@ public class LWJGL extends Platform {
 		Texture.textures.add( texture );
 		texture.init();
 		return texture;
-	}
-	
-	
-	
-	public class Font extends dwlab.base.Font {
-		String fileName;
-		TrueTypeFont font;
-		int textureID;
-		float size;
-
-
-		private Font( String fileName, float size ) {
-			this.fileName = fileName;
-			this.size = size;
-		}
-
-
-		public void init() {
-			try {
-				InputStream inputStream	= ResourceLoader.getResourceAsStream( fileName );
-				java.awt.Font awtFont = java.awt.Font.createFont( java.awt.Font.TRUETYPE_FONT, inputStream );
-				awtFont = awtFont.deriveFont( size ); // set font size
-				font = new TrueTypeFont( awtFont, false );
-				this.textureID = glGetInteger( GL_TEXTURE_BINDING_2D );
-			} catch (Exception e) {
-				int a = 0;
-			}
-		}
-
-		
-		@Override
-		public void drawString( String string, float x, float y ) {
-			glBindTexture( GL_TEXTURE_2D, textureID );
-			if( currentContourColor != null ) {
-				for( int dY = -1; dY <= 1; dY++ ) {
-					for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
-						font.drawString( x + dX, y + dY, string, currentContourColor );
-					}
-				}
-			}
-			font.drawString( x, y, string, currentTextColor );
-		}
-
-		@Override
-		public double getTextWidth( String text ) {
-			return font.getWidth( text );
-		}
-
-		@Override
-		public double getTextHeight() {
-			return font.getHeight();
-		}
-	}
-	
-	@Override
-	public dwlab.base.Font createFont( String fileName, float size ) {
-		Font font = new Font( fileName, size );
-		font.init();
-		return font;
 	}
 	
 	

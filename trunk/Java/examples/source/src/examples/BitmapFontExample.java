@@ -3,7 +3,7 @@ package examples;
 import dwlab.platform.Platform;
 
 import dwlab.base.Project;
-import dwlab.base.images.BitmapFont;
+import dwlab.base.images.Font;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
 import dwlab.platform.LWJGL;
@@ -21,7 +21,7 @@ public class BitmapFontExample extends Project {
 	}
 	
 	
-	private final BitmapFont font = new BitmapFont( "res/font.png", 32, 127, 16, true );
+	private final Font font = Platform.currentFont;
 	
 	
 	@Override

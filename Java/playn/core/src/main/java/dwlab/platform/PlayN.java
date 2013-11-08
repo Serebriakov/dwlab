@@ -28,46 +28,6 @@ public class PlayN extends Platform {
 	
 	@Override
 	public void init( int newWidth, int newHeight, double unitSize, boolean loadFont ) {
-		if( Display.isCreated() ) return;
-		
-		width =newWidth;
-		height = newHeight;
-		try {
-			Display.setDisplayMode( new DisplayMode( width, height ) );
-			Display.create();
-		} catch ( LWJGLException ex ) {
-			Logger.getLogger( Platform.class.getName() ).log( Level.SEVERE, null, ex );
-		}
-
-		glShadeModel( GL_SMOOTH );
-		glDisable( GL_DEPTH_TEST );
-		glDisable( GL_LIGHTING ); 
-		
-		glEnable( GL_BLEND );
-		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-		glEnable( GL_TEXTURE_2D );
-		
-		glMatrixMode( GL_PROJECTION ) ;
-		glLoadIdentity();
-		glOrtho( 0d, width, height, 0d, -1d, 1d );
-		glMatrixMode( GL_MODELVIEW ) ;
-		
-		resetViewport();
-		
-		initKeys();
-		
-		for( dwlab.base.images.Texture texture : Texture.textures ) texture.init();
-		
-		for( ButtonAction action : Platform.controllers ) {
-			for( Pushable pushable : action.buttonList ) pushable.init();
-		}
-
-		try {
-			Mouse.create();
-		} catch ( LWJGLException ex ) {
-			Logger.getLogger( Platform.class.getName() ).log( Level.SEVERE, null, ex );
-		}
-		
 		if( loadFont ) setCurrentFont( createFont( "res/font.ttf", 16 ) );
 	}
 	

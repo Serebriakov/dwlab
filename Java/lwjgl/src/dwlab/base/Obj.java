@@ -113,10 +113,7 @@ public class Obj {
 				y *= shift;
 		}
 
-		Color oldContourColor = Platform.current.getContourColor();
-		Platform.current.setContourColor( 0, 0, 0, 1 );
 		Platform.current.drawText( text, (float) x, (float) y );
-		Platform.current.setContourColor( oldContourColor );
 	}
 
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift ) {
@@ -194,7 +191,9 @@ public class Obj {
 			maxID = 0;
 			xMLObject = XMLObject.readFromFile( fileName );
 			TileMap.file = null;
-		}		
+		}
+		
+		if( classes.isEmpty() ) fillClasses();
 		
 		objectFileName = fileName;
 		Service.loadingStatus = "Serializing objects...";
@@ -224,6 +223,11 @@ public class Obj {
 	
 	public static Obj loadFromFile( String fileName ) {
 		return loadFromFile( fileName, null );
+	}
+	
+
+	private static void fillClasses() {
+		Obj.classes.put( "Font", dwlab.base.images.Font.class );
 	}
 
 

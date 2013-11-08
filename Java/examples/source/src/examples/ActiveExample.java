@@ -1,7 +1,5 @@
 package examples;
 
-import dwlab.platform.Platform;
-
 import dwlab.base.service.Align;
 import dwlab.base.Project;
 import dwlab.base.service.Service;
@@ -16,6 +14,7 @@ import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.SpriteCollisionHandler;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.ContourVisualizer;
+import org.newdawn.slick.Font;
 
 public class ActiveExample extends Project {
 	public static void main(String[] argv) {

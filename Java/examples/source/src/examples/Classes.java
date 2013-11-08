@@ -1,15 +1,14 @@
 package examples;
-
 import dwlab.base.Obj;
-
 public class Classes {
 	public static void register() {
 		Obj.classes.put( "BinaryFile", dwlab.base.files.BinaryFile.class );
 		Obj.classes.put( "TextFile", dwlab.base.files.TextFile.class );
-		Obj.classes.put( "BitmapFont", dwlab.base.images.BitmapFont.class );
+		Obj.classes.put( "Font", dwlab.base.images.Font.class );
 		Obj.classes.put( "Image", dwlab.base.images.Image.class );
 		Obj.classes.put( "ImageBuffer", dwlab.base.images.ImageBuffer.class );
 		Obj.classes.put( "RasterFrame", dwlab.base.images.RasterFrame.class );
+		Obj.classes.put( "Texture", dwlab.base.images.Texture.class );
 		Obj.classes.put( "Obj", dwlab.base.Obj.class );
 		Obj.classes.put( "Project", dwlab.base.Project.class );
 		Obj.classes.put( "Action", dwlab.base.service.Action.class );
@@ -18,6 +17,7 @@ public class Classes {
 		Obj.classes.put( "IntVector", dwlab.base.service.IntVector.class );
 		Obj.classes.put( "Service", dwlab.base.service.Service.class );
 		Obj.classes.put( "Vector", dwlab.base.service.Vector.class );
+		Obj.classes.put( "Sound", dwlab.base.Sound.class );
 		Obj.classes.put( "XMLObject", dwlab.base.XMLObject.class );
 		Obj.classes.put( "AnimationModel", dwlab.behavior_models.AnimationModel.class );
 		Obj.classes.put( "BehaviorModel", dwlab.behavior_models.BehaviorModel.class );
@@ -47,6 +47,8 @@ public class Classes {
 		Obj.classes.put( "MouseButton", dwlab.controllers.MouseButton.class );
 		Obj.classes.put( "MouseWheel", dwlab.controllers.MouseWheel.class );
 		Obj.classes.put( "Pushable", dwlab.controllers.Pushable.class );
+		Obj.classes.put( "LWJGL", dwlab.platform.LWJGL.class );
+		Obj.classes.put( "Platform", dwlab.platform.Platform.class );
 		Obj.classes.put( "AddLineToGraph", dwlab.shapes.graphs.AddLineToGraph.class );
 		Obj.classes.put( "AddPivotToGraph", dwlab.shapes.graphs.AddPivotToGraph.class );
 		Obj.classes.put( "Graph", dwlab.shapes.graphs.Graph.class );

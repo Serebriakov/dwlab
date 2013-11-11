@@ -1,5 +1,6 @@
 package dwlab.platform;
 
+import dwlab.base.Obj;
 import dwlab.base.Project;
 import dwlab.base.images.ImageBuffer;
 import dwlab.controllers.ButtonAction;
@@ -16,184 +17,68 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import playn.core.Graphics;
+import playn.core.Surface;
 
 public class PlayN extends Platform {
-	private org.newdawn.slick.Color currentTextColor = org.newdawn.slick.Color.white;
-	private org.newdawn.slick.Color currentContourColor = null;
+	Surface surface;
 	
-	public static void init() {
-		current = new PlayN();
-		current.init( 800, 600, 25d, true );
-	}
-	
-	@Override
-	public void init( int newWidth, int newHeight, double unitSize, boolean loadFont ) {
-		if( loadFont ) setCurrentFont( createFont( "res/font.ttf", 16 ) );
-	}
-	
-	@Override
-	public void initCamera( double unitSize ) {
-		Camera.current.viewport.setCoords( 0.5d * width, 0.5d * height );
-		Camera.current.viewport.setSize( width, height );
-		Camera.current.setSize( width / unitSize, height / unitSize );
-		Camera.current.setCoords( 0d, 0d );
-	}
-	
-	
-	@Override
-	public double getTextWidth( String text ) {
-		return currentFont.getTextWidth( text );
-	}
-
-	@Override
-	public double getTextHeight() {
-		return currentFont.getTextHeight();
-	}
-	
-	@Override
-	public Color getContourColor() {
-		if( currentContourColor == null ) return null;
-		return new Color( currentContourColor.r, currentContourColor.g, currentContourColor.b, currentContourColor.a );
-	}
-	
-	@Override
-	public void setContourColor( double red, double green, double blue, double alpha ) {
-		currentContourColor = new org.newdawn.slick.Color( (float) red, (float) green, (float) blue, (float) alpha );
-	}
-	
-	@Override
-	public void setContourColor( Color color ) {
-		if( color == null ) {
-			currentContourColor = null;
-		} else {
-			currentContourColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
-		}
-	}
-	
-	
-	@Override
-	public void setCurrentFont( dwlab.base.Font font ) {
-		currentFont = font;
-	}
-	
-	@Override
-	public Color getTextColor() {
-		return new Color( currentTextColor.r, currentTextColor.g, currentTextColor.b, currentTextColor.a );
-	}
-	
-	@Override
-	public void setTextColor( double red, double green, double blue, double alpha ) {
-		currentTextColor = new org.newdawn.slick.Color( (float) red, (float) green, (float) blue, (float) alpha );
-	}
-	
-	@Override
-	public void setTextColor( Color color ) {
-		currentTextColor = new org.newdawn.slick.Color( (float) color.red, (float) color.green, (float) color.blue, (float) color.alpha );
-	}
-
-	
-
 	@Override
 	public void drawLine( double x1, double y1, double x2, double y2, double width, Color color ) {
-		glDisable( GL_TEXTURE_2D );
-		
-		glColor4d( color.red, color.green, color.blue, color.alpha );
-		glLineWidth( (float) width );
-		glBegin( GL_LINES );
-			glVertex2d( x1, y1 );
-			glVertex2d( x2, y2 );
-		glEnd();		
-		
-		glEnable( GL_TEXTURE_2D ); 
+		surface.drawLine( (float) x1, (float) y1, (float) x2, (float) y2, (float) width );
 	}
 	
 	
 	@Override
 	public void drawRectangle( double x, double y, double width, double height, double angle, Color color, boolean empty ){
-		width *= 0.5d ;
-		height *= 0.5d ;
 		if( empty ) {
-			startPolygon( 4, color, empty );
-			addPolygonVertex( x - width, y - height );
-			addPolygonVertex( x + width, y - height );
-			addPolygonVertex( x + width, y + height );
-			addPolygonVertex( x - width, y + height );
-			drawPolygon();
+			width *= 0.5d ;
+			height *= 0.5d ;
+			surface.drawLine( (float) ( x - width ), (float) ( y - height ), (float) ( x + width ), (float) ( y - height ), (float) lineWidth );
+			surface.drawLine( (float) ( x + width ), (float) ( y - height ), (float) ( x + width ), (float) ( y + height ), (float) lineWidth );
+			surface.drawLine( (float) ( x + width ), (float) ( y + height ), (float) ( x - width ), (float) ( y + height ), (float) lineWidth );
+			surface.drawLine( (float) ( x - width ), (float) ( y + height ), (float) ( x - width ), (float) ( y - height ), (float) lineWidth );
 		} else {
-			glDisable(GL_TEXTURE_2D);
-			
-			glColor4d( color.red, color.green, color.blue, color.alpha );
-			glRectd( x - width, y - height, x + width, y + height );
-		
-			glEnable( GL_TEXTURE_2D ); 
+			surface.fillRect( (float) ( x - 0.5d * width ), (float) ( y - 0.5d * height ), (float) width, (float) height );
 		}
-	}
-	
-		
-	@Override
-	public void drawOval( double x, double y, double width, double height, double angle, Color color, boolean empty ){
-		width *= 0.5d ;
-		height *= 0.5d ;
-		double vertexQuantity = Math.ceil( 2 * Math.PI / Math.acos( 1d - 1d / Math.max( width, height ) ) );
-		startPolygon( (int) vertexQuantity, color, empty );
-		for( double n = 0; n < vertexQuantity; n++ ) {
-			double ang = Math.PI * 2 * n / vertexQuantity;
-			addPolygonVertex( x + width * Math.cos( ang ), y + height * Math.sin( ang ) );
-		}
-		drawPolygon();
 	}
 	
 
-	@Override
-	public void drawLongOval( double x, double y, double width, double height, double angle, Color color, boolean empty ) {
-		width *= 0.5d ;
-		height *= 0.5d ;
-		double vertexQuantity = Math.ceil( Math.PI / Math.acos( 1d - 1d / Math.max( width, height ) ) );
-		startPolygon( (int) vertexQuantity * 2 + 2, color, empty );
-		if( width > height ) {
-			for( int side = 0; side < 2; side++ ) {
-				double dsize = ( side == 0 ? width - height : height - width );
-				for( double n = 0; n <= vertexQuantity; n++ ) {
-					double ang = Math.PI * ( side - 0.5 + n / vertexQuantity );
-					addPolygonVertex( x + height * Math.cos( ang ) + dsize, y + height * Math.sin( ang ) );
-				}
-			}
-		} else {
-			for( int side = 0; side < 2; side++ ) {
-				double dsize = ( side == 0 ? height - width: width - height );
-				for( double n = 0; n <= vertexQuantity; n++ ) {
-					double ang = Math.PI * ( side + n / vertexQuantity );
-					addPolygonVertex( x + width * Math.cos( ang ), y + width * Math.sin( ang ) + dsize );
-				}
-			}
-		}
-		drawPolygon();
-	}
+	private static int currentVertexNum;
+	private static float[] xys;
+	private static boolean emptyPolygon;
 	
-
 	@Override
 	public void startPolygon( int vertexQuantity, Color color, boolean empty ) {
-		glDisable( GL_TEXTURE_2D );
-		
-		if( empty ) glBegin( GL_LINE_LOOP ); else glBegin( GL_POLYGON );
-		glColor4d( color.red, color.green, color.blue, color.alpha );
+		currentVertexNum = -1;
+		emptyPolygon = empty;
+		xys = new float[ 2 * vertexQuantity ];
 	}
 
 	@Override
 	public void addPolygonVertex( double x, double y ) {
-		glVertex2d( x, y );
+		currentVertexNum ++;
+		xys[ 2 * currentVertexNum ] = (float) x;
+		xys[ 2 * currentVertexNum + 1 ] = (float) y;
 	}
 
 	@Override
 	public void drawPolygon() {
-		glEnd();
-		
-		glEnable( GL_TEXTURE_2D ); 
-	}
-	
-	@Override
-	public void drawText( String string, double x, double y ) {
-		currentFont.drawString( string, (float) x, (float) y );
+		int vertexQuantity = xys.length / 2;
+		if( emptyPolygon ) {
+			for( int n1 = 0; n1 < vertexQuantity; n1++ ) {
+				int n2 = ( n1 + 1 ) % vertexQuantity;
+				surface.drawLine( xys[ n1 * 2 ], xys[ n1 * 2 + 1 ], xys[ n2 * 2 ], xys[ n2 * 2 + 1 ], (float) lineWidth );
+			}
+		} else {
+			int[] indices = new int[ vertexQuantity * 3 ];
+			for( int n = 0; n < vertexQuantity - 1; n++ ) {
+				indices[ n * 3 ] = n;
+				indices[ n * 3 + 1 ] = ( n + 1 ) % ( vertexQuantity - 1 );
+				indices[ n * 3 + 2 ] = vertexQuantity - 1;
+			}
+			surface.fillTriangles( xys, indices );
+		}
 	}
 	
 	

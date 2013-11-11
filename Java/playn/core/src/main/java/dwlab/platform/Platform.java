@@ -130,7 +130,19 @@ public abstract class Platform {
 		drawRectangle( x, y, width, height, 0d, currentColor, true );
 	}
 		
-	public abstract void drawOval( double x, double y, double width, double height, double angle, Color color, boolean empty );
+
+	
+	public void drawOval( double x, double y, double width, double height, double angle, Color color, boolean empty ){
+		width *= 0.5d ;
+		height *= 0.5d ;
+		double vertexQuantity = Math.ceil( 2 * Math.PI / Math.acos( 1d - 1d / Math.max( width, height ) ) );
+		startPolygon( (int) vertexQuantity, color, empty );
+		for( double n = 0; n < vertexQuantity; n++ ) {
+			double ang = Math.PI * 2 * n / vertexQuantity;
+			addPolygonVertex( x + width * Math.cos( ang ), y + height * Math.sin( ang ) );
+		}
+		drawPolygon();
+	}
 	
 	public void drawOval( double x, double y, double width, double height, double angle ) {
 		drawOval( x, y, width, height, angle, currentColor, false );
@@ -149,7 +161,31 @@ public abstract class Platform {
 	}
 	
 
-	public abstract void drawLongOval( double x, double y, double width, double height, double angle, Color color, boolean empty );
+
+	public void drawLongOval( double x, double y, double width, double height, double angle, Color color, boolean empty ) {
+		width *= 0.5d ;
+		height *= 0.5d ;
+		double vertexQuantity = Math.ceil( Math.PI / Math.acos( 1d - 1d / Math.max( width, height ) ) );
+		startPolygon( (int) vertexQuantity * 2 + 2, color, empty );
+		if( width > height ) {
+			for( int side = 0; side < 2; side++ ) {
+				double dsize = ( side == 0 ? width - height : height - width );
+				for( double n = 0; n <= vertexQuantity; n++ ) {
+					double ang = Math.PI * ( side - 0.5 + n / vertexQuantity );
+					addPolygonVertex( x + height * Math.cos( ang ) + dsize, y + height * Math.sin( ang ) );
+				}
+			}
+		} else {
+			for( int side = 0; side < 2; side++ ) {
+				double dsize = ( side == 0 ? height - width: width - height );
+				for( double n = 0; n <= vertexQuantity; n++ ) {
+					double ang = Math.PI * ( side + n / vertexQuantity );
+					addPolygonVertex( x + width * Math.cos( ang ), y + width * Math.sin( ang ) + dsize );
+				}
+			}
+		}
+		drawPolygon();
+	}
 	
 	public void drawLongOval( double x, double y, double width, double height ) {
 		drawLongOval( x, y, width, height, 0d, currentColor, false );

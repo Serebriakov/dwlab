@@ -6,11 +6,12 @@ import dwlab.base.service.Align;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.Key;
 import dwlab.controllers.KeyboardKey;
-import dwlab.platform.PlayN;
+import dwlab.platform.PlayNPlatform;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ShapeType;
 import dwlab.visualizers.Visualizer;
 import playn.core.Game;
+import static playn.core.PlayN.*;
 
 public class TurnExample extends Game.Default {
 	double turningSpeed = 0.5 * Math.PI;
@@ -28,7 +29,7 @@ public class TurnExample extends Game.Default {
 	
 	@Override
 	public void init() {
-		PlayN.init();
+		PlayNPlatform.init();
 		tank.visualizer = new Visualizer( "res/tank.png" );
 		Image bgImage = assets().getImage("images/bg.png");
 		ImageLayer bgLayer = graphics().createImageLayer(bgImage);

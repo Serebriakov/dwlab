@@ -6,9 +6,9 @@
 
 package dwlab.platform;
 
-import dwlab.base.Font;
 import dwlab.base.Project;
 import dwlab.base.Sound;
+import dwlab.base.images.Font;
 import dwlab.base.images.Texture;
 import dwlab.base.service.IntVector;
 import dwlab.controllers.ButtonAction;
@@ -31,13 +31,16 @@ public abstract class Platform {
 	
 	public static Color currentColor = Color.white;
 	public static Color currentClearingColor = Color.black;
-	public Font currentFont;
 	public static double lineWidth = 1.0d;
 	static int width, height;
 	static int viewportX, viewportY;
 	static int viewportWidth, viewportHeight;
 	
-	public abstract void init( int newWidth, int newHeight, double unitSize, boolean loadFont );
+	public static Font currentFont;
+	public static double currentTextSize = 1d;
+	public static Color currentTextColor =  Color.white;
+	
+	public abstract void initPlatform( int newWidth, int newHeight, double unitSize, boolean loadFont );
 	
 	public void initCamera( double unitSize ) {
 		Camera.current.viewport.setCoords( 0.5d * width, 0.5d * height );
@@ -63,26 +66,18 @@ public abstract class Platform {
 	}
 	
 	
-	public abstract double getTextWidth( String text );
-	
-	public abstract double getTextHeight();
-	
-	public abstract Color getContourColor();
-	
-	public abstract void setContourColor( double red, double green, double blue, double alpha );
-	
-	public abstract void setContourColor( Color color );
-	
-	public abstract Color getTextColor();
-	
-	public abstract void setTextColor( double red, double green, double blue, double alpha );
-	
-	public abstract void setTextColor( Color color );
-	
-
-	public static Color getCurrentColor() {
-		return currentColor;
+	public double getTextWidth( String text ) {
+		return currentFont.getWidth( text );
 	}
+	
+	public double getTextHeight() {
+		return currentFont.getHeight();
+	}
+	
+	public void setTextColor( double red, double green, double blue, double alpha ) {
+		currentTextColor = new Color( red, green, blue, alpha );
+	}
+	
 	
 	public static void setCurrentColor( double red, double green, double blue, double alpha ) {
 		currentColor.set( red, green, blue, alpha );
@@ -108,8 +103,7 @@ public abstract class Platform {
 		currentClearingColor.set( 0d, 0d, 0d, 1d );
 	}
 	
-	public abstract void setCurrentFont( Font font );
-
+	
 	public abstract void drawLine( double x1, double y1, double x2, double y2, double width, Color color );
 	
 	public void drawLine( double x1, double y1, double x2, double y2, Color color ) {
@@ -210,7 +204,11 @@ public abstract class Platform {
 
 	public abstract void drawPolygon();
 
-	public abstract void drawText( String string, double x, double y );
+
+	public void drawText( String string, double x, double y ) {
+		currentFont.print( string, x, y, currentTextSize );
+	}	
+	
 	
 	public abstract void clearScreen( Color color );
 		
@@ -258,8 +256,6 @@ public abstract class Platform {
 	
 
 	public abstract Texture createTexture( String filename );
-	
-	public abstract Font createFont( String fileName, float size );
 	
 	public abstract Sound createSound( String filename );
 }

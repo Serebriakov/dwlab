@@ -17,24 +17,24 @@ public abstract class Texture extends Obj {
 	public static LinkedList<Texture> textures = new LinkedList<Texture>();
 	
 	public String fileName;
-	protected int width, height;
+	protected int imageWidth, imageHeight;
+	protected int textureWidth, textureHeight;
 	
-	/**
-	 * Returns width of image.
-	 * @return Width of image in pixels.
-	 */
-	public int getWidth() {
-		return width;
+	public int getImageWidth() {
+		return imageWidth;
 	}
 
-	/**
-	 * Returns height of image.
-	 * @return Height of image in pixels.
-	 */
-	public int getHeight() {
-		return height;
+	public int getImageHeight() {
+		return imageHeight;
 	}
 	
+	public int getTextureWidth() {
+		return textureWidth;
+	}
+
+	public int getTextureHeight() {
+		return textureHeight;
+	}	
 	
 	public abstract void draw( double x1, double y1, double x2, double y2, double tx1, double ty1, double tx2, double ty2, double angle, Color color );
 	

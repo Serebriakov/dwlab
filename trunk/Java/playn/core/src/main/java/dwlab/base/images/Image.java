@@ -10,6 +10,7 @@
 package dwlab.base.images;
 
 import dwlab.base.Obj;
+import static dwlab.base.Obj.objectFileName;
 import dwlab.base.XMLObject;
 import dwlab.platform.Platform;
 import dwlab.visualizers.Color;

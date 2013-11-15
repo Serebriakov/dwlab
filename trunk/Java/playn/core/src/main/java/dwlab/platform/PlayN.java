@@ -18,7 +18,10 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import playn.core.Graphics;
+import playn.core.Keyboard;
 import playn.core.Surface;
+import playn.core.gl.SurfaceGL;
+import static playn.core.PlayN.*;
 
 public class PlayN extends Platform {
 	Surface surface;
@@ -34,10 +37,12 @@ public class PlayN extends Platform {
 		if( empty ) {
 			width *= 0.5d ;
 			height *= 0.5d ;
-			surface.drawLine( (float) ( x - width ), (float) ( y - height ), (float) ( x + width ), (float) ( y - height ), (float) lineWidth );
-			surface.drawLine( (float) ( x + width ), (float) ( y - height ), (float) ( x + width ), (float) ( y + height ), (float) lineWidth );
-			surface.drawLine( (float) ( x + width ), (float) ( y + height ), (float) ( x - width ), (float) ( y + height ), (float) lineWidth );
-			surface.drawLine( (float) ( x - width ), (float) ( y + height ), (float) ( x - width ), (float) ( y - height ), (float) lineWidth );
+			startPolygon( 4, color, empty );
+			addPolygonVertex( x - width, y - height );
+			addPolygonVertex( x + width, y - height );
+			addPolygonVertex( x + width, y + height );
+			addPolygonVertex( x - width, y + height );
+			drawPolygon();
 		} else {
 			surface.fillRect( (float) ( x - 0.5d * width ), (float) ( y - 0.5d * height ), (float) width, (float) height );
 		}
@@ -84,9 +89,7 @@ public class PlayN extends Platform {
 	
 	@Override
 	public void clearScreen( Color color ) {
-		glClearColor( (float) color.red, (float) color.green, (float) color.blue, 1.0f );
-		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-		glClearDepth(1);
+		surface.clear();
 	}
 	
 
@@ -100,13 +103,13 @@ public class PlayN extends Platform {
 		glMatrixMode( GL_PROJECTION ) ;
 		glLoadIdentity();
 		glOrtho( vX - vWidth / 2, vX + vWidth / 2, vY + vHeight / 2, vY - vHeight / 2, -1d, 1d );
-		glMatrixMode( GL_MODELVIEW ) ;
+		glMatrixMode( GL_MODELVIEW );
 	}
 	
 
 	@Override
 	public void swapBuffers() {
-		Display.update();
+		
 	}	
 	
 	
@@ -119,47 +122,22 @@ public class PlayN extends Platform {
 	}
 	
 	
+	int mouseX, mouseY;
+	
 	@Override
 	public int mouseX() {
-		return Mouse.getX();
+		return mouseX;
 	}	
 	
 	@Override
 	public int mouseY() {
-		return getScreenHeight() - Mouse.getY();
+		return mouseY;
 	}
 	
 	
 	@Override
 	public void processEvents( Project project ) {
-		Display.processMessages();
-			
-		for( ButtonAction controller: controllers ) {
-			for( Pushable pushable : controller.buttonList ) {
-				pushable.reset();
-			}
-		}
-		
-		while ( Keyboard.next() ) {
-			for( ButtonAction controller: controllers ) {
-				for( Pushable pushable : controller.buttonList ) {
-					pushable.processKeyboardEvent();
-					if( project != null ) project.onKeyboardEvent();
-					if( Keyboard.getEventKeyState() ) keys.add( Keyboard.getEventKey() );
-				}
-			}
-		}
-		
-		while ( Mouse.next() ) {
-			for( ButtonAction controller: controllers ) {
-				for( Pushable pushable : controller.buttonList ) {
-					pushable.processMouseEvent();
-					if( project != null ) project.onMouseEvent();
-				}
-			}
-		}
-		
-		if( Display.isCloseRequested() ) if( project != null ) project.onCloseButton();
+		;
 	}
 	
 
@@ -180,34 +158,6 @@ public class PlayN extends Platform {
 
 	@Override
 	public boolean getPushable( ButtonAction action ) {
-		Display.processMessages();
-		
-		while ( Keyboard.next() ) {
-			if( Keyboard.getEventKeyState() ) {
-				int key = Keyboard.getEventKey();
-				for( Entry<Key,Integer> entry : keymap.entrySet() ) {
-					if( entry.getValue() == key ) {
-						action.addButton( KeyboardKey.create( entry.getKey() ) );
-						break;
-					}
-				}
-				
-				return true;
-			}
-		}
-		
-		while ( Mouse.next() ) {
-			if( Mouse.getEventButtonState() ) {
-				action.addButton( MouseButton.create( Mouse.getEventButton() ) );
-				return true;
-			}
-			
-			int dWheel = Mouse.getEventDWheel();
-			if( dWheel !=0 ) {
-				action.addButton( MouseWheel.create( dWheel ) );
-				return true;
-			}
-		}
 		
 		return false;
 	}
@@ -586,4 +536,4 @@ public class PlayN extends Platform {
 	public dwlab.base.Sound createSound( String filename ) {
 		return new Sound( filename );
 	}
-}*/
+}

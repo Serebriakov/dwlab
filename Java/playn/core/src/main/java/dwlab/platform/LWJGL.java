@@ -1,4 +1,4 @@
-package dwlab.platform;
+/*package dwlab.platform;
 
 import dwlab.base.Obj;
 import dwlab.base.Project;
@@ -34,12 +34,6 @@ public class LWJGL extends Platform {
 		current.init( 800, 600, 25d, true );
 	}
 	
-	/**
-	* Sets graphics mode.
-	* Provide width and height of screen in pixels and unit size in pixels for camera.
-
-	* @see #parallax example
-	*/
 	@Override
 	public void init( int newWidth, int newHeight, double unitSize, boolean loadFont ) {
 		if( Display.isCreated() ) return;
@@ -498,10 +492,6 @@ public class LWJGL extends Platform {
 	public class Texture extends dwlab.base.images.Texture {
 		private int textureID;
 
-		/**
-		 * Initializes image.
-		 * Splits image by XCells x YCells grid. Will be executed after loading image object from XML file.
-		 */
 		@Override
 		public final void init() {
 			if( Platform.current == null ) return;
@@ -642,4 +632,4 @@ public class LWJGL extends Platform {
 	public dwlab.base.Sound createSound( String filename ) {
 		return new Sound( filename );
 	}
-}
+}*/

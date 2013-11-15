@@ -2,27 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/XMLObject.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/Obj.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/behavior_models/ChainedModel.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/platform/Platform.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/images/Texture.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/shapes/sprites/Sprite.java</file>
-            <file>jar:file:/D:/projects/dwlab/lwjgl/libs/slick-util-src.zip!/org/newdawn/slick/Font.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/shapes/sprites/shape_types/drawing_sprites/DrawingSprite.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/images/Font.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/controllers/KeyboardKey.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/controllers/ButtonAction.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/visualizers/DebugVisualizer.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/platform/LWJGL.java</file>
-            <file>jar:file:/D:/projects/dwlab/lwjgl/libs/slick-util-src.zip!/org/newdawn/slick/TrueTypeFont.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/base/images/Image.java</file>
-            <file>jar:file:/D:/projects/dwlab/lwjgl/libs/slick-util-src.zip!/org/newdawn/slick/util/ResourceLoader.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/visualizers/Visualizer.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/behavior_models/BehaviorModel.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/behavior_models/ConditionalModel.java</file>
-            <file>file:/D:/projects/dwlab/lwjgl/src/dwlab/shapes/Shape.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

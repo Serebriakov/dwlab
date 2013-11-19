@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.service.Service;
 import dwlab.behavior_models.AnimationModel;
@@ -148,9 +148,9 @@ public class AwPossum extends GameObject {
 		} else {
 			Platform.setCurrentColor( 1d, health / 50d, 0d );
 		}
-		Platform.current.drawRectangle( 5d + 0.5d * health, 587.5d, health, 15d );
+		drawRectangle( 5d + 0.5d * health, 587.5d, health, 15d );
 		Platform.resetCurrentColor();
-		Platform.current.drawEmptyRectangle( 55d, 587.5d, 100d, 15d );
+		drawEmptyRectangle( 55d, 587.5d, 100d, 15d );
 	}
 
 

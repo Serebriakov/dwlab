@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.base.service.Align;
 import dwlab.base.Project;
 import dwlab.base.service.Service;
@@ -25,12 +25,12 @@ public class DrawEmptyRectangleExample extends Project {
 			double width = Service.random( 700 );
 			double height = Service.random( 500 );
 			Platform.setCurrentColor( Service.random( 0.5d, 1d ), Service.random( 0.5d, 1d ), Service.random( 0.5d, 1d ) );
-			Platform.current.drawEmptyRectangle( Service.random( 0.5 * width, 800 - 0.5 * width ), Service.random( 0.5 * height, 600 - 0.5 * height ), width, height );
+			drawEmptyRectangle( Service.random( 0.5 * width, 800 - 0.5 * width ), Service.random( 0.5 * height, 600 - 0.5 * height ), width, height );
 		}
 		Platform.setCurrentColor( 0d, 0d, 0d, 0.04d );
-		Platform.current.drawRectangle( 400, 300, 800, 600 );
+		drawRectangle( 400, 300, 800, 600 );
 		Platform.resetCurrentColor();
-		printText( "Platform.current.drawEmptyRectangle example", Align.TO_CENTER, Align.TO_BOTTOM );
-		Platform.current.swapBuffers();
+		printText( "drawEmptyRectangle example", Align.TO_CENTER, Align.TO_BOTTOM );
+		swapBuffers();
 	}
 }

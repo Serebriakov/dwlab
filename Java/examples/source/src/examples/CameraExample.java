@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.Project;
 import dwlab.base.images.Image;
@@ -24,7 +24,7 @@ public class CameraExample extends Project {
 	
 	public static void main() {
 		( new CameraExample() ).act();
-		Platform.current.initCamera();
+		initCamera();
 	}
 	
 	

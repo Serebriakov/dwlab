@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.service.Align;
@@ -25,7 +25,7 @@ public class VectorSpriteExample extends Project {
 	
 	public static void main() {
 		( new VectorSpriteExample() ).act();
-		Platform.current.initCamera();
+		initCamera();
 	}
 	
 	

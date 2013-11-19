@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -55,7 +55,7 @@ public class SetAsViewportExample extends Project {
 		cursor.setAsViewport();
 		layer.draw();
 		rectangle.drawContour( 2d );
-		Platform.current.resetViewport();
+		resetViewport();
 		cursor.drawContour( 2d );
 		printText( "SetAsViewport, ResetViewport example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}

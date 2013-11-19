@@ -9,7 +9,7 @@
 
 package dwlab.shapes.sprites.shape_types.drawing_shape;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.visualizers.Color;
 
 public class DrawingBottomRightTriangleShape extends DrawingShape {
@@ -20,10 +20,10 @@ public class DrawingBottomRightTriangleShape extends DrawingShape {
 	public void perform( Color drawingColor, boolean empty ) {
 		vector2.x *= 0.5d;
 		vector2.y *= 0.5d;
-		Platform.current.startPolygon( 3, drawingColor, empty );
-		Platform.current.addPolygonVertex( vector1.x + vector2.x, vector1.y - vector2.y );
-		Platform.current.addPolygonVertex( vector1.x + vector2.x, vector1.y + vector2.y );
-		Platform.current.addPolygonVertex( vector1.x - vector2.x, vector1.y + vector2.y );
-		Platform.current.drawPolygon();
+		startPolygon( 3, drawingColor, empty );
+		addPolygonVertex( vector1.x + vector2.x, vector1.y - vector2.y );
+		addPolygonVertex( vector1.x + vector2.x, vector1.y + vector2.y );
+		addPolygonVertex( vector1.x - vector2.x, vector1.y + vector2.y );
+		drawPolygon();
 	}
 }

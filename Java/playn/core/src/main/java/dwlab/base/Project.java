@@ -9,10 +9,9 @@
 
 package dwlab.base;
 
+import dwlab.controllers.Button;
 import dwlab.controllers.ButtonAction;
-import dwlab.controllers.Key;
-import dwlab.controllers.KeyboardKey;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import java.util.LinkedList;
@@ -104,7 +103,7 @@ public class Project extends Obj {
 	}
 
 	
-	public static ButtonAction exitButton = ButtonAction.create( KeyboardKey.create( Key.ESCAPE ) );
+	public static ButtonAction exitButton = ButtonAction.create( "exit", Button.Name.ESCAPE );
 
 	/**
 	 * Executes the project.
@@ -115,7 +114,7 @@ public class Project extends Obj {
 		Project oldProject = current;
 		current = this;
 
-		Platform.current.flushControllers();
+		flushControllers();
 
 		exiting = false;
 		pass = 1;
@@ -159,7 +158,7 @@ public class Project extends Obj {
 				realTime = 0.001 * ( System.currentTimeMillis() - startingTime );
 				if( realTime >= time && logicStepsWithoutRender <= maxLogicStepsWithoutRender ) break;
 
-				if( flipping && Platform.current.initialized() ) Platform.current.clearScreen();
+				if( flipping && initialized() ) clearScreen();
 
 				spritesDisplayed = 0;
 				tilesDisplayed = 0;
@@ -168,7 +167,7 @@ public class Project extends Obj {
 				cursor.setMouseCoords();
 				render();
 
-				if( flipping && Platform.current.initialized() ) Platform.current.swapBuffers();
+				if( flipping && initialized() ) swapBuffers();
 
 				logicStepsWithoutRender = 0;
 				fPSCount ++;
@@ -190,7 +189,7 @@ public class Project extends Obj {
 	// ==================== Events ===================		
 
 	public void processEvents() {
-		Platform.current.processEvents( this );
+		processEvents();
 		if( exitButton != null ) if( exitButton.wasPressed() ) exiting = true;
 	}
 	

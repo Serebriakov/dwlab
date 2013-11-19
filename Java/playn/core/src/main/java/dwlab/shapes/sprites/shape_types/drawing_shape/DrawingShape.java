@@ -9,7 +9,7 @@
 
 package dwlab.shapes.sprites.shape_types.drawing_shape;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.shapes.sprites.shape_types.ServiceObjects;
@@ -48,7 +48,7 @@ public class DrawingShape extends ServiceObjects {
 	}
 	
 	protected void perform( Color drawingColor, boolean empty ) {
-		Platform.current.drawRectangle( vector1.x, vector1.y, vector2.x, vector2.y, 0d, drawingColor, empty );
+		drawRectangle( vector1.x, vector1.y, vector2.x, vector2.y, 0d, drawingColor, empty );
 	}
 	
 	public void perform( Sprite sprite, double x, double y, double width, double height, Color drawingColor, boolean empty ) {

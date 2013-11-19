@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.base.service.Align;
 import dwlab.base.Project;
 import dwlab.base.service.Vector;
@@ -42,7 +42,7 @@ public class DrawUsingSpriteExample extends Project {
 				double distance = spriteDiameter * ( 1.0 + amplitude * Math.sin( Math.PI * 2d * ( time + 1d * n / circlesQuantity * circlesPer360 ) ) );
 				Vector vector = new Vector();
 				Camera.current.fieldToScreen( sprite.getX() + distance * Math.cos( angles ), sprite.getY() + distance * Math.sin( angles ), vector );
-				Platform.current.drawOval( vector.x - 0.5 * circleDiameter, vector.y - 0.5 * circleDiameter, circleDiameter, circleDiameter );
+				drawOval( vector.x - 0.5 * circleDiameter, vector.y - 0.5 * circleDiameter, circleDiameter, circleDiameter );
 			}
 		}
 	};

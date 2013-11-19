@@ -10,7 +10,7 @@
 package dwlab.visualizers;
 
 import dwlab.base.service.Vector;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.sprites.Camera;
 import dwlab.shapes.sprites.Sprite;
@@ -67,7 +67,7 @@ public class ContourVisualizer extends Visualizer {
 
 		Camera.current.fieldToScreen( spriteShape.getX(), spriteShape.getY(), serviceVector1 );
 		Camera.current.sizeFieldToScreen( spriteShape.getWidth() * xScale, spriteShape.getHeight() * yScale, serviceVector2 );
-		Platform.current.drawRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y, 0d, multiplyBy( drawingColor ), true );
+		drawRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y, 0d, multiplyBy( drawingColor ), true );
 	}
 	
 	@Override
@@ -82,12 +82,12 @@ public class ContourVisualizer extends Visualizer {
 
 		Camera.current.fieldToScreen( lineSegment.pivot[ 0 ].getX(), lineSegment.pivot[ 0 ].getY(), serviceVector1 );
 		Camera.current.fieldToScreen( lineSegment.pivot[ 1 ].getX(), lineSegment.pivot[ 1 ].getY(), serviceVector2 );
-		Platform.current.drawLine( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y, realLineWidth(), this );
+		drawLine( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y, realLineWidth(), this );
 
 		double radius =pivotScale ;
 		if( scaling ) radius = Camera.current.distFieldToScreen( lineWidth ) * pivotScale;
-		Platform.current.drawOval( serviceVector1.x, serviceVector1.y, radius, radius, 0d, multiplyBy( drawingColor ), false );
-		Platform.current.drawOval( serviceVector2.x, serviceVector2.y, radius, radius, 0d, multiplyBy( drawingColor ), false );
+		drawOval( serviceVector1.x, serviceVector1.y, radius, radius, 0d, multiplyBy( drawingColor ), false );
+		drawOval( serviceVector2.x, serviceVector2.y, radius, radius, 0d, multiplyBy( drawingColor ), false );
 	}
 
 

@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.behavior_models.FixedJoint;
 import dwlab.behavior_models.RevoluteJoint;
 import dwlab.base.service.Align;
@@ -19,7 +19,7 @@ public class RevoluteJointExample extends Project {
 	
 	public static void main() {
 		( new RevoluteJointExample() ).act();
-		Platform.current.initCamera();
+		initCamera();
 	}
 	
 	

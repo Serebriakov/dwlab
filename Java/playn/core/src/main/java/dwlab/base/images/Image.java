@@ -12,7 +12,7 @@ package dwlab.base.images;
 import dwlab.base.Obj;
 import static dwlab.base.Obj.objectFileName;
 import dwlab.base.XMLObject;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.visualizers.Color;
 import java.util.HashSet;
 
@@ -42,7 +42,7 @@ public class Image extends Obj {
 	}
 	
 	public Image( String fileName, int xCells, int yCells ) {
-		if( Platform.debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
+		if( debug ) if( xCells <= 0 || yCells <= 0 ) error( "Cells quantity must be 1 or more" );
 		
 		this.fileName = fileName;
 		this.xCells = xCells;
@@ -52,8 +52,8 @@ public class Image extends Obj {
 	
 	@Override
 	public final void init() {
-		if( Platform.current == null ) return;
-		if( texture == null ) texture = Platform.current.createTexture( fileName );
+		if( !initialized() ) return;
+		if( texture == null ) texture = createTexture( fileName );
 		frameWidth = texture.getImageWidth() / xCells;
 		frameHeight = texture.getImageHeight() / yCells;
 		kx = 1d * frameWidth / texture.getTextureWidth();
@@ -108,7 +108,7 @@ public class Image extends Obj {
 			String textureFileName = xMLObject.manageStringAttribute( "filename", "" );
 			int lastSlash = objectFileName.lastIndexOf( "/" );
 			if( lastSlash >= 0 ) textureFileName = objectFileName.substring( 0, lastSlash ) + "/" + textureFileName;
-			texture = Platform.current.createTexture( textureFileName );
+			texture = createTexture( textureFileName );
 			init();
 		} else {
 			xMLObject.manageStringAttribute( "filename", fileName );

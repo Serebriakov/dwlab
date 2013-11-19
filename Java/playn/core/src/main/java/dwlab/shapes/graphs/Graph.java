@@ -10,7 +10,7 @@
 package dwlab.shapes.graphs;
 
 import dwlab.base.XMLObject;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.line_segments.LineSegment;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
@@ -96,7 +96,7 @@ public class Graph extends Shape {
 	}
 	
 	public static void drawPath( LinkedList<Sprite> path, Visualizer visualizer ) {
-		drawPath( path, visualizer, Platform.currentColor );
+		drawPath( path, visualizer, currentColor );
 	}
 
 	// ==================== Add / Remove items ===================	
@@ -123,7 +123,7 @@ public class Graph extends Shape {
 	 * @see #removeLine, #findLineCollidingWith, #containsLine, #findLine
 	 */
 	public void addLineSegment( LineSegment line ) {
-		if( Platform.debug ) {
+		if( debug ) {
 			LinkedList<LineSegment> list = contents.get( line.pivot[ 0 ] );
 			if( list != null ) if( list.contains( line ) ) error( "This line already exists in the graph" );
 			for( LineSegment otherLine: list ) {
@@ -149,7 +149,7 @@ public class Graph extends Shape {
 	 */
 	public void removePivot( Sprite pivot ) {
 		LinkedList<LineSegment> list = contents.get( pivot );
-		if( Platform.debug ) if( list == null ) error( "The deleting pivot doesn't belongs to the graph" );
+		if( debug ) if( list == null ) error( "The deleting pivot doesn't belongs to the graph" );
 
 		for( LineSegment lineSegment: list ) {
 			removeLineSegment( lineSegment );
@@ -166,7 +166,7 @@ public class Graph extends Shape {
 	public void removeLineSegment( LineSegment line ) {
 		LinkedList<LineSegment> list1 = contents.get( line.pivot[ 0 ] );
 		LinkedList<LineSegment> list2 = contents.get( line.pivot[ 1 ] );
-		if( Platform.debug ) if( list1 == null || list2 == null || !list1.contains( line ) ) error( "The deleting line doesn't belongs to the graph" );
+		if( debug ) if( list1 == null || list2 == null || !list1.contains( line ) ) error( "The deleting line doesn't belongs to the graph" );
 		list1.remove( line );
 		list2.remove( line );
 	}

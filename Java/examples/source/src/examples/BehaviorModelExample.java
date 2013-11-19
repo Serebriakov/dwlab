@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.Project;
 import static dwlab.base.Project.exitButton;
@@ -55,19 +55,19 @@ public class BehaviorModelExample extends Project {
 		sprite.visualizer.image = new Image( "res/scheme2.png" );
 		while ( !exitButton.wasPressed() ) {
 			sprite.draw();
-			Platform.current.processEvents( this );
-			Platform.current.swapBuffers();
+			processEvents( this );
+			swapBuffers();
 		}
 
 		sprite.visualizer.image = new Image( "res/scheme1.png" );
 		processEvents();
 		while ( !exitButton.wasPressed() ) {
 			sprite.draw();
-			Platform.current.processEvents( this );
-			Platform.current.swapBuffers();
+			processEvents( this );
+			swapBuffers();
 		}
 
-		Platform.current.processEvents( this );
+		processEvents( this );
 		initLevel();
 	}
 

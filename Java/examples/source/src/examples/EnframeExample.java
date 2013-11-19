@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.Project;
 import dwlab.base.images.Image;
@@ -23,21 +23,21 @@ public class EnframeExample extends Project {
 	public static void main() {
 		Platform.setClearingColor( 0.25d, 0.5d, 0d );
 
-		Platform.current.clearScreen();
+		clearScreen();
 		DoubleMap doubleMap = new DoubleMap( mapSize, mapSize );
 		drawDoubleMap( doubleMap );
 		printText( "Step 1: creating Double map and set its resolution" );
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
+		swapBuffers();
+		waitForKey();
 
-		Platform.current.clearScreen();
+		clearScreen();
 		doubleMap.perlinNoise( 16, 16, 0.25, 0.5, 4 );
 		drawDoubleMap( doubleMap );
 		printText( "Step 2: filling DoubleMap with Perlin noise" );
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
+		swapBuffers();
+		waitForKey();
 
-		Platform.current.clearScreen();
+		clearScreen();
 		World.fromFile( "res/tileset.lw" );
 		TileSet tileSet = World.editorData.tilesets.getFirst();
 		TileMap tileMap = TileMap.create( tileSet, mapSize, mapSize );
@@ -45,19 +45,19 @@ public class EnframeExample extends Project {
 		Project.printText( "Step 3: loading world, extract tileset from there and" );
 		Project.printText( "creating tilemap with same size and this tileset", 1 );
 		drawDoubleMap( doubleMap );
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
+		swapBuffers();
+		waitForKey();
 
-		Platform.current.clearScreen();
+		clearScreen();
 		doubleMap.extractTo( tileMap, 0.5d, 1d, filledTileNum );
 		Project.printText( "Step 4: setting tiles number of tilemap to FilledTileNum" );
 		Project.printText( "if corresponding value of Double map is higher than 0.5", 1 );
 		tileMap.draw();
 		drawSignature();
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
+		swapBuffers();
+		waitForKey();
 
-		Platform.current.clearScreen();
+		clearScreen();
 		for( int y = 0; y < mapSize; y++ ) {
 			for( int x = 0; x < mapSize; x++ ) {
 				fix( tileMap, x, y );
@@ -66,25 +66,25 @@ public class EnframeExample extends Project {
 		printText( "Step 5: preparing tilemap by fixing some unmanaged cell positions" );
 		tileMap.draw();
 		drawSignature();
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
+		swapBuffers();
+		waitForKey();
 
-		Platform.current.clearScreen();
+		clearScreen();
 		tileMap.enframe();
 		printText( "Step 6a: enframing tile map" );
 		tileMap.draw();
 		drawSignature();
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
+		swapBuffers();
+		waitForKey();
 
-		Platform.current.clearScreen();
+		clearScreen();
 		TileSet.prolongTiles = false;
 		tileMap.enframe() ;
 		printText( "Step 6b: enframing tile map with prolonging tiles off" );
 		tileMap.draw();
 		drawSignature();
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
+		swapBuffers();
+		waitForKey();
 
 
 		Platform.setClearingColor( 0, 0, 0 );

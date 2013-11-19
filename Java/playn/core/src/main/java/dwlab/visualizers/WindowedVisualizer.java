@@ -10,7 +10,7 @@ package dwlab.visualizers;
 
 import dwlab.base.images.Image;
 import dwlab.base.service.IntVector;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.Shape;
 import dwlab.shapes.Shape.Facing;
 import dwlab.shapes.sprites.Sprite;
@@ -39,14 +39,14 @@ public class WindowedVisualizer extends Visualizer {
 	public void drawUsingSprite( Sprite sprite, Sprite spriteShape, Color color ) {
 		if( ! sprite.visible ) return;
 
-		Platform.current.getViewport( servicePivot, serviceSizes );
+		getViewport( servicePivot, serviceSizes );
 
 		for( Shape viewport : viewports ) {
 			viewport.setAsViewport();
 			visualizer.drawUsingSprite( sprite, spriteShape, color );
 		}
 
-		Platform.current.setViewport( servicePivot.x, servicePivot.y, serviceSizes.x, serviceSizes.y );
+		setViewport( servicePivot.x, servicePivot.y, serviceSizes.x, serviceSizes.y );
 	}
 
 

@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.base.Project;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
@@ -25,7 +25,7 @@ public class SpriteMapExample extends Project {
 	
 	public static void main() {
 		instance.act();
-		Platform.current.initCamera();
+		initCamera();
 	}
 	
 	
@@ -57,7 +57,7 @@ public class SpriteMapExample extends Project {
 	
 	@Override
 	public void logic() {
-		Camera.current.move( 0.1d * ( Platform.current.mouseX() - 400 ), 0.1d * ( Platform.current.mouseY() - 300 ) );
+		Camera.current.move( 0.1d * ( mouseX() - 400 ), 0.1d * ( mouseY() - 300 ) );
 		fieldSpriteMap.act();
 	}
 
@@ -66,7 +66,7 @@ public class SpriteMapExample extends Project {
 	public void render() {
 		fieldSpriteMap.draw();
 		rectangle.draw();
-		Platform.current.drawOval( 400, 300, 5, 5 );
+		drawOval( 400, 300, 5, 5 );
 		cursor.draw();
 		printText( "LTSpriteMap, CollisionsWithSpriteMap example", Align.TO_CENTER, Align.TO_BOTTOM );
 		showDebugInfo();
@@ -139,7 +139,7 @@ public class SpriteMapExample extends Project {
 					
 					Camera.current.fieldToScreen( sprite.getX() - dX, sprite.getY() - dY, vector1 );
 					Camera.current.fieldToScreen( sprite.getX() + dX, sprite.getY() + dY, vector2 );
-					Platform.current.drawLine( vector1.x, vector1.y , vector2.x, vector2.y );
+					drawLine( vector1.x, vector1.y , vector2.x, vector2.y );
 					sprite.moveForward();
 				}
 				Platform.resetCurrentColor();

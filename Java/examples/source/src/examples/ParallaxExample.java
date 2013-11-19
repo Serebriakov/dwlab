@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.Project;
 import dwlab.base.service.Align;
@@ -19,7 +19,7 @@ public class ParallaxExample extends Project {
 	public static void main() {
 		Classes.register();
 		( new ParallaxExample() ).act();
-		Platform.current.initCamera();
+		initCamera();
 	}
 	
 	

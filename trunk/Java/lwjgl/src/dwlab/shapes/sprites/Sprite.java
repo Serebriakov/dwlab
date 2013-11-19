@@ -14,7 +14,7 @@ import dwlab.base.Project;
 import dwlab.base.XMLObject;
 import dwlab.base.service.Service;
 import dwlab.base.service.Vector;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.Line;
 import dwlab.shapes.Shape;
 import dwlab.shapes.layers.Layer;
@@ -188,7 +188,7 @@ public class Sprite extends Shape {
 	 * @return True if the sprite collides with given sprite, False otherwise.
 	 */
 	public boolean collidesWith( Sprite sprite ) {
-		if( Platform.debug ) Project.collisionChecks += 1;
+		if( debug ) Project.collisionChecks += 1;
 		int num1 = shapeType.getNum();
 		int num2 = sprite.shapeType.getNum();
 		if( num1 <= num2 ) {
@@ -205,7 +205,7 @@ public class Sprite extends Shape {
 	 * Only collision of line and Oval is yet implemented.
 	 */
 	public boolean collidesWith( LineSegment lineSegment ) {
-		if( Platform.debug ) Project.collisionChecks += 1;
+		if( debug ) Project.collisionChecks += 1;
 		return CollisionWithLineSegment.handlers[ shapeType.getNum() ].check( this, lineSegment );
 	}
 
@@ -216,7 +216,7 @@ public class Sprite extends Shape {
 	 * Pivot overlapping is not supported.
 	 */
 	public boolean overlaps( Sprite sprite ) {
-		if( Platform.debug ) Project.collisionChecks += 1;
+		if( debug ) Project.collisionChecks += 1;
 		return SpritesOverlapping.handlers[ shapeType.getNum() ][ sprite.shapeType.getNum() ].check( this, sprite );
 	}
 

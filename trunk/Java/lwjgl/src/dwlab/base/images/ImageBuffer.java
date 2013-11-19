@@ -1,7 +1,7 @@
 package dwlab.base.images;
 
 import dwlab.base.Obj;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -38,7 +38,7 @@ public class ImageBuffer extends Obj {
 	}
 
 	public Image toImage() {
-		Texture texture = Platform.current.createTexture( "" );
+		Texture texture = createTexture( "" );
 		texture.applyBuffer( this );
 		return new Image( texture );
 	}

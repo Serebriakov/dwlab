@@ -6,7 +6,7 @@ import dwlab.base.*;
 import dwlab.controllers.ButtonAction;
 import dwlab.controllers.MouseButton;
 import dwlab.platform.LWJGL;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 public class DistanceExample extends Project {
 	public static void main(String[] argv) {
@@ -26,16 +26,16 @@ public class DistanceExample extends Project {
 	@Override
 	public void logic() {
 		if( put.wasPressed() ) {
-			x = Platform.current.mouseX();
-			y = Platform.current.mouseY();
+			x = mouseX();
+			y = mouseY();
 		}
 	}
 
 	@Override
 	public void render() {
-		Platform.current.drawOval( x - 2, y - 2, 5, 5 );
-		Platform.current.drawLine( x, y, Platform.current.mouseX(), Platform.current.mouseY() );
-		printText( "Distance is " + Service.trim( Service.distance( y - Platform.current.mouseY(), x - Platform.current.mouseX() ) ) + " pixels" );
+		drawOval( x - 2, y - 2, 5, 5 );
+		drawLine( x, y, mouseX(), mouseY() );
+		printText( "Distance is " + Service.trim( Service.distance( y - mouseY(), x - mouseX() ) ) + " pixels" );
 		printText( "L_Distance example", Align.TO_CENTER, Align.TO_BOTTOM );
 	}
 }

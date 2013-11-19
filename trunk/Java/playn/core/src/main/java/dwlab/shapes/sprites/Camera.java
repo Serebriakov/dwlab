@@ -12,7 +12,7 @@ package dwlab.shapes.sprites;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
 import dwlab.base.*;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.Shape;
 import dwlab.visualizers.Color;
 
@@ -29,7 +29,7 @@ public class Camera extends VectorSprite {
 	public static Camera current = new Camera();
 
 	/**
-	* Global flag for discrete Platform.current.
+	* Global flag for discrete 
 	*/
 	public static boolean discreteGraphics = false;
 	
@@ -187,10 +187,10 @@ public class Camera extends VectorSprite {
 	 */
 	public void setCameraViewport() {
 		if( viewportClipping ) {
-			Platform.current.setViewport( Service.round( viewport.getX() ), Service.round( viewport.getY() ), 
+			setViewport( Service.round( viewport.getX() ), Service.round( viewport.getY() ), 
 					Service.round( viewport.getWidth() ), Service.round( viewport.getHeight() ) );
 		} else {
-			Platform.current.resetViewport();
+			resetViewport();
 		}
 	}
 
@@ -275,7 +275,7 @@ public class Camera extends VectorSprite {
 	 */
 	public void applyColor( double red, double green, double blue, double intensity ) {
 		serviceColor.set( red, green, blue, intensity );
-		Platform.current.drawRectangle( viewport.getX() - 0.5 * viewport.getWidth(), viewport.getY() - 0.5 * viewport.getHeight(), viewport.getWidth(), viewport.getHeight(), 0,
+		drawRectangle( viewport.getX() - 0.5 * viewport.getWidth(), viewport.getY() - 0.5 * viewport.getHeight(), viewport.getWidth(), viewport.getHeight(), 0,
 				serviceColor, false );
 	}
 

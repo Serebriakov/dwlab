@@ -11,7 +11,7 @@ package dwlab.controllers;
 
 import dwlab.base.Obj;
 import dwlab.base.XMLObject;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import java.util.LinkedList;
 
 /**
@@ -19,12 +19,12 @@ import java.util.LinkedList;
  * Key can be binded to several actions and several keys can be binded to one action.
  */	
 public class ButtonAction extends Obj {
-	public static ButtonAction ctrlAction = ButtonAction.create( KeyboardKey.create( Key.LCONTROL ), KeyboardKey.create( Key.RCONTROL ), "ctrl" );
-	public static ButtonAction altAction = ButtonAction.create( KeyboardKey.create( Key.LALT ), KeyboardKey.create( Key.RALT ), "alt" );
-	public static ButtonAction shiftAction =ButtonAction.create( KeyboardKey.create( Key.LSHIFT ), KeyboardKey.create( Key.RSHIFT ), "shift" );
+	public static ButtonAction ctrlAction = ButtonAction.create( "ctrl", Button.Name.LCONTROL, Button.Name.RCONTROL );
+	public static ButtonAction altAction = ButtonAction.create( "alt", Button.Name.LALT, Button.Name.RALT );
+	public static ButtonAction shiftAction =ButtonAction.create( "shift", Button.Name.LSHIFT, Button.Name.RSHIFT );
 	
 	public String name;
-	public LinkedList<Pushable> buttonList = new LinkedList();
+	public LinkedList<Button> buttonList = new LinkedList();
 	public boolean ctrl = false, alt = false, shift = false;
 	
 	/**
@@ -37,30 +37,24 @@ public class ButtonAction extends Obj {
 	 * Creates button action with given pushable object (button) and name (optional).
 	 * @return New button action with one pushable object (button).
 	 */
-	public static ButtonAction create( Pushable button, String name, String modifiers ) {
+	public static ButtonAction create( String name, String modifiers, Button.Name... buttonNames ) {
 		ButtonAction action = new ButtonAction();
 		action.name = name;
-		action.buttonList.addLast( button );
+		for( Button.Name buttonName : buttonNames ) action.addButton( createButton( buttonName ) );
 		modifiers = modifiers.toLowerCase();
 		if( modifiers.contains( "ctrl" ) ) action.ctrl = true;
 		if( modifiers.contains( "alt" ) ) action.alt = true;
 		if( modifiers.contains( "shift" ) ) action.shift = true;
-		Platform.current.controllers.add( action );
+		controllers.add( action );
 		return action;
 	}
 	
-	public static ButtonAction create( Pushable button, String name ) {
-		return create( button, name, "" );
+	public static ButtonAction create( Button.Name... buttonNames ) {
+		return create( "", "", buttonNames );
 	}
 	
-	public static ButtonAction create( Pushable button ) {
-		return create( button, "", "" );
-	}
-	
-	public static ButtonAction create( Pushable button1, Pushable button2, String name ) {
-		ButtonAction action = create( button1, name, "" );
-		action.buttonList.addLast( button2 );
-		return action;
+	public static ButtonAction create( String name, Button.Name... buttonNames ) {
+		return create( name, "", buttonNames );
 	}
 	
 
@@ -72,38 +66,15 @@ public class ButtonAction extends Obj {
 	}
 
 
-	public String getButtonNames( boolean withBrackets ) {
-		String names = "";
-		for( Pushable button: buttonList ) {
-			if( !names.isEmpty() ) names += ", ";
-			if( withBrackets ) {
-				names += "{{" + button.getName() + "}}";
-			} else {
-				names += button.getName();
-			}
-		}
-		return names;
-	}
-	
-	public String getButtonNames() {
-		return getButtonNames( false );
-	}
-
-
 	/**
 	 * Adds given pushable object (button) to the button action button list.
 	 */
-	public void addButton( Pushable button ) {
-		for( Pushable oldButton: buttonList ) {
-			if( oldButton.isEqualTo( button ) ) return;
+	public void addButton( Button button ) {
+		for( Button oldButton: buttonList ) {
+			if( oldButton.compareTo( button ) == 0 ) return;
 		}
 		buttonList.addLast( button );
 		if( maxButtons > 0 ) if( buttonList.size() > maxButtons ) buttonList.removeFirst();
-	}
-
-
-	public boolean define() {
-		return Platform.current.getPushable( this );
 	}
 
 
@@ -121,7 +92,7 @@ public class ButtonAction extends Obj {
 	 */
 	public boolean isDown() {
 		if( !modifiersPressed() ) return false;
-		for( Pushable button: buttonList ) {
+		for( Button button: buttonList ) {
 			if( button.isDown() ) return true;
 		}
 		return false;
@@ -134,7 +105,7 @@ public class ButtonAction extends Obj {
 	 */
 	public boolean wasPressed() {
 		if( !modifiersPressed() ) return false;
-		for( Pushable button: buttonList ) {
+		for( Button button: buttonList ) {
 			if( button.wasPressed() ) return true;
 		}
 		return false;
@@ -147,7 +118,7 @@ public class ButtonAction extends Obj {
 	 */	
 	public boolean wasUnpressed() {
 		if( !modifiersPressed() ) return false;
-		for( Pushable button: buttonList ) {
+		for( Button button: buttonList ) {
 			if( button.wasUnpressed() ) return true;
 		}
 		return false;
@@ -159,6 +130,6 @@ public class ButtonAction extends Obj {
 		super.xMLIO( xMLObject );
 		name = xMLObject.manageStringAttribute( "name", name );
 		buttonList = xMLObject.manageChildList( buttonList );
-		if( XMLObject.xMLGetMode() ) Platform.current.controllers.add( this );
+		if( XMLObject.xMLGetMode() ) controllers.add( this );
 	}
 }

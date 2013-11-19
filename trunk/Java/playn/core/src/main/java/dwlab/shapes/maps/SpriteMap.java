@@ -11,7 +11,7 @@ package dwlab.shapes.maps;
 import dwlab.base.service.Service;
 import dwlab.base.service.Service.Margins;
 import dwlab.base.XMLObject;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.Shape;
 import dwlab.shapes.sprites.Sprite;
 import dwlab.visualizers.Color;
@@ -127,7 +127,7 @@ public class SpriteMap extends Map {
 	public final void setResolution( int newXQuantity, int newYQuantity ) {
 		super.setResolution( newXQuantity, newYQuantity );
 
-		if( Platform.debug ) if( ! masked ) error( "Map resoluton must be power of 2" );
+		if( debug ) if( ! masked ) error( "Map resoluton must be power of 2" );
 
 		lists = new Sprite[ newYQuantity ][][];
 		listSize = new int[ newYQuantity ][];
@@ -492,7 +492,7 @@ public class SpriteMap extends Map {
 		copyShapeTo( shape );
 		SpriteMap spriteMap =  shape.toSpriteMap();
 		
-		if( Platform.debug ) if( spriteMap == null ) error( "Trying to copy sprite map \"" + shape.getTitle() + "\" data to non-sprite-map" );
+		if( debug ) if( spriteMap == null ) error( "Trying to copy sprite map \"" + shape.getTitle() + "\" data to non-sprite-map" );
 
 		spriteMap.setResolution( xQuantity, yQuantity );
 		spriteMap.cellWidth = cellWidth;
@@ -510,7 +510,7 @@ public class SpriteMap extends Map {
 	public int showModels( int y, String shift ) {
 		if( behaviorModels.isEmpty() ) {
 			if( sprites.isEmpty() ) return y;
-			Platform.current.drawText( shift + getTitle() + " ", 0, y );
+			drawText( shift + getTitle() + " ", 0, y );
 	    	y += 16;
 		} else {
 			y = super.showModels( y, shift );

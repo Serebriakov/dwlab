@@ -17,10 +17,9 @@ import dwlab.base.service.Service;
 import dwlab.base.service.Vector;
 import dwlab.behavior_models.BehaviorModel;
 import dwlab.behavior_models.ModelStack;
+import dwlab.controllers.Button;
 import dwlab.controllers.ButtonAction;
-import dwlab.controllers.Key;
-import dwlab.controllers.KeyboardKey;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Camera;
@@ -129,23 +128,23 @@ public class Shape extends Obj {
 
 		switch( horizontalAlign ) {
 			case TO_CENTER:
-				servicePivot.x -= 0.5d * Platform.current.getTextWidth( text );
+				servicePivot.x -= 0.5d * getTextWidth( text );
 				break;
 			case TO_RIGHT:
-				servicePivot.x -= Platform.current.getTextWidth( text );
+				servicePivot.x -= getTextWidth( text );
 				break;
 		}
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
-				servicePivot.y -= 0.5d * Platform.current.getTextHeight();
+				servicePivot.y -= 0.5d * getTextHeight();
 				break;
 			case TO_BOTTOM:
-				servicePivot.y -= Platform.current.getTextHeight();
+				servicePivot.y -= getTextHeight();
 				break;
 		}
 
-		Platform.current.drawText( text, servicePivot.x, servicePivot.y );
+		drawText( text, servicePivot.x, servicePivot.y );
 	}
 	
 	public void print( String text ) {
@@ -160,13 +159,13 @@ public class Shape extends Obj {
 	private static final Vector serviceVector1 = new Vector();
 	private static final Vector serviceVector2 = new Vector();
 	
-	public void drawContour( double lineWidth, double xScale, double yScale ) {
+	public void drawContour( double contourLineWidth, double xScale, double yScale ) {
 		double oldLineWidth = lineWidth;
-		Platform.lineWidth = lineWidth;
+		lineWidth = contourLineWidth;
 		Camera.current.fieldToScreen( x, y, serviceVector1 );
 		Camera.current.sizeFieldToScreen( width * xScale, height * yScale, serviceVector2 );
-		Platform.current.drawEmptyRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y );
-		Platform.lineWidth = oldLineWidth;
+		drawEmptyRectangle( serviceVector1.x, serviceVector1.y, serviceVector2.x, serviceVector2.y );
+		lineWidth = oldLineWidth;
 	}
 
 	public void drawContour( double lineWidth ) {
@@ -188,7 +187,7 @@ public class Shape extends Obj {
 			serviceSizes.y += servicePivot.y;
 			servicePivot.y = 0;
 		}
-		Platform.current.setViewport( Service.round( servicePivot.x ), Service.round( servicePivot.y ), Service.round( serviceSizes.x ), Service.round( serviceSizes.y ) );
+		setViewport( Service.round( servicePivot.x ), Service.round( servicePivot.y ), Service.round( serviceSizes.x ), Service.round( serviceSizes.y ) );
 	}
 
 	// ==================== Collisions ===================
@@ -305,7 +304,7 @@ public class Shape extends Obj {
 	 * @see #setCoords, #placeBetween example
 	 */
 	public Shape setMouseCoords( Camera camera ) {
-		camera.screenToField( Platform.current.mouseX(), Platform.current.mouseY(), Camera.servicePivot );
+		camera.screenToField( mouseX, mouseY, Camera.servicePivot );
 		setCoords( Camera.servicePivot.x, Camera.servicePivot.y );
 		return this;
 	}
@@ -465,10 +464,10 @@ public class Shape extends Obj {
 
 
 	private static final ButtonAction[] keysWSAD = {
-		ButtonAction.create( KeyboardKey.create( Key.W ), "up" ),
-		ButtonAction.create( KeyboardKey.create( Key.S ), "down" ), 
-		ButtonAction.create( KeyboardKey.create( Key.A ), "left" ), 
-		ButtonAction.create( KeyboardKey.create( Key.D ), "right" )
+		ButtonAction.create( "up", Button.Name.W ),
+		ButtonAction.create( "down", Button.Name.S ), 
+		ButtonAction.create( "left", Button.Name.A ), 
+		ButtonAction.create( "right", Button.Name.D )
 	};
 
 	/**
@@ -482,10 +481,10 @@ public class Shape extends Obj {
 
 
 	private static final ButtonAction[] keysArrows = {
-		ButtonAction.create( KeyboardKey.create( Key.UP ), "up" ),
-		ButtonAction.create( KeyboardKey.create( Key.DOWN ), "down" ), 
-		ButtonAction.create( KeyboardKey.create( Key.LEFT ), "left" ), 
-		ButtonAction.create( KeyboardKey.create( Key.RIGHT ), "right" )
+		ButtonAction.create( "up", Button.Name.UP ),
+		ButtonAction.create( "down", Button.Name.DOWN ), 
+		ButtonAction.create( "left", Button.Name.LEFT ), 
+		ButtonAction.create( "right", Button.Name.RIGHT )
 	};
 
 	/**
@@ -1034,12 +1033,12 @@ public class Shape extends Obj {
 	 */
 	public int showModels( int y, String shift ) {
 		if( behaviorModels.isEmpty() ) return y;
-		Platform.current.drawText( shift + getTitle() + " ", 0, y );
+		drawText( shift + getTitle() + " ", 0, y );
 		y += 16;
 		for( BehaviorModel model: behaviorModels ) {
 			String activeString;
 			if( model.active ) activeString = "active"; else activeString =  "inactive";
-			Platform.current.drawText( shift + model.getClass().getName() + " " + activeString + ", " + model.info( this ), 8, y );
+			drawText( shift + model.getClass().getName() + " " + activeString + ", " + model.info( this ), 8, y );
 			y += 16;
 	    }
 		return y;
@@ -1400,7 +1399,7 @@ public class Shape extends Obj {
 				}
 			}
 
-			if ( Platform.debug ) {
+			if ( debug ) {
 				Project.spriteActed = true;
 				Project.spritesActed += 1;
 			}

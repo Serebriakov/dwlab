@@ -46,7 +46,7 @@ public class Classes {
 		Obj.classes.put( "KeyboardKey", dwlab.controllers.KeyboardKey.class );
 		Obj.classes.put( "MouseButton", dwlab.controllers.MouseButton.class );
 		Obj.classes.put( "MouseWheel", dwlab.controllers.MouseWheel.class );
-		Obj.classes.put( "Pushable", dwlab.controllers.Pushable.class );
+		Obj.classes.put( "Pushable", dwlab.controllers.Button.class );
 		Obj.classes.put( "LWJGL", dwlab.platform.LWJGL.class );
 		Obj.classes.put( "Platform", dwlab.platform.Platform.class );
 		Obj.classes.put( "AddLineToGraph", dwlab.shapes.graphs.AddLineToGraph.class );

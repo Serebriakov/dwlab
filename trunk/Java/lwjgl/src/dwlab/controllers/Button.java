@@ -14,7 +14,134 @@ import dwlab.base.Obj;
 /**
  * Common class for keys, buttons and mouse wheel rolls.
  */
-public abstract class Pushable extends Obj {
+public abstract class Button extends Obj implements Comparable {
+	public enum Name {
+		ESCAPE,
+		_1,
+		_2,
+		_3,
+		_4,
+		_5,
+		_6,
+		_7,
+		_8,
+		_9,
+		_0,
+		MINUS,
+		EQUALS,
+		BACK,
+		TAB,
+		Q,
+		W,
+		E,
+		R,
+		T,
+		Y,
+		U,
+		I,
+		O,
+		P,
+		LBRACKET,
+		RBRACKET,
+		RETURN,
+		LCONTROL,
+		A,
+		S,
+		D,
+		F,
+		G,
+		H,
+		J,
+		K,
+		L,
+		SEMICOLON,
+		APOSTROPHE,
+		GRAVE,
+		LSHIFT,
+		BACKSLASH,
+		Z,
+		X,
+		C,
+		V,
+		B,
+		N,
+		M,
+		COMMA,
+		PERIOD,
+		SLASH,
+		RSHIFT,
+		MULTIPLY,
+		LALT,
+		SPACE,
+		CAPITAL,
+		F1,
+		F2,
+		F3,
+		F4,
+		F5,
+		F6,
+		F7,
+		F8,
+		F9,
+		F10,
+		NUMLOCK,
+		SCROLL,
+		NUMPAD7,
+		NUMPAD8,
+		NUMPAD9,
+		SUBTRACT,
+		NUMPAD4,
+		NUMPAD5,
+		NUMPAD6,
+		ADD,
+		NUMPAD1,
+		NUMPAD2,
+		NUMPAD3,
+		NUMPAD0,
+		DECIMAL,
+		F11,
+		F12,
+		F13,
+		F14,
+		F15,
+		KANA,
+		CONVERT,
+		NOCONVERT,
+		YEN,
+		NUMPADEQUALS,
+		CIRCUMFLEX,
+		AT,
+		COLON,
+		UNDERLINE,
+		KANJI,
+		STOP,
+		AX,
+		UNLABELED,
+		NUMPADENTER,
+		RCONTROL,
+		NUMPADCOMMA,
+		DIVIDE,
+		SYSRQ,
+		RALT,
+		PAUSE,
+		HOME,
+		UP,
+		PAGE_UP,
+		LEFT,
+		RIGHT,
+		END,
+		DOWN,
+		PAGE_DOWN,
+		INSERT,
+		DELETE,
+		LMETA	,
+		LEFT_MOUSE_BUTTON,
+		RIGHT_MOUSE_BUTTON,
+		MIDDLE_MOUSE_BUTTON,
+		MOUSE_WHEEL_UP,
+		MOUSE_WHEEL_DOWN
+	}
+
 	public enum State {
 		JUST_PRESSED,
 		PRESSED,
@@ -23,38 +150,6 @@ public abstract class Pushable extends Obj {
 	}
 
 	public State state = State.UNPRESSED;
-
-
-	/**
-	 * Name of pushable object.
-	 * @return Name of object.
-	 * You can use LocalizeString to get name in current language.
-	 */
-	public String getName() {
-		return "";
-	}
-
-	
-	KeyboardKey getKeyboardKey() {
-		return null;
-	}
-
-	
-	MouseButton getMouseButton() {
-		return null;
-	}
-
-	
-	MouseWheel getMouseWheel() {
-		return null;
-	}
-	
-
-	public void processKeyboardEvent() {
-	}
-	
-	public void processMouseEvent() {
-	}
 
 
 	public void reset() {
@@ -75,11 +170,6 @@ public abstract class Pushable extends Obj {
 	 */
 	public boolean isDown() {
 		return state == State.JUST_PRESSED || state == State.PRESSED;
-	}
-
-
-	public boolean isEqualTo( Pushable pushable ) {
-		return false;
 	}
 
 

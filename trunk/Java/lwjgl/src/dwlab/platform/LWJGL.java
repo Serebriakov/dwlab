@@ -5,11 +5,7 @@ import dwlab.base.Project;
 import dwlab.base.images.Font;
 import dwlab.base.images.ImageBuffer;
 import dwlab.controllers.ButtonAction;
-import dwlab.controllers.Key;
-import dwlab.controllers.KeyboardKey;
-import dwlab.controllers.MouseButton;
-import dwlab.controllers.MouseWheel;
-import dwlab.controllers.Pushable;
+import dwlab.controllers.Button;
 import dwlab.shapes.sprites.Camera;
 import dwlab.visualizers.Color;
 import java.io.IOException;
@@ -73,7 +69,7 @@ public class LWJGL extends Platform {
 		for( dwlab.base.images.Texture texture : Texture.textures ) texture.init();
 		
 		for( ButtonAction action : Platform.controllers ) {
-			for( Pushable pushable : action.buttonList ) pushable.init();
+			for( Button pushable : action.buttonList ) pushable.init();
 		}
 
 		try {
@@ -246,14 +242,14 @@ public class LWJGL extends Platform {
 		Display.processMessages();
 			
 		for( ButtonAction controller: controllers ) {
-			for( Pushable pushable : controller.buttonList ) {
+			for( Button pushable : controller.buttonList ) {
 				pushable.reset();
 			}
 		}
 		
 		while ( Keyboard.next() ) {
 			for( ButtonAction controller: controllers ) {
-				for( Pushable pushable : controller.buttonList ) {
+				for( Button pushable : controller.buttonList ) {
 					pushable.processKeyboardEvent();
 					if( project != null ) project.onKeyboardEvent();
 					if( Keyboard.getEventKeyState() ) keys.add( Keyboard.getEventKey() );
@@ -263,7 +259,7 @@ public class LWJGL extends Platform {
 		
 		while ( Mouse.next() ) {
 			for( ButtonAction controller: controllers ) {
-				for( Pushable pushable : controller.buttonList ) {
+				for( Button pushable : controller.buttonList ) {
 					pushable.processMouseEvent();
 					if( project != null ) project.onMouseEvent();
 				}
@@ -467,9 +463,9 @@ public class LWJGL extends Platform {
 	public void processKeyboardKeyEvent( KeyboardKey key ) {
 		if( Keyboard.getEventKey() == key.code ) {
 			if( Keyboard.getEventKeyState() ) {
-				key.state = Pushable.State.JUST_PRESSED;
+				key.state = Button.State.JUST_PRESSED;
 			} else {
-				key.state = Pushable.State.JUST_UNPRESSED;
+				key.state = Button.State.JUST_UNPRESSED;
 			}
 		}
 	}
@@ -478,9 +474,9 @@ public class LWJGL extends Platform {
 	public void processMouseButtonEvent( MouseButton button ) {
 		if( Mouse.getEventButton() == button.num ) {
 			if( Mouse.getEventButtonState() ) {
-				button.state = Pushable.State.JUST_PRESSED;
+				button.state = Button.State.JUST_PRESSED;
 			} else {
-				button.state = Pushable.State.JUST_UNPRESSED;
+				button.state = Button.State.JUST_UNPRESSED;
 			}
 		}
 	}
@@ -489,7 +485,7 @@ public class LWJGL extends Platform {
 	public void processMouseWheelEvent( MouseWheel wheel ) {
 		int dWheel =Mouse.getEventDWheel();
 		if( dWheel != 0 ) {
-			if( wheel.direction == dWheel ) wheel.state = Pushable.State.JUST_PRESSED;
+			if( wheel.direction == dWheel ) wheel.state = Button.State.JUST_PRESSED;
 		}
 	}
 	

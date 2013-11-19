@@ -13,7 +13,7 @@ import dwlab.base.XMLObject;
 import dwlab.base.files.BinaryFile;
 import dwlab.base.service.IntVector;
 import dwlab.base.service.Service;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.Shape;
 import dwlab.shapes.maps.IntMap;
 import dwlab.shapes.sprites.Sprite;
@@ -156,7 +156,7 @@ public class TileMap extends IntMap {
 	 * @see #setTile, #setAsTile example
 	 */
 	public int getTile( int tileX, int tileY ) {
-		if( Platform.debug ) {
+		if( debug ) {
 			if( tileX < 0 || tileX >= xQuantity ) error( "Incorrect tile X position" );
 			if( tileY < 0 || tileY >= yQuantity ) error( "Incorrect tile Y position" );
 		}
@@ -169,7 +169,7 @@ public class TileMap extends IntMap {
 	 * @see #getTile, #getTileForPoint example, #stretch example
 	 */
 	public void setTile( int tileX, int tileY, int tileNum ) {
-		if( Platform.debug ) {
+		if( debug ) {
 			if( tileNum < 0 || tileNum >= tilesQuantity ) error( "Incorrect tile number" );
 			if( tileX < 0 || tileX >= xQuantity ) error( "Incorrect tile X position" );
 			if( tileY < 0 || tileY >= yQuantity ) error( "Incorrect tile Y position" );
@@ -240,7 +240,7 @@ public class TileMap extends IntMap {
 	@Override
 	public void copyTo( Shape shape ) {
 		TileMap tileMap = shape.toTileMap();
-		if( Platform.debug ) if( tileMap == null ) error( "Trying to copy tilemap \"" + shape.getTitle() + "\" data to non-tilemap" );
+		if( debug ) if( tileMap == null ) error( "Trying to copy tilemap \"" + shape.getTitle() + "\" data to non-tilemap" );
 		copyTileMapTo( tileMap );
 	}
 

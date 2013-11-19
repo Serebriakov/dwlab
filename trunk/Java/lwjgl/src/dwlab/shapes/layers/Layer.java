@@ -11,7 +11,7 @@ package dwlab.shapes.layers;
 
 import dwlab.base.Project;
 import dwlab.base.XMLObject;
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.shapes.Shape;
 import dwlab.shapes.maps.tilemaps.TileMap;
 import dwlab.shapes.sprites.Sprite;
@@ -130,7 +130,7 @@ public class Layer extends Shape {
 			for ( Iterator<Shape> it = children.iterator(); it.hasNext(); ) {
 				Shape obj = it.next();
 				if( obj.active ) {
-					if( Platform.debug ) {
+					if( debug ) {
 						Project.spriteActed = false;
 						obj.act();
 						if( obj.toSprite() != null && ! Project.spriteActed ) Project.spritesActed += 1;
@@ -209,7 +209,7 @@ public class Layer extends Shape {
 	public int showModels( int y, String shift ) {
 		if( behaviorModels.isEmpty() ) {
 			if( children.isEmpty() ) return y;
-			Platform.current.drawText( shift + getTitle() + " ", 0, y );
+			drawText( shift + getTitle() + " ", 0, y );
 			y += 16;
 		} else {
 			y = super.showModels( y, shift );
@@ -374,7 +374,7 @@ public class Layer extends Shape {
 	@Override
 	public void copyTo( Shape shape ) {
 		Layer layer = shape.toLayer();
-		if( Platform.debug ) if( layer == null ) error( "Trying to copy layer \"" + shape.getName() + "\" data to non-layer" );
+		if( debug ) if( layer == null ) error( "Trying to copy layer \"" + shape.getName() + "\" data to non-layer" );
 		copyLayerTo( layer );
 	}
 

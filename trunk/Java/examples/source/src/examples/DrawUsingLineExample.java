@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.base.service.Align;
 import dwlab.base.service.Vector;
 import dwlab.base.service.Service;
@@ -21,7 +21,7 @@ public class DrawUsingLineExample extends Project {
 	
 	public static void main() {
 		( new DrawUsingLineExample() ).act();
-		Platform.current.initCamera();
+		initCamera();
 	}
 	
 	
@@ -53,17 +53,17 @@ public class DrawUsingLineExample extends Project {
 
 					Platform.lineWidth = 9;
 					Platform.setCurrentColor( 0, 1d, 1d );
-					Platform.current.drawOval( x, y, 9, 9 );
+					drawOval( x, y, 9, 9 );
 					if( n > 0 ) {
-						Platform.current.drawOval( oldX, oldY, 9, 9 );
-						Platform.current.drawLine( x, y, oldX, oldY );
+						drawOval( oldX, oldY, 9, 9 );
+						drawLine( x, y, oldX, oldY );
 					}
 					Platform.lineWidth = 4;
 					Platform.setCurrentColor( 1d, 1d, 1d );
-					Platform.current.drawOval( x, y, 5, 5 );
+					drawOval( x, y, 5, 5 );
 					if( n > 0 ) {
-						Platform.current.drawOval( oldX, oldY, 5, 5 );
-						Platform.current.drawLine( x, y, oldX, oldY );
+						drawOval( oldX, oldY, 5, 5 );
+						drawLine( x, y, oldX, oldY );
 					}
 
 					oldX = x;

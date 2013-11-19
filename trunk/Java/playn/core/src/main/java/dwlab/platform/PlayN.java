@@ -1,29 +1,23 @@
 package dwlab.platform;
 
-import dwlab.base.Obj;
 import dwlab.base.Project;
+import dwlab.base.XMLObject;
 import dwlab.base.images.ImageBuffer;
+import dwlab.controllers.Button;
 import dwlab.controllers.ButtonAction;
-import dwlab.controllers.Key;
-import dwlab.controllers.KeyboardKey;
-import dwlab.controllers.MouseButton;
-import dwlab.controllers.MouseWheel;
-import dwlab.controllers.Pushable;
-import dwlab.shapes.sprites.Camera;
 import dwlab.visualizers.Color;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import playn.core.Graphics;
 import playn.core.Keyboard;
+import playn.core.Mouse;
 import playn.core.Surface;
-import playn.core.gl.SurfaceGL;
 import static playn.core.PlayN.*;
+import static dwlab.platform.Functions.*;
+import playn.core.Pointer;
 
-public class PlayN extends Platform {
+public class PlayN extends Platform implements Keyboard.Listener, Mouse.Listener, Pointer.Listener {
 	Surface surface;
 	
 	@Override
@@ -99,14 +93,55 @@ public class PlayN extends Platform {
 		viewportY = vY;
 		viewportWidth = vWidth;
 		viewportHeight = vHeight;
-		glViewport( vX - vWidth / 2, height - ( vY + vHeight / 2 ), vWidth, vHeight );
-		glMatrixMode( GL_PROJECTION ) ;
-		glLoadIdentity();
-		glOrtho( vX - vWidth / 2, vX + vWidth / 2, vY + vHeight / 2, vY - vHeight / 2, -1d, 1d );
-		glMatrixMode( GL_MODELVIEW );
+	}
+
+	@Override
+	public Button createButton(Button.Name name) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void processEvents() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
 
+	public class KeyboardKey extends Button<KeyboardKey> {
+		public Button.Name keyID;
+
+		@Override
+		public void xMLIO( XMLObject xMLObject ) {
+			super.xMLIO( xMLObject );
+			keyID = xMLObject.manageEnumAttribute( "id", keyID );
+		}
+
+		@Override
+		public int compareTo( KeyboardKey key ) {
+			return key.keyID == keyID ? 0 : 1;
+		}
+	}
+	
+	
+	public Pushable createButton( Key keyID ) {
+		switch( keyID ) {
+			case LE
+		}
+		KeyboardKey key = new KeyboardKey();
+		key.keyID = keyID;
+		
+		for( ButtonAction action: controllers ) {
+			for( Pushable pushable: action.buttonList ) {
+				if( pushable.equals( key ) ) return pushable;
+			}
+		}
+		
+		if( Platform.current != null ) key.init();
+
+		return key;
+	}
+	
+	
+	
 	@Override
 	public void swapBuffers() {
 		
@@ -137,6 +172,7 @@ public class PlayN extends Platform {
 	
 	@Override
 	public void processEvents( Project project ) {
+		
 		;
 	}
 	
@@ -171,128 +207,115 @@ public class PlayN extends Platform {
 	}
 	
 
-	private final HashMap<Key, Integer> keymap = new HashMap<Key, Integer>();
+	private final HashMap<Key, playn.core.Key> keymap = new HashMap<Key, playn.core.Key>();
 	
 	public void initKeys() {
-		keymap.put( Key.ESCAPE, Keyboard.KEY_ESCAPE );
-		keymap.put( Key._1, Keyboard.KEY_1 );
-		keymap.put( Key._2, Keyboard.KEY_2 );
-		keymap.put( Key._3, Keyboard.KEY_3 );
-		keymap.put( Key._4, Keyboard.KEY_4 );
-		keymap.put( Key._5, Keyboard.KEY_5 );
-		keymap.put( Key._6, Keyboard.KEY_6 );
-		keymap.put( Key._7, Keyboard.KEY_7 );
-		keymap.put( Key._8, Keyboard.KEY_8 );
-		keymap.put( Key._9, Keyboard.KEY_9 );
-		keymap.put( Key._0, Keyboard.KEY_0 );
-		keymap.put( Key.MINUS, Keyboard.KEY_MINUS );
-		keymap.put( Key.EQUALS, Keyboard.KEY_EQUALS );
-		keymap.put( Key.BACK, Keyboard.KEY_BACK );
-		keymap.put( Key.TAB, Keyboard.KEY_TAB );
-		keymap.put( Key.Q, Keyboard.KEY_Q );
-		keymap.put( Key.W, Keyboard.KEY_W );
-		keymap.put( Key.E, Keyboard.KEY_E );
-		keymap.put( Key.R, Keyboard.KEY_R );
-		keymap.put( Key.T, Keyboard.KEY_T );
-		keymap.put( Key.Y, Keyboard.KEY_Y );
-		keymap.put( Key.U, Keyboard.KEY_U );
-		keymap.put( Key.I, Keyboard.KEY_I );
-		keymap.put( Key.O, Keyboard.KEY_O );
-		keymap.put( Key.P, Keyboard.KEY_P );
-		keymap.put( Key.LBRACKET, Keyboard.KEY_LBRACKET );
-		keymap.put( Key.RBRACKET, Keyboard.KEY_RBRACKET );
-		keymap.put( Key.RETURN, Keyboard.KEY_RETURN );
-		keymap.put( Key.LCONTROL, Keyboard.KEY_LCONTROL );
-		keymap.put( Key.A, Keyboard.KEY_A );
-		keymap.put( Key.S, Keyboard.KEY_S );
-		keymap.put( Key.D, Keyboard.KEY_D );
-		keymap.put( Key.F, Keyboard.KEY_F );
-		keymap.put( Key.G, Keyboard.KEY_G );
-		keymap.put( Key.H, Keyboard.KEY_H );
-		keymap.put( Key.J, Keyboard.KEY_J );
-		keymap.put( Key.K, Keyboard.KEY_K );
-		keymap.put( Key.L, Keyboard.KEY_L );
-		keymap.put( Key.SEMICOLON, Keyboard.KEY_SEMICOLON );
-		keymap.put( Key.APOSTROPHE, Keyboard.KEY_APOSTROPHE );
-		keymap.put( Key.GRAVE, Keyboard.KEY_GRAVE );
-		keymap.put( Key.LSHIFT, Keyboard.KEY_LSHIFT );
-		keymap.put( Key.BACKSLASH, Keyboard.KEY_BACKSLASH );
-		keymap.put( Key.Z, Keyboard.KEY_Z );
-		keymap.put( Key.X, Keyboard.KEY_X );
-		keymap.put( Key.C, Keyboard.KEY_C );
-		keymap.put( Key.V, Keyboard.KEY_V );
-		keymap.put( Key.B, Keyboard.KEY_B );
-		keymap.put( Key.N, Keyboard.KEY_N );
-		keymap.put( Key.M, Keyboard.KEY_M );
-		keymap.put( Key.COMMA, Keyboard.KEY_COMMA );
-		keymap.put( Key.PERIOD, Keyboard.KEY_PERIOD );
-		keymap.put( Key.SLASH, Keyboard.KEY_SLASH );
-		keymap.put( Key.RSHIFT, Keyboard.KEY_RSHIFT );
-		keymap.put( Key.MULTIPLY, Keyboard.KEY_MULTIPLY );
-		keymap.put( Key.LALT, Keyboard.KEY_LMENU );
-		keymap.put( Key.SPACE, Keyboard.KEY_SPACE );
-		keymap.put( Key.CAPITAL, Keyboard.KEY_CAPITAL );
-		keymap.put( Key.F1, Keyboard.KEY_F1 );
-		keymap.put( Key.F2, Keyboard.KEY_F2 );
-		keymap.put( Key.F3, Keyboard.KEY_F3 );
-		keymap.put( Key.F4, Keyboard.KEY_F4 );
-		keymap.put( Key.F5, Keyboard.KEY_F5 );
-		keymap.put( Key.F6, Keyboard.KEY_F6 );
-		keymap.put( Key.F7, Keyboard.KEY_F7 );
-		keymap.put( Key.F8, Keyboard.KEY_F8 );
-		keymap.put( Key.F9, Keyboard.KEY_F9 );
-		keymap.put( Key.F10, Keyboard.KEY_F10 );
-		keymap.put( Key.NUMLOCK, Keyboard.KEY_NUMLOCK );
-		keymap.put( Key.SCROLL, Keyboard.KEY_SCROLL );
-		keymap.put( Key.NUMPAD7, Keyboard.KEY_NUMPAD7 );
-		keymap.put( Key.NUMPAD8, Keyboard.KEY_NUMPAD8 );
-		keymap.put( Key.NUMPAD9, Keyboard.KEY_NUMPAD9 );
-		keymap.put( Key.SUBTRACT, Keyboard.KEY_SUBTRACT );
-		keymap.put( Key.NUMPAD4, Keyboard.KEY_NUMPAD4 );
-		keymap.put( Key.NUMPAD5, Keyboard.KEY_NUMPAD5 );
-		keymap.put( Key.NUMPAD6, Keyboard.KEY_NUMPAD6 );
-		keymap.put( Key.ADD, Keyboard.KEY_ADD );
-		keymap.put( Key.NUMPAD1, Keyboard.KEY_NUMPAD1 );
-		keymap.put( Key.NUMPAD2, Keyboard.KEY_NUMPAD2 );
-		keymap.put( Key.NUMPAD3, Keyboard.KEY_NUMPAD3 );
-		keymap.put( Key.NUMPAD0, Keyboard.KEY_NUMPAD0 );
-		keymap.put( Key.DECIMAL, Keyboard.KEY_DECIMAL );
-		keymap.put( Key.F11, Keyboard.KEY_F11 );
-		keymap.put( Key.F12, Keyboard.KEY_F12 );
-		keymap.put( Key.F13, Keyboard.KEY_F13 );
-		keymap.put( Key.F14, Keyboard.KEY_F14 );
-		keymap.put( Key.F15, Keyboard.KEY_F15 );
-		keymap.put( Key.KANA, Keyboard.KEY_KANA );
-		keymap.put( Key.CONVERT, Keyboard.KEY_CONVERT );
-		keymap.put( Key.NOCONVERT, Keyboard.KEY_NOCONVERT );
-		keymap.put( Key.YEN, Keyboard.KEY_YEN );
-		keymap.put( Key.NUMPADEQUALS, Keyboard.KEY_NUMPADEQUALS );
-		keymap.put( Key.CIRCUMFLEX, Keyboard.KEY_CIRCUMFLEX );
-		keymap.put( Key.AT, Keyboard.KEY_AT );
-		keymap.put( Key.COLON, Keyboard.KEY_COLON );
-		keymap.put( Key.UNDERLINE, Keyboard.KEY_UNDERLINE );
-		keymap.put( Key.KANJI, Keyboard.KEY_KANJI );
-		keymap.put( Key.STOP, Keyboard.KEY_STOP );
-		keymap.put( Key.AX, Keyboard.KEY_AX );
-		keymap.put( Key.UNLABELED, Keyboard.KEY_UNLABELED );
-		keymap.put( Key.NUMPADENTER, Keyboard.KEY_NUMPADENTER );
-		keymap.put( Key.RCONTROL, Keyboard.KEY_RCONTROL );
-		keymap.put( Key.NUMPADCOMMA, Keyboard.KEY_NUMPADCOMMA );
-		keymap.put( Key.DIVIDE, Keyboard.KEY_DIVIDE );
-		keymap.put( Key.SYSRQ, Keyboard.KEY_SYSRQ );
-		keymap.put( Key.RALT, Keyboard.KEY_RMENU );
-		keymap.put( Key.PAUSE, Keyboard.KEY_PAUSE );
-		keymap.put( Key.HOME, Keyboard.KEY_HOME );
-		keymap.put( Key.UP, Keyboard.KEY_UP );
-		keymap.put( Key.PAGE_UP, Keyboard.KEY_PRIOR );
-		keymap.put( Key.LEFT, Keyboard.KEY_LEFT );
-		keymap.put( Key.RIGHT, Keyboard.KEY_RIGHT );
-		keymap.put( Key.END, Keyboard.KEY_END );
-		keymap.put( Key.DOWN, Keyboard.KEY_DOWN );
-		keymap.put( Key.PAGE_DOWN, Keyboard.KEY_NEXT );
-		keymap.put( Key.INSERT, Keyboard.KEY_INSERT );
-		keymap.put( Key.DELETE, Keyboard.KEY_DELETE );
-		keymap.put( Key.LMETA, Keyboard.KEY_LMETA );
+		keymap.put( Key.ESCAPE, playn.core.Key.ESCAPE );
+		keymap.put( Key._1, playn.core.Key.K1 );
+		keymap.put( Key._2, playn.core.Key.K2 );
+		keymap.put( Key._3, playn.core.Key.K3 );
+		keymap.put( Key._4, playn.core.Key.K4 );
+		keymap.put( Key._5, playn.core.Key.K5 );
+		keymap.put( Key._6, playn.core.Key.K6 );
+		keymap.put( Key._7, playn.core.Key.K7 );
+		keymap.put( Key._8, playn.core.Key.K8 );
+		keymap.put( Key._9, playn.core.Key.K9 );
+		keymap.put( Key._0, playn.core.Key.K0 );
+		keymap.put( Key.MINUS, playn.core.Key.MINUS );
+		keymap.put( Key.EQUALS, playn.core.Key.EQUALS );
+		keymap.put( Key.BACK, playn.core.Key.BACK );
+		keymap.put( Key.TAB, playn.core.Key.TAB );
+		keymap.put( Key.Q, playn.core.Key.Q );
+		keymap.put( Key.W, playn.core.Key.W );
+		keymap.put( Key.E, playn.core.Key.E );
+		keymap.put( Key.R, playn.core.Key.R );
+		keymap.put( Key.T, playn.core.Key.T );
+		keymap.put( Key.Y, playn.core.Key.Y );
+		keymap.put( Key.U, playn.core.Key.U );
+		keymap.put( Key.I, playn.core.Key.I );
+		keymap.put( Key.O, playn.core.Key.O );
+		keymap.put( Key.P, playn.core.Key.P );
+		keymap.put( Key.LBRACKET, playn.core.Key.LEFT_BRACKET );
+		keymap.put( Key.RBRACKET, playn.core.Key.RIGHT_BRACKET );
+		keymap.put( Key.RETURN, playn.core.Key.ENTER );
+		keymap.put( Key.LCONTROL, playn.core.Key.CONTROL );
+		keymap.put( Key.A, playn.core.Key.A );
+		keymap.put( Key.S, playn.core.Key.S );
+		keymap.put( Key.D, playn.core.Key.D );
+		keymap.put( Key.F, playn.core.Key.F );
+		keymap.put( Key.G, playn.core.Key.G );
+		keymap.put( Key.H, playn.core.Key.H );
+		keymap.put( Key.J, playn.core.Key.J );
+		keymap.put( Key.K, playn.core.Key.K );
+		keymap.put( Key.L, playn.core.Key.L );
+		keymap.put( Key.SEMICOLON, playn.core.Key.SEMICOLON );
+		keymap.put( Key.APOSTROPHE, playn.core.Key.DOUBLE_QUOTE );
+		keymap.put( Key.GRAVE, playn.core.Key.TILDE );
+		keymap.put( Key.LSHIFT, playn.core.Key.SHIFT );
+		keymap.put( Key.BACKSLASH, playn.core.Key.BACKSLASH );
+		keymap.put( Key.Z, playn.core.Key.Z );
+		keymap.put( Key.X, playn.core.Key.X );
+		keymap.put( Key.C, playn.core.Key.C );
+		keymap.put( Key.V, playn.core.Key.V );
+		keymap.put( Key.B, playn.core.Key.B );
+		keymap.put( Key.N, playn.core.Key.N );
+		keymap.put( Key.M, playn.core.Key.M );
+		keymap.put( Key.COMMA, playn.core.Key.COMMA );
+		keymap.put( Key.PERIOD, playn.core.Key.PERIOD );
+		keymap.put( Key.SLASH, playn.core.Key.SLASH );
+		keymap.put( Key.RSHIFT, playn.core.Key.SHIFT );
+		keymap.put( Key.MULTIPLY, playn.core.Key.MULTIPLY );
+		keymap.put( Key.LALT, playn.core.Key.ALT );
+		keymap.put( Key.SPACE, playn.core.Key.SPACE );
+		keymap.put( Key.CAPITAL, playn.core.Key.CAPS_LOCK );
+		keymap.put( Key.F1, playn.core.Key.F1 );
+		keymap.put( Key.F2, playn.core.Key.F2 );
+		keymap.put( Key.F3, playn.core.Key.F3 );
+		keymap.put( Key.F4, playn.core.Key.F4 );
+		keymap.put( Key.F5, playn.core.Key.F5 );
+		keymap.put( Key.F6, playn.core.Key.F6 );
+		keymap.put( Key.F7, playn.core.Key.F7 );
+		keymap.put( Key.F8, playn.core.Key.F8 );
+		keymap.put( Key.F9, playn.core.Key.F9 );
+		keymap.put( Key.F10, playn.core.Key.F10 );
+		keymap.put( Key.NUMLOCK, playn.core.Key.NP_NUM_LOCK );
+		keymap.put( Key.SCROLL, playn.core.Key.SCROLL_LOCK );
+		keymap.put( Key.NUMPAD7, playn.core.Key.NP7 );
+		keymap.put( Key.NUMPAD8, playn.core.Key.NP8 );
+		keymap.put( Key.NUMPAD9, playn.core.Key.NP9 );
+		keymap.put( Key.SUBTRACT, playn.core.Key.NP_SUBTRACT );
+		keymap.put( Key.NUMPAD4, playn.core.Key.NP4 );
+		keymap.put( Key.NUMPAD5, playn.core.Key.NP5 );
+		keymap.put( Key.NUMPAD6, playn.core.Key.NP6 );
+		keymap.put( Key.ADD, playn.core.Key.NP_ADD );
+		keymap.put( Key.NUMPAD1, playn.core.Key.NP1 );
+		keymap.put( Key.NUMPAD2, playn.core.Key.NP2 );
+		keymap.put( Key.NUMPAD3, playn.core.Key.NP3 );
+		keymap.put( Key.NUMPAD0, playn.core.Key.NP0 );
+		keymap.put( Key.DECIMAL, playn.core.Key.NP_DECIMAL );
+		keymap.put( Key.F11, playn.core.Key.F11 );
+		keymap.put( Key.F12, playn.core.Key.F12 );
+		keymap.put( Key.CIRCUMFLEX, playn.core.Key.CIRCUMFLEX );
+		keymap.put( Key.AT, playn.core.Key.AT );
+		keymap.put( Key.COLON, playn.core.Key.COLON );
+		keymap.put( Key.UNDERLINE, playn.core.Key.UNDERSCORE );
+		keymap.put( Key.NUMPADENTER, playn.core.Key.ENTER );
+		keymap.put( Key.RCONTROL, playn.core.Key.CONTROL );
+		keymap.put( Key.NUMPADCOMMA, playn.core.Key.NP_DELETE );
+		keymap.put( Key.DIVIDE, playn.core.Key.SEMICOLON );
+		keymap.put( Key.SYSRQ, playn.core.Key.SYSRQ );
+		keymap.put( Key.RALT, playn.core.Key.ALT );
+		keymap.put( Key.PAUSE, playn.core.Key.PAUSE );
+		keymap.put( Key.HOME, playn.core.Key.HOME );
+		keymap.put( Key.UP, playn.core.Key.UP );
+		keymap.put( Key.PAGE_UP, playn.core.Key.PAGE_UP );
+		keymap.put( Key.LEFT, playn.core.Key.LEFT );
+		keymap.put( Key.RIGHT, playn.core.Key.RIGHT );
+		keymap.put( Key.END, playn.core.Key.END );
+		keymap.put( Key.DOWN, playn.core.Key.DOWN );
+		keymap.put( Key.PAGE_DOWN, playn.core.Key.PAGE_DOWN );
+		keymap.put( Key.INSERT, playn.core.Key.INSERT );
+		keymap.put( Key.DELETE, playn.core.Key.DELETE );
 	}
 
 	
@@ -330,6 +353,81 @@ public class PlayN extends Platform {
 		if( dWheel != 0 ) {
 			if( wheel.direction == dWheel ) wheel.state = Pushable.State.JUST_PRESSED;
 		}
+	}
+
+	@Override
+	public void init(int newWidth, int newHeight, double unitSize, boolean loadFont) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void drawOval(double x, double y, double width, double height, double angle, Color color, boolean empty) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void drawLongOval(double x, double y, double width, double height, double angle, Color color, boolean empty) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onKeyDown( Keyboard.Event event ) {
+		for( ButtonAction controller: controllers ) {
+			for( Pushable pushable : controller.buttonList ) {
+				pushable.processKeyboardEvent();
+				event.key().
+			}
+		}
+	}
+
+	@Override
+	public void onKeyTyped(Keyboard.TypedEvent event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onKeyUp(Keyboard.Event event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onMouseDown(Mouse.ButtonEvent event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onMouseUp(Mouse.ButtonEvent event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onMouseMove(Mouse.MotionEvent event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onMouseWheelScroll(Mouse.WheelEvent event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onPointerStart(Pointer.Event event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onPointerEnd(Pointer.Event event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onPointerDrag(Pointer.Event event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void onPointerCancel(Pointer.Event event) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
 	
@@ -422,65 +520,6 @@ public class PlayN extends Platform {
 		Texture.textures.add( texture );
 		texture.init();
 		return texture;
-	}
-	
-	
-	
-	public class Font extends dwlab.base.Font {
-		String fileName;
-		TrueTypeFont font;
-		int textureID;
-		float size;
-
-
-		private Font( String fileName, float size ) {
-			this.fileName = fileName;
-			this.size = size;
-		}
-
-
-		public void init() {
-			try {
-				InputStream inputStream	= ResourceLoader.getResourceAsStream( fileName );
-				java.awt.Font awtFont = java.awt.Font.createFont( java.awt.Font.TRUETYPE_FONT, inputStream );
-				awtFont = awtFont.deriveFont( size ); // set font size
-				font = new TrueTypeFont( awtFont, false );
-				this.textureID = glGetInteger( GL_TEXTURE_BINDING_2D );
-			} catch (Exception e) {
-				int a = 0;
-			}
-		}
-
-		
-		@Override
-		public void drawString( String string, float x, float y ) {
-			glBindTexture( GL_TEXTURE_2D, textureID );
-			if( currentContourColor != null ) {
-				for( int dY = -1; dY <= 1; dY++ ) {
-					for( int dX = Math.abs( dY ) - 1; dX <= 1 - Math.abs( dY ); dX++ ) {
-						font.drawString( x + dX, y + dY, string, currentContourColor );
-					}
-				}
-			}
-			font.drawString( x, y, string, currentTextColor );
-		}
-
-		@Override
-		public double getTextWidth( String text ) {
-			return font.getWidth( text );
-		}
-
-		@Override
-		public double getTextHeight() {
-			return font.getHeight();
-		}
-	}
-	
-	@Override
-	public dwlab.base.Font createFont( String fileName, float size ) {
-		Font font = new Font( fileName, size );
-		font.init();
-		return font;
 	}
 	
 	

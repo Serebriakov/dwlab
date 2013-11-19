@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.Project;
 import dwlab.base.images.Font;

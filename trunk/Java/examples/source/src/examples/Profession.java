@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.Obj;
 import dwlab.base.XMLObject;

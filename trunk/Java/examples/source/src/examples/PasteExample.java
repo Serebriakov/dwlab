@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 import dwlab.base.Project;
 import dwlab.base.images.Image;
 import dwlab.base.images.ImageBuffer;
@@ -53,8 +53,8 @@ public class PasteExample extends Project {
 		image.draw( fPS, 400, 300, mapSize * 4d, mapSize * 4d );
 		printText( text );
 		printText( "Paste example", Align.TO_CENTER, Align.TO_BOTTOM );
-		Platform.current.swapBuffers();
-		Platform.current.waitForKey();
-		Platform.current.clearScreen();
+		swapBuffers();
+		waitForKey();
+		clearScreen();
 	}
 }

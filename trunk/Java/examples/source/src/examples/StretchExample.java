@@ -1,6 +1,6 @@
 package examples;
 
-import dwlab.platform.Platform;
+import static dwlab.platform.Functions.*;
 
 import dwlab.base.Project;
 import dwlab.base.images.Image;
@@ -32,12 +32,12 @@ public class StretchExample extends Project {
 		}
 
 		for( int n = 1; n <= 3; n++ ) {
-			Platform.current.clearScreen();
+			clearScreen();
 			tileMap.draw();
 			printText( "Press any Key to stretch tilemap by 2 times" );
 			printText( "Stretch example", Align.TO_CENTER, Align.TO_BOTTOM );
-			Platform.current.swapBuffers();
-			Platform.current.waitForKey();
+			swapBuffers();
+			waitForKey();
 			tileMap.stretch( 2, 2 );
 			tileMap.alterSize( 2, 2 );
 		}

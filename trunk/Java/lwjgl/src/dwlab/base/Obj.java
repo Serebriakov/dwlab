@@ -13,7 +13,6 @@ import dwlab.base.XMLObject.XMLAttribute;
 import dwlab.base.XMLObject.XMLObjectField;
 import dwlab.base.service.Align;
 import dwlab.base.service.Service;
-import dwlab.platform.Platform;
 import dwlab.shapes.layers.Layer;
 import dwlab.shapes.maps.SpriteMap;
 import dwlab.shapes.maps.tilemaps.TileMap;
@@ -22,6 +21,7 @@ import dwlab.shapes.sprites.VectorSprite;
 import dwlab.visualizers.Color;
 import dwlab.visualizers.Visualizer;
 import java.util.*;
+import static dwlab.platform.Functions.*;
 
 /**
  * Global object class
@@ -89,14 +89,14 @@ public class Obj {
 	// ==================== Printing text ===================
 	
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift, Color color ) {
-		double x, y = Platform.current.getTextHeight();
+		double x, y = getTextHeight();
 
 		switch( horizontalAlign ) {
 			case TO_CENTER:
-				x = 0.5d * ( Platform.current.getScreenWidth() - Platform.current.getTextWidth( text ) );
+				x = 0.5d * ( getScreenWidth() - getTextWidth( text ) );
 				break;
 			case TO_RIGHT:
-				x = Platform.current.getScreenWidth() - Platform.current.getTextWidth( text );
+				x = getScreenWidth() - getTextWidth( text );
 				break;
 			default:
 				x = 0;
@@ -104,16 +104,16 @@ public class Obj {
 
 		switch( verticalAlign ) {
 			case TO_CENTER:
-				y = 0.5d * ( Platform.current.getScreenHeight() - y * ( shift + 1 ) );
+				y = 0.5d * ( getScreenHeight() - y * ( shift + 1 ) );
 				break;
 			case TO_BOTTOM:
-				y = Platform.current.getScreenHeight() - y * ( shift + 1 );
+				y = getScreenHeight() - y * ( shift + 1 );
 				break;
 			default:
 				y *= shift;
 		}
 
-		Platform.current.drawText( text, (float) x, (float) y );
+		drawText( text, (float) x, (float) y );
 	}
 
 	public static void printText( String text, Align horizontalAlign, Align verticalAlign, int shift ) {
@@ -281,7 +281,7 @@ public class Obj {
 			TileMap.file = null;
 		}
 
-		xMLObject.setAttribute( "dwlab_version", Platform.current.version );
+		xMLObject.setAttribute( "dwlab_version", version );
 		xMLObject.setAttribute( "total-loading-time", Service.newTotalLoadingTime );
 
 		for( XMLObject xMLObject2 : removeIDMap.values() ) {

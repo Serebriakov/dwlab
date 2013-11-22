@@ -71,7 +71,7 @@ public class ButtonAction extends Obj {
 	 */
 	public void addButton( Button button ) {
 		for( Button oldButton: buttonList ) {
-			if( oldButton.compareTo( button ) == 0 ) return;
+			if( oldButton.name == button.name ) return;
 		}
 		buttonList.addLast( button );
 		if( maxButtons > 0 ) if( buttonList.size() > maxButtons ) buttonList.removeFirst();

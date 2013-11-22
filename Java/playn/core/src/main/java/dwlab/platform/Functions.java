@@ -6,9 +6,9 @@
 
 package dwlab.platform;
 
-import dwlab.base.Sound;
+import dwlab.base.AbstractSound;
 import dwlab.base.images.Font;
-import dwlab.base.images.Texture;
+import dwlab.base.images.AbstractTexture;
 import dwlab.base.service.IntVector;
 import dwlab.controllers.Button;
 import dwlab.controllers.ButtonAction;
@@ -222,11 +222,11 @@ public class Functions {
 	
 	
 
-	public static Texture createTexture( String filename ) {
+	public static AbstractTexture createTexture( String filename ) {
 		return currentPlatform.createTexture( filename );
 	}
 	
-	public static Sound createSound( String filename ) {
+	public static AbstractSound createSound( String filename ) {
 		return currentPlatform.createSound( filename );
 	}
 }

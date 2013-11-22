@@ -9,7 +9,7 @@
 
 package dwlab.base;
 
-public abstract class Sound extends Obj {
+public abstract class AbstractSound extends Obj {
 	public abstract void play();
 	
 	public abstract void playLooped();

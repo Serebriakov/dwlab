@@ -7,8 +7,8 @@
 package dwlab.platform;
 
 import dwlab.base.Project;
-import dwlab.base.Sound;
-import dwlab.base.images.Texture;
+import dwlab.base.AbstractSound;
+import dwlab.base.images.AbstractTexture;
 import dwlab.controllers.Button;
 import dwlab.visualizers.Color;
 
@@ -51,7 +51,7 @@ public abstract class Platform {
 	
 	
 
-	public abstract Texture createTexture( String filename );
+	public abstract AbstractTexture createTexture( String filename );
 	
-	public abstract Sound createSound( String filename );
+	public abstract AbstractSound createSound( String filename );
 }

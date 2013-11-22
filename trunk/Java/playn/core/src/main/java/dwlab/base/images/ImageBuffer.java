@@ -38,7 +38,7 @@ public class ImageBuffer extends Obj {
 	}
 
 	public Image toImage() {
-		Texture texture = createTexture( "" );
+		AbstractTexture texture = createTexture( "" );
 		texture.applyBuffer( this );
 		return new Image( texture );
 	}

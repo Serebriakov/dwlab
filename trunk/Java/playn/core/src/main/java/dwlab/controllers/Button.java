@@ -10,11 +10,12 @@
 package dwlab.controllers;
 
 import dwlab.base.Obj;
+import dwlab.base.XMLObject;
 
 /**
  * Common class for keyboard keys, mouse buttons and mouse wheel rolls.
  */
-public abstract class Button<T> extends Obj implements Comparable<T> {
+public class Button extends Obj {
 	public enum Name {
 		ESCAPE,
 		_1,
@@ -151,7 +152,13 @@ public abstract class Button<T> extends Obj implements Comparable<T> {
 
 	public State state = State.UNPRESSED;
 
+	public Button.Name name;
 
+	public Button( Button.Name keyID ) {
+		this.name = keyID;
+	}
+	
+	
 	public void reset() {
 		switch( state ) {
 			case JUST_PRESSED:
@@ -188,5 +195,12 @@ public abstract class Button<T> extends Obj implements Comparable<T> {
 	 */
 	public boolean wasUnpressed() {
 		return state == State.JUST_UNPRESSED;
+	}
+	
+		
+	@Override
+	public void xMLIO( XMLObject xMLObject ) {
+		super.xMLIO( xMLObject );
+		name = xMLObject.manageEnumAttribute( "id", name );
 	}
 }

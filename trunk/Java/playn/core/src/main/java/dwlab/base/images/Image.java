@@ -19,7 +19,7 @@ import java.util.HashSet;
 public class Image extends Obj {
 	private static final HashSet<Image> images = new HashSet<Image>(); 
 
-	public Texture texture;
+	public AbstractTexture texture;
 	public String fileName;
 	protected int frameWidth, frameHeight;
 	protected double kx, ky;
@@ -34,7 +34,7 @@ public class Image extends Obj {
 		this( fileName, 1, 1 );
 	}
 	
-	public Image( Texture texture ) {
+	public Image( AbstractTexture texture ) {
 		this.xCells = 1;
 		this.yCells = 1;
 		this.texture = texture;

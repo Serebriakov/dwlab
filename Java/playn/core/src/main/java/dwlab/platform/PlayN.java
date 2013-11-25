@@ -392,32 +392,30 @@ public class PlayN extends Platform implements Keyboard.Listener, Mouse.Listener
 		
 		@Override
 		public void draw( double x, double y, double width, double height, double tx1, double ty1, double tx2, double ty2, double angle, Color color ){
-				if( angle == 0d ) {
-					surface.drawImage( image, (float) ( x - 0.5 * width ), (float) ( y - 0.5 * height ), (float) width, (float) height );
-				} else {
-					surface.
-					double sin = Math.sin( angle );
-					double cos = Math.cos( angle );
-					float[][] vertices =  { 
-						{ (float) ( x + cos *  -width - sin * -height ), (float) ( y + sin *  -width + cos * -height ) },
-						{ (float) ( x + cos *  width - sin * -height ), (float) ( y + sin *  width + cos * -height ) },
-						{ (float) ( x  + cos *  width - sin * height ), (float) ( y + sin *  width + cos * height ) },
-						{ (float) ( x  + cos *  -width - sin * height ), (float) ( y + sin *  -width + cos * height ) }
-					};
-					float[][] texCoords = { { (float) tx1, (float) ty1 }, { (float) tx2, (float) ty1 }, { (float) tx2, (float) ty2 }, { (float) tx1, (float) ty2 } };
-					graphics().gl20().glBindTexture( GL_TEXTURE_2D, image.ensureTexture() );
-					graphics().gl20().glBindBuffer(mouseX, mouseX);
-					graphics().gl20().glVertexPointer( 3, GL_FLOAT, 0, vertices);
-					graphics().gl20().glNormalPointer( GL_FLOAT, 0, normals );
-					graphics().gl20().glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
-					graphics().gl20().glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
-				}
+			if( angle == 0d ) {
+				surface.drawImage( image, (float) ( x - 0.5 * width ), (float) ( y - 0.5 * height ), (float) width, (float) height );
+			} else {
+				double sin = Math.sin( angle );
+				double cos = Math.cos( angle );
+				float[][] vertices =  { 
+					{ (float) ( x + cos *  -width - sin * -height ), (float) ( y + sin *  -width + cos * -height ) },
+					{ (float) ( x + cos *  width - sin * -height ), (float) ( y + sin *  width + cos * -height ) },
+					{ (float) ( x  + cos *  width - sin * height ), (float) ( y + sin *  width + cos * height ) },
+					{ (float) ( x  + cos *  -width - sin * height ), (float) ( y + sin *  -width + cos * height ) }
+				};
+				float[][] texCoords = { { (float) tx1, (float) ty1 }, { (float) tx2, (float) ty1 }, { (float) tx2, (float) ty2 }, { (float) tx1, (float) ty2 } };
+				graphics().gl20().glBindTexture( GL_TEXTURE_2D, image.ensureTexture() );
+				graphics().gl20().glBindBuffer(mouseX, mouseX);
+				graphics().gl20().glVertexPointer( 3, GL_FLOAT, 0, vertices);
+				graphics().gl20().glNormalPointer( GL_FLOAT, 0, normals );
+				graphics().gl20().glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
+				graphics().gl20().glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
 			}
 		}
 	}
 	
 	@Override
-	public dwlab.base.images.AbstractTexture createTexture( String fileName ) {
+	public AbstractTexture createTexture( String fileName ) {
 		TextureImplementation texture = new TextureImplementation();
 		texture.fileName = fileName;
 		TextureImplementation.textures.add( texture );
@@ -463,7 +461,7 @@ public class PlayN extends Platform implements Keyboard.Listener, Mouse.Listener
 	}
 	
 	@Override
-	public dwlab.base.AbstractSound createSound( String filename ) {
+	public AbstractSound createSound( String filename ) {
 		return new SoundImplementation( filename );
 	}
 }

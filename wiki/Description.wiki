@@ -1,3 +1,4 @@
+#labels Featured
 Framework for 2D and isometric games development in Java+LWJGL or BlitzMax.
 Open-source. Free for commercial use. For Windows, Linux and MacOS.
 

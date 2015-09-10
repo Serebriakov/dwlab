@@ -1,0 +1,5 @@
+DWLab project is closed. It's planned to realize its systems in another, bigger project. All project code is placed in public domain and you can use it any way you want. If you want to continue development of this project, feel free to contact me and ask for consultaion for every aspect of the project and BlitzMax / Java programming in general. I will give you all project sites for free if it will be needed. And I will be glad if you write a bit about how you using it :). Thank you for using DWLab and see you in new projects.
+
+Проект DWLab закрыт. Его системы планируется реализовать в другом, более масштабном проекте. Весь код проекта помещен в публичное достояние, вы можете использовать его в любых целях без ограничений. Если вы хотите продолжить развитие проекта, свяжитесь со мной, я без проблем проконсультирую вас по любому аспекту проекта и языков Java и BlitzMax, а также бесплатно передам вам все сайты проекта, если будет нужно. И я буду рад, если вы черкнете мне пару строк о его использовании). Спасибо вам за использование DWLab, до новых встреч в новых проектах.
+
+Full descritpiton: http://code.google.com/p/dwlab/wiki/Description
